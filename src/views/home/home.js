@@ -32,10 +32,15 @@ function addAllEvents() {
 }
 
 function loginMatch() {
-  const token = "asdf";
+  const token = localStorage.getItem('token')
   if(token){
-    const logout = createA('/logout','로그아웃')
+    const logout = createA('/','로그아웃')
     const myPage = createA('/userInfo','마이페이지')
+		logout.addEventListener('click',(e)=>{
+			e.preventDefault();
+			localStorage.removeItem('token')
+			location.reload()
+		})
     navBar.prepend(logout,myPage)
   }
   else{
