@@ -1,4 +1,5 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
+// 샘플 주석
 async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
