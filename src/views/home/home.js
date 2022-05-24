@@ -8,21 +8,14 @@ import { randomId } from '/useful-functions.js';
 // 요소(element), input 혹은 상수
 const landingDiv = document.querySelector('#landingDiv');
 const greetingDiv = document.querySelector('#greetingDiv');
-const loginBtn = document.querySelector('#login')
-const registerBtn = document.querySelector('#register')
-const navBar = document.querySelector('#navbar')
 
 addAllElements();
 addAllEvents();
-
-
-
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
   insertTextToLanding();
   insertTextToGreeting();
-  loginMatch();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -31,33 +24,6 @@ function addAllEvents() {
   greetingDiv.addEventListener('click', alertGreetingText);
 }
 
-function loginMatch() {
-  const token = localStorage.getItem('token')
-  if(token){
-    const logout = createA('/','로그아웃')
-    const myPage = createA('/userInfo','마이페이지')
-		logout.addEventListener('click',(e)=>{
-			e.preventDefault();
-			localStorage.removeItem('token')
-			location.reload()
-		})
-    navBar.prepend(logout,myPage)
-  }
-  else{
-    const login = createA('/login','로그인')
-    const register = createA('/register','회원가입')
-    navBar.prepend(login,register)
-  }
-}
-
-function createA(href,text) {
-  const liTag = document.createElement('li')
-  const aTag = document.createElement('a')
-  aTag.href = href
-  aTag.textContent = text
-  liTag.append(aTag)
-  return liTag
-}
 function insertTextToLanding() {
   landingDiv.insertAdjacentHTML(
     'beforeend',
