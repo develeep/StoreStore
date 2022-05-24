@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑-데모</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png">
+    <!-- bulma css 추가 예정 -->
+    <script defer src="https://kit.fontawesome.com/7630448495.js"></script>
+    <!-- 스타일 파일, 다음 주소 API 추가 예정  -->
+    <link rel="stylesheet" href="userinfo.css" />
+    <script src="userinfo.js" type="module" defer></script>
+    <!-- <link rel="stylesheet" href="userinfo.css"> -->
+</head>
+<body>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation"></nav>
+    <!-- 이후 추가 -->
+    <!-- 회원정보 박스 -->
+    <section class="section">
+        <div class="container">
+            <div class="block account-header">
+                <h1 id="userInfoTitle">회원정보 관리(test2@test.com)</h1>
+            </div>
+            <div class="menu-container">
+                <div class="form-container">
+                    <form id="loginForm">
+                        <div class="field">
+                            <label class="label">이름</label>
+                            <div class="control">
+                                <input type="text" id="nameInput">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">비밀번호</label>
+                            <div class="control">
+                                <input type="password" id="passwordInput">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">비밀번호 확인</label>
+                            <div class="control">
+                                <input type="password" id="passwordConfirmInput">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">주소</label>
+                        </div>
+                        <div>
+                            <div class="field">
+                                <p>
+                                    <input type="text" id="postalCodeInput" placeholder="주소찾기를 클릭해 주세요." readonly>
+                                </p>
+                            </div>
+                            <div>
+                                <button id="searchAddressButton">주소찾기</button>
+                            </div>
+                        </div>
+                        <div class = "field">
+                            <p>
+                                <input id="addressInput" type="text" readonly>
+                            </p>
+                        </div>
+                        <div class = "field">
+                            <p>
+                                <input id="address2Input" type="text" readonly>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label class="label">전화번호</label>
+                            <div class="control">
+                                <input type="text" id="phoneNumberInput">
+                            </div>
+                        </div>
+                        <div>
+                            <button id="saveButton">저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
