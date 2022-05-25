@@ -4,7 +4,7 @@ export const loginMatch = () => {
   const token = localStorage.getItem('token');
   if (token) {
     const logout = createA('/', '로그아웃');
-    const myPage = createA('/userInfo', '마이페이지');
+    const myPage = createA('/mypage', '마이페이지');
     logout.addEventListener('click', (e) => {
       e.preventDefault();
       localStorage.removeItem('token');
