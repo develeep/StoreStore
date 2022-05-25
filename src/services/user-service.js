@@ -89,8 +89,8 @@ class UserService {
   }
 	// 사용자 정보 수집
 	async getUserInfo(userId) {
-		const userObjectId = mongoose.Types.ObjectId(userId);
-		const userInfo = await this.userModel.findById(userObjectId);
+		console.log(userId)
+		const userInfo = await this.userModel.findById(userId);
 		return userInfo;
 	}
 
