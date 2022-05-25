@@ -3,7 +3,9 @@ import * as Api from '/api.js';
 
 const userInfoTitle = document.querySelector('#userInfoTitle');
 const fullNameInput = document.querySelector('#nameInput');
+const updatePasswordButton = document.querySelector('#updatePasswordButton');
 const passwordInput = document.querySelector('#passwordInput');
+const passwordConfirmLabel = document.querySelector('#passwordConfirmLabel');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const postalCodeDiv = document.querySelector('#sample6_postcode');
 const addressDiv = document.querySelector('#sample6_address');
@@ -20,8 +22,7 @@ getUserInfo();
 addAllEvents();
 
 function addAllEvents() {
-	// saveButton.addEventListener('click', comparePassword);
-	// saveButton.addEventListener('click', confirmPhoneNumber);
+	updatePasswordButton.addEventListener('click', updatePassword);
 	saveButton.addEventListener('click', updateUser);
 }
 
@@ -29,6 +30,12 @@ async function getUserInfo() {
 	try {
 		const userData = await Api.get('/api/update');
 		nameInput.value = userData.fullName;
+		passwordInput.style.display = "none";
+		passwordConfirmLabel.style.display = "none";
+		passwordConfirmInput.style.display = "none";
+		// passwordInput.style.visibility = "hidden";
+		// passwordConfirmLabel.style.visibility = "hidden";
+		// passwordConfirmInput.style.visibility = "hidden";
 	} catch (err) {
 		console.error(err.stack);
 		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
@@ -40,16 +47,16 @@ function Match(passwordInput, passwordConfirmInput) {
 }
 
 // 입력창에 onkeyup 이벤트가 발생했을때(키보드의 키를 눌렀다가 뗐을때) 사용하는 함수 작성
-fullNameInput.onkeyup = function () {
-	const fullName = fullNameInput.value;
-	if (fullName.length >= 2) {
-		// classlist에 hide를 추가해 실패메세지 숨김
-		failnameMessage.classList.add('hide');
-	} else {
-		// classlist에 hide를 지워서 실패메세지 출력
-		failnameMessage.classList.remove('hide');
-	}
-};
+// fullNameInput.onkeyup = function () {
+// 	const fullName = fullNameInput.value;
+// 	if (fullName.length >= 2) {
+// 		// classlist에 hide를 추가해 실패메세지 숨김
+// 		failnameMessage.classList.add('hide');
+// 	} else {
+// 		// classlist에 hide를 지워서 실패메세지 출력
+// 		failnameMessage.classList.remove('hide');
+// 	}
+// };
 
 // passwordInput.onkeyup = function () {
 // 	const password = passwordInput.value;
@@ -77,6 +84,18 @@ fullNameInput.onkeyup = function () {
 // 	}
 // };
 
+function updatePassword(e) {
+	e.preventDefault();
+
+	updatePasswordButton.style.display = "none";
+	passwordInput.style.display = "block";
+	passwordConfirmLabel.style.display = "block";
+	passwordConfirmInput.style.display = "block";
+	// passwordInput.style.visibility = "visible";
+	// passwordConfirmLabel.style.visibility = "visible";
+	// passwordConfirmInput.style.visibility = "visible";
+}
+
 // 성공했을 때만 유저 객체 생성
 async function updateUser(e){
     e.preventDefault();
@@ -88,35 +107,47 @@ async function updateUser(e){
     const address2 = detailAddressDiv.value;
 	const phoneNumber = phoneNumberInput.value;
     
-	// 잘 입력했는지 확인
-	const isFullNameValid = fullName.length >= 2;
-	// const isEmailValid = validateEmail(email);
-	const isPasswordValid = password.length >= 4;
-	const isPasswordSame = password === passwordConfirmInput.value;
-	
-	if (!isFullNameValid || !isPasswordValid) {
-		// window.location.href = '/mypage/userinfo';
-		return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
+	// 각 요소가 있을 때
+	if (fullName) {
+		console.log(fullName);
+		const isFullNameValid = fullName.length >= 2;
+		if (!isFullNameValid) {
+			return alert('이름은 2글자 이상이어야 합니다.');
+		}
 	}
+	if (password) {
+		const isPasswordValid = password.length >= 4;
+		const isPasswordSame = password === passwordConfirmInput.value;
+		if (!isPasswordValid) {
+			return alert('비밀번호는 4글자 이상이어야 됩니다.');
+		}
+		if (!isPasswordSame) {
+			return alert('비밀번호가 일치하지 않습니다.');
+		}
+	}
+	if (phoneNumber) {
+		// 전화번호가 유효한지 확인하는 함수. -(하이픈) 유무에 상관없게 작성함.
+		if (!(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneNumber))) {
+			// window.location.href = '/mypage/userinfo';
+			return alert('유효하지 않은 전화번호입니다.');
+		}
+	}
+	if ( postalCode || address1 || address2 ) {
+		if (!postalCode || !address1 || !address2) {
+			return alert('주소를 제대로 입력해주세요.');
+		}
+	}
+	// 잘 입력했는지 확인
+	// const isEmailValid = validateEmail(email);
+	
+	// if (!isFullNameValid || !isPasswordValid) {
+	// 	// window.location.href = '/mypage/userinfo';
+	// 	return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
+	// }
 
 	// if (!isEmailValid) {
 	// 	return alert('이메일 형식이 맞지 않습니다.');
 	// }
-
-	if (!isPasswordSame) {
-		// window.location.href = '/mypage/userinfo';
-		return alert('비밀번호가 일치하지 않습니다.');
-	}
-	// 전화번호가 유효한지 확인하는 함수. -(하이픈) 유무에 상관없게 작성함.
-	if (!(/^[0-9]{2,3}-?[0-9]{3,4}-?[0-9]{4}/.test(phoneNumberInput.value))) {
-        // window.location.href = '/mypage/userinfo';
-	    return alert('유효하지 않은 전화번호입니다.');
-    }
-	// 주소가 비어있으면 경고
-	if (!postalCode || !address1 || !address2) {
-		// window.location.href = '/mypage/userinfo';
-		return alert('주소를 제대로 입력해주세요.');
-	}
 
 	// 저장될 객체
     const address = {
