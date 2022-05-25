@@ -11,7 +11,9 @@ const detailAddressDiv = document.querySelector('#sample6_detailAddress');
 const extraAddressDiv = document.querySelector('#sample6_extraAddress');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const saveButton = document.querySelector('#saveButton');
+
 getUserInfo();
+
 async function getUserInfo() {
 	try {
 		const userData = await Api.get('/api/update');
