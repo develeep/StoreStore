@@ -39,10 +39,11 @@ async function deleteButton(e) {
 	try{
 		const password = passwordInput.value
 		await Api.delete('/api/delete','',{password:password})
+		alert('회원탈퇴가 완료되었습니다.')
 		localStorage.removeItem('token')
 		window.location.href = '/'
 	} catch(err) {
-		alert(err)
+		alert(err.message)
 		document.getElementById('modal').style.display = 'none';
 		document.getElementById('modal').style.backgroundColor = 'none';
 	}
