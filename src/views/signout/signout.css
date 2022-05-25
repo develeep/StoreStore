@@ -1,0 +1,40 @@
+.div-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.landing {
+	cursor: pointer;
+	border: 1px solid red;
+	padding: 10px;
+}
+
+.greeting {
+	cursor: pointer;
+	border: 1px solid blue;
+	padding: 10px;
+	margin-left: 3rem;
+}
+
+.register-user-form-container {
+	align-items: center;
+	display: flex;
+	height: 85vh;
+	justify-content: center;
+}
+
+.register-user-form-box {
+	width: 30rem;
+}
+
+.register-user-form-box .title {
+	text-align: center;
+}
+
+.box {
+	background-color: #fff;
+	display: block;
+	padding: 1.25rem;
+}

@@ -1,71 +1,91 @@
+.div-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.landing {
+  cursor: pointer;
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.greeting {
+  cursor: pointer;
+  border: 1px solid blue;
+  padding: 10px;
+  margin-left: 3rem;
+}
+
 /* 슬라이드 이미지 */
 .promotion .swiper-container {
-	width: calc(819px * 3 + 20px);
-	height: 533px;
-	position: absolute;
-	top: 40px;
-	left: 50%;
-	margin-left: calc((819px * 3 + 20px) / -2);
+  width: calc(819px * 3 + 20px);
+  height: 533px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: calc((819px * 3 + 20px) / -2);
 }
 .promotion .swiper-slide {
-	opacity: 0.5;
-	transition: opacity 1s;
+  opacity: 0.5;
+  transition: opacity 1s;
 }
 .promotion .swiper-slide-active {
-	opacity: 1;
+  opacity: 1;
 }
 .promotion .swiper-slide .btn {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .promotion .swiper-pagination {
-	bottom: 40px;
-	left: 0;
-	right: 0;
+  bottom: 40px;
+  left: 0;
+  right: 0;
 }
 .promotion .swiper-pagination .swiper-pagination-bullet {
-	background-color: transparent;
-	background-image: url('../images/promotion_slide_pager.png');
-	width: 12px;
-	height: 12px;
-	margin-right: 6px;
-	outline: none;
+  background-color: transparent;
+  background-image: url("../images/promotion_slide_pager.png");
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  outline: none;
 }
 .promotion .swiper-pagination .swiper-pagination-bullet:last-child {
-	margin-right: 0px;
+  margin-right: 0px;
 }
 .promotion .swiper-pagination .swiper-pagination-bullet-active {
-	background-image: url('../images/promotion_slide_pager_on.png');
+  background-image: url("../images/promotion_slide_pager_on.png");
 }
 .promotion .swiper-prev,
 .promotion .swiper-next {
-	width: 42px;
-	height: 42px;
-	border: 2px solid #333;
-	border-radius: 50%;
-	position: absolute;
-	top: 300px;
-	z-index: 1;
-	cursor: pointer;
-	outline: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: 0.4s;
+  width: 42px;
+  height: 42px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  position: absolute;
+  top: 300px;
+  z-index: 1;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
 }
 .promotion .swiper-prev {
-	left: 50%;
-	margin-left: -480px;
+  left: 50%;
+  margin-left: -480px;
 }
 .promotion .swiper-next {
-	right: 50%;
-	margin-right: -480px;
+  right: 50%;
+  margin-right: -480px;
 }
 .promotion .swiper-prev:hover,
 .promotion .swiper-next:hover {
-	background-color: #333;
-	color: #fff;
+  background-color: #333;
+  color: #fff;
 }
