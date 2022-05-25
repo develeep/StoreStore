@@ -35,17 +35,11 @@ header .category .sub-category ul li a {
 }
 
 /* PROMOTION */
-.promotion-swiper {
-}
 .promotion-swiper .promotion {
-	height: 693px;
-	background-color: #f6f5ef;
+	height: 533px;
 	position: relative;
 	transition: height 0.4s;
 	overflow: hidden;
-}
-.promotion-swiper .promotion.hide {
-	height: 0px;
 }
 .promotion-swiper .promotion .swiper-container {
 	width: calc(1000px * 3 + 20px);
@@ -64,7 +58,7 @@ header .category .sub-category ul li a {
 }
 .promotion-swiper .promotion .swiper-pagination {
 	position: absolute;
-	bottom: 130px;
+	bottom: 10px;
 	left: 0;
 	right: 0;
 }
@@ -93,7 +87,6 @@ header .category .sub-category ul li a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: 0.8s;
 	background-color: white;
 	width: 44px;
 	height: 44px;
@@ -106,4 +99,26 @@ header .category .sub-category ul li a {
 .promotion-swiper .promotion .swiper-next {
 	right: 50%;
 	margin-right: -525px;
+}
+
+/* MAIN-PRODUCT */
+.main-product {
+	height: 1000px;
+}
+
+#to-top {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background-color: #fff;
+	color: #333;
+	border: 2px solid rgb(202, 202, 202);
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	z-index: 9;
 }

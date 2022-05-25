@@ -6,6 +6,13 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 
 // // 요소(element), input 혹은 상수
+const toTopEl = document.querySelector('#to-top');
+
+toTopEl.addEventListener('click', function () {
+	gsap.to(window, 0.7, {
+		scrollTo: 0,
+	});
+});
 
 console.log(loginMatch);
 addAllElements();
