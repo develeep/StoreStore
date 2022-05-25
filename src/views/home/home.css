@@ -12,7 +12,7 @@ a {
 	text-decoration: none;
 }
 
-/* header */
+/* HEADER */
 header {
 	width: 100%;
 	background-color: red;
@@ -32,4 +32,78 @@ header .category .sub-category ul li {
 header .category .sub-category ul li a {
 	display: block;
 	color: #fff;
+}
+
+/* PROMOTION */
+.promotion-swiper {
+}
+.promotion-swiper .promotion {
+	height: 693px;
+	background-color: #f6f5ef;
+	position: relative;
+	transition: height 0.4s;
+	overflow: hidden;
+}
+.promotion-swiper .promotion.hide {
+	height: 0px;
+}
+.promotion-swiper .promotion .swiper-container {
+	width: calc(1000px * 3 + 20px);
+	height: 533px;
+	position: absolute;
+	top: 40px;
+	left: 50%;
+	margin-left: calc((1000px * 3 + 20px) / -2);
+}
+.promotion-swiper .promotion .swiper-slide {
+	opacity: 0.5;
+	transition: opacity 1s;
+}
+.promotion-swiper .promotion .swiper-slide-active {
+	opacity: 1;
+}
+.promotion-swiper .promotion .swiper-pagination {
+	position: absolute;
+	bottom: 130px;
+	left: 0;
+	right: 0;
+}
+.promotion-swiper .promotion .swiper-pagination-bullet {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #333;
+	margin-right: 6px;
+	opacity: 1;
+}
+.promotion-swiper .promotion .swiper-pagination-bullet:last-child {
+	margin-right: 0px;
+}
+.promotion-swiper .promotion .swiper-pagination-bullet-active {
+	background-color: #fff;
+	opacity: 1;
+}
+.promotion-swiper .promotion .swiper-prev,
+.promotion-swiper .promotion .swiper-next {
+	position: absolute;
+	top: 300px;
+	z-index: 1;
+	cursor: pointer;
+	outline: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.8s;
+	background-color: white;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+}
+.promotion-swiper .promotion .swiper-prev {
+	left: 50%;
+	margin-left: -525px;
+}
+.promotion-swiper .promotion .swiper-next {
+	right: 50%;
+	margin-right: -525px;
 }

@@ -27,3 +27,26 @@ async function getDataFromApi() {
 	console.log({ data });
 	console.log({ random });
 }
+
+// 이미지슬라이드
+new Swiper('.promotion .swiper-container', {
+	autoplay: {
+		delay: 5000, //5초
+	},
+	loop: true, // 반복 재생 여부
+	slidesPerView: 3, // 한 번에 보여줄 슬라이드 개수
+	spaceBetween: 0, // 슬라이드 사이 여백
+	centeredSlides: true, // 1번 슬라이드가 가운데 보이기
+
+	// pagination 기본은 bullet
+	pagination: {
+		el: '.promotion .swiper-pagination',
+		clickable: true, // 페이지 네이션 버튼 클릭시 슬라이드 반응 여부
+		type: 'bullets', // 버튼 모양 결정 "bullets", "fraction"
+	},
+
+	navigation: {
+		prevEl: '.promotion .swiper-prev',
+		nextEl: '.promotion .swiper-next',
+	},
+});
