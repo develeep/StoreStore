@@ -8,6 +8,7 @@
   display: flex;
   align-items: flex-end;
   border-bottom: 1px solid #dbdbdb;
+  padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
 .title {
@@ -26,4 +27,111 @@
   margin-bottom: 0.5rem;
   padding-top: 0.75rem;
   width: 100%;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: initial;
+  text-align: center;
+}
+thead{
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+.cart-table {
+  clear: both;
+  min-width: 920px;
+  width: 100%;
+  text-align: center;
+  background: #fff;
+}
+.cart-table tr 
+.cart-table tr:first-child {
+  border-top: 0;
+}
+.cart-table tr 
+.cart-table tr {
+  border-left: 0;
+  border-right: 0;
+}
+.cart-table tr {
+  border: 1px solid #ddd;
+  display: table-row;
+}
+table th {
+  vertical-align: middle;
+  display: table-cell;
+  text-align: -internal-center;
+  width: auto;
+  font-weight: normal;
+  padding: 10px 0;
+}
+.cart-table td {
+  line-height: 16.8px;
+  padding: 10px 0;
+  vertical-align: middle;
+}
+.cart-table .order_btn {
+  color: #4a4a4a;;
+  line-height: 22px;
+  font-weight: normal;
+  padding: 5px  4px;
+  margin: 5px;
+  border: 1px solid #ddd !important;
+}
+.cart-table .cart-col {
+  padding: 0;
+  vertical-align: middle;
+}
+.delete_btn {
+  margin: 10px 0 20px;
+}
+.delete_btn a{
+  color: #4a4a4a;
+  display: inline-block;
+  width: 90px;
+  height: 33px;
+  line-height: 33px;
+  border: 1px solid #d8d8d8;
+  box-sizing: border-box;
+  text-align: center;
+}
+.order-btn-line{
+
+  padding-top: 30px;
+  padding-bottom: 10px;
+  min-height: 32px;
+  text-align: center;
+  padding-top: 20px;
+  clear: both;
+  position: relative;
+}
+.order-btn-line .order-btn{
+  min-width: 290px;
+  height: 60px;
+  line-height: 54px;
+  padding-top: 4px;
+  font-size: 20px;
+}
+.order-btn-line button {
+  
+  display: inline-block;
+  min-width: 100px;
+  height: 40px;
+  line-height: 36px;
+  color: #f7f7f7;
+  border: 1px solid #2a2929;
+  background-color: #2a2929;
+  box-sizing: border-box;
+  padding: 2px 8px 0 8px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: border 0.2s, background 0.2s ease-in-out;
+}
+.order-btn-line button:hover{
+  border: 1px solid #787777;
+  background-color: #787777;
 }
