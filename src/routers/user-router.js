@@ -3,6 +3,7 @@ import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from "../middlewares";
 import { userService } from "../services";
+import bcrypt from 'bcrypt';
 
 const userRouter = Router();
 
@@ -153,5 +154,38 @@ userRouter.patch(
     }
   }
 );
+
+// 유저 삭제
+userRouter.delete("/delete", loginRequired, async function (req, res, next) {
+  try {
+    // content-type 을 application/json 로 프론트에서
+    // 설정 안 하고 요청하면, body가 비어 있게 됨.
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+    const password = req.body.password;
+    const userId = req.currentUserId;
+    const user = await userService.getUserInfo(userId);
+    console.log(password)
+    console.log(user.password)
+    const isPasswordCorrect = await bcrypt.compare(
+			password,
+			user.password,
+		);
+
+		if (!isPasswordCorrect) {
+			throw new Error(
+				'비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
+			);
+		}
+
+    await userService.deleteUser(userId);
+    res.status(200).json({ status: 'ok' });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { userRouter };
