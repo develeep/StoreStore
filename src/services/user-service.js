@@ -2,6 +2,7 @@ import { userModel } from '../db';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
 
 class UserService {
 	// 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
@@ -79,10 +80,17 @@ class UserService {
 		const users = await this.userModel.findAll();
 		return users;
 	}
+	// 사용자 삭제
+	async deleteUser(userId) {
+    // db에서 삭제
+    await userModel.delete(userId);
 
+    return;
+  }
 	// 사용자 정보 수집
 	async getUserInfo(userId) {
-		const userInfo = await this.userModel.findById(userId);
+		const userObjectId = mongoose.Types.ObjectId(userId);
+		const userInfo = await this.userModel.findById(userObjectId);
 		return userInfo;
 	}
 
@@ -129,10 +137,12 @@ class UserService {
 			userId,
 			update: toUpdate,
 		});
-
+		
 		return user;
 	}
 }
+
+
 
 const userService = new UserService(userModel);
 
