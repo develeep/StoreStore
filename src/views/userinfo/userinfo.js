@@ -1,5 +1,7 @@
 // 요소 가져오기
-const userInfoTitle = document.querySelector('#userInfoTitle')
+import * as Api from '/api.js';
+
+const userInfoTitle = document.querySelector('#userInfoTitle');
 const nameInput = document.querySelector('#nameInput');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
@@ -9,7 +11,16 @@ const detailAddressDiv = document.querySelector('#sample6_detailAddress');
 const extraAddressDiv = document.querySelector('#sample6_extraAddress');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const saveButton = document.querySelector('#saveButton');
-
+getUserInfo();
+async function getUserInfo() {
+	try {
+		const userData = await Api.get('/api/update');
+		nameInput.value = userData.fullName;
+	} catch (err) {
+		console.error(err.stack);
+		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
+	}
+}
 // 비밀번호와 비밀번호 확인의 값을 비교하는 함수
 function comparePassword(e) {
     e.preventDefault();
