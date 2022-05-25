@@ -1,17 +1,15 @@
 // 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
-
+import { loginMatch } from '/loginMatch.js';
 import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
+import { randomId} from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const landingDiv = document.querySelector('#landingDiv');
 const greetingDiv = document.querySelector('#greetingDiv');
-const loginBtn = document.querySelector('#login')
-const registerBtn = document.querySelector('#register')
-const navBar = document.querySelector('#navbar')
 
+console.log(loginMatch)
 addAllElements();
 addAllEvents();
 
@@ -31,33 +29,6 @@ function addAllEvents() {
   greetingDiv.addEventListener('click', alertGreetingText);
 }
 
-function loginMatch() {
-  const token = localStorage.getItem('token')
-  if(token){
-    const logout = createA('/','로그아웃')
-    const myPage = createA('/userInfo','마이페이지')
-		logout.addEventListener('click',(e)=>{
-			e.preventDefault();
-			localStorage.removeItem('token')
-			location.reload()
-		})
-    navBar.prepend(logout,myPage)
-  }
-  else{
-    const login = createA('/login','로그인')
-    const register = createA('/register','회원가입')
-    navBar.prepend(login,register)
-  }
-}
-
-function createA(href,text) {
-  const liTag = document.createElement('li')
-  const aTag = document.createElement('a')
-  aTag.href = href
-  aTag.textContent = text
-  liTag.append(aTag)
-  return liTag
-}
 function insertTextToLanding() {
   landingDiv.insertAdjacentHTML(
     'beforeend',
