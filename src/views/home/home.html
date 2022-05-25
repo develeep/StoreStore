@@ -22,57 +22,128 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"
+        integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- ScrollToPlugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollToPlugin.min.js" integrity="sha512-eI+25yMAnyrpomQoYCqvHBmY4dLfqKWPnD4j8y0E3Js+yqpF26xncL4t81M1zxC+ISYfRoCN52rN/n0q2UIBZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+    <!--Swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="home.css" />
     <script src="home.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
-          </a>
+    <header class="header">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container mt-3">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+              <img src="/elice-rabbit.png" width="30" height="30" />
+              <span class="has-text-link">쇼핑-n팀</span>
+            </a>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
+            <a
+              role="button"
+              class="navbar-burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbarBasicExample"
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
 
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li>
-                <a href="/cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
-            </ul>
+            <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+              <ul id="navbar">
+                <li>
+                  <a href="/cart" aria-current="page">
+                    <span class="icon">
+                      <i class="fas fa-cart-shopping"></i>
+                    </span>
+                    <span>카트</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+      </nav>
+      <div class="category">
+        <div class="sub-category">
+          <ul>
+            <li><a href="http://www.google.com">구글(예시)</a></li>
+          </ul>
+          <ul>
+            <li><a href="http://www.naver.com">네이버</a></li>
+          </ul>
+          <ul>
+            <li><a href="http://www.daum.net">다음</a></li>
+          </ul>
+          <ul>
+            <li><a href="http://shopping-demo.elicecoding.com/">쇼핑몰 데모페이지</a></li>
+          </ul>
+          <ul>
+            <li><a href="https://kdt-gitlab.elice.io/sw_track/class_02_seoul/web_project/team8/shopping-mall">8팀 깃랩</a></li>
+          </ul>
+        </div>
       </div>
-    </nav>
+    </header>
 
-    <div class="div-container">
-      <div class="landing" id="landingDiv">
-        <h1>랜딩 페이지</h1>
+    <!-- 이미지 슬라이더 -->
+    <section class="promotion-swiper">
+      <div class="promotion">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172" alt="예시이미지1">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://images.unsplash.com/photo-1653427472957-b3b3f313d719?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170" alt="예시이미지2">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074" alt="예시이미지3">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://images.unsplash.com/photo-1653464064422-6aaaac3f6270?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170" alt="예시이미지4">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://images.unsplash.com/photo-1653372512929-5ac36eb22a73?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074" alt="예시이미지5">
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-prev">
+          <i class="fa-solid fa-angle-left"></i>
+        </div>
+        <div class="swiper-next">
+          <i class="fa-solid fa-angle-right"></i>
+        </div>
       </div>
-      <div class="greeting" id="greetingDiv">
-        <h1>안녕하세요!</h1>
+    </section>
+
+    <section class="main-product">
+      <div class="title">
+        <h2>TODAY 랭킹</h2>
       </div>
+      <div class="list">
+
+      </div>
+    </section>
+
+
+
+    <div id="to-top">
+      <i class="fa-solid fa-angle-up"></i>
     </div>
-
   </body>
 </html>
