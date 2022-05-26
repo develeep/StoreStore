@@ -1,12 +1,8 @@
 {
-  "singleQuote": true,
-  "semi": true,
-  "useTabs": true,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "printWidth": 80
-<<<<<<< HEAD
+	"singleQuote": true,
+	"semi": true,
+	"useTabs": true,
+	"tabWidth": 2,
+	"trailingComma": "all",
+	"printWidth": 80
 }
-=======
-}
->>>>>>> 3cb118895cd88a87201fabf0a5bb636115f1d1bc

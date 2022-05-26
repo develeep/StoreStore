@@ -11,7 +11,6 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const postalCodeDiv = document.querySelector('#sample6_postcode');
 const addressDiv = document.querySelector('#sample6_address');
 const detailAddressDiv = document.querySelector('#sample6_detailAddress');
-const extraAddressDiv = document.querySelector('#sample6_extraAddress');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const saveButton = document.querySelector('#saveButton');
 // const failnameMessage = document.querySelector('.failname-message');
@@ -36,7 +35,17 @@ function addAllEvents() {
 async function getUserInfo() {
 	try {
 		const userData = await Api.get('/api/update');
+		console.log(userData)
 		nameInput.value = userData.fullName;
+		if(userData.address){
+			const {postalCode,address1,address2} = userData.address;
+			postalCodeDiv.value = postalCode;
+			addressDiv.value = address1;
+			detailAddressDiv.value = address2;
+		}
+		if(userData.phoneNumber){
+			phoneNumberInput.value = userData.phoneNumber
+		}
 		passwordInput.style.display = "none";
 		passwordConfirmLabel.style.display = "none";
 		passwordConfirmInput.style.display = "none";
@@ -110,7 +119,7 @@ async function updateUser(e){
 	const fullName = fullNameInput.value;
 	const password = passwordInput.value;
     const postalCode = postalCodeDiv.value;
-    const address1 = addressDiv.value + extraAddressDiv.value;
+    const address1 = addressDiv.value;
     const address2 = detailAddressDiv.value;
 	const phoneNumber = phoneNumberInput.value;
     
