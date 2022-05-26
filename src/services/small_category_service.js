@@ -15,6 +15,11 @@ class SmallcategoryService {
 
 		return newCategory;
 	}
+
+	async getCategorys() {
+		const Categorys = await this.SmallcateModel.findAll();
+		return Categorys;
+	}
 }
 
 const SmallcateService = new SmallcategoryService(SmallcateModel);
