@@ -27,6 +27,7 @@ function addAllEvents() {
 function getCart() {
   const cart = JSON.parse(localStorage.getItem('cart'));
   if (!cart) {
+    // 장바구니가 없을시 장바구니를 추가해주라는 화면이 뜸
 		table.classList.add('hide');
 		nullTable.classList.remove('hide');
     nullTable.classList.add('null-table');
@@ -34,6 +35,7 @@ function getCart() {
     order_btn.classList.add('hide')
     return;
 	}
+  // 장바구니가 있을시 장바구니 화면 띄움
   table.classList.remove('hide');
   delete_btn.classList.remove('hide');
   order_btn.classList.remove('hide')
@@ -86,3 +88,47 @@ function deleteAll() {
   getCart()
 }
 
+class Cart {
+  cart
+  keys
+  constructor() {
+    this.cart = {}; // 상품이 들어간다.
+    this.keys = new Set(); // 상품의 key 가 들어간다.
+  }
+
+  add(item) {
+    if (this.has(item.id)) {
+      return;
+    }
+    this.cart[item.id] = item;
+    this.keys.add(item.id);
+  }
+
+  delete(id) {
+    this.keys.delete(id);
+    delete this.cart[id];
+  }
+
+  has(id) {
+    return this.keys.has(id);
+  }
+
+  valueOf() {
+    // [{}, {}, ...] 형태로 만들어서 반환하거나
+    // JSON.stringify 형태로 바꿔서 반환하기
+    
+    // { 'a1': 10, 'b2': 100 }
+    const values =  Object.values(this.cart);
+    
+    // return values;
+    
+    // OR
+    
+    return JSON.stringify(values);
+  }
+}
+
+const cart = new Cart();
+const item = {product:"test",price:10000,num:2,id:'qwerasdf'}
+cart.add(item)
+console.log(cart.valueOf())
