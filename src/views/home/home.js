@@ -6,8 +6,9 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 
 // // 요소(element), input 혹은 상수
-const toTopEl = document.querySelector('#to-top');
-const itemContents = document.querySelector('.item__contents');
+const toTopEl = document.getElementById('to-top');
+const category = document.getElementById('category');
+const sticky = category.offsetTop;
 
 toTopEl.addEventListener('click', function () {
 	gsap.to(window, 0.7, {
@@ -58,3 +59,15 @@ new Swiper('.promotion .swiper-container', {
 		nextEl: '.promotion .swiper-next',
 	},
 });
+
+window.onscroll = function () {
+	myFunction();
+};
+
+function myFunction() {
+	if (window.pageYOffset >= sticky) {
+		category.classList.add('sticky');
+	} else {
+		category.classList.remove('sticky');
+	}
+}

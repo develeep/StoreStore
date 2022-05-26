@@ -1,9 +1,15 @@
 /* COMMON */
+* {
+	margin: 0;
+	padding: 0;
+}
 body {
-	font-size: 16px;
-	font-weight: 400;
-	line-height: 1.4;
-	font-family: sans-serif;
+	font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
+	font-size: 12px;
+	line-height: 1;
+	letter-spacing: 0.05em;
+	color: #4c4c4c;
+	max-width: 100%;
 }
 img {
 	display: block;
@@ -11,43 +17,68 @@ img {
 a {
 	text-decoration: none;
 }
+li {
+	list-style: none;
+}
 
 /* HEADER */
 header {
 	width: 100%;
-	position: fixed;
 	top: 0;
 	z-index: 9;
 	background-color: #fff;
 }
-
 header .category {
-}
-header .category .main-menu {
 	display: flex;
-	float: right;
-}
-header .category .main-menu .item {
-	/* display: flex; */
-}
-header .category .main-menu .item .item__name {
-	padding: 50px 20px;
-	font-size: 16px;
-	font-weight: 700;
-}
-header .category .main-menu .item:hover .item__name {
-	background-color: #c8c8c8;
-	color: white;
-}
-header .category .main-menu .item .item__contents {
+	background-color: #fff;
+	padding: 0 50px;
 	width: 100%;
+}
+header #main-category {
+	display: flex;
+	width: 100%;
+	position: relative;
+}
+.sticky {
 	position: fixed;
-	background-color: red;
-	display: none;
+	top: 0;
+	z-index: 9;
 }
-header .category .main-menu .item .item__contents > ul {
+header #main-category .item {
 }
-header .category .main-menu .item .item__contents > ul > li {
+header #main-category .item .item-name {
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 16px;
+	width: 124px;
+	height: 55px;
+	overflow: hidden;
+	line-height: 20px;
+	text-align: center;
+
+	border: red 1px solid;
 }
-header .category .main-menu .item .item__contents > ul > li:hover {
+header #main-category .item .item-category {
+	font-size: 14px;
+	font-weight: 600;
+	overflow: hidden;
+	line-height: 20px;
+	text-align: center;
+}
+header #main-category .item .item-category > ul {
+	padding: 10px 0 0;
+	border: black 1px solid;
+	/* display: none; */
+}
+header #main-category .item .item-category > ul li {
+	padding-bottom: 10px;
+}
+header #sub-category {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: #000 1px solid;
+}
+header #sub-category .material-icons-outlined {
+	font-size: 34px;
 }
