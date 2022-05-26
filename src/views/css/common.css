@@ -1,0 +1,56 @@
+/* COMMON */
+body {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.4;
+	font-family: sans-serif;
+}
+img {
+	display: block;
+}
+a {
+	text-decoration: none;
+}
+
+/* HEADER */
+header {
+	width: 100%;
+	border-bottom: #c8c8c8 solid 1px;
+	position: fixed;
+	top: 0;
+	z-index: 9;
+	background-color: #f6f5f0;
+}
+
+header .category {
+}
+header .category .main-menu {
+	display: flex;
+}
+header .category .main-menu .item {
+	/* display: flex; */
+}
+header .category .main-menu .item .item__name {
+	padding: 10px 20px 20px 20px;
+	font-size: 16px;
+	font-weight: 700;
+}
+header .category .main-menu .item:hover .item__name {
+	background-color: red;
+	color: white;
+}
+header .category .main-menu .item .item__contents {
+	width: 100%;
+	position: fixed;
+	background-color: red;
+	display: none;
+}
+header .category .main-menu .item:hover .item__contents {
+	display: block;
+}
+header .category .main-menu .item .item__contents > ul {
+}
+header .category .main-menu .item .item__contents > ul > li {
+}
+header .category .main-menu .item .item__contents > ul > li:hover {
+}
