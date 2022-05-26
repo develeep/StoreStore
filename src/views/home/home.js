@@ -6,7 +6,10 @@ import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 
 // // 요소(element), input 혹은 상수
-const toTopEl = document.querySelector('#to-top');
+const toTopEl = document.getElementById('to-top');
+const category = document.getElementById('category');
+const sticky = category.offsetTop;
+const mainCategory = document.getElementById('main-category');
 
 toTopEl.addEventListener('click', function () {
 	gsap.to(window, 0.7, {
@@ -21,6 +24,7 @@ addAllEvents();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	loginMatch();
+	getCategoryShoes();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -57,3 +61,35 @@ new Swiper('.promotion .swiper-container', {
 		nextEl: '.promotion .swiper-next',
 	},
 });
+
+window.onscroll = function () {
+	myFunction();
+};
+
+function myFunction() {
+	if (window.pageYOffset >= sticky) {
+		category.classList.add('sticky');
+	} else {
+		category.classList.remove('sticky');
+	}
+}
+
+const categorys = await Api.get('/api/getcategorys');
+
+for (const [key, value] of Object.entries(categorys)) {
+	console.log(`${key}: ${value}`);
+
+	let itemList = '';
+
+	for (let i of value) {
+		itemList += `<li>${i}</li>`;
+	}
+	mainCategory.innerHTML += `<ul class="item">
+<div class="item-name">${key}</div>
+<div class="item-category">
+  <ul id="outer">
+	${itemList}
+  </ul>
+</div>
+</ul>`;
+}
