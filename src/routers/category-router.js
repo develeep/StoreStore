@@ -40,14 +40,11 @@ categoryRouter.post('/category_update', async (req, res, next) => {
 	}
 });
 
-categoryRouter.get('/getBigcategory', async (req, res, next) => {
+categoryRouter.get('/getcategorys', async (req, res, next) => {
 	try {
 		// 위 데이터를 유저 db에 추가하기
-		let newCategory = await cateService.getBigcategorys();
-		newCategory = newCategory.map((ele) => ele.name);
-
-		// 추가된 유저의 db 데이터를 프론트에 다시 보내줌
-		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
+		let newCategory = await SmallcateService.getCategorys();
+		console.log(newCategory);
 		res.status(200).json(newCategory);
 	} catch (error) {
 		next(error);
