@@ -2,7 +2,7 @@ import { userModel } from '../db';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 class UserService {
 	// 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
@@ -82,21 +82,20 @@ class UserService {
 	}
 	// 사용자 삭제
 	async deleteUser(userId) {
-    // db에서 삭제
-    await userModel.delete(userId);
+		// db에서 삭제
+		await userModel.delete(userId);
 
-    return;
-  }
+		return;
+	}
 	// 사용자 정보 수집
 	async getUserInfo(userId) {
-		console.log(userId)
+		console.log(userId);
 		const userInfo = await this.userModel.findById(userId);
 		return userInfo;
 	}
 
 	// 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
-	async setUser(toUpdate) {
-
+	async setUser(userId, toUpdate) {
 		const { password } = toUpdate;
 
 		if (password) {
@@ -105,15 +104,13 @@ class UserService {
 		}
 		// 업데이트 진행
 		const user = await this.userModel.update({
-			userId: toUpdate.userId,
-			update: toUpdate.toUpdate,
+			userId: userId,
+			update: toUpdate,
 		});
-		
+
 		return user;
 	}
 }
-
-
 
 const userService = new UserService(userModel);
 

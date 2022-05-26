@@ -137,10 +137,7 @@ userRouter.patch('/update', loginRequired, async function (req, res, next) {
 		};
 
 		// 사용자 정보를 업데이트함.
-		const updatedUserInfo = await userService.setUser({
-			userId,
-			toUpdate,
-		});
+		const updatedUserInfo = await userService.setUser(userId, toUpdate);
 
 		// 업데이트 이후의 유저 데이터를 프론트에 보내 줌
 		res.status(200).json(updatedUserInfo);
