@@ -135,3 +135,6 @@ table th {
   border: 1px solid #787777;
   background-color: #787777;
 }
+.null-table {
+  display: none;
+}
