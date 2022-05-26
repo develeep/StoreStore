@@ -76,51 +76,58 @@
             </p>
           </div>
         </div>
-        <table class="cart-table hide">
-          <colgroup>
-						<col width="10%">
-						<col width="5%">
-						<col width="20%">
-						<col width="15%">
-						<col width="5%">
-						<col width="15%">
-						<col width="5%">
-            <col width="5%">
-					</colgroup>
-          <thead>
-						<tr>
-							<th scope="col">전체<strong>n</strong>개</th>
-							<th scope="col" style="cursor:pointer"><input type="checkbox" class="chk_all" id="chk_all" checked=true></th>
-							<th scope="col">상품명(옵션)</th>
-							<th scope="col">판매가</th>
-							<th scope="col">수량</th>
-							<th scope="col">주문금액</th>
-							<th scope="col">주문관리</th>
-              <th scope="col">상품 id</th>
-						</tr>
-					</thead>
-          <tbody>
-            <tr class="cart">
-              <td colspan="8" class="cart-col">
-                <table class="cart-table cart-lists">
-                  <colgroup>
-                    <col width="10%">
-                    <col width="5%">
-                    <col width="20%">
-                    <col width="15%">
-                    <col width="5%">
-                    <col width="15%">
-                    <col width="5%">
-                    <col width="5%">
-									</colgroup>
-                  <tbody>
-                    <!-- 장바구니에 담긴 상품들의 html 요소(카드 형태)가 주입되는 곳 -->
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div  class="cart-product-box">
+          <div class="tit-box">
+            <div class="choice-all-btn checkbox-btn">
+              <input type="checkbox">
+            </div>
+            <p class="product-info-cell">상품정보</p> 
+            <p class="product-option-cell">옵션</p> 
+            <p class="product-price-cell">상품금액</p>
+          </div> 
+          <ul class="cart-seller-list">
+            <li class="cart-item">
+              <div class="check-btn-box checkbox-btn">
+                <input type="checkbox" id="qwerasdf">
+              </div>
+              <div class="item-info">
+                <div class="product_img">
+                  <img src="https://cdn.pixabay.com/photo/2016/04/01/09/58/bathroom-1299704_960_720.png" alt="제품 사진">
+                </div>
+                <div class="product_info">
+                  <p class="product_name">
+                    미니멀프로젝트 로버스트 헤비 오버핏 반팔티셔츠 MST127 / 8color
+                  </p>
+                  <p class="product_price">
+                    10239100원
+                  </p>
+                </div>
+                
+              </div>
+              <dev class="item-option">
+                <div class="btn-quanity-box">
+                  <div class="num_minus_btn">-</div> 
+                  <label for="quantity">
+                    <input type="text" disabled="disabled" class="input_num">
+                  </label>
+                  <div class="num_plus_btn">+</div>
+                </div>
+              </dev>
+              <div class="item-buy">
+                <div class="btn-item-buy-box">
+                  <div class="item-price-box">
+                    <div class="item-price">
+                        19,000원
+                    </div> 
+                  </div> 
+                  <button type="button" class="btn-item-buy">
+                    주문하기
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
         <div>
           <p class="hide null">장바구니가 비어있습니다. 제품을 장바구니에 추가해주세요.</p>
         </div>
