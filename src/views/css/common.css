@@ -55,8 +55,6 @@ header #main-category .item .item-name {
 	overflow: hidden;
 	line-height: 20px;
 	text-align: center;
-
-	border: red 1px solid;
 }
 header #main-category .item .item-category {
 	font-size: 14px;
@@ -69,6 +67,9 @@ header #main-category .item .item-category > ul {
 	padding: 10px 0 0;
 	border: black 1px solid;
 	/* display: none; */
+}
+header #main-category .item:hover .item-category > ul {
+	display: block;
 }
 header #main-category .item .item-category > ul li {
 	padding-bottom: 10px;

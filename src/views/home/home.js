@@ -71,3 +71,5 @@ function myFunction() {
 		category.classList.remove('sticky');
 	}
 }
+
+await Api.get('/api/getcategorys');
