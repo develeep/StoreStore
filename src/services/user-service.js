@@ -104,7 +104,11 @@ class UserService {
 		}
 		// 업데이트 진행
 		const user = await this.userModel.update({
+<<<<<<< HEAD
 			userId: userId,
+=======
+			userId,
+>>>>>>> 9be0d0219045ff0c9c27fbb8e3f1ca7acff882a3
 			update: toUpdate,
 		});
 

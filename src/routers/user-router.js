@@ -108,8 +108,7 @@ userRouter.patch('/update', loginRequired, async function (req, res, next) {
 			);
 		}
 
-		// params로부터 id를 가져옴
-
+		// loign되었다면 id를 가져옴
 		const userId = req.currentUserId;
 
 		// body data 로부터 업데이트할 사용자 정보를 추출함.
@@ -124,8 +123,6 @@ userRouter.patch('/update', loginRequired, async function (req, res, next) {
 			address = undefined;
 		}
 		const phoneNumber = req.body.phoneNumber;
-
-		// body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
 
 		// 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
 		// 보내주었다면, 업데이트용 객체에 삽입함.
