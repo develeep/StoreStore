@@ -7,6 +7,7 @@ import { randomId } from '/useful-functions.js';
 
 // // 요소(element), input 혹은 상수
 const toTopEl = document.querySelector('#to-top');
+const itemContents = document.querySelector('.item__contents');
 
 toTopEl.addEventListener('click', function () {
 	gsap.to(window, 0.7, {
