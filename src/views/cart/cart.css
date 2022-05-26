@@ -135,6 +135,12 @@ table th {
   border: 1px solid #787777;
   background-color: #787777;
 }
-.null-table {
+.hide {
   display: none;
+}
+.null-table {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
