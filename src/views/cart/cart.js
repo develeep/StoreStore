@@ -21,10 +21,10 @@ async function addAllElements() {
 function addAllEvents() {
 	const delete_choice = document.querySelector('.delete_choice');
 	const deleteAll_btn = document.querySelector('.delete_all');
-	const order_btn = document.querySelector('.order-btn')
+	const order_btn = document.querySelector('.order-btn');
 	delete_choice.addEventListener('click', delChoice);
 	deleteAll_btn.addEventListener('click', deleteAll);
-	order_btn.addEventListener('click',goPayment)
+	order_btn.addEventListener('click', goPayment);
 }
 
 // 페이지 시작 or cart 변화 시 카트 정보를 가져와	나타내는 함수
@@ -78,6 +78,12 @@ function getEvent() {
 	const minus_btn = document.querySelectorAll('.num_minus_btn');
 	const plus_btn = document.querySelectorAll('.num_plus_btn');
 	const check_all = document.querySelector('#check_all');
+	const buyBtn = document.querySelectorAll('.btn-item-buy');
+
+	buyBtn.forEach(btn=>{
+		btn.addEventListener('click', orderOne);
+	})
+	
 
 	check_all.addEventListener('change', checkAll);
 	check_event();
@@ -133,7 +139,7 @@ function checkAll() {
 	if (check_all.checked) {
 		orderCart.getBefore('cart');
 		localStorage.setItem('order', orderCart.valueOf());
-	}else{
+	} else {
 		orderCart.deleteAll();
 		localStorage.setItem('order', orderCart.valueOf());
 	}
@@ -189,13 +195,13 @@ function delChoice() {
 	alert('선택된 물품이 삭제외었습니다.');
 	if (JSON.parse(newCart.valueOf()).length === 0) {
 		localStorage.removeItem('cart');
-		localStorage.removeItem('order')
+		localStorage.removeItem('order');
 		getCart();
 	} else {
 		localStorage.setItem('cart', newCart.valueOf());
 		orderCart.deleteAll();
-		orderCart.getBefore('cart')
-		localStorage.setItem('order',orderCart.valueOf());
+		orderCart.getBefore('cart');
+		localStorage.setItem('order', orderCart.valueOf());
 		getCart();
 	}
 }
@@ -205,7 +211,7 @@ function deleteAll() {
 	const cartList = document.querySelector('.cart-seller-list');
 	cartList.remove();
 	localStorage.removeItem('cart');
-	localStorage.removeItem('order')
+	localStorage.removeItem('order');
 	alert('장바구니가 삭제되었습니다.');
 	getCart();
 }
@@ -237,6 +243,16 @@ function updateNum(e) {
 	getCart();
 }
 
+function orderOne(e) {
+	const li = e.target.closest('li');
+	const productId = li.querySelector(
+		'.check-btn-box input[type="checkbox"]',
+	).id;
+	const cart = newCart.find(productId);
+	const arr = [cart];
+	localStorage.setItem('order', JSON.stringify(arr));
+	window.location.href = '/payment';
+}
 // 임시 카트 데이터 생성 함수
 function createExamData() {
 	const cart = new Cart();
@@ -278,6 +294,6 @@ function createExamData() {
 	console.log(cart.valueOf());
 }
 
-function goPayment(){
-	location.href = '/payment'
+function goPayment() {
+	location.href = '/payment';
 }
