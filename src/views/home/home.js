@@ -1,21 +1,14 @@
-// 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
-// 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
-// 코드 예시를 남겨 두었습니다.
 import { loginMatch } from '/loginMatch.js';
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 
 // // 요소(element), input 혹은 상수
 const toTopEl = document.getElementById('to-top');
+const header = document.getElementById('header');
 const category = document.getElementById('category');
+const submenu = document.getElementById('submenu');
 const sticky = category.offsetTop;
-const mainCategory = document.getElementById('main-category');
-
-toTopEl.addEventListener('click', function () {
-	gsap.to(window, 0.7, {
-		scrollTo: 0,
-	});
-});
+const inputCategory = document.getElementById('input-category');
 
 console.log(loginMatch);
 addAllElements();
@@ -38,6 +31,13 @@ async function getDataFromApi() {
 	console.log({ data });
 	console.log({ random });
 }
+
+// 상단으로 가는 버튼
+toTopEl.addEventListener('click', function () {
+	gsap.to(window, 0.7, {
+		scrollTo: 0,
+	});
+});
 
 // 이미지슬라이드
 new Swiper('.promotion .swiper-container', {
@@ -63,14 +63,18 @@ new Swiper('.promotion .swiper-container', {
 });
 
 window.onscroll = function () {
-	myFunction();
+	stickyNav();
 };
 
-function myFunction() {
+function stickyNav() {
 	if (window.pageYOffset >= sticky) {
+		header.classList.add('headerRelative');
 		category.classList.add('sticky');
+		submenu.classList.add('sticky-cart');
 	} else {
+		header.classList.remove('headerRelative');
 		category.classList.remove('sticky');
+		submenu.classList.remove('sticky-cart');
 	}
 }
 
@@ -78,18 +82,13 @@ const categorys = await Api.get('/api/getcategorys');
 
 for (const [key, value] of Object.entries(categorys)) {
 	console.log(`${key}: ${value}`);
-
 	let itemList = '';
-
 	for (let i of value) {
-		itemList += `<li>${i}</li>`;
+		itemList += `<li><a href="#">${i}</a></li>`;
 	}
-	mainCategory.innerHTML += `<ul class="item">
-<div class="item-name">${key}</div>
-<div class="item-category">
-  <ul id="outer">
+	inputCategory.innerHTML += `<li><a href="#">${key}</a>
+	<ul>
 	${itemList}
-  </ul>
-</div>
-</ul>`;
+	</ul>
+</li>`;
 }

@@ -16,6 +16,7 @@ img {
 }
 a {
 	text-decoration: none;
+	color: #4c4c4c;
 }
 li {
 	list-style: none;
@@ -26,60 +27,83 @@ header {
 	width: 100%;
 	top: 0;
 	z-index: 9;
-	background-color: #fff;
+	position: fixed;
+}
+.headerRelative {
+	position: relative;
 }
 header .category {
 	display: flex;
-	background-color: #fff;
-	padding: 0 50px;
 	width: 100%;
 }
 header #main-category {
 	display: flex;
 	width: 100%;
-	position: relative;
+	padding: 0 50px;
+	background: #fff;
+	text-align: center;
 }
-.sticky {
-	position: fixed;
-	top: 0;
-	z-index: 9;
+header #main-category > ul {
+	display: flex;
 }
-header #main-category .item {
-}
-header #main-category .item .item-name {
+header #main-category > ul > li {
 	font-size: 16px;
 	font-weight: 600;
 	padding-top: 16px;
 	width: 124px;
 	height: 55px;
-	overflow: hidden;
 	line-height: 20px;
-	text-align: center;
+	color: #4c4c4c;
 }
-header #main-category .item .item-category {
+header #main-category > ul > li:hover > a {
+	color: #4287f5;
+	border-bottom: 2px solid #4287f5;
+	padding-bottom: 3px;
+}
+header #main-category > ul > li > ul {
 	font-size: 14px;
 	font-weight: 600;
-	overflow: hidden;
 	line-height: 20px;
-	text-align: center;
+	display: none;
+	padding: 10px 0;
+	background-color: #fff;
 }
-header #main-category .item .item-category > ul {
-	padding: 10px 0 0;
-	border: black 1px solid;
-	/* display: none; */
-}
-header #main-category .item:hover .item-category > ul {
+header #main-category > ul > li:hover > ul {
 	display: block;
 }
-header #main-category .item .item-category > ul li {
-	padding-bottom: 10px;
+header #main-category > ul > li > ul > li {
+	padding: 10px 0;
+}
+header #main-category > ul > li > ul > li:hover > a {
+	color: #4287f5;
+}
+.sticky {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 9;
 }
 header #sub-category {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: #000 1px solid;
+	position: absolute;
+	top: 64px;
+	right: 0;
+	z-index: 9;
+	padding-right: 50px;
+}
+.sticky-cart {
+	position: fixed;
+	top: 12px;
+	right: 0px;
+	padding-right: 50px;
+	z-index: 9;
 }
 header #sub-category .material-icons-outlined {
-	font-size: 34px;
+	font-size: 30px;
+	color: #4c4c4c;
+}
+header #sub-category:hover .material-icons-outlined {
+	color: #4287f5;
 }
