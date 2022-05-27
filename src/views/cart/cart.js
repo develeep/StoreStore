@@ -21,8 +21,10 @@ async function addAllElements() {
 function addAllEvents() {
 	const delete_choice = document.querySelector('.delete_choice');
 	const deleteAll_btn = document.querySelector('.delete_all');
+	const order_btn = document.querySelector('.order-btn')
 	delete_choice.addEventListener('click', delChoice);
 	deleteAll_btn.addEventListener('click', deleteAll);
+	order_btn.addEventListener('click',goPayment)
 }
 
 // 페이지 시작 or cart 변화 시 카트 정보를 가져와	나타내는 함수
@@ -274,4 +276,8 @@ function createExamData() {
 	console.log(cart.all());
 	cart.update(item4);
 	console.log(cart.valueOf());
+}
+
+function goPayment(){
+	location.href = '/payment'
 }
