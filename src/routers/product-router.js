@@ -43,11 +43,6 @@ productRouter.get('/testproduct', async (req, res, next) => {
 // 상품 상세보기
 productRouter.get('/product/:productId', async (req, res, next) => {
 	try {
-		if (is.emptyObject(req.body)) {
-			throw new Error(
-				'headers의 Content-Type을 application/json으로 설정해주세요',
-			);
-		}
 		// 여기서 productId 가 product Schema의 shortId임
 		const productId = req.params.productId;
 		const product = await productService.getProductById(productId);

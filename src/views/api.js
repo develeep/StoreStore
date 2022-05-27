@@ -21,7 +21,23 @@ async function get(endpoint, params = '') {
 
 	return result;
 }
+async function getItem(endpoint, params = '') {
+	const apiUrl = `${endpoint}/${params}`;
 
+	const res = await fetch(apiUrl);
+
+	// 응답 코드가 4XX 계열일 때 (400, 403 등)
+	if (!res.ok) {
+		const errorContent = await res.json();
+		const { reason } = errorContent;
+
+		throw new Error(reason);
+	}
+
+	const result = await res.json();
+
+	return result;
+}
 // api 로 POST 요청 (/endpoint 로, JSON 데이터 형태로 요청함)
 async function post(endpoint, data) {
 	const apiUrl = endpoint;
