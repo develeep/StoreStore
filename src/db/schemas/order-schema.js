@@ -10,25 +10,28 @@ const OrderSchema = new Schema(
 			ref: 'users',
 			required: true,
 		},
-		purchasedProduct: {
+		priceSum: {
+			types: Number,
+			required: false,
+			default: 0,
+		},
+		deliveryStatus: {
+			type: String,
+			required: true,
+			default: '배송준비중',
+		},
+		receiver: {
 			type: new Schema(
 				{
-					product: {
-						type: Schema.Types.ObjectId,
-						ref: 'products',
-					},
-					numbers: Number,
+					name: String,
+					phoneNumber: String,
+					address: String,
 				},
 				{
 					_id: false,
 				},
 			),
-			required: true,
-		},
-		delivery: {
-			type: String,
-			required: true,
-			default: 'preparing for delivery',
+			required: false,
 		},
 	},
 	{
