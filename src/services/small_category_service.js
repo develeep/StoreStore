@@ -20,6 +20,11 @@ class SmallcategoryService {
 		const Categorys = await this.SmallcateModel.findAll();
 		return Categorys;
 	}
+
+	async getCategoryname(name) {
+		const oneCategory = await this.SmallcateModel.findById(name);
+		return oneCategory;
+	}
 }
 
 const SmallcateService = new SmallcategoryService(SmallcateModel);
