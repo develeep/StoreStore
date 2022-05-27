@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
 const productRouter = Router();
 
 // 판매 최상위 8개 상품 가져오기
-productRouter.get('/bestprodcuts', async (req, res, next) => {
+productRouter.get('/bestproducts', async (req, res, next) => {
 	try {
 		const products = await productService.getRank_8_Product();
 		res.status(200).json(products);
