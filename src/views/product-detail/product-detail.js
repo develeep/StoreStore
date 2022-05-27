@@ -86,3 +86,7 @@ function purchase() {
 	// 구매 페이지로 이동
 	window.location.href = '/payment';
 }
+
+window.addEventListener('pagehide',()=>{
+	localStorage.removeItem('productId')
+})

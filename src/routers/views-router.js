@@ -16,6 +16,7 @@ viewsRouter.use(
 	'/product-detail/:id',
 	serveStatic('product-detail'),
 ); // 제품상세 페이지 확인용 라우터
+viewsRouter.use('/products/:id', serveStatic('products'));
 viewsRouter.use('/payment', serveStatic('payment')); // 결제 페이지
 viewsRouter.use('/mypage/userinfo', serveStatic('userinfo'));
 viewsRouter.use('/mypage/signout', serveStatic('signout'));
