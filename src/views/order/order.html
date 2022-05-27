@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 아이콘 -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/elice-rabbit-favicon.png"
+  />
+  <!-- bulma css 관련 -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+  />
+  <!-- 폰트 어썸: 아이콘 -->
+  <script
+    defer
+    src="https://kit.fontawesome.com/7630448495.js"
+    crossorigin="anonymous"
+  ></script>
+  <link rel="stylesheet" href="order.css">
+  <script src="order.js" type="module" defer></script>
+  <title>쇼핑-8팀</title>
+</head>
+  <body>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container mt-3">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img src="/elice-rabbit.png" width="30" height="30" />
+            <span class="has-text-link">쇼핑-n팀</span>
+          </a>
+
+          <a
+            role="button"
+            class="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+            <ul id="navbar">
+              <li>
+                <a href="/cart" aria-current="page">
+                  <span class="icon">
+                    <i class="fas fa-cart-shopping"></i>
+                  </span>
+                  <span>카트</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- 주문조회 -->
+    <section class="section">
+        <div class="container">
+            <div class="block account-header">
+                <h1 class="title">주문조회</h1>
+            </div>
+            <div class="orderTable">
+              <div class="orderTableRowGroup">
+                <div class="orderTableTitle">
+                  <!-- 의논하여 요소 추가/수정 예정 -->
+                  <div class="orderTableCell">날짜</div>
+                  <div class="orderTableCell">주문정보</div>
+                  <div class="orderTableCell">수량</div>
+                  <div class="orderTableCell">주문금액</div>
+                  <div class="orderTableCell">비고</div>
+                </div>
+                <!-- 아래로 예시 한 줄. 실제로는 insertadjacenthtml 사용해서 주문 데이터를 DB에서 받아와서 상품 한 줄씩 추가 -->
+                <!-- 백단에서 주문 데이터 완성시 코드 수정 예정 -->
+                <div class="orderTableRow">
+                  <div class="orderTableCell" id="orderDate">2022-5-26</div>
+                  <div class="orderTableCell" id="orderInfo">알록달록 티셔츠</div>
+                  <div class="orderTableCell" id="orderState">1</div>
+                  <div class="orderTableCell" id="orderSignUp">30000</div>
+                  <div class="orderTableCell"><button id="orderInfo">상세보기</button></div>
+                </div>
+              </div>  
+            </div>
+        </div>
+    </section>
+    <!-- 주문취소 modal창 -->
+
+  </body>
+</html>
