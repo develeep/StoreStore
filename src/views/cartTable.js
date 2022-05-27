@@ -1,49 +1,85 @@
-export function addTable(index, product, price, num, id) {
-	const tr = document.createElement('tr');
-	tr.className = 'cart-list';
+import { addCommas } from '/useful-functions.js';
+export function addTable(src, product, price, num, id) {
+	const cart = document.createElement('li');
+	cart.classList.add('cart-item');
 
-	const td_index = document.createElement('td');
-	const td_checkbox = document.createElement('td');
-	const td_product = document.createElement('td');
-	const td_price = document.createElement('td');
-	const td_num = document.createElement('td');
-	const td_allPrice = document.createElement('td');
-	const td_delBtn = document.createElement('td');
-	const td_id = document.createElement('td');
+	const checkbox_div = document.createElement('div');
 	const checkbox = document.createElement('input');
-	const order_btn = document.createElement('a');
-
-	td_index.textContent = index;
-
 	checkbox.type = 'checkbox';
-	checkbox.name = 'cart_select';
+	checkbox.id = id;
 	checkbox.checked = true;
-	td_checkbox.append(checkbox);
+	checkbox_div.classList.add('check-btn-box', 'checkbox-btn');
+	checkbox_div.append(checkbox);
 
-	td_product.textContent = product;
+	const info_div = document.createElement('div');
+	info_div.classList.add('item-info');
 
-	td_price.textContent = price;
+	const image_div = document.createElement('div');
+	const product_info_div = document.createElement('div');
+	const product_name = document.createElement('p');
+	const product_price = document.createElement('p');
+	const image = document.createElement('img');
 
-	td_num.textContent = num;
+	image_div.classList.add('product_img');
+	image.src = src;
+	image_div.append(image);
 
-	td_allPrice.textContent = parseInt(price) * parseInt(num);
+	product_info_div.classList.add('product_info');
+	product_name.classList.add('product_name');
+	product_price.classList.add('product_price');
+	product_name.textContent = `${product} / ${id}`;
+	product_price.textContent = `${addCommas(price)}원`;
+	product_info_div.append(product_name, product_price);
 
-	order_btn.href = '#';
-	order_btn.className = 'order_btn';
-	order_btn.textContent = '제품 삭제';
-	td_delBtn.append(order_btn);
+	info_div.append(image_div, product_info_div);
 
-	td_id.textContent = id;
+	const option_div = document.createElement('div')
+	const item_option = document.createElement('div');
+	const quanity_box = document.createElement('div');
+	const minus_btn = document.createElement('div');
+	const quantity = document.createElement('label');
+	const input_num = document.createElement('input');
+	const plus_btn = document.createElement('div');
 
-	tr.append(
-		td_index,
-		td_checkbox,
-		td_product,
-		td_price,
-		td_num,
-		td_allPrice,
-		td_delBtn,
-		td_id,
-	);
-	return tr;
+	option_div.classList.add('item-option-wrap')
+	item_option.classList.add('item-option');
+	quanity_box.classList.add('btn-quanity-box');
+	minus_btn.classList.add('num_minus_btn');
+	minus_btn.textContent = '-';
+	quantity.for = 'quantity';
+	input_num.type = 'text';
+	input_num.disabled = 'disabled';
+	input_num.classList.add('input_num');
+	input_num.value = num;
+	plus_btn.classList.add('num_plus_btn');
+	plus_btn.textContent = '+';
+
+	quantity.append(input_num);
+	quanity_box.append(minus_btn, quantity, plus_btn);
+	item_option.append(quanity_box);
+	option_div.append(item_option)
+
+	const buy_wrap = document.createElement('div')
+	const item_buy = document.createElement('div');
+	const buy_box = document.createElement('div');
+	const price_box = document.createElement('div');
+	const item_price = document.createElement('div');
+	const buy_btn = document.createElement('button');
+
+	buy_wrap.classList.add('item-buy-wrap')
+	item_buy.classList.add('item-buy');
+	buy_box.classList.add('btn-item-buy-box');
+	price_box.classList.add('item-price-box');
+	item_price.classList.add('item-price');
+	item_price.textContent=`${addCommas(num * price)}원`;
+	buy_btn.classList.add('btn-item-buy');
+	buy_btn.textContent = '주문하기';
+
+	price_box.append(item_price);
+	buy_box.append(price_box, buy_btn);
+	item_buy.append(buy_box);
+	buy_wrap.append(item_buy)
+
+	cart.append(checkbox_div, info_div, option_div, buy_wrap);
+	return cart;
 }
