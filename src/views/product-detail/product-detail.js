@@ -75,9 +75,8 @@ function addToCart() {
 	) {
 		// 예 => 장바구니 페이지로 이동
 		window.location.href = '/cart';
-	} else {
-		// 아니오 => 현재 페이지에 잔류
 	}
+	// 아니오 => 현재 페이지에 잔류
 }
 
 function purchase() {

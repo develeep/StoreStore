@@ -94,8 +94,8 @@
       <div>
           <h3 class="title">주문자 정보</h3>
       </div>
-      <!-- 아직 테이블 미완성 -->
-      <div class="userTable">
+      <!-- 아직 테이블 미완성. 테이블 형식으로 만들다 시간이 부족해서 텍스트-input 형태로 작성 -->
+      <!-- <div class="userTable">
           <div class="userTableColGroup">
             <div class="userTableTitle">
               <div class="userTableCell">이름</div>
@@ -105,14 +105,49 @@
             </div>
           </div>
           <div class="userTableRow">
-            <!-- 예시 데이터. 실제로는 DB에서 장바구니+현재물건 가져옴 -->
+            예시 데이터. 실제로는 DB에서 장바구니+현재물건 가져옴
             <div class="userTableCell" id="orderNumber"><input type="text"></div>
             <div class="userTableCell" id="orderInfo"><input type="text"></div>
             <div class="userTableCell" id="orderState"><input type="text"></div>
             <div class="userTableCell" id="orderSignUp"><input type="text"></div>
             <div class="userTableCell" id="orderTotalPrice"><input type="text"></div>
           </div>
-        </div>
+        </div> -->
+        <div class="menu-container">
+            <div class="form-container">
+                <form id="loginForm">
+                    <div class="field">
+                        <label class="label">이름</label>
+                        <div class="control">
+                            <input type="text" id="fullNameInput">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">주소</label>
+                    </div>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" id="sample6_address" placeholder="주소"><br>
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                    <div class="field">
+                        <label class="label">전화번호</label>
+                        <div class="control">
+                            <input type="text" id="phoneNumberInput" placeholder="010-1234-5678">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">이메일</label>
+                        <div class="control">
+                            <input type="text" id="emailInput">
+                        </div>
+                        <!-- <div class="misspass-message hide">비밀번호가 일치하지 않습니다
+                        </div> -->
+                    </div>
+                    <div>
+                        <button id="signUpButton">결제하기</button>
+                    </div>
+                </form>
+            </div>
       </div>
     </div>
     <div>

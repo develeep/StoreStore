@@ -29,14 +29,24 @@
     vertical-align: middle;
 }
 
-.userTable {
+/* .userTable {
     display: table;
 }
 
 .userTableColGroup {
-
+    display: table-column-group;
 }
 
 .userTableTitle {
     display: table-column;
 }
+
+.userTableCol {
+
+}
+
+.userTableCell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+} */
