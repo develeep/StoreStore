@@ -29,6 +29,10 @@
     vertical-align: middle;
 }
 
+#addressInput {
+  width: 400px;
+}
+
 /* .userTable {
     display: table;
 }
