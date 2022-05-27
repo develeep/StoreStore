@@ -87,6 +87,4 @@ function purchase() {
 	window.location.href = '/payment';
 }
 
-window.addEventListener('pagehide', () => {
-	localStorage.removeItem('productId');
-});
+
