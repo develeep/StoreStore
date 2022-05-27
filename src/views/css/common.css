@@ -1,0 +1,85 @@
+/* COMMON */
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
+	font-size: 12px;
+	line-height: 1;
+	letter-spacing: 0.05em;
+	color: #4c4c4c;
+	max-width: 100%;
+}
+img {
+	display: block;
+}
+a {
+	text-decoration: none;
+}
+li {
+	list-style: none;
+}
+
+/* HEADER */
+header {
+	width: 100%;
+	top: 0;
+	z-index: 9;
+	background-color: #fff;
+}
+header .category {
+	display: flex;
+	background-color: #fff;
+	padding: 0 50px;
+	width: 100%;
+}
+header #main-category {
+	display: flex;
+	width: 100%;
+	position: relative;
+}
+.sticky {
+	position: fixed;
+	top: 0;
+	z-index: 9;
+}
+header #main-category .item {
+}
+header #main-category .item .item-name {
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 16px;
+	width: 124px;
+	height: 55px;
+	overflow: hidden;
+	line-height: 20px;
+	text-align: center;
+}
+header #main-category .item .item-category {
+	font-size: 14px;
+	font-weight: 600;
+	overflow: hidden;
+	line-height: 20px;
+	text-align: center;
+}
+header #main-category .item .item-category > ul {
+	padding: 10px 0 0;
+	border: black 1px solid;
+	/* display: none; */
+}
+header #main-category .item:hover .item-category > ul {
+	display: block;
+}
+header #main-category .item .item-category > ul li {
+	padding-bottom: 10px;
+}
+header #sub-category {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: #000 1px solid;
+}
+header #sub-category .material-icons-outlined {
+	font-size: 34px;
+}
