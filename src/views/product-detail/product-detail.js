@@ -29,7 +29,8 @@ async function getProductInfo() {
 	try {
 		// mongoDB에서 해당 id에 맞는 products 데이터 가져오기
 		// 테스트: 테스트 구두1을 가져옴 (id:lsd2TYkEnNLNgUXwszw5K)
-		const productData = await Api.get('/api/testproduct');
+        const productId = localStorage.getItem('productId')
+		const productData = await Api.get('/api/product',productId);
 		console.log(productData);
 		productImageTag.src = productData.imageUrl;
 		manufacturerTag.innerHTML = productData.company;
@@ -46,17 +47,19 @@ function addToCart() {
 	// 장바구니에 담고 (장바구니 데이터 추가)
 	try {
 		// await Api.patch("/api/update", "", )
-		const item_lsd2TYkEnNLNgUXwszw5K = {
+        const itemPrice = priceTag.textContent.slice(0,-1);
+		const item = {
 			// 테스트용. 추후 변수명 수정
 			src: productImageTag.src,
-			product: titleTag.innerHTML,
-			price: priceTag.innerHTML,
+			product: titleTag.textContent,
+			price: parseInt(itemPrice),
 			num: 1,
-			id: 'lsd2TYkEnNLNgUXwszw5K',
+			id: localStorage.getItem('productId'),
 		};
+        console.log(item.id)
 		const cartItem = new Cart();
 		cartItem.getBefore();
-		cartItem.add(item_lsd2TYkEnNLNgUXwszw5K);
+		cartItem.add(item);
 		localStorage.setItem('cart', cartItem.valueOf());
 		// await Api.patch("/api/update","", item_lsd2TYkEnNLNgUXwszw5K);
 		alert('장바구니에 상품이 정상적으로 추가되었습니다.');

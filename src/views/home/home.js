@@ -48,14 +48,16 @@ const bestproducts = await Api.get('/api/bestproducts');
 console.log(bestproducts);
 
 for (let i = 0; i < bestproducts.length; i++) {
-	let image = bestproducts[i].imageUrl;
-	let seller = bestproducts[i].company;
-	let productDescription = bestproducts[i].name;
-	let price = bestproducts[i].price;
+	const image = bestproducts[i].imageUrl;
+	const seller = bestproducts[i].company;
+	const productDescription = bestproducts[i].name;
+	const price = bestproducts[i].price;
+	const productId = bestproducts[i].productId;
 	//원화 변경
-	let priceKRW = price.toLocaleString('ko-KR');
+	const priceKRW = price.toLocaleString('ko-KR');
 
-	inputProduct.innerHTML += `<div class="product-item" id="product-item">
+	inputProduct.innerHTML += `<div onclick="localStorage.setItem('productId','${productId}'); 
+	location.href = '/product-detail/${productDescription}';" class="product-item" id="product-item">
 	<div>
 		<img src="${image}" alt="${productDescription}" id="productImage">
 	</div>

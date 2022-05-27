@@ -207,8 +207,6 @@ function updateNum(e) {
 }
 
 // 임시 카트 데이터 생성 함수
-createExamData();
-
 function createExamData() {
 	const cart = new Cart();
 	const item1 = {
