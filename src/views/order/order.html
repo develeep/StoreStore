@@ -22,8 +22,8 @@
     src="https://kit.fontawesome.com/7630448495.js"
     crossorigin="anonymous"
   ></script>
-  <link rel="stylesheet" href="cart.css">
-  <script src="cart.js" type="module" defer></script>
+  <link rel="stylesheet" href="order.css">
+  <script src="order.js" type="module" defer></script>
   <title>쇼핑-8팀</title>
 </head>
   <body>
@@ -64,41 +64,36 @@
         </div>
       </div>
     </nav>
+    <!-- 주문조회 -->
     <section class="section">
-      <div class="container">
-        <div class="cart-header">
-          <div class="title">
-            <p class="is-size-2">장바구니</p>
-          </div>
-          <div class="subtitle">
-            <p class="is-size-6">
-              &gt; &nbsp; 주문결제 &nbsp; &gt; &nbsp;주문완료
-            </p>
-          </div>
-        </div>
-        <div  class="cart-product-box hide">
-          <div class="tit-box">
-            <div class="choice-all-btn checkbox-btn">
-              <input type="checkbox" id="check_all">
+        <div class="container">
+            <div class="block account-header">
+                <h1 class="title">주문조회</h1>
             </div>
-            <p class="product-info-cell">상품정보</p> 
-            <p class="product-option-cell">옵션</p> 
-            <p class="product-price-cell">상품금액</p>
-          </div> 
+            <div class="orderTable">
+              <div class="orderTableRowGroup">
+                <div class="orderTableTitle">
+                  <!-- 의논하여 요소 추가/수정 예정 -->
+                  <div class="orderTableCell">날짜</div>
+                  <div class="orderTableCell">주문정보</div>
+                  <div class="orderTableCell">수량</div>
+                  <div class="orderTableCell">주문금액</div>
+                  <div class="orderTableCell">비고</div>
+                </div>
+                <!-- 아래로 예시 한 줄. 실제로는 insertadjacenthtml 사용해서 주문 데이터를 DB에서 받아와서 상품 한 줄씩 추가 -->
+                <!-- 백단에서 주문 데이터 완성시 코드 수정 예정 -->
+                <div class="orderTableRow">
+                  <div class="orderTableCell" id="orderDate">2022-5-26</div>
+                  <div class="orderTableCell" id="orderInfo">알록달록 티셔츠</div>
+                  <div class="orderTableCell" id="orderState">1</div>
+                  <div class="orderTableCell" id="orderSignUp">30000</div>
+                  <div class="orderTableCell"><button id="orderInfo">상세보기</button></div>
+                </div>
+              </div>  
+            </div>
         </div>
-        <div>
-          <p class="hide null">장바구니가 비어있습니다. 제품을 장바구니에 추가해주세요.</p>
-        </div>
-        <div class="delete_btn hide">
-          <a href="#" class="delete_all">전체 삭제</a>
-          <a href="#" class="delete_choice">선택 삭제</a>
-        </div>
-        <div class="payment-price-info hide">
-        </div>
-        <div class="order-btn-line hide">
-          <button class="order-btn">주문하기</button>
-        </div>
-      </div>
     </section>
+    <!-- 주문취소 modal창 -->
+
   </body>
 </html>
