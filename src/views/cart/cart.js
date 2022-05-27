@@ -1,7 +1,7 @@
 import { addTable,allPriceTable } from './cartTable.js';
 import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js';
-import { Cart } from './CartClass.js';
+import { Cart } from '/CartClass.js';
 
 const newCart = new Cart();
 
