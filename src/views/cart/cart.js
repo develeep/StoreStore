@@ -1,4 +1,4 @@
-import { addTable } from './cartTable.js';
+import { addTable,allPriceTable } from './cartTable.js';
 import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js';
 import { Cart } from './CartClass.js';
@@ -29,6 +29,7 @@ function getCart() {
 	const cart_box = document.querySelector('.container .cart-product-box');
 	const nullTable = document.querySelector('.null');
 	const order_btn = document.querySelector('.order-btn-line');
+  const priceInfo = document.querySelector('.payment-price-info')
 
 	if (!cart) {
 		// 장바구니가 없을시 장바구니를 추가해주라는 화면이 뜸
@@ -37,6 +38,7 @@ function getCart() {
 		nullTable.classList.add('null-table');
 		delete_btn.classList.add('hide');
 		order_btn.classList.add('hide');
+    priceInfo.classList.add('hide')
 		return;
 	}
 	// newCart에 아이템 추가(변경사항 있을시)
@@ -46,7 +48,9 @@ function getCart() {
 	cart_box.classList.remove('hide');
 	delete_btn.classList.remove('hide');
 	order_btn.classList.remove('hide');
+  priceInfo.classList.remove('hide')
 
+  // 장바구니 목록 생성
 	const cartList = document.createElement('ul');
 	cartList.classList.add('cart-seller-list');
 
@@ -55,22 +59,61 @@ function getCart() {
 		cartList.append(cart_item);
 		cart_box.append(cartList);
 	});
+
+  // 총 합 가격 생성
+  addAllPrice();
+
 	getEvent();
 }
 
+
+// 최초 시작시 요소 불러온 후 이벤트 설정
 function getEvent() {
-	const minus_btn = document.querySelectorAll('.num_minus_btn');
+  const minus_btn = document.querySelectorAll('.num_minus_btn');
 	const plus_btn = document.querySelectorAll('.num_plus_btn');
 	const check_all = document.querySelector('#check_all');
-
+  
 	check_all.addEventListener('click', checkAll);
 	check_event();
 	minus_btn.forEach((btn) => {
-		btn.addEventListener('click', updateNum);
+    btn.addEventListener('click', updateNum);
 	});
 	plus_btn.forEach((btn) => {
-		btn.addEventListener('click', updateNum);
+    btn.addEventListener('click', updateNum);
 	});
+  
+}
+
+// 총합 가격 테이블 생성 함수
+function addAllPrice(){
+  const container = document.querySelector('.container');
+  const priceInfo = document.querySelector('.payment-price-info')
+  const allPrice = getAllPrice();
+  const payment = allPriceTable(allPrice);
+
+  if(priceInfo.childElementCount != 0){
+    priceInfo.querySelector('.payment-price-info-box').remove();
+  }
+
+  priceInfo.append(payment);
+}
+
+// 체크된 항목 가격 불러오기 함수
+function getAllPrice() {
+  const check_btn_all = document.querySelectorAll(
+    '.check-btn-box input[type="checkbox"]',
+  );
+  const cartList = document.querySelector('.cart-seller-list');
+  let allPrice = 0;
+
+	check_btn_all.forEach((check) => {
+		if (check.checked) {
+	    const id = check.id;
+      const cart = newCart.find(id)
+      allPrice += cart.price * cart.num
+		}
+	});
+  return allPrice;
 }
 
 // 전체 체크 클릭시 체크박스들 전체 체크하는 함수
@@ -95,6 +138,7 @@ function check_event() {
 			if (check.checked == false) {
 				check_all.checked = false;
 			}
+      addAllPrice()
 		});
 	});
 }

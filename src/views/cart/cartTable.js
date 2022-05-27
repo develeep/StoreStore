@@ -84,3 +84,17 @@ export function addTable(src, product, price, num, id) {
 	cart.append(checkbox_div, info_div, option_div, buy_wrap);
 	return cart;
 }
+
+export function allPriceTable(allPrice) {
+	const price_info_box = document.createElement('div')
+	const info = document.createElement('strong')
+	const price = document.createElement('p')
+	
+	price_info_box.classList.add('payment-price-info-box')
+	info.textContent = '총 결제 금액'
+	price.textContent = `${addCommas(allPrice)}원`
+
+	price_info_box.append(info,price)
+
+	return price_info_box
+}
