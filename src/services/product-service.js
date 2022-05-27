@@ -62,7 +62,6 @@ class ProductService {
 
 	// B 카테고리별 상품 수집
 	async BgetCategoryOne(category_Id) {
-		console.log(category_Id);
 		let Products = await this.productModel.CategoryfindAll();
 		Products = Products.filter(
 			(el) => String(el.category.bCategory) === String(category_Id),

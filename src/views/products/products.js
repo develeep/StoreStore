@@ -3,10 +3,13 @@ import * as Api from '/api.js';
 const toTopEl = document.getElementById('to-top');
 const inputProduct = document.getElementById('inputProduct');
 
-const rankedproducts = await Api.get('/api/rankedproducts');
-console.log(rankedproducts);
+let params = location.href.split('/');
+params = params[params.length - 2];
+console.log(params);
+const getProductCategory = await Api.get(`/api/getProductCategory`, params);
+console.log(getProductCategory);
 
-makeRank();
+makeCategory();
 
 // 상단으로 가는 버튼
 toTopEl.addEventListener('click', function () {
@@ -15,13 +18,13 @@ toTopEl.addEventListener('click', function () {
 	});
 });
 
-function makeRank() {
-	for (let i = 0; i < rankedproducts.length; i++) {
-		const image = rankedproducts[i].imageUrl;
-		const seller = rankedproducts[i].company;
-		const productDescription = rankedproducts[i].name;
-		const price = rankedproducts[i].price;
-		const productId = rankedproducts[i].productId;
+function makeCategory() {
+	for (let i = 0; i < getProductCategory.length; i++) {
+		const image = getProductCategory[i].imageUrl;
+		const seller = getProductCategory[i].company;
+		const productDescription = getProductCategory[i].name;
+		const price = getProductCategory[i].price;
+		const productId = getProductCategory[i].productId;
 		//원화 변경
 		const priceKRW = price.toLocaleString('ko-KR');
 
