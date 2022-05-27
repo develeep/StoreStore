@@ -31,8 +31,9 @@ export class OrderProductModel {
 			'product',
 		);
 		for (let i = 0; i < orderedProducts.length; i++) {
-			priceSum += orderedProducts[i].product.price * orderedProducts[i].numbers;
+			priceSum += (orderedProducts[i].product.price * orderedProducts[i].numbers);
 		}
+		console.log(priceSum)
 		return priceSum;
 	}
 }
