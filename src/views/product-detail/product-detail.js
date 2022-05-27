@@ -58,7 +58,7 @@ function addToCart() {
 		};
         console.log(item.id)
 		const cartItem = new Cart();
-		cartItem.getBefore();
+		cartItem.getBefore('cart');
 		cartItem.add(item);
 		localStorage.setItem('cart', cartItem.valueOf());
 		// await Api.patch("/api/update","", item_lsd2TYkEnNLNgUXwszw5K);
