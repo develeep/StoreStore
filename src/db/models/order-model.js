@@ -19,22 +19,13 @@ export class OrderModel {
 		return orders;
 	}
 
-	async update({ orderId, update }) {
-		const filter = { orderId };
-		const option = { returnOriginal: false };
-
-		const updatedOrder = await Order.findOneAndUpdate(filter, update, option);
-		return updatedOrder;
-	}
 	async delete(orderId) {
 		await Order.deleteOne({ orderId });
 		return;
 	}
-	// 배송지 조회, 배송지는 user.address1 user.address2(부산 해운대구 APEC로 17 101동 101호) 식으로 리턴함
+	// 배송지 조회
 	async getAddressById(orderId) {
-		const order = await Order.findOne(orderId).populate('buyer');
-		const address =
-			order.user.address.address1 + ' ' + order.user.address.address2;
+		const address = await Order.findOne(orderId).receiver.address;
 		return address;
 	}
 
@@ -42,6 +33,15 @@ export class OrderModel {
 	async getOrdersByBuyerId(buyerId) {
 		const orders = await Order.find({ buyer: buyerId });
 		return orders;
+	}
+
+	// priceSum 추가 위한 update
+	async update({ orderId, update }) {
+		const filter = { orderId };
+		const option = { returnOriginal: false };
+
+		const updatedOrder = await Order.findOneAndUpdate(filter, update, option);
+		return updatedOrder;
 	}
 }
 
