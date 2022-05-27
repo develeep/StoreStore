@@ -71,7 +71,9 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 		const userId = req.currentUserId;
 		const { nameInput, addressInput, phoneNumberInput, requestSelectBox } =
 			req.body;
-		const orderTokens = localStorage.getItem('order');
+		const orderTokens = req.headers['orderProducts'];
+
+		// const orderTokens = localStorage.getItem('order');
 		const receiver = {
 			name: nameInput,
 			phoneNumber: phoneNumberInput,
