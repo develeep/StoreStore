@@ -2,15 +2,11 @@ import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js'
 
 const fullNameInput = document.querySelector('#nameInput');
-const updatePasswordButton = document.querySelector('#updatePasswordButton');
-const passwordInput = document.querySelector('#passwordInput');
-const passwordConfirmLabel = document.querySelector('#passwordConfirmLabel');
-const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
-const postalCodeDiv = document.querySelector('#sample6_postcode');
-const addressDiv = document.querySelector('#sample6_address');
-const detailAddressDiv = document.querySelector('#sample6_detailAddress');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
+const addressInput = document.querySelector('#addressInput');
+const emailInput = document.querySelector('#emailInput');
 
+getUserInfo();
 addAllEvents();
 addAllElements();
 
@@ -23,25 +19,21 @@ function addAllEvents() {
 }
 
 // 1. 화면 로딩 시 => 주문자 정보를 가져와서 띄우기(유저정보관리 페이지 코드 참조, 수정예정)
-// async function getUserInfo() {
-// 	try {
-// 		const userData = await Api.get('/api/update');
-// 		console.log(userData)
-// 		fullNameInput.value = userData.fullName;
-// 		if(userData.address){
-// 			const {postalCode,address1,address2} = userData.address;
-// 			postalCodeDiv.value = postalCode;
-// 			addressDiv.value = address1;
-// 			detailAddressDiv.value = address2;
-// 		}
-// 		if(userData.phoneNumber){
-// 			phoneNumberInput.value = userData.phoneNumber
-// 		}
-// 		passwordInput.style.display = "none";
-// 		passwordConfirmLabel.style.display = "none";
-// 		passwordConfirmInput.style.display = "none";
-// 	} catch (err) {
-// 		console.error(err.stack);
-// 		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
-// 	}
-// }
+async function getUserInfo() {
+	try {
+		const userData = await Api.get('/api/update');
+		console.log(userData)
+		fullNameInput.value = userData.fullName;
+		if(userData.phoneNumber){
+			phoneNumberInput.value = userData.phoneNumber
+		}
+        if (userData.address) {
+            addressInput.value = Object.values(userData.address).join(" ")
+        }
+        // 3. 객체에 이메일 추가 (안되면 삭제해도 무방)
+        emailInput.value = userData.email;
+	} catch (err) {
+		console.error(err.stack);
+		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
+	}
+}
