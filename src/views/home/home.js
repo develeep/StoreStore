@@ -1,36 +1,17 @@
-import { loginMatch } from '/loginMatch.js';
 import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
 
-// // 요소(element), input 혹은 상수
+// /요소(element), input 혹은 상수
 const toTopEl = document.getElementById('to-top');
-const header = document.getElementById('header');
-const category = document.getElementById('category');
-const submenu = document.getElementById('submenu');
-const sticky = category.offsetTop;
-const inputCategory = document.getElementById('input-category');
+const inputProduct = document.getElementById('inputProduct');
 
-console.log(loginMatch);
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-	loginMatch();
-	getCategoryShoes();
-}
+async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {}
-
-async function getDataFromApi() {
-	// 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-	const data = await Api.get('/api/user/data');
-	const random = randomId();
-
-	console.log({ data });
-	console.log({ random });
-}
 
 // 상단으로 가는 버튼
 toTopEl.addEventListener('click', function () {
@@ -62,33 +43,30 @@ new Swiper('.promotion .swiper-container', {
 	},
 });
 
-window.onscroll = function () {
-	stickyNav();
-};
+// 8개 제품 api 가져오기
+const bestproducts = await Api.get('/api/bestproducts');
+console.log(bestproducts);
 
-function stickyNav() {
-	if (window.pageYOffset >= sticky) {
-		header.classList.add('headerRelative');
-		category.classList.add('sticky');
-		submenu.classList.add('sticky-cart');
-	} else {
-		header.classList.remove('headerRelative');
-		category.classList.remove('sticky');
-		submenu.classList.remove('sticky-cart');
-	}
-}
+for (let i = 0; i < bestproducts.length; i++) {
+	let image = bestproducts[i].imageUrl;
+	let seller = bestproducts[i].company;
+	let productDescription = bestproducts[i].name;
+	let price = bestproducts[i].price;
+	//원화 변경
+	let priceKRW = price.toLocaleString('ko-KR');
 
-const categorys = await Api.get('/api/getcategorys');
-
-for (const [key, value] of Object.entries(categorys)) {
-	console.log(`${key}: ${value}`);
-	let itemList = '';
-	for (let i of value) {
-		itemList += `<li><a href="#">${i}</a></li>`;
-	}
-	inputCategory.innerHTML += `<li><a href="#">${key}</a>
-	<ul>
-	${itemList}
-	</ul>
-</li>`;
+	inputProduct.innerHTML += `<div class="product-item" id="product-item">
+	<div>
+		<img src="${image}" alt="${productDescription}" id="productImage">
+	</div>
+	<div class="description">
+		<div class="detail">
+			<div id="seller">${seller}</div>
+			<div id="productDescription">${productDescription}</div>
+		</div>
+	<div class="price">
+		<div id="productPrice">${priceKRW}원</div>
+	</div>
+	</div>
+	</div>`;
 }

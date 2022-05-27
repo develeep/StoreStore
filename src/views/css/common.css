@@ -21,6 +21,12 @@ a {
 li {
 	list-style: none;
 }
+h1 {
+	font-size: 28px;
+	line-height: 1.15;
+	letter-spacing: -0.26px;
+	font-weight: 600;
+}
 
 /* HEADER */
 header {
@@ -32,6 +38,9 @@ header {
 .headerRelative {
 	position: relative;
 }
+header .category-page {
+	color: #4287f5;
+}
 header .category {
 	display: flex;
 	width: 100%;
@@ -42,6 +51,7 @@ header #main-category {
 	padding: 0 50px;
 	background: #fff;
 	text-align: center;
+	filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 header #main-category > ul {
 	display: flex;
@@ -54,6 +64,8 @@ header #main-category > ul > li {
 	height: 55px;
 	line-height: 20px;
 	color: #4c4c4c;
+	background-color: #fff;
+	cursor: pointer;
 }
 header #main-category > ul > li:hover > a {
 	color: #4287f5;
