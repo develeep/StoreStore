@@ -1,4 +1,5 @@
 import { addCommas } from '/useful-functions.js';
+
 export function addTable(src, product, price, num, id) {
 	const cart = document.createElement('li');
 	cart.classList.add('cart-item');

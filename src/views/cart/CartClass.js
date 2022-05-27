@@ -6,6 +6,16 @@ export class Cart {
     this.keys = new Set(); // 상품의 key 가 들어간다.
   }
 
+  getBefore(){
+    const localCart = JSON.parse(localStorage.getItem('cart'))
+    if(!localCart){
+      return;
+    }
+    localCart.forEach((item) => {
+      this.add(item)
+    });
+  }
+
   add(item) {
     if (this.has(item.id)) {
       return;
