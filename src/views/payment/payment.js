@@ -7,7 +7,8 @@ import { addCommas } from '/useful-functions.js'
 const fullNameInput = document.querySelector('#nameInput');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const addressInput = document.querySelector('#addressInput');
-const emailInput = document.querySelector('#emailInput');
+const requestSelectBox = document.querySelector('#requestSelectBox')
+
 const order = new Cart();
 order.getBefore('order')
 
@@ -22,14 +23,14 @@ function addAllElements() {
 }
 
 function addAllEvents() {
+	const checkOutButton = document.querySelector("#checkoutButton")
     // 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들고 
-		
+	checkOutButton.addEventListener('click',payment)
 }
 
 // 1. 화면 로딩 시 => 주문자 정보를 가져와서 띄우기(유저정보관리 페이지 코드 참조, 수정예정)
 async function getUserInfo() {
 	try {
-
 		const userData = await Api.get('/api/update');
 		fullNameInput.value = userData.fullName;
 		if(userData.phoneNumber){
@@ -146,4 +147,14 @@ function updateNum(e) {
 	localStorage.setItem('order', order.valueOf());
 	cartList.remove();
 	getOrder();
+}
+
+async function payment(e) {
+	e.preventDefault();
+	const order = JSON.parse(localStorage.getItem('order'))
+	const options = requestSelectBox.selectedOptions
+	const data = {nameInput:fullNameInput.value,addressInput:addressInput.value,phoneNumberInput:phoneNumberInput.value,requestSelectBox:options[0].label,}
+	console.log(data)
+	const result = await Api.post('/api/orderadd',data)
+	console.log(result)
 }
