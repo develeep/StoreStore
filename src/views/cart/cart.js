@@ -143,6 +143,7 @@ function checkAll() {
 		orderCart.deleteAll();
 		localStorage.setItem('order', orderCart.valueOf());
 	}
+	addAllPrice()
 }
 
 // 체크박스 전체 선택 상태에서 만약 하나라도 체크박스가 체크가 풀리면 전체 체크 체크박스도 풀리는 함수
@@ -295,5 +296,9 @@ function createExamData() {
 }
 
 function goPayment() {
+	if(getAllPrice()==0){
+		alert('물품을 선택해 주세요')
+		return;
+	}
 	location.href = '/payment';
 }
