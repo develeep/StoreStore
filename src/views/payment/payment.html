@@ -66,7 +66,7 @@
     </nav>
     <!-- 결제화면 -->
     <div class="block account-header">
-        <h1 class="title">주문상품</h1>
+        <h1 class="title">주문결제</h1>
     </div>
     <div class="container">
       <div>
@@ -113,35 +113,69 @@
             <div class="userTableCell" id="orderTotalPrice"><input type="text"></div>
           </div>
         </div> -->
-        <div class="menu-container">
+        <div class="box delivery-info">
             <div class="form-container">
                 <form id="loginForm">
-                    <div class="field">
+                    <div class="field is-horizontal">
                         <label class="label">이름</label>
                         <div class="control">
                             <input type="text" id="nameInput" disabled>
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="field is-horizontal">
                         <label class="label">주소</label>
                         <input type="text" id="addressInput" disabled>
                     </div>
-                    <div class="field">
+                    <div class="field is-horizontal">
                         <label class="label">전화번호</label>
                         <div class="control">
                             <input type="text" id="phoneNumberInput" disabled>
                         </div>
                     </div>
-                    <div class="field">
-                        <label class="label">이메일</label>
-                        <div class="control">
-                            <input type="text" id="emailInput" disabled>
+                    <div class="field is-horizontal">
+                        <label class="label">요청사항</label>
+                        <div class="select">
+                            <select id="requestSelectBox">
+                                <option value="0">배송시 요청사항을 선택해 주세요.</option>
+                                <option value="1" class="select-option">직접 수령하겠습니다.</option>
+                                <option value="2" class="select-option">배송 전 연락바랍니다.</option>
+                                <option value="3" class="select-option">부재 시 경비실에 맡겨주세요.</option>
+                                <option value="4" class="select-option">부재 시 문 앞에 놓아주세요.</option>
+                                <option value="5" class="select-option">부재 시 택배함에 넣어주세요.</option>
+                                <option value="6" class="select-option">직접 입력</option>
+                            </select>
                         </div>
-                        <!-- <div class="misspass-message hide">비밀번호가 일치하지 않습니다
-                        </div> -->
                     </div>
-                    <div>
-                        <button id="signUpButton">결제하기</button>
+                        <!-- 주문 정보 요약 -->
+                    <div class="tile is-parent tile-order-summary">
+                        <div class="box order-summary">
+                            <div class="header">
+                                <p>결제정보</p>
+                            </div>
+                            <div class="order-info">
+                                <div class="info">
+                                <p>주문상품</p>
+                                <p class="products-title" id="productsTitle"></p>
+                                </div>
+                                <div class="info">
+                                <p>상품총액</p>
+                                <p id="productsTotal"></p>
+                                </div>
+                                <div class="info">
+                                <p>배송비</p>
+                                <p id="deliveryFee">3000</p>
+                                </div>
+                            </div>
+                            <div class="total">
+                                <p class="total-label">총 결제금액</p>
+                                <p class="total-price" id="orderTotal"></p>
+                            </div>
+                            <div class="purchase">
+                                <button class="button is-info" id="checkoutButton">
+                                결제하기
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
