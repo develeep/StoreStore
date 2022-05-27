@@ -41,9 +41,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="ranking.css" />
+    <link rel="stylesheet" href="../ranking/ranking.css" />
     <link rel="stylesheet" href="../css/common.css">
-    <script src="ranking.js" type="module" defer></script>
+    <script src="../ranking/ranking.js" type="module" defer></script>
     <script src="../nav.js" type="module" defer></script>
   </head>
   <body>
@@ -87,14 +87,25 @@
       </div>
     </header>
 
-
-    <section class="rankedproducts" id="rankedproducts">
-      <div class="title">
-        <h1>TODAY 랭킹</h1>
-      </div>
-      <div class="container" id="inputProduct">
-      </div>
-    </section>
+    <div class="container">
+        <section class="categories" id="categories">
+            <div class="m-category">
+                <h1>CATEGORIES</h1>
+                <ul class="s-category">
+                    <li>하위카테고리1</li>
+                    <li>하위카테고리2</li>
+                    <li>하위카테고리3</li>
+                </ul>
+            </div>
+        </section>
+        <section class="rankedproducts" id="rankedproducts">
+        <div class="title">
+            <h1>CATEGORY</h1>
+        </div>
+        <div class="inputProduct" id="inputProduct">
+        </div>
+        </section>
+    </div>
 
     <!-- 상단으로 가는 버튼 -->
     <div id="to-top">
