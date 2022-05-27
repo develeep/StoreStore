@@ -1,0 +1,56 @@
+.account-header {
+    border-bottom: 1px solid;
+    display: block;
+    padding-bottom: .7rem;
+}
+
+.orderTable {
+    display: table;
+    width: 100%;
+}
+
+.orderTableRowGroup {
+    display: table-row-group;
+}
+
+.orderTableTitle {
+    display: table-row;
+    font-weight: bold;
+    background-color: #9acbdb;
+}
+
+.orderTableRow {
+    display: table-row;
+}
+
+.orderTableCell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#addressInput {
+  width: 400px;
+}
+
+/* .userTable {
+    display: table;
+}
+
+.userTableColGroup {
+    display: table-column-group;
+}
+
+.userTableTitle {
+    display: table-column;
+}
+
+.userTableCol {
+
+}
+
+.userTableCell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+} */
