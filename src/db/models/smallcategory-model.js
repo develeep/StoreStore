@@ -30,6 +30,13 @@ export class SmallCategoryModel {
 		const OneCategory = await SmallCategory.findOne({ name: name });
 		return OneCategory;
 	}
+
+	async BfindById(name) {
+		let Bcategorys = await SmallCategory.find({}).populate('bCategory');
+		Bcategorys = Bcategorys.find((el) => el.bCategory.name == name).bCategory
+			._id;
+		return Bcategorys;
+	}
 }
 
 const SmallcateModel = new SmallCategoryModel();

@@ -29,6 +29,11 @@ export class ProductModel {
 		return products;
 	}
 
+	async CategoryfindAll() {
+		const Categoryproducts = await Product.find({}).populate('category');
+		return Categoryproducts;
+	}
+
 	async getRankedProduct() {
 		const productsRanked = await Product.find({}).sort({
 			salesRate: -1,
