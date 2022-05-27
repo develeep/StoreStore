@@ -42,9 +42,9 @@ for (const [key, value] of Object.entries(categorys)) {
 	// console.log(`${key}: ${value}`);
 	let itemList = '';
 	for (let i of value) {
-		itemList += `<li><a href="../products/${i}">${i}</a></li>`;
+		itemList += `<li><a href="/products/${i}">${i}</a></li>`;
 	}
-	inputCategory.innerHTML += `<li><a href="../products/${key}">${key}</a>
+	inputCategory.innerHTML += `<li><a href="/products/${key}">${key}</a>
 	<ul>
 	${itemList}
 	</ul>
