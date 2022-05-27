@@ -3,13 +3,6 @@ import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js';
 import { Cart } from './CartClass.js';
 
-const delete_choice = document.querySelector('.delete_choice');
-const deleteAll_btn = document.querySelector('.delete_all');
-const delete_btn = document.querySelector('.delete_btn');
-const cart_box = document.querySelector('.container .cart-product-box');
-const nullTable = document.querySelector('.null');
-const order_btn = document.querySelector('.order-btn-line');
-const check_all = document.querySelector('#check_all');
 const newCart = new Cart();
 
 addAllElements();
@@ -23,6 +16,8 @@ async function addAllElements() {
 }
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
+  const delete_choice = document.querySelector('.delete_choice');
+  const deleteAll_btn = document.querySelector('.delete_all');
 	delete_choice.addEventListener('click', delChoice);
 	deleteAll_btn.addEventListener('click', deleteAll);
 }
@@ -30,6 +25,11 @@ function addAllEvents() {
 // 페이지 시작 or cart 변화 시 카트 정보를 가져와	나타내는 함수
 function getCart() {
 	const cart = JSON.parse(localStorage.getItem('cart'));
+  const delete_btn = document.querySelector('.delete_btn');
+  const cart_box = document.querySelector('.container .cart-product-box');
+  const nullTable = document.querySelector('.null');
+  const order_btn = document.querySelector('.order-btn-line');
+
 
 	if (!cart) {
 		// 장바구니가 없을시 장바구니를 추가해주라는 화면이 뜸
@@ -65,6 +65,7 @@ function getCart() {
 function getEvent() {
 	const minus_btn = document.querySelectorAll('.num_minus_btn');
 	const plus_btn = document.querySelectorAll('.num_plus_btn');
+  const check_all = document.querySelector('#check_all');
 
 	check_all.addEventListener('click', checkAll);
 	check_event();
@@ -78,6 +79,7 @@ function getEvent() {
 
 // 전체 체크 클릭시 체크박스들 전체 체크하는 함수
 function checkAll() {
+  const check_all = document.querySelector('#check_all');
 	const check_btn_all = document.querySelectorAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
@@ -88,6 +90,7 @@ function checkAll() {
 
 // 체크박스 전체 선택 상태에서 만약 하나라도 체크박스가 체크가 풀리면 전체 체크 체크박스도 풀리는 함수 
 function check_event() {
+  const check_all = document.querySelector('#check_all');
 	const check_btn_all = document.querySelectorAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
@@ -108,7 +111,6 @@ function delChoice() {
 	);
 	const cartList = document.querySelector('.cart-seller-list');
 
-	console.log(carts);
 	check_btn_all.forEach((check) => {
 		if (check.checked) {
 			if (newCart.has(check.id)) {
@@ -116,6 +118,7 @@ function delChoice() {
 			}
 		}
 	});
+
 	cartList.remove();
 	alert('선택된 물품이 삭제외었습니다.');
 	if (JSON.parse(newCart.valueOf()).length === 0) {
@@ -123,7 +126,6 @@ function delChoice() {
 		getCart();
 	} else {
 		localStorage.setItem('cart', newCart.valueOf());
-
 		getCart();
 	}
 }
@@ -139,9 +141,10 @@ function deleteAll() {
 
 // +,- 버튼에 따라 구매 수량이 변하는 함수
 function updateNum(e) {
+  const cartList = document.querySelector('.cart-seller-list');
 	const upDown = e.target.textContent;
 	const li = e.target.closest('li');
-	const id = li.firstChild.childNodes[0].id;
+	const id = li.querySelector('.check-btn-box input[type="checkbox"]').id;
 	const item = newCart.find(id);
 
 	if (upDown == '-') {
@@ -152,9 +155,9 @@ function updateNum(e) {
 	} else if (upDown == '+') {
 		item.num += 1;
 	}
+
 	newCart.update(item);
 	localStorage.setItem('cart', newCart.valueOf());
-	const cartList = document.querySelector('.cart-seller-list');
 	cartList.remove();
 	getCart();
 }
