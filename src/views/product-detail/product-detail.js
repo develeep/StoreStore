@@ -11,6 +11,7 @@ const priceTag = document.querySelector('#priceTag');
 const description = document.querySelector('#detailDescriptionTag');
 const addToCartButton = document.querySelector('#addToCartButton');
 const purchaseButton = document.querySelector('#purchaseButton');
+const cartItem = new Cart();
 
 getProductInfo();
 addAllEvents();
@@ -47,20 +48,7 @@ function addToCart() {
 	// 장바구니에 담고 (장바구니 데이터 추가)
 	try {
 		// await Api.patch("/api/update", "", )
-		const itemPrice = priceTag.textContent.slice(0, -1);
-		const item = {
-			// 테스트용. 추후 변수명 수정
-			src: productImageTag.src,
-			product: titleTag.textContent,
-			price: parseInt(itemPrice),
-			num: 1,
-			id: localStorage.getItem('productId'),
-		};
-		console.log(item.id);
-		const cartItem = new Cart();
-		cartItem.getBefore('cart');
-		cartItem.add(item);
-		localStorage.setItem('cart', cartItem.valueOf());
+		addCart();
 		// await Api.patch("/api/update","", item_lsd2TYkEnNLNgUXwszw5K);
 		alert('장바구니에 상품이 정상적으로 추가되었습니다.');
 	} catch (err) {
@@ -82,8 +70,28 @@ function addToCart() {
 	// 아니오 => 현재 페이지에 잔류
 }
 
+function addCart() {
+	const itemPrice = priceTag.textContent.slice(0, -1);
+	const item = {
+		// 테스트용. 추후 변수명 수정
+		src: productImageTag.src,
+		product: titleTag.textContent,
+		price: parseInt(itemPrice),
+		num: 1,
+		id: localStorage.getItem('productId'),
+	};
+	console.log(item.id);
+	cartItem.getBefore('cart');
+	cartItem.add(item);
+	localStorage.setItem('cart', cartItem.valueOf());
+}
+
 function purchase() {
 	// 구매 페이지로 이동
+	addCart();
+	const cart = cartItem.find(localStorage.getItem('productId'))
+	const arr = [cart]
+	localStorage.setItem('order',JSON.stringify(arr))
 	window.location.href = '/payment';
 }
 
