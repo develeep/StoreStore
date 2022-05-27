@@ -76,71 +76,24 @@
             </p>
           </div>
         </div>
-        <table class="cart-table">
-          <colgroup>
-						<col width="10%">
-						<col width="4%">
-						<col width="20%">
-						<col width="16%">
-						<col width="5%">
-						<col width="16%">
-						<col width="7%">
-					</colgroup>
-          <thead>
-						<tr>
-							<th scope="col">전체<strong>n</strong>개</th>
-							<th scope="col" style="cursor:pointer"><input type="checkbox" class="chk_all" id="chk_all" checked=""></th>
-							<th scope="col">상품명(옵션)</th>
-							<th scope="col">판매가</th>
-							<th scope="col">수량</th>
-							<th scope="col">주문금액</th>
-							<th scope="col">주문관리</th>
-						</tr>
-					</thead>
-          <tbody>
-            <tr class="cart">
-              <td colspan="7" class="cart-col">
-                <table class="cart-table">
-                  <colgroup>
-                    <col width="10%">
-                    <col width="4%">
-                    <col width="20%">
-                    <col width="16%">
-                    <col width="5%">
-                    <col width="16%">
-                    <col width="7%">
-									</colgroup>
-                  <tbody>
-                    <!-- 장바구니에 담긴 상품들의 html 요소(카드 형태)가 주입되는 곳 -->
-                    <tr class="cart-list">
-                      <td>1</td>
-                      <td><input type="checkbox" name="cart_select" checked=true></td>
-                      <td>테스트</td>
-                      <td>10000</td>
-                      <td>1</td>
-                      <td>10000</td>
-                      <td><a href="#" class="order_btn">제품 삭제</a></td>
-                    </tr>
-                    <tr class="cart-list">
-                      <td>2</td>
-                      <td><input type="checkbox" name="cart_select" checked=true></td>
-                      <td>테스트2</td>
-                      <td>530000</td>
-                      <td>2</td>
-                      <td>1600000</td>
-                      <td><a href="#" class="order_btn">제품 삭제</a></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="delete_btn">
+        <div  class="cart-product-box hide">
+          <div class="tit-box">
+            <div class="choice-all-btn checkbox-btn">
+              <input type="checkbox" id="check_all">
+            </div>
+            <p class="product-info-cell">상품정보</p> 
+            <p class="product-option-cell">옵션</p> 
+            <p class="product-price-cell">상품금액</p>
+          </div> 
+        </div>
+        <div>
+          <p class="hide null">장바구니가 비어있습니다. 제품을 장바구니에 추가해주세요.</p>
+        </div>
+        <div class="delete_btn hide">
           <a href="#" class="delete_all">전체 삭제</a>
           <a href="#" class="delete_choice">선택 삭제</a>
         </div>
-        <div class="order-btn-line">
+        <div class="order-btn-line hide">
           <button class="order-btn">주문하기</button>
         </div>
       </div>
