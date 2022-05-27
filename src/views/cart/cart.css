@@ -318,3 +318,28 @@ input[type="checkbox"] {
   background-color: #000;
   padding: 0;
 }
+
+.payment-price-info{
+  margin: 50px 0;
+}
+.payment-price-info-box{
+  width: 100%;
+  padding: 26px 0;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.payment-price-info-box strong{
+  margin-bottom: 2px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.payment-price-info-box p{
+  color: #d3a164;
+  font-size: 24px;
+  font-weight: 700;
+}
