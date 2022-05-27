@@ -1,25 +1,24 @@
-import { productModel } from '../db';
+import { orderModel } from '../db';
 
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
-class ProductService {
-	// 본 파일의 맨 아래에서, new ProductService(productModel) 하면, 이 함수의 인자로 전달됨
-	constructor(productModel) {
-		this.productModel = productModel;
+class OrderService {
+	// 본 파일의 맨 아래에서, new OrderService(orderModel) 하면, 이 함수의 인자로 전달됨
+	constructor(orderModel) {
+		this.orderModel = orderModel;
 	}
 
 	// 상품 추가
-	async addProduct(productInfo) {
+	async addOrder(orderInfo) {
 		// 객체 destructuring
 		const { category, name, price, imageUrl, description, inventory, company } =
-			productInfo;
+			orderInfo;
 
 		// db에 저장
-		const createdNewProduct = await this.productModel.create(productInfo);
+		const createdNewOrder = await this.orderModel.create(orderInfo);
 
-		return createdNewProduct;
+		return createdNewOrder;
 	}
 	// product shortId로 product 찾아서 반환
 	async getProductById(productId) {
@@ -61,6 +60,6 @@ class ProductService {
 	}
 }
 
-const productService = new ProductService(productModel);
+const orderService = new OrderService(orderModel);
 
-export { productService };
+export { orderService };

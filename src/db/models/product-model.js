@@ -10,7 +10,12 @@ export class ProductModel {
 	}
 
 	async findByName(name) {
-		const product = await Product.findOne({ name });
+		const product = await Product.find({ name });
+		return product;
+	}
+
+	async findById(productId) {
+		const product = await Product.findOne({ productId });
 		return product;
 	}
 
@@ -24,15 +29,22 @@ export class ProductModel {
 		return products;
 	}
 
-	async findRank_8_Item() {
+	async getRankedProduct() {
+		const productsRanked = await Product.find({}).sort({
+			salesRate: -1,
+		});
+		return productsRanked;
+	}
+
+	async findRank_8_Product() {
 		const rank_8_Products = await Product.find({})
-			.sort({ purchageQuantity: -1 })
+			.sort({ salesRate: -1 })
 			.limit(8);
 		return rank_8_Products;
 	}
 
 	async update({ productId, update }) {
-		const filter = { _id: productId };
+		const filter = { productId };
 		const option = { returnOriginal: false };
 
 		const updatedProduct = await Product.findOneAndUpdate(
@@ -43,7 +55,7 @@ export class ProductModel {
 		return updatedProduct;
 	}
 	async delete(productId) {
-		await Product.deleteOne({ _id: productId });
+		await Product.deleteOne({ productId });
 		return;
 	}
 }
