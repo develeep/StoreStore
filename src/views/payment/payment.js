@@ -30,8 +30,6 @@ async function getUserInfo() {
         if (userData.address) {
             addressInput.value = Object.values(userData.address).join(" ")
         }
-        // 3. 객체에 이메일 추가 (안되면 삭제해도 무방)
-        emailInput.value = userData.email;
 	} catch (err) {
 		console.error(err.stack);
 		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
