@@ -27,7 +27,7 @@ export class SmallCategoryModel {
 	}
 
 	async findById(name) {
-		const OneCategory = await SmallCategory.find({ name: name });
+		const OneCategory = await SmallCategory.findOne({ name: name });
 		return OneCategory;
 	}
 }
