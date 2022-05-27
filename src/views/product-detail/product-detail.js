@@ -66,10 +66,11 @@ function addToCart() {
         window.location.href = '/cart';
     } else {
         // 아니오 => 현재 페이지에 잔류
-        
+
     }
 }
 
 function purchase() {
     // 구매 페이지로 이동
+    window.location.href = '/payment';
 }

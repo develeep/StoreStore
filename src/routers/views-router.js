@@ -12,6 +12,7 @@ viewsRouter.use("/login", serveStatic("login"));
 viewsRouter.use("/mypage", serveStatic("mypage"));
 viewsRouter.use("/mypage/order", serveStatic("order"));
 viewsRouter.use("/product-detail/lsd2TYkEnNLNgUXwszw5K", serveStatic("product-detail")); // 제품상세 페이지 확인용 라우터. 제품들을 각 클릭했을 때 id명이 들어간 주소로 이동되도록 바꾸고 나서 삭제.
+viewsRouter.use("/payment", serveStatic("payment"));
 viewsRouter.use("/mypage/userinfo", serveStatic("userinfo"));
 viewsRouter.use("/mypage/signout", serveStatic("signout"));
 viewsRouter.use('/cart',serveStatic('cart'))
