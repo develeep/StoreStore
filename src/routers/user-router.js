@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from '../middlewares';
+import { loginRequired, isAdmin } from '../middlewares';
 import { userService } from '../services';
 import upload from '../utils/s3';
 import bcrypt from 'bcrypt';
@@ -175,6 +175,16 @@ userRouter.delete('/delete', loginRequired, async function (req, res, next) {
 // 이미지 s3 업로드
 userRouter.post('/single', upload.single('img'), (req, res, next) => {
 	res.status(201).send(req.file);
+});
+
+userRouter.get('/isadmin', loginRequired, async (req, res, next) => {
+	// loign되었다면 id를 가져옴
+	const userId = req.currentUserId;
+	const role = await userService.getUserInfo(userId).role;
+	if (role !== 'admin') {
+		throw new Error(`관리자가 아니어서 상품추가를 할 수 없습니다.`);
+	}
+	res.status(200).json({ isCorrect: ok });
 });
 
 export { userRouter };

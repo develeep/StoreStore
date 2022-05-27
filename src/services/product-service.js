@@ -46,7 +46,8 @@ class ProductService {
 	}
 
 	async deleteProductByProductId(productId) {
-		await productModel.delete(productId);
+		await this.productModel.delete(productId);
+		return;
 	}
 
 	// 상품정보 수정

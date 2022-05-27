@@ -55,11 +55,6 @@ productRouter.get('/product/:productId', async (req, res, next) => {
 // 카테고리 별 조회 -> /api/productlist
 productRouter.get('/productist/:category', async (req, res, next) => {
 	try {
-		if (is.emptyObject(req.body)) {
-			throw new Error(
-				'headers의 Content-Type을 application/json으로 설정해주세요',
-			);
-		}
 		const category = req.params.category;
 		const products = await productService.getProductsByCategory(category);
 		res.status(200).json(products);
