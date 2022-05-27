@@ -30,7 +30,7 @@ function makeCategory() {
 
 		// onclick = localStorage.setItem('productId',productId); location.href = '/product-detail'
 		inputProduct.innerHTML += `<div onclick="localStorage.setItem('productId','${productId}'); 
-		location.href = '/product-detail';" class="product-item" id="product-item">
+		location.href = '/product-detail/${productId}';" class="product-item" id="product-item">
 	<div>
 		<img src="${image}" alt="${productDescription}" id="productImage">
 	</div>
