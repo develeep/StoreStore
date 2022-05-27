@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="home.css" />
     <link rel="stylesheet" href="../css/common.css">
     <script src="home.js" type="module" defer></script>
+    <script src="../nav.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
@@ -65,7 +66,10 @@
       </nav>
       <div class="category" id="category">
         <div id="main-category">
-          <ul id="input-category"></ul>
+          <ul id="input-category">
+            <li><a href="/ranking" aria-current="page">BEST</a>
+            </li>
+          </ul>
         </div>
         <div id="sub-category">
             <ul id="submenu">
@@ -117,148 +121,19 @@
     </section>
 
     <section class="main-product">
-
       <div class="title">
         <h1>TODAY 랭킹</h1>
         <h2>이번주 가장 많이 구매했어요</h2>
       </div>
-      <div class="container">
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller">제조사</div>
-              <div id="productDescription">알록달록 반팔티</div>
-            </div>
-            <div class="price">
-              <div id="productPrice">30,000원</div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-item">
-          <div>
-            <figure>
-              <img src="" alt="product-image" id="productImage">
-            </figure>
-          </div>
-          <div class="description">
-            <div class="detail">
-              <div id="seller"></div>
-              <div id="productDescription"></div>
-            </div>
-            <div class="price">
-              <div id="productPrice"></div>
-            </div>
-          </div>
-        </div>
+      <div class="container" id="inputProduct">
       </div>
       <div>
-        <button class="button is-primary">랭킹 더보기</button>
+        <button class="button is-primary"><a href="/ranking" aria-current="page">랭킹 더보기</a></button>
       </div>
     </section>
 
 
-
+    <!-- 상단으로 가는 버튼 -->
     <div id="to-top">
       <i class="fa-solid fa-angle-up"></i>
     </div>
