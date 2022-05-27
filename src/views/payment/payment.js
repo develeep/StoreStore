@@ -151,9 +151,10 @@ function updateNum(e) {
 
 async function payment(e) {
 	e.preventDefault();
+
 	const order = JSON.parse(localStorage.getItem('order'))
 	const options = requestSelectBox.selectedOptions
-	const data = {nameInput:fullNameInput.value,addressInput:addressInput.value,phoneNumberInput:phoneNumberInput.value,requestSelectBox:options[0].label,}
+	const data = {nameInput:fullNameInput.value,addressInput:addressInput.value,phoneNumberInput:phoneNumberInput.value,requestSelectBox:options[0].label,orderProducts:order}
 	console.log(data)
 	const result = await Api.post('/api/orderadd',data)
 	console.log(result)

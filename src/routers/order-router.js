@@ -71,7 +71,7 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 		const userId = req.currentUserId;
 		const { nameInput, addressInput, phoneNumberInput, requestSelectBox } =
 			req.body;
-		const orderTokens = req.headers['orderProducts'];
+		const orderTokens = req.body.orderProducts;
 
 		// const orderTokens = localStorage.getItem('order');
 		const receiver = {
@@ -88,11 +88,13 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 
 		const orderId = newOrder.orderId;
 		const priceSum = await orderedProductService.getPriceSum(orderId);
-
+		console.log(priceSum)
+		
 		for (let i = 0; i < orderTokens.length; i++) {
+			const product = await productService.getProductById(orderTokens[i].id);
 			let newOrderedProdcut = await orderedProductService.addOrderedProduct({
 				orderId,
-				product: orderTokens[i].id,
+				product: product.id,
 				numbers: orderTokens[i].num,
 			});
 		}
