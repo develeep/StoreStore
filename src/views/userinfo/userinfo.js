@@ -1,5 +1,6 @@
 // 요소 가져오기
 import * as Api from '/api.js';
+import { loginMatch } from '/loginMatch.js'
 
 const userInfoTitle = document.querySelector('#userInfoTitle');
 const fullNameInput = document.querySelector('#nameInput');
@@ -19,6 +20,12 @@ const saveButton = document.querySelector('#saveButton');
 
 getUserInfo();
 addAllEvents();
+addAllElements()
+
+// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
+async function addAllElements() {
+  loginMatch();
+}
 
 function addAllEvents() {
 	updatePasswordButton.addEventListener('click', updatePassword);
