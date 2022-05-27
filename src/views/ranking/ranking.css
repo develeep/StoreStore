@@ -1,46 +1,20 @@
 .container {
-	margin-top: 107px;
+	margin: 107px auto 0;
 	padding: 80px 0 40px;
-	display: flex;
-}
-.categories {
-	position: fixed;
-	top: 140px;
-	left: 40px;
-}
-.categories .m-category h1 {
-	font-weight: 600;
-	padding-bottom: 30px;
-	border-bottom: 1px solid #e5e5e5;
-}
-.categories .s-category {
-	font-size: 16px;
-}
-.categories .s-category > li {
-	padding: 15px 0;
-	border-bottom: 1px solid #e5e5e5;
 }
 .rankedproducts {
-	padding: 0 0 0 190px;
+	width: 100%;
 }
 .rankedproducts .title h1 {
 	font-weight: 400;
 	text-align: center;
 }
-/* .rankedproducts .title > ul > li {
-	font-size: 16px;
-	line-height: 1.45;
-	letter-spacing: -0.2px;
-	font-weight: 500;
-	text-align: center;
-	color: rgb(153, 153, 153);
-	margin-top: 2px;
-} */
 .rankedproducts .inputProduct {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
 	align-items: center;
+	margin: 0 auto;
+	justify-content: center;
 }
 .rankedproducts .product-item {
 	display: flex;

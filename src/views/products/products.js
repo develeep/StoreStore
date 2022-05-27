@@ -2,6 +2,8 @@ import * as Api from '/api.js';
 
 const toTopEl = document.getElementById('to-top');
 const inputProduct = document.getElementById('inputProduct');
+const subCategory = document.getElementById('s-category');
+const title = document.getElementById('title');
 
 let params = location.href.split('/');
 params = params[params.length - 2];
@@ -44,5 +46,20 @@ function makeCategory() {
 	</div>
 	</div>
 	</div>`;
+	}
+}
+
+// 카테고리 api 가져오기
+const categorys = await Api.get('/api/getcategorys');
+console.log(categorys);
+
+const findSubCategory = getProductCategory[0].category.name; //구두
+for (const [key, value] of Object.entries(categorys)) {
+	const found = value.indexOf(findSubCategory);
+	if (found === 0) {
+		title.innerHTML = `<h1>${key}</h1>`;
+		for (let i = 0; i < value.length; i++) {
+			subCategory.innerHTML += `<li>${value[i]}</li>`;
+		}
 	}
 }
