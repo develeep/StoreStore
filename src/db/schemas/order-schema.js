@@ -17,8 +17,12 @@ const OrderSchema = new Schema(
 		},
 		deliveryStatus: {
 			type: String,
-			required: true,
+			required: false,
 			default: '배송준비중',
+		},
+		requestMessage: {
+			type: String,
+			required: false,
 		},
 		receiver: {
 			type: new Schema(

@@ -58,52 +58,54 @@ orderRouter.get('/getaddress/:orderId', async (req, res, next) => {
 });
 
 // 주문 추가 -> /api/orderadd
-orderRouter.post(
-	'/orderadd',
-	// loginRequired,
-	// isAdmin,
-	async (req, res, next) => {
-		try {
-			// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
-			// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-			if (is.emptyObject(req.body)) {
-				throw new Error(
-					'headers의 Content-Type을 application/json으로 설정해주세요',
-				);
-			}
-
-			const { userId, receiver, deliveryStatus } = req.body;
-
-			// 위 데이터를 order db에 추가하기
-			const newOrder = await orderService.addOrder({
-				buyer: userId,
-				receiver,
-				deliveryStatus,
-			});
-
-			const { orderedProduct, numbers } = req.body;
-
-			const orderId = newOrder.orderId;
-			const priceSum = await orderedProductService.getPriceSum(orderId);
-
-			for (let i = 0; i < orderedProduct.length; i++) {
-				let newOrderedProdcut = await orderedProductService.addOrderedProduct({
-					orderId,
-					product: orderedProduct[i].productId,
-					numbers,
-				});
-			}
-			const updatedOrder = await orderService.updateForPriceSum(orderId, {
-				priceSum,
-			});
-			// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
-			// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-			res.status(201).json(updatedOrder);
-		} catch (error) {
-			next(error);
+orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
+	try {
+		// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
+		// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
+		if (is.emptyObject(req.body)) {
+			throw new Error(
+				'headers의 Content-Type을 application/json으로 설정해주세요',
+			);
 		}
-	},
-);
+		// loign되었다면 id를 가져옴
+		const userId = req.currentUserId;
+		const { nameInput, addressInput, phoneNumberInput, requestSelectBox } =
+			req.body;
+		const orderToken = localStorage.getItem('order');
+		const receiver = {
+			name: nameInput,
+			phoneNumber: phoneNumberInput,
+			address: addressInput,
+		};
+		// 위 데이터를 order db에 추가하기
+		const newOrder = await orderService.addOrder({
+			buyer: userId,
+			receiver,
+			requestMessage: requestSelectBox,
+		});
+
+		const { orderedProduct, numbers } = req.body;
+
+		const orderId = newOrder.orderId;
+		const priceSum = await orderedProductService.getPriceSum(orderId);
+
+		for (let i = 0; i < orderedProduct.length; i++) {
+			let newOrderedProdcut = await orderedProductService.addOrderedProduct({
+				orderId,
+				product: orderedProduct[i].productId,
+				numbers,
+			});
+		}
+		const updatedOrder = await orderService.updateForPriceSum(orderId, {
+			priceSum,
+		});
+		// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
+		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
+		res.status(201).json(updatedOrder);
+	} catch (error) {
+		next(error);
+	}
+});
 
 // 주문 삭제
 orderRouter.delete(
