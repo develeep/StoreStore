@@ -25,7 +25,7 @@ class categoryService {
 	}
 
 	// 카테고리 목록을 받음.
-	async getBigcategorys() {
+	async getCategorys() {
 		const Bigcategory = await this.cateModel.findAll();
 		return Bigcategory;
 	}
