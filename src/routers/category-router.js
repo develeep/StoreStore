@@ -50,14 +50,4 @@ categoryRouter.get('/getcategorys', async (req, res, next) => {
 	}
 });
 
-categoryRouter.get('/getSmallcategory', async (req, res, next) => {
-	try {
-		// 위 데이터를 유저 db에 추가하기
-		let getSmallcategory = await SmallcateService.getCategoryname('운동화');
-		res.status(200).json(getSmallcategory);
-	} catch (error) {
-		next(error);
-	}
-});
-
 export { categoryRouter };
