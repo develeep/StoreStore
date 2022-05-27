@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
+import upload from '../utils/s3';
 import bcrypt from 'bcrypt';
 
 const userRouter = Router();
@@ -169,6 +170,11 @@ userRouter.delete('/delete', loginRequired, async function (req, res, next) {
 	} catch (error) {
 		next(error);
 	}
+});
+
+// 이미지 s3 업로드
+userRouter.post('/single', upload.single('img'), (req, res, next) => {
+	res.status(201).send(req.file);
 });
 
 export { userRouter };

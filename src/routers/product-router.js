@@ -202,4 +202,19 @@ productRouter.delete(
 	},
 );
 
+// 카테고리별 상품 수집
+productRouter.get('/getProductCategory/:id', async (req, res, next) => {
+	const category_name = req.params.id;
+	let isSmallcategory = await SmallcateService.getCategoryname(category_name);
+	let CategoryProducts;
+	if (isSmallcategory == null) {
+		let isBigcategory = await SmallcateService.getbCategoryname(category_name);
+		CategoryProducts = await productService.BgetCategoryOne(isBigcategory);
+	} else {
+		isSmallcategory = isSmallcategory._id;
+		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
+	}
+	res.status(200).json(CategoryProducts);
+});
+
 export { productRouter };
