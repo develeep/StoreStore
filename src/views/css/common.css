@@ -39,7 +39,7 @@ header {
 	position: relative;
 }
 header .category-page {
-	color: #4287f5;
+	/* color: #4287f5; */
 }
 header .category {
 	display: flex;

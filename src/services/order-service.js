@@ -9,54 +9,56 @@ class OrderService {
 		this.orderModel = orderModel;
 	}
 
-	// 상품 추가
+	// 주문 추가
 	async addOrder(orderInfo) {
 		// 객체 destructuring
-		const { category, name, price, imageUrl, description, inventory, company } =
-			orderInfo;
+		// buyer 변수에 user ObjectId를 줘야 함, receiver는 object
+		const { buyer, priceSum, receiver, deliveryStatus } = orderInfo;
 
 		// db에 저장
 		const createdNewOrder = await this.orderModel.create(orderInfo);
 
 		return createdNewOrder;
 	}
-	// product shortId로 product 찾아서 반환
-	async getProductById(productId) {
-		const product = await this.productModel.findById(productId);
-		return product;
+
+	// order shortId로 order 찾기
+	async getOrder(orderId) {
+		const order = await this.orderModel.findById(orderId);
+		return order;
 	}
 
-	// 랭킹순으로(많이 팔린 순) 상품 가져오기
-	async getRankedProduct() {
-		const products = await this.productModel.getRankedProduct();
-		return products;
+	// 모든 주문 찾기
+	async getAllOrders() {
+		const orders = await this.orderModel.findAll();
+		return orders;
 	}
 
-	// product DB에서 랜덤으로 8개의 상품을 가져옴 -> 메인페이지에 띄워줄 용도
-	async getRank_8_Product() {
-		const products = await this.productModel.findRank_8_Product();
-		return products;
+	// 주문 삭제
+	async deleteOrder(orderId) {
+		await this.orderModel.delete(orderId);
+		return;
 	}
 
-	// 카테고리 별로 모아보기
-	async getProductsByCategory(category) {
-		const products = await this.productModel.findBycategory(category);
-		return products;
+	// 배송지 조회
+	async getAddress(orderId) {
+		const address = await this.orderModel.getAddressById(orderId);
+		return address;
 	}
 
-	async deleteProductByProductId(productId) {
-		await productModel.delete(productId);
+	// 특정 사용자의 모든 주문을 조회
+	// buyerId 구현해야함
+	async getOrdersByBuyer(buyerId) {
+		const orders = await this.orderModel.getOrdersByBuyerId(buyerId);
+		return orders;
 	}
 
-	// 상품정보 수정
-	async setProduct(productId, toUpdate) {
-		// 업데이트 진행
-		const product = await this.productModel.update({
-			productId,
+	// priceSum 추가위한 함수
+	async updateForPriceSum(orderId, toUpdate) {
+		const order = await this.orderModel.update({
+			orderId,
 			update: toUpdate,
 		});
-
-		return product;
+		return order;
 	}
 }
 

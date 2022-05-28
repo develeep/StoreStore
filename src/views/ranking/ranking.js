@@ -2,6 +2,8 @@ import * as Api from '/api.js';
 
 const toTopEl = document.getElementById('to-top');
 const inputProduct = document.getElementById('inputProduct');
+const subCategory = document.getElementById('s-category');
+const title = document.getElementById('title');
 
 const rankedproducts = await Api.get('/api/rankedproducts');
 console.log(rankedproducts);
