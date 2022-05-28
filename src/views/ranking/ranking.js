@@ -2,8 +2,6 @@ import * as Api from '/api.js';
 
 const toTopEl = document.getElementById('to-top');
 const inputProduct = document.getElementById('inputProduct');
-const subCategory = document.getElementById('s-category');
-const title = document.getElementById('title');
 
 const rankedproducts = await Api.get('/api/rankedproducts');
 console.log(rankedproducts);
@@ -12,8 +10,9 @@ makeRank();
 
 // 상단으로 가는 버튼
 toTopEl.addEventListener('click', function () {
-	gsap.to(window, 0.7, {
-		scrollTo: 0,
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth',
 	});
 });
 

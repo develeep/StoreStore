@@ -11,14 +11,17 @@ addAllEvents();
 async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {}
+function addAllEvents() {
+	toTopEl.addEventListener('click', toTopEvent);
+}
 
 // 상단으로 가는 버튼
-toTopEl.addEventListener('click', function () {
-	gsap.to(window, 0.7, {
-		scrollTo: 0,
+function toTopEvent() {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth',
 	});
-});
+}
 
 // 이미지슬라이드
 new Swiper('.promotion .swiper-container', {

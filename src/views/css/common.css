@@ -29,34 +29,26 @@ h1 {
 }
 
 /* HEADER */
-header {
-	width: 100%;
-	top: 0;
-	z-index: 9;
-	position: fixed;
-}
-.headerRelative {
-	position: relative;
-}
-header .category-page {
-	/* color: #4287f5; */
-}
-header .category {
+.category {
 	display: flex;
 	width: 100%;
+	background: #fff;
+	filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 9;
 }
-header #main-category {
+#main-category {
 	display: flex;
 	width: 100%;
 	padding: 0 50px;
-	background: #fff;
 	text-align: center;
-	filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
-header #main-category > ul {
+#main-category > ul {
 	display: flex;
 }
-header #main-category > ul > li {
+#main-category > ul > li {
 	font-size: 16px;
 	font-weight: 600;
 	padding-top: 16px;
@@ -67,12 +59,12 @@ header #main-category > ul > li {
 	background-color: #fff;
 	cursor: pointer;
 }
-header #main-category > ul > li:hover > a {
+#main-category > ul > li:hover > a {
 	color: #4287f5;
 	border-bottom: 2px solid #4287f5;
 	padding-bottom: 3px;
 }
-header #main-category > ul > li > ul {
+#main-category > ul > li > ul {
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 20px;
@@ -80,42 +72,25 @@ header #main-category > ul > li > ul {
 	padding: 10px 0;
 	background-color: #fff;
 }
-header #main-category > ul > li:hover > ul {
+#main-category > ul > li:hover > ul {
 	display: block;
 }
-header #main-category > ul > li > ul > li {
+#main-category > ul > li > ul > li {
 	padding: 10px 0;
 }
-header #main-category > ul > li > ul > li:hover > a {
+#main-category > ul > li > ul > li:hover > a {
 	color: #4287f5;
 }
-.sticky {
-	position: fixed;
-	top: 0;
-	right: 0;
-	z-index: 9;
-}
-header #sub-category {
+#sub-category {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	position: absolute;
-	top: 64px;
-	right: 0;
-	z-index: 9;
 	padding-right: 50px;
 }
-.sticky-cart {
-	position: fixed;
-	top: 12px;
-	right: 0px;
-	padding-right: 50px;
-	z-index: 9;
-}
-header #sub-category .material-icons-outlined {
+#sub-category .material-icons-outlined {
 	font-size: 30px;
 	color: #4c4c4c;
 }
-header #sub-category:hover .material-icons-outlined {
+#sub-category:hover .material-icons-outlined {
 	color: #4287f5;
 }

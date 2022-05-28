@@ -1,5 +1,4 @@
 .container {
-	margin-top: 107px;
 	padding: 80px 0 40px;
 	display: flex;
 }
@@ -19,6 +18,10 @@
 .categories .s-category > li {
 	padding: 15px 15px;
 	border-bottom: 1px solid #e5e5e5;
+}
+.categories .s-category > li:hover {
+	color: #4287f5;
+	cursor: pointer;
 }
 .rankedproducts {
 	padding: 0 0 0 190px;
