@@ -1,25 +1,25 @@
-import { addCommas } from '/useful-functions.js';
+import { addCommas,createElement } from '/useful-functions.js';
 
 export function addTable(src, product, price, num, id) {
-	const cart = document.createElement('li');
+	const cart = createElement('li');
 	cart.classList.add('cart-item');
 
-	const checkboxDiv = document.createElement('div');
-	const checkbox = document.createElement('input');
+	const checkboxDiv = createElement('div');
+	const checkbox = createElement('input');
 	checkbox.type = 'checkbox';
 	checkbox.id = id;
 	checkbox.checked = true;
 	checkboxDiv.classList.add('check-btn-box', 'checkbox-btn');
 	checkboxDiv.append(checkbox);
 
-	const infoDiv = document.createElement('div');
+	const infoDiv = createElement('div');
 	infoDiv.classList.add('item-info');
 
-	const imageDiv = document.createElement('div');
-	const productInfoDiv = document.createElement('div');
-	const productName = document.createElement('p');
-	const productPrice = document.createElement('p');
-	const image = document.createElement('img');
+	const imageDiv = createElement('div');
+	const productInfoDiv = createElement('div');
+	const productName = createElement('p');
+	const productPrice = createElement('p');
+	const image = createElement('img');
 
 	imageDiv.classList.add('product_img');
 	image.src = src;
@@ -34,13 +34,13 @@ export function addTable(src, product, price, num, id) {
 
 	infoDiv.append(imageDiv, productInfoDiv);
 
-	const optionDiv = document.createElement('div')
-	const itemOption = document.createElement('div');
-	const quantityBox = document.createElement('div');
-	const minusBtn = document.createElement('div');
-	const quantity = document.createElement('label');
-	const inputNum = document.createElement('input');
-	const plusBtn = document.createElement('div');
+	const optionDiv = createElement('div')
+	const itemOption = createElement('div');
+	const quantityBox = createElement('div');
+	const minusBtn = createElement('div');
+	const quantity = createElement('label');
+	const inputNum = createElement('input');
+	const plusBtn = createElement('div');
 
 	optionDiv.classList.add('item-option-wrap')
 	itemOption.classList.add('item-option');
@@ -60,12 +60,12 @@ export function addTable(src, product, price, num, id) {
 	itemOption.append(quantityBox);
 	optionDiv.append(itemOption)
 
-	const buyWrap = document.createElement('div')
-	const itemBuy = document.createElement('div');
-	const buyBox = document.createElement('div');
-	const priceBox = document.createElement('div');
-	const itemPrice = document.createElement('div');
-	const buy_btn = document.createElement('button');
+	const buyWrap = createElement('div')
+	const itemBuy = createElement('div');
+	const buyBox = createElement('div');
+	const priceBox = createElement('div');
+	const itemPrice = createElement('div');
+	const buy_btn = createElement('button');
 
 	buyWrap.classList.add('item-buy-wrap')
 	itemBuy.classList.add('item-buy');
@@ -86,9 +86,9 @@ export function addTable(src, product, price, num, id) {
 }
 
 export function allPriceTable(allPrice) {
-	const priceInfoBox = document.createElement('div')
-	const info = document.createElement('strong')
-	const price = document.createElement('p')
+	const priceInfoBox = createElement('div')
+	const info = createElement('strong')
+	const price = createElement('p')
 	
 	priceInfoBox.classList.add('payment-price-info-box')
 	info.textContent = '총 결제 금액'

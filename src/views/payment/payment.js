@@ -3,11 +3,12 @@ import { loginMatch } from '/loginMatch.js'
 import { addTable } from '../cart/cartTable.js'
 import { Cart } from '/CartClass.js'
 import { addCommas } from '/useful-functions.js'
+import { getElement,getElementAll } from "/useful-functions.js";
 
-const fullNameInput = document.querySelector('#nameInput');
-const phoneNumberInput = document.querySelector('#phoneNumberInput');
-const addressInput = document.querySelector('#addressInput');
-const requestSelectBox = document.querySelector('#requestSelectBox')
+const fullNameInput = getElement('#nameInput');
+const phoneNumberInput = getElement('#phoneNumberInput');
+const addressInput = getElement('#addressInput');
+const requestSelectBox = getElement('#requestSelectBox')
 
 const order = new Cart();
 order.getBefore('order')
@@ -23,7 +24,7 @@ function addAllElements() {
 }
 
 function addAllEvents() {
-	const checkOutButton = document.querySelector("#checkoutButton")
+	const checkOutButton = getElement("#checkoutButton")
     // 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들고 
 	checkOutButton.addEventListener('click',payment)
 }
@@ -49,7 +50,7 @@ async function getUserInfo() {
 // 장바구니 랜더링
 function getOrder() {
 	const orderCart = JSON.parse(localStorage.getItem('order'))
-	const cartBox = document.querySelector('.cart-product-box')
+	const cartBox = getElement('.cart-product-box')
 
 	const cartList = document.createElement('ul');
 	cartList.classList.add('cart-seller-list');
@@ -60,8 +61,8 @@ function getOrder() {
 		cartBox.append(cartList);
 	});
 	
-	const minusBtn = document.querySelectorAll('.num_minus_btn');
-	const plusBtn = document.querySelectorAll('.num_plus_btn');
+	const minusBtn = getElementAll('.num_minus_btn');
+	const plusBtn = getElementAll('.num_plus_btn');
 	minusBtn.forEach((btn) => {
 		btn.addEventListener('click', updateNum);
 	});
@@ -75,23 +76,23 @@ function getOrder() {
 }
 // 결제정보 랜더링
 function getOrderPage() {
-	const orderTotal = document.querySelector('#orderTotal')
+	const orderTotal = getElement('#orderTotal')
 	orderTotal.textContent = `${addCommas(getAllPrice()+3000)}원`;
 
-	const orderProducts = document.querySelector('#productsTitle')
+	const orderProducts = getElement('#productsTitle')
 	orderProducts.textContent = getOrderProduct();
 
-	const productsTotal = document.querySelector('#productsTotal')
+	const productsTotal = getElement('#productsTotal')
 	productsTotal.textContent = `${addCommas(getAllPrice())}원`;
 }
 
 // 불필요한 부분 삭제
 function hideBox() {
-	const checkboxAll = document.querySelectorAll('.check-btn-box')
+	const checkboxAll = getElementAll('.check-btn-box')
 	checkboxAll.forEach(check=>{
 		check.classList.add('hide');
 	})
-	const orderBtn = document.querySelectorAll('.btn-item-buy')
+	const orderBtn = getElementAll('.btn-item-buy')
 	orderBtn.forEach((btn)=>{
 		btn.remove()
 	})
@@ -99,7 +100,7 @@ function hideBox() {
 
 // 주문상품 목록 출력
 function getOrderProduct() {
-	const checkBtnAll = document.querySelectorAll(
+	const checkBtnAll = getElementAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
 	let products = ''
@@ -112,7 +113,7 @@ function getOrderProduct() {
 
 // 상품금액 출력
 function getAllPrice() {
-	const checkBtnAll = document.querySelectorAll(
+	const checkBtnAll = getElementAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
 	let allPrice = 0;
@@ -126,7 +127,7 @@ function getAllPrice() {
 
 // 수량 업다운
 function updateNum(e) {
-	const cartList = document.querySelector('.cart-seller-list');
+	const cartList = getElement('.cart-seller-list');
 	const upDown = e.target.textContent;
 	const cartItem = e.target.closest('li');
 	const id = cartItem.querySelector(

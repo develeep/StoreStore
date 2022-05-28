@@ -3,14 +3,15 @@
 import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js';
 import { Cart } from '/CartClass.js';
+import { getElement,getElementAll } from "/useful-functions.js";
 
-const productImageTag = document.querySelector('#productImageTag');
-const manufacturerTag = document.querySelector('#manufacturerTag');
-const titleTag = document.querySelector('#titleTag');
-const priceTag = document.querySelector('#priceTag');
-const description = document.querySelector('#detailDescriptionTag');
-const addToCartButton = document.querySelector('#addToCartButton');
-const purchaseButton = document.querySelector('#purchaseButton');
+const productImageTag = getElement('#productImageTag');
+const manufacturerTag = getElement('#manufacturerTag');
+const titleTag = getElement('#titleTag');
+const priceTag = getElement('#priceTag');
+const description = getElement('#detailDescriptionTag');
+const addToCartButton = getElement('#addToCartButton');
+const purchaseButton = getElement('#purchaseButton');
 const cartItem = new Cart();
 
 getProductInfo();

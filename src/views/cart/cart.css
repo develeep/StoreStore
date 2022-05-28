@@ -46,7 +46,8 @@ ul {
   margin: 10px 0 20px;
 }
 
-.delete_btn a {
+.delete_btn button {
+  cursor: pointer;
   color: #4a4a4a;
   display: inline-block;
   width: 90px;
@@ -55,6 +56,12 @@ ul {
   border: 1px solid #d8d8d8;
   box-sizing: border-box;
   text-align: center;
+  transition: color 0.2s, border 0.2s, background 0.2s ease-in-out;
+}
+.delete_btn button:hover {
+  color: #ffffff;
+  background-color: #959292;
+  border: 1px solid #959292;
 }
 
 .order-btn-line {

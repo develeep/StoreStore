@@ -2,6 +2,7 @@ import { addTable, allPriceTable } from './cartTable.js';
 import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js';
 import { Cart } from '/CartClass.js';
+import { getElement,getElementAll } from "/useful-functions.js";
 
 const newCart = new Cart();
 const orderCart = new Cart();
@@ -19,9 +20,9 @@ async function addAllElements() {
 }
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-	const deleteChoice = document.querySelector('.delete_choice');
-	const deleteAllBtn = document.querySelector('.delete_all');
-	const orderBtn = document.querySelector('.order-btn');
+	const deleteChoice = getElement('.delete_choice');
+	const deleteAllBtn = getElement('.delete_all');
+	const orderBtn = getElement('.order-btn');
 	deleteChoice.addEventListener('click', delChoice);
 	deleteAllBtn.addEventListener('click', deleteAll);
 	orderBtn.addEventListener('click', goPayment);
@@ -30,11 +31,11 @@ function addAllEvents() {
 // 페이지 시작 or cart 변화 시 카트 정보를 가져와	나타내는 함수
 function getCart() {
 	const cart = JSON.parse(localStorage.getItem('cart'));
-	const deleteBtn = document.querySelector('.delete_btn');
-	const cartBox = document.querySelector('.container .cart-product-box');
-	const nullTable = document.querySelector('.null');
-	const orderBtn = document.querySelector('.order-btn-line');
-	const priceInfo = document.querySelector('.payment-price-info');
+	const deleteBtn = getElement('.delete_btn');
+	const cartBox = getElement('.container .cart-product-box');
+	const nullTable = getElement('.null');
+	const orderBtn = getElement('.order-btn-line');
+	const priceInfo = getElement('.payment-price-info');
 
 	if (!cart) {
 		// 장바구니가 없을시 장바구니를 추가해주라는 화면이 뜸
@@ -75,10 +76,10 @@ function getCart() {
 
 // 최초 시작시 요소 불러온 후 이벤트 설정
 function getEvent() {
-	const minusBtn = document.querySelectorAll('.num_minus_btn');
-	const plusBtn = document.querySelectorAll('.num_plus_btn');
-	const checkAll = document.querySelector('#check_all');
-	const buyBtn = document.querySelectorAll('.btn-item-buy');
+	const minusBtn = getElementAll('.num_minus_btn');
+	const plusBtn = getElementAll('.num_plus_btn');
+	const checkAll = getElement('#check_all');
+	const buyBtn = getElementAll('.btn-item-buy');
 
 	buyBtn.forEach(btn=>{
 		btn.addEventListener('click', orderOne);
@@ -97,8 +98,8 @@ function getEvent() {
 
 // 총합 가격 테이블 생성 함수
 function addAllPrice() {
-	const container = document.querySelector('.container');
-	const priceInfo = document.querySelector('.payment-price-info');
+	const container = getElement('.container');
+	const priceInfo = getElement('.payment-price-info');
 	const allPrice = getAllPrice();
 	const payment = allPriceTable(allPrice);
 
@@ -111,10 +112,10 @@ function addAllPrice() {
 
 // 체크된 항목 가격 불러오기 함수
 function getAllPrice() {
-	const checkBtnAll = document.querySelectorAll(
+	const checkBtnAll = getElementAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
-	const cartList = document.querySelector('.cart-seller-list');
+	const cartList = getElement('.cart-seller-list');
 	let allPrice = 0;
 
 	checkBtnAll.forEach((check) => {
@@ -129,8 +130,8 @@ function getAllPrice() {
 
 // 전체 체크 클릭시 체크박스들 전체 체크하는 함수
 function checkedAll() {
-	const checkAll = document.querySelector('#check_all');
-	const checkBtnAll = document.querySelectorAll(
+	const checkAll = getElement('#check_all');
+	const checkBtnAll = getElementAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
 	checkBtnAll.forEach((check) => {
@@ -148,8 +149,8 @@ function checkedAll() {
 
 // 체크박스 전체 선택 상태에서 만약 하나라도 체크박스가 체크가 풀리면 전체 체크 체크박스도 풀리는 함수
 function checkEvent() {
-	const checkAll = document.querySelector('#check_all');
-	const checkBtnAll = document.querySelectorAll(
+	const checkAll = getElement('#check_all');
+	const checkBtnAll = getElementAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
 	checkBtnAll.forEach((check) => {
@@ -176,10 +177,10 @@ function checkEvent() {
 // 선택된 항목을 삭제하는 함수
 function delChoice() {
 	let checking = false;
-	const checkBtnAll = document.querySelectorAll(
+	const checkBtnAll = getElementAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
-	const cartList = document.querySelector('.cart-seller-list');
+	const cartList = getElement('.cart-seller-list');
 	checkBtnAll.forEach((check) => {
 		if (check.checked) {
 			if (newCart.has(check.id)) {
@@ -209,7 +210,7 @@ function delChoice() {
 
 // 전체 항목 삭제 함수
 function deleteAll() {
-	const cartList = document.querySelector('.cart-seller-list');
+	const cartList = getElement('.cart-seller-list');
 	cartList.remove();
 	localStorage.removeItem('cart');
 	localStorage.removeItem('order');
@@ -219,7 +220,7 @@ function deleteAll() {
 
 // +,- 버튼에 따라 구매 수량이 변하는 함수
 function updateNum(e) {
-	const cartList = document.querySelector('.cart-seller-list');
+	const cartList = getElement('.cart-seller-list');
 	const upDown = e.target.textContent;
 	const cartItem = e.target.closest('li');
 	const id = cartItem.querySelector(

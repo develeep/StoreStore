@@ -27,3 +27,16 @@ export const convertToNumber = (string) => {
 export const wait = (ms) => {
   return new Promise((r) => setTimeout(r, ms));
 };
+
+// document.querySelect
+export const getElement = (selector)=>{
+  return document.querySelector(selector)
+}
+
+export const getElementAll = (selector)=>{
+  return document.querySelectorAll(selector)
+}
+
+export const createElement = (tag) => {
+  return document.createElement(tag)
+}
