@@ -1,13 +1,13 @@
 import { addCommas,createElement } from '/useful-functions.js';
 
-export function addTable(src, product, price, num, id) {
+export function addTable(cartObject) {
 	const cart = createElement('li');
 	cart.classList.add('cart-item');
 
 	const checkboxDiv = createElement('div');
 	const checkbox = createElement('input');
 	checkbox.type = 'checkbox';
-	checkbox.id = id;
+	checkbox.id = cartObject.id;
 	checkbox.checked = true;
 	checkboxDiv.classList.add('check-btn-box', 'checkbox-btn');
 	checkboxDiv.append(checkbox);
@@ -22,14 +22,14 @@ export function addTable(src, product, price, num, id) {
 	const image = createElement('img');
 
 	imageDiv.classList.add('product_img');
-	image.src = src;
+	image.src = cartObject.src;
 	imageDiv.append(image);
 
 	productInfoDiv.classList.add('product_info');
 	productName.classList.add('product_name');
 	productPrice.classList.add('product_price');
-	productName.textContent = `${product} / ${id}`;
-	productPrice.textContent = `${addCommas(price)}원`;
+	productName.textContent = `${cartObject.product} / ${cartObject.id}`;
+	productPrice.textContent = `${addCommas(cartObject.price)}원`;
 	productInfoDiv.append(productName, productPrice);
 
 	infoDiv.append(imageDiv, productInfoDiv);
@@ -51,7 +51,7 @@ export function addTable(src, product, price, num, id) {
 	inputNum.type = 'text';
 	inputNum.disabled = 'disabled';
 	inputNum.classList.add('input_num');
-	inputNum.value = num;
+	inputNum.value = cartObject.num;
 	plusBtn.classList.add('num_plus_btn');
 	plusBtn.textContent = '+';
 
@@ -72,7 +72,7 @@ export function addTable(src, product, price, num, id) {
 	buyBox.classList.add('btn-item-buy-box');
 	priceBox.classList.add('item-price-box');
 	itemPrice.classList.add('item-price');
-	itemPrice.textContent=`${addCommas(num * price)}원`;
+	itemPrice.textContent=`${addCommas(cartObject.num * cartObject.price)}원`;
 	buy_btn.classList.add('btn-item-buy');
 	buy_btn.textContent = '주문하기';
 
