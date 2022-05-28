@@ -109,7 +109,7 @@ ul {
 .hide {
   display: none;
 }
-.null-table {
+.empty-table {
   font-size: 24px;
   display: flex;
   justify-content: center;
