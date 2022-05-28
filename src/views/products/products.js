@@ -11,14 +11,26 @@ console.log(params);
 const getProductCategory = await Api.get(`/api/getProductCategory`, params);
 console.log(getProductCategory);
 
-makeCategory();
+addAllElements();
+addAllEvents();
+
+// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
+async function addAllElements() {
+	makeCategory();
+}
+
+// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
+function addAllEvents() {
+	toTopEl.addEventListener('click', toTopEvent);
+}
 
 // 상단으로 가는 버튼
-toTopEl.addEventListener('click', function () {
-	gsap.to(window, 0.7, {
-		scrollTo: 0,
+function toTopEvent() {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth',
 	});
-});
+}
 
 function makeCategory() {
 	for (let i = 0; i < getProductCategory.length; i++) {
