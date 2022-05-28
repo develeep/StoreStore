@@ -445,3 +445,7 @@ input[type="checkbox"] {
 .hide {
     display: none;
 }
+
+#writeOption {
+    width: 400px;
+}
