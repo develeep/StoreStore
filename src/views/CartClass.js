@@ -12,8 +12,8 @@ export class Cart {
 			return;
 		}
 		localCart.forEach((item) => {
-			this.add(item)
-      this.update(item)
+			this.add(item);
+			this.update(item);
 		});
 	}
 
@@ -30,13 +30,16 @@ export class Cart {
 		delete this.cart[id];
 	}
 
-  deleteAll(){
-    this.keys = new Set();
-    this.cart = {};
-  }
+	deleteAll() {
+		this.keys = new Set();
+		this.cart = {};
+	}
 
 	find(id) {
-		return this.cart[id];
+		if (this.has(id)) {
+			return this.cart[id];
+		}
+		return;
 	}
 
 	has(id) {
@@ -45,12 +48,8 @@ export class Cart {
 
 	update(item) {
 		if (this.has(item.id)) {
-      this.cart[item.id] = item;
+			this.cart[item.id] = item;
 		}
-	}
-
-	all() {
-		return this;
 	}
 
 	valueOf() {

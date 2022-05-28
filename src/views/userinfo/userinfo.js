@@ -24,7 +24,6 @@ addAllElements()
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-  loginMatch();
 }
 
 function addAllEvents() {
@@ -55,6 +54,7 @@ async function getUserInfo() {
 	} catch (err) {
 		console.error(err.stack);
 		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
+		location.href = '/'
 	}
 }
 
