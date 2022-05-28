@@ -18,7 +18,6 @@ addAllEvents();
 addAllElements();
 
 function addAllElements() {
-	loginMatch();
 }
 
 function addAllEvents() {

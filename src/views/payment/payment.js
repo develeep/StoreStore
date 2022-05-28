@@ -43,7 +43,7 @@ async function getUserInfo() {
 	} catch (err) {
 		console.error(err.stack);
 		alert(err.message);
-		location.href = '/login'
+		location.href = `/login/${['payment','']}`
 	}
 }
 // 장바구니 랜더링

@@ -25,7 +25,9 @@ const renderLogout = () => {
 
 const  renderLogin = () => {
 	const navBar = document.querySelector('#navbar');
-	const login = createA('/login', '로그인');
+	const params = location.href.trim().split('/')
+	params.splice(0,3) 
+	const login = createA(`/login/${params.length==1?'home':params}`, '로그인');
 	const register = createA('/register', '회원가입');
 	navBar.prepend(login, register);
 }
