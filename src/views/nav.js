@@ -36,9 +36,9 @@ function stickyNav() {
 }
 
 // 카테고리 api 가져오기
-const categorys = await Api.get('/api/getcategorys');
+const categories = await Api.get('/api/getcategorys');
 
-for (const [key, value] of Object.entries(categorys)) {
+for (const [key, value] of Object.entries(categories)) {
 	// console.log(`${key}: ${value}`);
 	let itemList = '';
 	for (let i of value) {

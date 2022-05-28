@@ -42,7 +42,8 @@ async function getUserInfo() {
 
 	} catch (err) {
 		console.error(err.stack);
-		alert(`회원정보를 받아오지 못했습니다.: ${err.message}`);
+		alert(err.message);
+		location.href = '/login'
 	}
 }
 // 장바구니 랜더링
