@@ -49,23 +49,23 @@ async function getUserInfo() {
 // 장바구니 랜더링
 function getOrder() {
 	const orderCart = JSON.parse(localStorage.getItem('order'))
-	const cart_box = document.querySelector('.cart-product-box')
+	const cartBox = document.querySelector('.cart-product-box')
 
 	const cartList = document.createElement('ul');
 	cartList.classList.add('cart-seller-list');
 
 	orderCart.forEach(({ src, product, price, num, id }) => {
-		const cart_item = addTable(src, product, price, num, id);
-		cartList.append(cart_item);
-		cart_box.append(cartList);
+		const cartItem = addTable(src, product, price, num, id);
+		cartList.append(cartItem);
+		cartBox.append(cartList);
 	});
 	
-	const minus_btn = document.querySelectorAll('.num_minus_btn');
-	const plus_btn = document.querySelectorAll('.num_plus_btn');
-	minus_btn.forEach((btn) => {
+	const minusBtn = document.querySelectorAll('.num_minus_btn');
+	const plusBtn = document.querySelectorAll('.num_plus_btn');
+	minusBtn.forEach((btn) => {
 		btn.addEventListener('click', updateNum);
 	});
-	plus_btn.forEach((btn) => {
+	plusBtn.forEach((btn) => {
 		btn.addEventListener('click', updateNum);
 	});
 
@@ -99,11 +99,11 @@ function hideBox() {
 
 // 주문상품 목록 출력
 function getOrderProduct() {
-	const check_btn_all = document.querySelectorAll(
+	const checkBtnAll = document.querySelectorAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
 	let products = ''
-	check_btn_all.forEach((check)=>{
+	checkBtnAll.forEach((check)=>{
 		const cart = order.find(check.id)
 		products += cart.product + ' / '
 	})
@@ -112,11 +112,11 @@ function getOrderProduct() {
 
 // 상품금액 출력
 function getAllPrice() {
-	const check_btn_all = document.querySelectorAll(
+	const checkBtnAll = document.querySelectorAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
 	let allPrice = 0;
-	check_btn_all.forEach((check) => {
+	checkBtnAll.forEach((check) => {
 			const id = check.id;
 			const cart = order.find(id);
 			allPrice += cart.price * cart.num;
@@ -128,8 +128,8 @@ function getAllPrice() {
 function updateNum(e) {
 	const cartList = document.querySelector('.cart-seller-list');
 	const upDown = e.target.textContent;
-	const cart_item = e.target.closest('li');
-	const id = cart_item.querySelector(
+	const cartItem = e.target.closest('li');
+	const id = cartItem.querySelector(
 		'.check-btn-box input[type="checkbox"]',
 	).id;
 	const item = order.find(id);
