@@ -9,10 +9,13 @@ const fullNameInput = getElement('#nameInput');
 const phoneNumberInput = getElement('#phoneNumberInput');
 const addressInput = getElement('#addressInput');
 const requestSelectBox = getElement('#requestSelectBox');
+<<<<<<< HEAD
 const writeOption = getElement("#writeOption");
 const writeOptionSaveButton = getElement('#writeOptionSaveButton');
 
 let selectResult = "";
+=======
+>>>>>>> f907767e7e1d0a4b624766c25befe566939f9d98
 
 const order = new Cart();
 order.getBefore('order');
@@ -27,12 +30,18 @@ function addAllElements() {
 }
 
 function addAllEvents() {
+<<<<<<< HEAD
 	const checkOutButton = document.querySelector("#checkoutButton")
     // 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
 	checkOutButton.addEventListener('click', payment)
 	// 요청사항
 	requestSelectBox.addEventListener('change', selectWrite);
 	writeOptionSaveButton.addEventListener('click', saveWriteOption);
+=======
+	const checkOutButton = getElement('#checkoutButton');
+	// 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들고
+	checkOutButton.addEventListener('click', payment);
+>>>>>>> f907767e7e1d0a4b624766c25befe566939f9d98
 }
 
 // 1. 화면 로딩 시 주문자 정보 렌더링
@@ -42,11 +51,18 @@ async function getUserInfo() {
 		fullNameInput.value = userData.fullName;
 		if (userData.phoneNumber) {
 			phoneNumberInput.value = userData.phoneNumber;
+<<<<<<< HEAD
 		}
 		if (userData.address) {
 			addressInput.value = Object.values(userData.address).join(' ');
 		}
 		selectWrite();
+=======
+		}
+		if (userData.address) {
+			addressInput.value = Object.values(userData.address).join(' ');
+		}
+>>>>>>> f907767e7e1d0a4b624766c25befe566939f9d98
 	} catch (err) {
 		console.error(err.stack);
 		alert(err.message);
@@ -185,15 +201,30 @@ function saveWriteOption(e) {
 async function payment(e) {
 	e.preventDefault();
 
+<<<<<<< HEAD
 	const order = JSON.parse(localStorage.getItem('order'))
+=======
+	const order = JSON.parse(localStorage.getItem('order'));
+	const options = requestSelectBox.selectedOptions;
+	const requestSelect = options[0].label;
+>>>>>>> f907767e7e1d0a4b624766c25befe566939f9d98
 	const data = {
 		nameInput: fullNameInput.value,
 		addressInput: addressInput.value,
 		phoneNumberInput: phoneNumberInput.value,
+<<<<<<< HEAD
 		requestSelectBox: selectResult,
 		orderProducts: order
 	}
 	console.log(data)
 	const result = await Api.post('/api/orderadd',data)
 	console.log(result)
+=======
+		requestSelectBox: requestSelect,
+		orderProducts: order,
+	};
+	console.log(data);
+	const result = await Api.post('/api/orderadd', data);
+	console.log(result);
+>>>>>>> f907767e7e1d0a4b624766c25befe566939f9d98
 }

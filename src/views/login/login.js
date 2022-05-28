@@ -50,7 +50,22 @@ async function handleSubmit(e) {
     // 로그인 성공
 
     // 기본 페이지로 이동
-    window.location.href = '/';
+    const loc = location.href.split('/')
+    const params = loc[loc.length - 2].split(',')
+
+    if(params === 'home'){
+      location.href = '/'
+    }
+    else if(params.length == 2){
+      location.href = `/${params[0]}`
+    }
+    else if(params.length > 2){
+      location.href = `/${params[0]}/${params[1]}`
+    }
+    else{
+      location.href = '/'
+    }
+    
   } catch (err) {
     console.error(err.stack);
     alert(err.message);
