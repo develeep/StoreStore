@@ -73,11 +73,11 @@ export function addTable(cartObject) {
 	priceBox.classList.add('item-price-box');
 	itemPrice.classList.add('item-price');
 	itemPrice.textContent=`${addCommas(cartObject.num * cartObject.price)}원`;
-	buy_btn.classList.add('btn-item-buy');
-	buy_btn.textContent = '주문하기';
+	buyBtn.classList.add('btn-item-buy');
+	buyBtn.textContent = '주문하기';
 
 	priceBox.append(itemPrice);
-	buyBox.append(priceBox, buy_btn);
+	buyBox.append(priceBox, buyBtn);
 	itemBuy.append(buyBox);
 	buyWrap.append(itemBuy)
 
