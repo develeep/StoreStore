@@ -29,7 +29,8 @@ function getCart() {
 	const cart_box = document.querySelector('.container .cart-product-box');
 	const nullTable = document.querySelector('.null');
 	const order_btn = document.querySelector('.order-btn-line');
-  const priceInfo = document.querySelector('.payment-price-info')
+    const priceInfo = document.querySelector('.payment-price-info');
+	const purchaseButton = document.querySelector('.order-btn');
 
 	if (!cart) {
 		// 장바구니가 없을시 장바구니를 추가해주라는 화면이 뜸
@@ -64,6 +65,9 @@ function getCart() {
   addAllPrice();
 
 	getEvent();
+
+	purchaseButton.addEventListener('click', purchase);
+
 }
 
 
@@ -245,4 +249,10 @@ function createExamData() {
 	console.log(cart.all());
 	cart.update(item4);
 	console.log(cart.valueOf());
+}
+
+// 주문하기 버튼 클릭 시 페이지 이동
+function purchase() {
+	// 구매 페이지로 이동
+	window.location.href = '/payment';
 }
