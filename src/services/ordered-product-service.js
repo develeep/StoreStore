@@ -8,6 +8,12 @@ class OrderedProductService {
 		this.orderedProductModel = orderedProductModel;
 	}
 
+	//테스트
+	async findByOrderId(orderId) {
+		const orders = await this.orderedProductModel.findByOrderId(orderId);
+		return orders;
+	}
+
 	// 주문상품목록 추가
 	async addOrderedProduct(orderInfo) {
 		// 객체 destructuring
@@ -40,12 +46,6 @@ class OrderedProductService {
 	async deleteOrderedProduct(orderId) {
 		await this.orderedProductModel.delete(orderId);
 		return;
-	}
-
-	// 주문 비용 총합 계산
-	async getPriceSum(orderId) {
-		const priceSum = await this.orderedProductModel.getPriceSum(orderId);
-		return priceSum;
 	}
 }
 
