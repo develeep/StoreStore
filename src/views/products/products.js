@@ -5,10 +5,13 @@ const inputProduct = document.getElementById('inputProduct');
 const subCategory = document.getElementById('s-category');
 const title = document.getElementById('title');
 
-const rankedproducts = await Api.get('/api/rankedproducts');
-console.log(rankedproducts);
+let params = location.href.split('/');
+params = params[params.length - 2];
+console.log(params);
+const getProductCategory = await Api.get(`/api/getProductCategory`, params);
+console.log(getProductCategory);
 
-makeRank();
+makeCategory();
 
 // 상단으로 가는 버튼
 toTopEl.addEventListener('click', function () {
@@ -17,13 +20,13 @@ toTopEl.addEventListener('click', function () {
 	});
 });
 
-function makeRank() {
-	for (let i = 0; i < rankedproducts.length; i++) {
-		const image = rankedproducts[i].imageUrl;
-		const seller = rankedproducts[i].company;
-		const productDescription = rankedproducts[i].name;
-		const price = rankedproducts[i].price;
-		const productId = rankedproducts[i].productId;
+function makeCategory() {
+	for (let i = 0; i < getProductCategory.length; i++) {
+		const image = getProductCategory[i].imageUrl;
+		const seller = getProductCategory[i].company;
+		const productDescription = getProductCategory[i].name;
+		const price = getProductCategory[i].price;
+		const productId = getProductCategory[i].productId;
 		//원화 변경
 		const priceKRW = price.toLocaleString('ko-KR');
 
@@ -43,5 +46,20 @@ function makeRank() {
 	</div>
 	</div>
 	</div>`;
+	}
+}
+
+// 카테고리 api 가져오기
+const categorys = await Api.get('/api/getcategorys');
+console.log(categorys);
+
+const findSubCategory = getProductCategory[0].category.name; //구두
+for (const [key, value] of Object.entries(categorys)) {
+	const found = value.indexOf(findSubCategory);
+	if (found === 0) {
+		title.innerHTML = `<h1>${key}</h1>`;
+		for (let i = 0; i < value.length; i++) {
+			subCategory.innerHTML += `<li>${value[i]}</li>`;
+		}
 	}
 }

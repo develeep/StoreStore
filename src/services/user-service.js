@@ -89,7 +89,7 @@ class UserService {
 	}
 	// 사용자 정보 수집
 	async getUserInfo(userId) {
-		console.log(userId);
+		// console.log(userId);
 		const userInfo = await this.userModel.findById(userId);
 		return userInfo;
 	}
@@ -104,7 +104,6 @@ class UserService {
 		}
 		// 업데이트 진행
 		const user = await this.userModel.update({
-			userId: userId,
 			userId,
 			update: toUpdate,
 		});

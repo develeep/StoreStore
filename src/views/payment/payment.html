@@ -66,82 +66,115 @@
     </nav>
     <!-- 결제화면 -->
     <div class="block account-header">
-        <h1 class="title">주문상품</h1>
+        <h1 class="title">주문결제</h1>
     </div>
     <div class="container">
       <div>
         <h3 class="title">주문상품</h3>
-      </div>
-      <div class="orderTable">
-        <div class="orderTableRowGroup">
-          <div class="orderTableTitle">
-            <div class="orderTableCell">주문번호</div>
-            <div class="orderTableCell">주문상품</div>
-            <div class="orderTableCell">옵션</div>
-            <div class="orderTableCell">가격</div>
-            <div class="orderTableCell">총 금액</div>
-          </div>
-        </div>
-        <div class="orderTableRow">
-          <!-- 예시 데이터. 실제로는 DB에서 장바구니+현재물건 가져옴 -->
-          <div class="orderTableCell" id="orderNumber">asdf1</div>
-          <div class="orderTableCell" id="orderInfo">알록달록 티셔츠</div>
-          <div class="orderTableCell" id="orderState">1</div>
-          <div class="orderTableCell" id="orderSignUp">30000</div>
-          <div class="orderTableCell" id="orderTotalPrice">30000</div>
+        <div  class="cart-product-box ">
+          <div class="tit-box">
+            <p class="product-info-cell">상품정보</p> 
+            <p class="product-option-cell">옵션</p> 
+            <p class="product-price-cell">상품금액</p>
+          </div> 
         </div>
       </div>
+      
       <div>
           <h3 class="title">주문자 정보</h3>
       </div>
-      <!-- 아직 테이블 미완성. 테이블 형식으로 만들다 시간이 부족해서 텍스트-input 형태로 작성 -->
-      <!-- <div class="userTable">
-          <div class="userTableColGroup">
-            <div class="userTableTitle">
-              <div class="userTableCell">이름</div>
-              <div class="userTableCell">주소</div>
-              <div class="userTableCell">전화번호</div>
-              <div class="userTableCell">이메일</div>
-            </div>
-          </div>
-          <div class="userTableRow">
-            예시 데이터. 실제로는 DB에서 장바구니+현재물건 가져옴
-            <div class="userTableCell" id="orderNumber"><input type="text"></div>
-            <div class="userTableCell" id="orderInfo"><input type="text"></div>
-            <div class="userTableCell" id="orderState"><input type="text"></div>
-            <div class="userTableCell" id="orderSignUp"><input type="text"></div>
-            <div class="userTableCell" id="orderTotalPrice"><input type="text"></div>
-          </div>
-        </div> -->
-        <div class="menu-container">
+        <div class="box delivery-info">
             <div class="form-container">
                 <form id="loginForm">
-                    <div class="field">
+                    <div class="field is-horizontal">
                         <label class="label">이름</label>
                         <div class="control">
                             <input type="text" id="nameInput" disabled>
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="field is-horizontal">
                         <label class="label">주소</label>
                         <input type="text" id="addressInput" disabled>
                     </div>
-                    <div class="field">
+                    <div class="field is-horizontal">
                         <label class="label">전화번호</label>
                         <div class="control">
                             <input type="text" id="phoneNumberInput" disabled>
                         </div>
                     </div>
-                    <div class="field">
-                        <label class="label">이메일</label>
-                        <div class="control">
-                            <input type="text" id="emailInput" disabled>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">요청사항</label>
                         </div>
-                        <!-- <div class="misspass-message hide">비밀번호가 일치하지 않습니다
-                        </div> -->
+                        <div class="field-body">
+                            <div class="select">
+                                <select id="requestSelectBox">
+                                    <option value="0">배송시 요청사항을 선택해 주세요.</option>
+                                    <option value="1" class="select-option">직접 수령하겠습니다.</option>
+                                    <option value="2" class="select-option">배송 전 연락바랍니다.</option>
+                                    <option value="3" class="select-option">부재 시 경비실에 맡겨주세요.</option>
+                                    <option value="4" class="select-option">부재 시 문 앞에 놓아주세요.</option>
+                                    <option value="5" class="select-option">부재 시 택배함에 넣어주세요.</option>
+                                    <option value="6" class="select-option">직접 입력</option>
+                                </select>
+                            </div>
+                            <div>
+                              <input type="text" id="writeOption" hidden>
+                            </div>
+                        </div>
+                        <div>
+                          <button id="writeOptionSaveButton" hidden>저장</button>
+                        </div>
                     </div>
-                    <div>
-                        <button id="signUpButton">결제하기</button>
+                    <div class="field is-horizontal custom-request" id="customRequestContainer">
+                        <div class="field-label is-normal no-label"></div>
+                        <div class="field-body">
+                          <div class="field">
+                            <p class="control">
+                            <input
+                                class="input"
+                                id="customRequest"
+                                type="text"
+                                maxlength="50"
+                                placeholder="최대 50자 입력이 가능합니다."
+                                autocomplete="on"
+                            />
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                        <!-- 주문 정보 요약 -->
+                    <div class="tile is-parent tile-order-summary">
+                        <div class="box order-summary">
+                            <div class="header">
+                                <p>결제정보</p>
+                            </div>
+                            <div class="order-info">
+                                <div class="info">
+                                <p>주문상품</p>
+                                <p class="products-title" id="productsTitle"></p>
+                                </div>
+                                <div class="info">
+                                <p>상품총액</p>
+                                <p id="productsTotal"></p>
+                                </div>
+                                <div class="info">
+                                <p>배송비</p>
+                                <p id="deliveryFee">3,000원</p>
+                                </div>
+                            </div>
+                            <div class="total">
+                                <p class="total-label">총 결제금액</p>
+                                <p class="total-price" id="orderTotal"></p>
+                            </div>
+                            <div class="purchase">
+                                <button class="button is-info" id="checkoutButton">
+                                결제하기
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -1,9 +1,12 @@
-import { addTable,allPriceTable } from './cartTable.js';
+import { addTable, allPriceTable } from './cartTable.js';
 import * as Api from '/api.js';
 import { loginMatch } from '/loginMatch.js';
 import { Cart } from '/CartClass.js';
 
 const newCart = new Cart();
+const orderCart = new Cart();
+orderCart.getBefore('cart');
+localStorage.setItem('order', orderCart.valueOf());
 
 addAllElements();
 
@@ -18,8 +21,10 @@ async function addAllElements() {
 function addAllEvents() {
 	const delete_choice = document.querySelector('.delete_choice');
 	const deleteAll_btn = document.querySelector('.delete_all');
+	const order_btn = document.querySelector('.order-btn');
 	delete_choice.addEventListener('click', delChoice);
 	deleteAll_btn.addEventListener('click', deleteAll);
+	order_btn.addEventListener('click', goPayment);
 }
 
 // 페이지 시작 or cart 변화 시 카트 정보를 가져와	나타내는 함수
@@ -29,7 +34,7 @@ function getCart() {
 	const cart_box = document.querySelector('.container .cart-product-box');
 	const nullTable = document.querySelector('.null');
 	const order_btn = document.querySelector('.order-btn-line');
-  const priceInfo = document.querySelector('.payment-price-info')
+	const priceInfo = document.querySelector('.payment-price-info');
 
 	if (!cart) {
 		// 장바구니가 없을시 장바구니를 추가해주라는 화면이 뜸
@@ -38,19 +43,21 @@ function getCart() {
 		nullTable.classList.add('null-table');
 		delete_btn.classList.add('hide');
 		order_btn.classList.add('hide');
-    priceInfo.classList.add('hide')
+		priceInfo.classList.add('hide');
 		return;
 	}
 	// newCart에 아이템 추가(변경사항 있을시)
-	newCart.getBefore();
+	newCart.getBefore('cart');
+	// orderCart에 아이템 추가
+	orderCart.getBefore('order');
 
 	// 장바구니가 있을시 장바구니 화면 띄움
 	cart_box.classList.remove('hide');
 	delete_btn.classList.remove('hide');
 	order_btn.classList.remove('hide');
-  priceInfo.classList.remove('hide')
+	priceInfo.classList.remove('hide');
 
-  // 장바구니 목록 생성
+	// 장바구니 목록 생성
 	const cartList = document.createElement('ul');
 	cartList.classList.add('cart-seller-list');
 
@@ -60,60 +67,67 @@ function getCart() {
 		cart_box.append(cartList);
 	});
 
-  // 총 합 가격 생성
-  addAllPrice();
+	// 총 합 가격 생성
+	addAllPrice();
 
 	getEvent();
-}
 
+	purchaseButton.addEventListener('click', purchase);
+
+}
 
 // 최초 시작시 요소 불러온 후 이벤트 설정
 function getEvent() {
-  const minus_btn = document.querySelectorAll('.num_minus_btn');
+	const minus_btn = document.querySelectorAll('.num_minus_btn');
 	const plus_btn = document.querySelectorAll('.num_plus_btn');
 	const check_all = document.querySelector('#check_all');
-  
-	check_all.addEventListener('click', checkAll);
+	const buyBtn = document.querySelectorAll('.btn-item-buy');
+
+	buyBtn.forEach(btn=>{
+		btn.addEventListener('click', orderOne);
+	})
+	
+
+	check_all.addEventListener('change', checkAll);
 	check_event();
 	minus_btn.forEach((btn) => {
-    btn.addEventListener('click', updateNum);
+		btn.addEventListener('click', updateNum);
 	});
 	plus_btn.forEach((btn) => {
-    btn.addEventListener('click', updateNum);
+		btn.addEventListener('click', updateNum);
 	});
-  
 }
 
 // 총합 가격 테이블 생성 함수
-function addAllPrice(){
-  const container = document.querySelector('.container');
-  const priceInfo = document.querySelector('.payment-price-info')
-  const allPrice = getAllPrice();
-  const payment = allPriceTable(allPrice);
+function addAllPrice() {
+	const container = document.querySelector('.container');
+	const priceInfo = document.querySelector('.payment-price-info');
+	const allPrice = getAllPrice();
+	const payment = allPriceTable(allPrice);
 
-  if(priceInfo.childElementCount != 0){
-    priceInfo.querySelector('.payment-price-info-box').remove();
-  }
+	if (priceInfo.childElementCount != 0) {
+		priceInfo.querySelector('.payment-price-info-box').remove();
+	}
 
-  priceInfo.append(payment);
+	priceInfo.append(payment);
 }
 
 // 체크된 항목 가격 불러오기 함수
 function getAllPrice() {
-  const check_btn_all = document.querySelectorAll(
-    '.check-btn-box input[type="checkbox"]',
-  );
-  const cartList = document.querySelector('.cart-seller-list');
-  let allPrice = 0;
+	const check_btn_all = document.querySelectorAll(
+		'.check-btn-box input[type="checkbox"]',
+	);
+	const cartList = document.querySelector('.cart-seller-list');
+	let allPrice = 0;
 
 	check_btn_all.forEach((check) => {
 		if (check.checked) {
-	    const id = check.id;
-      const cart = newCart.find(id)
-      allPrice += cart.price * cart.num
+			const id = check.id;
+			const cart = newCart.find(id);
+			allPrice += cart.price * cart.num;
 		}
 	});
-  return allPrice;
+	return allPrice;
 }
 
 // 전체 체크 클릭시 체크박스들 전체 체크하는 함수
@@ -125,6 +139,14 @@ function checkAll() {
 	check_btn_all.forEach((check) => {
 		check.checked = check_all.checked;
 	});
+	if (check_all.checked) {
+		orderCart.getBefore('cart');
+		localStorage.setItem('order', orderCart.valueOf());
+	} else {
+		orderCart.deleteAll();
+		localStorage.setItem('order', orderCart.valueOf());
+	}
+	addAllPrice()
 }
 
 // 체크박스 전체 선택 상태에서 만약 하나라도 체크박스가 체크가 풀리면 전체 체크 체크박스도 풀리는 함수
@@ -135,17 +157,28 @@ function check_event() {
 	);
 	check_btn_all.forEach((check) => {
 		check.addEventListener('change', () => {
-			if (check.checked == false) {
+			if (!check.checked) {
 				check_all.checked = false;
+				if (orderCart.has(check.id)) {
+					orderCart.delete(check.id);
+				}
+			} else {
+				const item = newCart.find(check.id);
+				orderCart.add(item);
+				if (newCart.value().length === orderCart.value().length) {
+					check_all.checked = true;
+				}
 			}
-      addAllPrice()
+
+			localStorage.setItem('order', orderCart.valueOf());
+			addAllPrice();
 		});
 	});
 }
 
 // 선택된 항목을 삭제하는 함수
 function delChoice() {
-  let checking = false;
+	let checking = false;
 	const check_btn_all = document.querySelectorAll(
 		'.check-btn-box input[type="checkbox"]',
 	);
@@ -155,21 +188,24 @@ function delChoice() {
 			if (newCart.has(check.id)) {
 				newCart.delete(check.id);
 			}
-      checking = true;
+			checking = true;
 		}
 	});
-  if(!checking){
-    alert('물품을 선택해 주세요.')
-    return
-  }
+	if (!checking) {
+		alert('물품을 선택해 주세요.');
+		return;
+	}
 	cartList.remove();
 	alert('선택된 물품이 삭제외었습니다.');
-
 	if (JSON.parse(newCart.valueOf()).length === 0) {
 		localStorage.removeItem('cart');
+		localStorage.removeItem('order');
 		getCart();
 	} else {
 		localStorage.setItem('cart', newCart.valueOf());
+		orderCart.deleteAll();
+		orderCart.getBefore('cart');
+		localStorage.setItem('order', orderCart.valueOf());
 		getCart();
 	}
 }
@@ -179,6 +215,7 @@ function deleteAll() {
 	const cartList = document.querySelector('.cart-seller-list');
 	cartList.remove();
 	localStorage.removeItem('cart');
+	localStorage.removeItem('order');
 	alert('장바구니가 삭제되었습니다.');
 	getCart();
 }
@@ -188,7 +225,9 @@ function updateNum(e) {
 	const cartList = document.querySelector('.cart-seller-list');
 	const upDown = e.target.textContent;
 	const cart_item = e.target.closest('li');
-	const id = cart_item.querySelector('.check-btn-box input[type="checkbox"]').id;
+	const id = cart_item.querySelector(
+		'.check-btn-box input[type="checkbox"]',
+	).id;
 	const item = newCart.find(id);
 
 	if (upDown == '-') {
@@ -202,10 +241,22 @@ function updateNum(e) {
 
 	newCart.update(item);
 	localStorage.setItem('cart', newCart.valueOf());
+	orderCart.getBefore('cart');
+	localStorage.setItem('order', orderCart.valueOf());
 	cartList.remove();
 	getCart();
 }
 
+function orderOne(e) {
+	const li = e.target.closest('li');
+	const productId = li.querySelector(
+		'.check-btn-box input[type="checkbox"]',
+	).id;
+	const cart = newCart.find(productId);
+	const arr = [cart];
+	localStorage.setItem('order', JSON.stringify(arr));
+	window.location.href = '/payment';
+}
 // 임시 카트 데이터 생성 함수
 function createExamData() {
 	const cart = new Cart();
@@ -245,4 +296,12 @@ function createExamData() {
 	console.log(cart.all());
 	cart.update(item4);
 	console.log(cart.valueOf());
+}
+
+function goPayment() {
+	if(getAllPrice()==0){
+		alert('물품을 선택해 주세요')
+		return;
+	}
+	location.href = '/payment';
 }
