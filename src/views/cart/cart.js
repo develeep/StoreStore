@@ -33,7 +33,7 @@ function getCart() {
 	const cart = JSON.parse(localStorage.getItem('cart'));
 	const deleteBtn = getElement('.delete_btn');
 	const cartTable = getElement('.container .cart-product-box');
-	const emptyTable = getElement('.empty-table');
+	const emptyTable = getElement('.empty');
 	const orderBtn = getElement('.order-btn-line');
 	const priceInfo = getElement('.payment-price-info');
 
@@ -44,6 +44,7 @@ function getCart() {
 		deleteBtn.classList.add('hide');
 		orderBtn.classList.add('hide');
 		priceInfo.classList.add('hide');
+		emptyTable.classList.add('empty-table')
 		return;
 	}
 	// newCart에 아이템 추가(변경사항 있을시)
