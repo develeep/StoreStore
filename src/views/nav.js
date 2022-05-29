@@ -1,7 +1,6 @@
 import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 
-// 요소(element), input 혹은 상수
 const inputCategory = document.getElementById('input-category');
 
 addAllElements();
@@ -18,15 +17,14 @@ function addAllEvents() {}
 // 카테고리 api 가져오기
 const categories = await Api.get('/api/getcategorys');
 
-for (const [key, value] of Object.entries(categories)) {
-	// console.log(`${key}: ${value}`);
+Object.entries(categories).forEach(([key, value]) => {
 	let itemList = '';
 	for (let i of value) {
 		itemList += `<li><a href="/products/${i}">${i}</a></li>`;
 	}
-	inputCategory.innerHTML += `<li><a href="/products/${key}">${key}</a>
+	inputCategory.innerHTML += `<li class="main-Category-li"><a href="/products/${key}" class="aTag">${key}</a>
 	<ul>
 	${itemList}
 	</ul>
 </li>`;
-}
+});

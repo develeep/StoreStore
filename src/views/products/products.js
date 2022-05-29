@@ -7,9 +7,8 @@ const title = document.getElementById('title');
 
 let params = location.href.split('/');
 params = params[params.length - 2];
-console.log(params);
+// console.log(params);
 const getProductCategory = await Api.get(`/api/getProductCategory`, params);
-console.log(getProductCategory);
 
 addAllElements();
 addAllEvents();
@@ -17,6 +16,7 @@ addAllEvents();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	makeCategory();
+	checkCategory();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -62,16 +62,27 @@ function makeCategory() {
 }
 
 // 카테고리 api 가져오기
-const categorys = await Api.get('/api/getcategorys');
-console.log(categorys);
+const categories = await Api.get('/api/getcategorys');
 
 const findSubCategory = getProductCategory[0].category.name; //구두
-for (const [key, value] of Object.entries(categorys)) {
+
+for (const [key, value] of Object.entries(categories)) {
 	const found = value.indexOf(findSubCategory);
 	if (found === 0) {
 		title.innerHTML = `<h1>${key}</h1>`;
 		for (let i = 0; i < value.length; i++) {
 			subCategory.innerHTML += `<li>${value[i]}</li>`;
 		}
+	}
+}
+
+// 현재페이지 카테고리에 .current class 추가
+const categoryLi = document.querySelectorAll('.main-Category-li');
+const aTag = document.querySelectorAll('.aTag');
+
+for (let i = 0; i < categoryLi.length; i++) {
+	const categoryLiText = categoryLi[i].textContent;
+	if (categoryLiText.includes(title.textContent) === true) {
+		aTag[i].classList.add('current');
 	}
 }
