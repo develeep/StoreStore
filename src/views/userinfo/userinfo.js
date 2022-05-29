@@ -23,12 +23,22 @@ async function addAllElements() {
 
 function addAllEvents() {
 	renderGnb();
-	getUserInfo();
+	renderUserInfo();
 	updatePasswordButton.addEventListener('click', updatePassword);
 	saveButton.addEventListener('click', updateUser);
 }
 
-async function getUserInfo() {
+function updatePassword(e) {
+	e.preventDefault();
+
+	updatePasswordButton.style.display = "none";
+	passwordInput.style.display = "block";
+	passwordConfirmLabel.style.display = "block";
+	passwordConfirmInput.style.display = "block";
+}
+
+// 페이지 로드 시 저장된 유저 정보를 화면에 띄우는 함수
+async function renderUserInfo() {
 	try {
 		const userData = await Api.get('/api/update');
 		console.log(userData)
@@ -52,15 +62,6 @@ async function getUserInfo() {
 	}
 }
 
-function updatePassword(e) {
-	e.preventDefault();
-
-	updatePasswordButton.style.display = "none";
-	passwordInput.style.display = "block";
-	passwordConfirmLabel.style.display = "block";
-	passwordConfirmInput.style.display = "block";
-}
-
 // 성공했을 때만 유저 객체 생성
 async function updateUser(e){
     e.preventDefault();
@@ -72,7 +73,7 @@ async function updateUser(e){
     const address2 = detailAddressDiv.value;
 	const phoneNumber = phoneNumberInput.value;
     
-	// 각 요소가 있을 때
+	// 존재하는 개인정보 요소를 validation 진행
 	if (fullName) {
 		console.log(fullName);
 		const isFullNameValid = fullName.length >= 2;
@@ -91,7 +92,6 @@ async function updateUser(e){
 		}
 	}
 	if (phoneNumber) {
-		// 전화번호가 유효한지 확인하는 함수. -(하이픈) 유무에 상관없게 작성함.
 		if (!(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneNumber))) {
 			return alert('유효하지 않은 전화번호입니다.');
 		}
