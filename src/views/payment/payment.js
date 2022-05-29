@@ -17,9 +17,7 @@ let selectResult = "";
 const order = new Cart();
 order.getStore('order');
 
-getOrder();
 addAllEvents();
-getUserInfo();
 addAllElements();
 
 function addAllElements() {
@@ -27,6 +25,8 @@ function addAllElements() {
 }
 
 function addAllEvents() {
+	getOrder();
+	getUserInfo();
 	const checkOutButton = document.querySelector("#checkoutButton")
     // 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
 	checkOutButton.addEventListener('click', payment)
