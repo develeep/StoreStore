@@ -95,3 +95,6 @@
 	right: 30px;
 	z-index: 9;
 }
+.current {
+	color: #4287f5;
+}

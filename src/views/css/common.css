@@ -94,3 +94,7 @@ h1 {
 #sub-category:hover .material-icons-outlined {
 	color: #4287f5;
 }
+
+.current {
+	color: #4287f5;
+}
