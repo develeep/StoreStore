@@ -50,7 +50,6 @@ function addToCart() {
 		// await Api.patch("/api/update", "", )
 		addCart();
 		// await Api.patch("/api/update","", item_lsd2TYkEnNLNgUXwszw5K);
-		alert('장바구니에 상품이 정상적으로 추가되었습니다.');
 	} catch (err) {
 		console.error(err.stack);
 		alert(
