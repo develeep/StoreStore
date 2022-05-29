@@ -1,4 +1,4 @@
-import { loginMatch } from '/loginMatch.js'
+import { renderGnb } from '/renderGnb.js'
 import * as Api from '/api.js'
 
 const submitButton = document.querySelector('#submitButton');

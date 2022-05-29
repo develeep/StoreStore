@@ -1,12 +1,12 @@
 import { addTable, allPriceTable } from './cartTable.js';
 import * as Api from '/api.js';
-import { loginMatch } from '/loginMatch.js';
+import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
 import { getElement, getElementAll } from '/useful-functions.js';
 
 const newCart = new Cart();
 const orderCart = new Cart();
-orderCart.getBefore('cart');
+orderCart.getStore('cart');
 localStorage.setItem('order', orderCart.valueOf());
 
 addAllElements();
@@ -15,7 +15,7 @@ addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-	loginMatch();
+	renderGnb();
 	getCart();
 }
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -47,9 +47,9 @@ function getCart() {
 		return;
 	}
 	// newCart에 아이템 추가(변경사항 있을시)
-	newCart.getBefore('cart');
+	newCart.getStore('cart');
 	// orderCart에 아이템 추가
-	orderCart.getBefore('order');
+	orderCart.getStore('order');
 
 	// 장바구니가 있을시 장바구니 화면 띄움
 	cartTable.classList.remove('hide');
@@ -132,7 +132,7 @@ function checkedAll() {
 		check.checked = checkAll.checked;
 	});
 	if (checkAll.checked) {
-		orderCart.getBefore('cart');
+		orderCart.getStore('cart');
 		localStorage.setItem('order', orderCart.valueOf());
 	} else {
 		orderCart.deleteAll();
@@ -192,7 +192,7 @@ function delChoice() {
 	} else {
 		localStorage.setItem('cart', newCart.valueOf());
 		orderCart.deleteAll();
-		orderCart.getBefore('cart');
+		orderCart.getStore('cart');
 		localStorage.setItem('order', orderCart.valueOf());
 		getCart();
 	}
@@ -227,7 +227,7 @@ function updateNum(e) {
 
 	newCart.update(item);
 	localStorage.setItem('cart', newCart.valueOf());
-	orderCart.getBefore('cart');
+	orderCart.getStore('cart');
 	localStorage.setItem('order', orderCart.valueOf());
 	cartList.remove();
 	getCart();

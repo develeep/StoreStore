@@ -1,7 +1,7 @@
 // views-router.js 수정시 충돌할 수 있어서 라우터는 작업 여부 물어보고 변경. 그때까지만 임시 경로로 확인.
 
 import * as Api from '/api.js';
-import { loginMatch } from '/loginMatch.js';
+import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
 import { getElement,getElementAll } from "/useful-functions.js";
 
@@ -81,7 +81,7 @@ function addCart() {
 		id: localStorage.getItem('productId'),
 	};
 	console.log(item.id);
-	cartItem.getBefore('cart');
+	cartItem.getStore('cart');
 	cartItem.add(item);
 	localStorage.setItem('cart', cartItem.valueOf());
 }
