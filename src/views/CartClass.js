@@ -6,7 +6,7 @@ export class Cart {
 		this.keys = new Set(); // 상품의 key 가 들어간다.
 	}
 
-	getBefore(storageName) {
+	getStore(storageName) {
 		const localCart = JSON.parse(localStorage.getItem(storageName));
 		if (!localCart) {
 			return;
@@ -31,7 +31,7 @@ export class Cart {
 	}
 
 	deleteAll() {
-		this.keys = new Set();
+		this.keys.clear();
 		this.cart = {};
 	}
 
@@ -39,7 +39,9 @@ export class Cart {
 		if (this.has(id)) {
 			return this.cart[id];
 		}
-		return;
+		else{
+			return false
+		}
 	}
 
 	has(id) {

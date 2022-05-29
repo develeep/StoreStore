@@ -1,4 +1,4 @@
-export const loginMatch = () => {
+export const renderGnb = () => {
 	console.log(hasLoginToken())
   if (hasLoginToken()) {
     renderLogout();

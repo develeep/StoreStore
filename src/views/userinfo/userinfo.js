@@ -1,6 +1,6 @@
 // 요소 가져오기
 import * as Api from '/api.js';
-import { loginMatch } from '/loginMatch.js'
+import { renderGnb } from '/renderGnb.js'
 
 const userInfoTitle = document.querySelector('#userInfoTitle');
 const fullNameInput = document.querySelector('#nameInput');

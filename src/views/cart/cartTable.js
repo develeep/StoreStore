@@ -65,7 +65,7 @@ export function addTable(cartObject) {
 	const buyBox = createElement('div');
 	const priceBox = createElement('div');
 	const itemPrice = createElement('div');
-	const buy_btn = createElement('button');
+	const buyBtn = createElement('button');
 
 	buyWrap.classList.add('item-buy-wrap')
 	itemBuy.classList.add('item-buy');

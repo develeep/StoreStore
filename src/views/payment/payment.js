@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-import { loginMatch } from '/loginMatch.js';
+import { renderGnb } from '/renderGnb.js';
 import { addTable } from '../cart/cartTable.js';
 import { Cart } from '/CartClass.js';
 import { addCommas } from '/useful-functions.js';
@@ -15,7 +15,7 @@ const writeOptionSaveButton = getElement('#writeOptionSaveButton');
 let selectResult = "";
 
 const order = new Cart();
-order.getBefore('order');
+order.getStore('order');
 
 getOrder();
 addAllEvents();
@@ -23,7 +23,7 @@ getUserInfo();
 addAllElements();
 
 function addAllElements() {
-	loginMatch();
+	renderGnb();
 }
 
 function addAllEvents() {
