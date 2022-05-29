@@ -23,6 +23,7 @@ async function addAllElements() {
 
 function addAllEvents() {
 	renderGnb();
+	getUserInfo();
 	updatePasswordButton.addEventListener('click', updatePassword);
 	saveButton.addEventListener('click', updateUser);
 }
