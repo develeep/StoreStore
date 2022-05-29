@@ -7,33 +7,44 @@ export const renderGnb = () => {
   }
 }
 
+const deleteLoginToken = ()=>{
+	localStorage.removeItem('token');
+}
+
 const hasLoginToken = () => {
   return Boolean(localStorage.getItem('token'));
 }
 
 const renderLogout = () => {
 	const navBar = document.querySelector('#navbar');
-	const logout = createA('/', '로그아웃');
-	const myPage = createA('/mypage', '마이페이지');
+
+	const logout = createListTag('/', '로그아웃');
+	const myPage = createListTag('/mypage', '마이페이지');
+
 	logout.addEventListener('click', (e) => {
 		e.preventDefault();
-		localStorage.removeItem('token');
+
+		deleteLoginToken();
 		location.reload();
 	});
+
 	navBar.prepend(logout, myPage);
 }
 
 const  renderLogin = () => {
 	const navBar = document.querySelector('#navbar');
+
 	const params = location.href.trim().split('/')
 	params.splice(0,3) 
-	const login = createA(`/login/${params.length==1?'home':params}`, '로그인');
-	const register = createA('/register', '회원가입');
+
+	const login = createListTag(`/login/${params.length==1?'home':params}`, '로그인');
+	const register = createListTag('/register', '회원가입');
+	
 	navBar.prepend(login, register);
 }
 
 
-function createA(href, text) {
+function createListTag(href, text) {
 	const liTag = document.createElement('li');
 	const aTag = document.createElement('a');
 	aTag.href = href;
