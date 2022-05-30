@@ -3,6 +3,7 @@ import * as Api from '/api.js';
 const toTopEl = document.getElementById('to-top');
 const inputProduct = document.getElementById('inputProduct');
 const subCategory = document.getElementById('s-category');
+const rankedproducts = document.getElementById('rankedproducts');
 
 let params = location.href.split('/');
 params = params[params.length - 2];
@@ -62,27 +63,49 @@ function makeCategory() {
 // 카테고리 api 가져오기
 const categories = await Api.get('/api/getcategorys');
 
-const findSubCategory = getProductCategory[0].category.name; //구두
-
-// 서브 카테고리
-for (const [key, value] of Object.entries(categories)) {
-	const found = value.indexOf(findSubCategory);
-	if (found === 0) {
-		subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>`;
-		for (let i = 0; i < value.length; i++) {
-			subCategory.innerHTML += `<li><a href="/products/${value[i]}">${value[i]}</a></li>`;
+if (getProductCategory.length === 0) {
+	rankedproducts.innerHTML = `<div class="no_data">등록된 상품이 없습니다.</div>`;
+} else {
+	// 서브 카테고리
+	for (const [key, value] of Object.entries(categories)) {
+		const findSubCategory = getProductCategory[0].category.name; //구두
+		const found = value.indexOf(findSubCategory);
+		if (found === 0) {
+			subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>`;
+			for (let i = 0; i < value.length; i++) {
+				subCategory.innerHTML += `<li class="sub-Category-li"><a href="/products/${value[i]}" class="aTagSub">${value[i]}</a></li>`;
+			}
+			break;
+		} else if (found >= 0) {
+			subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>`;
+			for (let i = 0; i < value.length; i++) {
+				subCategory.innerHTML += `<li class="sub-Category-li"><a href="/products/${value[i]}" class="aTagSub">${value[i]}</a></li>`;
+			}
 		}
 	}
 }
 
 // 현재페이지 카테고리에 .current class 추가
 const categoryLi = document.querySelectorAll('.main-Category-li');
-const aTags = document.querySelectorAll('.aTag');
+const subCategoryLi = document.querySelectorAll('.sub-Category-li');
+const aTagsMain = document.querySelectorAll('.aTagMain');
+const aTagsSub = document.querySelectorAll('.aTagSub');
 const title = document.getElementById('subCategoryTitle');
 
+// 메인카테고리 current
 for (let i = 0; i < categoryLi.length; i++) {
-	const categoryLiText = categoryLi[i].innerText;
-	if (categoryLiText === title.innerText) {
-		aTags[i].classList.add('current');
+	const mainCategoryLiText = categoryLi[i].innerText;
+	if (mainCategoryLiText === title.innerText) {
+		aTagsMain[i].classList.add('current');
 	}
 }
+
+//서브카테고리 current
+for (let i = 0; i < subCategoryLi.length; i++) {
+	const subCategoryLiText = subCategoryLi[i].innerText;
+	if (subCategoryLiText === getProductCategory[0].category.name) {
+		aTagsSub[i].classList.add('current');
+	}
+}
+console.log(getProductCategory);
+console.log(getProductCategory[0].category.name); //현재페이지 하위 카테고리

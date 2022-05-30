@@ -53,7 +53,6 @@
 .rankedproducts .product-item #productImage {
 	height: 220px;
 	width: 220px;
-	border: #333 solid 1px;
 }
 .rankedproducts .product-item .description {
 	display: flex;
@@ -97,4 +96,12 @@
 }
 .current {
 	color: #4287f5;
+}
+.no_data {
+	padding: 100px 190px 100px 0;
+	height: auto;
+	width: 100%;
+	font-weight: 700;
+	font-size: 18px;
+	text-align: center;
 }

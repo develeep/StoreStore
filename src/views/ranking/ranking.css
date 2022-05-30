@@ -25,7 +25,6 @@
 .rankedproducts .product-item #productImage {
 	height: 220px;
 	width: 220px;
-	border: #333 solid 1px;
 }
 .rankedproducts .product-item .description {
 	display: flex;
