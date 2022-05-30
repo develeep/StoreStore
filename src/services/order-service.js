@@ -13,7 +13,7 @@ class OrderService {
 	async addOrder(orderInfo) {
 		// 객체 destructuring
 		// buyer 변수에 user ObjectId를 줘야 함, receiver는 object
-		const { buyer, priceSum, receiver, deliveryStatus } = orderInfo;
+		const { buyer, priceSum, receiver, deliveryStatus, product } = orderInfo;
 
 		// db에 저장
 		const createdNewOrder = await this.orderModel.create(orderInfo);

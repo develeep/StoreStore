@@ -1,30 +1,34 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from '../middlewares';
+import { loginRequired, isAdmin } from '../middlewares';
 import {
 	orderService,
 	orderedProductService,
 	productService,
 } from '../services';
 import bcrypt from 'bcrypt';
-import { isAdmin } from '../middlewares/isAdmin';
 import mongoose from 'mongoose';
 
 const orderRouter = Router();
 
 // 모든 주문 가져오기, 주문 기본정보/총 금액만 있고 물품정보는 없음.
-orderRouter.get('/orders', loginRequired, isAdmin, async (req, res, next) => {
-	try {
-		const orders = await orderService.getAllOrders();
-		res.status(200).json(orders);
-	} catch (error) {
-		next(error);
-	}
-});
+orderRouter.get(
+	'/allorders',
+	loginRequired,
+	isAdmin,
+	async (req, res, next) => {
+		try {
+			const orders = await orderService.getAllOrders();
+			res.status(200).json(orders);
+		} catch (error) {
+			next(error);
+		}
+	},
+);
 
 // 특정 주문 상세보기(by orderId)
-orderRouter.get('/order/:orderId', async (req, res, next) => {
+orderRouter.get('/orders/:orderId', async (req, res, next) => {
 	try {
 		// 여기서 orderId 가 order Schema의 shortId임
 		const orderId = req.params.orderId;
@@ -36,9 +40,10 @@ orderRouter.get('/order/:orderId', async (req, res, next) => {
 });
 
 // 특정 사람이 주문한 목록 상세보기(by buyerId === user ObjectId)
-orderRouter.get('/orders/:buyerId', async (req, res, next) => {
+orderRouter.get('/orders', loginRequired, async (req, res, next) => {
 	try {
-		const buyerId = req.params.buyerId;
+		// loign되었다면 id를 가져옴
+		const buyerId = req.currentUserId;
 		const orders = await orderService.getOrdersByBuyerId(buyerId);
 		res.status(200).json(orders);
 	} catch (error) {
@@ -47,7 +52,7 @@ orderRouter.get('/orders/:buyerId', async (req, res, next) => {
 });
 
 // 배송지 조회
-orderRouter.get('/getaddress/:orderId', async (req, res, next) => {
+orderRouter.get('/address/:orderId', async (req, res, next) => {
 	try {
 		const orderId = req.params.orderId;
 		const address = await orderService.getAddress(orderId);
@@ -78,9 +83,15 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 			phoneNumber: phoneNumberInput,
 			address: addressInput,
 		};
+		let product = '';
 		let priceSum = 0;
 		for (let i = 0; i < orderTokens.length; i++) {
 			priceSum += orderTokens[i].price * orderTokens[i].num;
+			if (i === orderTokens.length - 1) {
+				product += `${orderTokens[i].product} ${orderTokens[i].num}`;
+			} else {
+				product += `${orderTokens[i].product} ${orderTokens[i].num} / `;
+			}
 		}
 		// 배송비 추가
 		priceSum += 3000;
@@ -91,13 +102,14 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 			receiver,
 			requestMessage: requestSelectBox,
 			priceSum,
+			product,
 		});
 		const orderId = newOrder.orderId;
 		// const priceSum = await orderedProductService.getPriceSum(orderId);
 
 		for (let i = 0; i < orderTokens.length; i++) {
 			const product = await productService.getProductById(orderTokens[i].id);
-			let newOrderedProdcut = await orderedProductService.addOrderedProduct({
+			let newOrderedProduct = await orderedProductService.addOrderedProduct({
 				orderId,
 				product: product._id,
 				numbers: orderTokens[i].num,
@@ -105,7 +117,7 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 		}
 		// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
 		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-		res.status(201).json(newOrder);
+		res.status(201).json({ orderId: orderId });
 	} catch (error) {
 		next(error);
 	}
@@ -113,7 +125,7 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 
 // 주문 삭제
 orderRouter.delete(
-	'/orderdelete/:orderId',
+	'/orders/:orderId',
 	// loginRequired,
 	// isAdmin,
 	async function (req, res, next) {
