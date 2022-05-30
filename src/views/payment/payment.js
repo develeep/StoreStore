@@ -7,10 +7,12 @@ import { getElement, getElementAll } from '/useful-functions.js';
 
 const fullNameInput = getElement('#nameInput');
 const phoneNumberInput = getElement('#phoneNumberInput');
-const addressInput = getElement('#addressInput');
 const requestSelectBox = getElement('#requestSelectBox');
 const writeOption = getElement("#writeOption");
 const writeOptionSaveButton = getElement('#writeOptionSaveButton');
+const postalCodeDiv = getElement("#postcodeInput");
+const addressDiv = getElement("#addressInput");
+const detailAddressDiv = getElement("#detailAddressInput");
 
 let selectResult = "";
 
@@ -43,9 +45,15 @@ async function getUserInfo() {
 		if (userData.phoneNumber) {
 			phoneNumberInput.value = userData.phoneNumber;
 		}
-		if (userData.address) {
-			addressInput.value = Object.values(userData.address).join(' ');
+		if(userData.address){
+			const {postalCode,address1,address2} = userData.address;
+			postalCodeDiv.value = postalCode;
+			addressDiv.value = address1;
+			detailAddressDiv.value = address2;
 		}
+		// if (userData.address) {
+		// 	addressInput.value = Object.values(userData.address).join(' ');
+		// }
 		selectWrite();
 	} catch (err) {
 		console.error(err.stack);
@@ -184,11 +192,15 @@ function saveWriteOption(e) {
 
 async function payment(e) {
 	e.preventDefault();
-
+	const receiveAddress = {
+		receiverPostalCode: postalCodeDiv.value,
+		receiverAddress: addressDiv.value,
+		receiverAddress2: detailAddressDiv.value
+	}
 	const order = JSON.parse(localStorage.getItem('order'))
 	const data = {
 		nameInput: fullNameInput.value,
-		addressInput: addressInput.value,
+		addressInput: Object.values(receiveAddress).join(' '),
 		phoneNumberInput: phoneNumberInput.value,
 		requestSelectBox: selectResult,
 		orderProducts: order
