@@ -44,7 +44,16 @@ orderRouter.get('/orders', loginRequired, async (req, res, next) => {
 	try {
 		// loign되었다면 id를 가져옴
 		const buyerId = req.currentUserId;
-		const orders = await orderService.getOrdersByBuyer(buyerId);
+		let orders = await orderService.getOrdersByBuyer(buyerId);
+		let timeKor = [];
+		for (let i = 0; i < orders.length; i++) {
+			const date = orders[i].createdAt;
+			let dateKor = new Date(date.getTime() + 3600000 * 9);
+			// let goodDate = dateKor.getFullYear + '-' + dateKor.getMonth
+			orders[i]._doc.timeKor = dateKor;
+		}
+		// let order = JSON.stringify(orders);
+		// console.log(typeof order);
 		res.status(200).json(orders);
 	} catch (error) {
 		next(error);

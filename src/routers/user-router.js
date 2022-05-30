@@ -4,7 +4,6 @@ import is from '@sindresorhus/is';
 import { loginRequired, isAdmin } from '../middlewares';
 import { userService } from '../services';
 import upload from '../utils/s3';
-
 import bcrypt from 'bcrypt';
 
 const userRouter = Router();
@@ -182,11 +181,10 @@ userRouter.get('/isadmin', loginRequired, async (req, res, next) => {
 	// loign되었다면 id를 가져옴
 	const userId = req.currentUserId;
 	const user = await userService.getUserInfo(userId);
-	const role = user.role
+	const role = user.role;
 	if (role !== 'admin') {
-		res.status(200).json({isCorrect : 'false'})
-	}
-	else{
+		res.status(200).json({ isCorrect: 'false' });
+	} else {
 		res.status(200).json({ isCorrect: 'ok' });
 	}
 });

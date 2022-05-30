@@ -36,21 +36,65 @@ function Match(password1, password2) {
 
 sendemailButton.addEventListener('click', async (e) => {
 	e.preventDefault();
-	const email = emailInput.value;
-	const data = { email };
-	const email_data = await Api.post('/api/sendmail', data);
-	console.log(email_data);
+	try {
+		const email = emailInput.value;
+		const data = { email };
+		const email_data = await Api.post('/api/sendmail', data);
+		console.log(email_data);
+		if (email_data.result === 'send') {
+			getEmailCorrect();
+		} else {
+			throw new Error('이미 존재하는 이메일 입니다.');
+		}
+	} catch (err) {
+		swal({
+			text: err.message,
+		});
+	}
 });
 
-emailcheckButton.addEventListener('click', async (e) => {
-	e.preventDefault();
-	const Enumber = emailcheck.value;
-	let hashAuth = decodeURIComponent(document.cookie).split('=');
-	hashAuth = hashAuth[hashAuth.length - 1];
-	const data = { Enumber, hashAuth };
-	const check_data = await Api.post('/api/checkEmail', data);
-	console.log(check_data);
-});
+function getEmailCorrect() {
+	swal({
+		title: '이메일 인증을 진행해 주세요',
+		text: '이메일로 도착한 인증번호를 입력해 주세요',
+		content: 'input',
+		button: {
+			text: '인증하기',
+			closeModal: false,
+		},
+	})
+		.then((Enumber) => {
+			console.log(Enumber.result);
+			if (!Enumber) throw new Error('인증값을 입력해 주세요');
+			let hashAuth = decodeURIComponent(document.cookie).split('=');
+			hashAuth = hashAuth[hashAuth.length - 1];
+			console.log(hashAuth);
+			const data = { Enumber, hashAuth };
+			console.log(data);
+			return Api.post('/api/checkEmail', data);
+		})
+		.then((data) => {
+			console.log(data);
+			if (data.result === 'success') {
+				swal({
+					text: '인증을 완료했습니다.',
+					icon: 'success',
+				});
+				localStorage.setItem('mail', 'ok');
+			} else {
+				swal({
+					text: '인증에 실패했습니다. 다시 시도해 주세요',
+					icon: 'error',
+					button: {
+						text: '다시 인증하기',
+						closeModal: false,
+					},
+				}).then(() => {
+					getEmailCorrect();
+				});
+			}
+		});
+}
 
 // 입력창에 onkeyup 이벤트가 발생했을때(키보드의 키를 눌렀다가 뗐을때) 사용하는 함수 작성
 fullNameInput.onkeyup = function () {
@@ -131,15 +175,28 @@ async function handleSubmit(e) {
 	// 회원가입 api 요청
 	try {
 		const data = { fullName, email, password };
-
-		await Api.post('/api/register', data);
-
-		alert(`정상적으로 회원가입되었습니다.`);
+		const correctEmail = localStorage.getItem('mail');
+		if (correctEmail) {
+			await Api.post('/api/register', data);
+			const login = { email, password };
+			const result = await Api.post('/api/login', login);
+			const token = result.token;
+			swal({
+				text: '가입이 완료되었습니다.',
+			}).then(() => {
+				localStorage.setItem('token', token);
+				localStorage.removeItem('mail');
+				window.location.href = '/';
+			});
+		} else {
+			throw new Error('이메일 인증을 진행해 주세요');
+		}
 
 		// 로그인 페이지 이동
-		window.location.href = '/login/home';
 	} catch (err) {
 		console.error(err.stack);
-		alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+		swal({
+			text: err.message,
+		});
 	}
 }
