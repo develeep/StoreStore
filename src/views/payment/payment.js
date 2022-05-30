@@ -192,6 +192,7 @@ function saveWriteOption(e) {
 
 async function payment(e) {
 	e.preventDefault();
+	try{
 	const receiveAddress = {
 		receiverPostalCode: postalCodeDiv.value,
 		receiverAddress: addressDiv.value,
@@ -205,7 +206,11 @@ async function payment(e) {
 		requestSelectBox: selectResult,
 		orderProducts: order
 	}
-	console.log(data)
 	const result = await Api.post('/api/orderadd',data)
 	console.log(result)
+	location.href = `/payment/${result.orderId}`
+}catch(err){
+	alert(`결제중 문제가 발생하였습니다. ${err.message}`)
 }
+}
+
