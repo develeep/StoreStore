@@ -1,26 +1,32 @@
+import * as Api from '/api.js';
+import { isAdmin } from '/useful-functions.js';
 export const renderGnb = () => {
-	console.log(hasLoginToken())
-  if (hasLoginToken()) {
-    renderLogout();
-  } else {
-    renderLogin();
-  }
-}
+	console.log(hasLoginToken());
+	if (hasLoginToken()) {
+		renderLogout();
+	} else {
+		renderLogin();
+	}
+};
 
-const deleteLoginToken = ()=>{
+const deleteLoginToken = () => {
 	localStorage.removeItem('token');
-}
+};
 
 const hasLoginToken = () => {
-  return Boolean(localStorage.getItem('token'));
-}
+	return Boolean(localStorage.getItem('token'));
+};
 
-const renderLogout = () => {
+const renderLogout = async() => {
 	const navBar = document.querySelector('#navbar');
 
 	const logout = createListTag('/', '로그아웃');
 	const myPage = createListTag('/mypage', '마이페이지');
-
+	console.log(isAdmin())
+	if (await isAdmin()) {
+		const admin = createListTag('/admin', '관리자페이지');
+		navBar.prepend(admin);
+	}
 	logout.addEventListener('click', (e) => {
 		e.preventDefault();
 
@@ -29,20 +35,22 @@ const renderLogout = () => {
 	});
 
 	navBar.prepend(logout, myPage);
-}
+};
 
-const  renderLogin = () => {
+const renderLogin = () => {
 	const navBar = document.querySelector('#navbar');
 
-	const params = location.href.trim().split('/')
-	params.splice(0,3) 
+	const params = location.href.trim().split('/');
+	params.splice(0, 3);
 
-	const login = createListTag(`/login/${params.length==1?'home':params}`, '로그인');
+	const login = createListTag(
+		`/login/${params.length == 1 ? 'home' : params}`,
+		'로그인',
+	);
 	const register = createListTag('/register', '회원가입');
-	
-	navBar.prepend(login, register);
-}
 
+	navBar.prepend(login, register);
+};
 
 function createListTag(href, text) {
 	const liTag = document.createElement('li');
@@ -52,4 +60,3 @@ function createListTag(href, text) {
 	liTag.append(aTag);
 	return liTag;
 }
-
