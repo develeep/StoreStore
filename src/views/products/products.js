@@ -16,6 +16,7 @@ addAllEvents();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	makeCategory();
+	currentPageMake();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -71,13 +72,15 @@ if (getProductCategory.length === 0) {
 		const findSubCategory = getProductCategory[0].category.name; //구두
 		const found = value.indexOf(findSubCategory);
 		if (found === 0) {
-			subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>`;
+			subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>
+			<li class="sub-Category-li"><a href="/products/${key}" class="aTagSub">All</a></li>`;
 			for (let i = 0; i < value.length; i++) {
 				subCategory.innerHTML += `<li class="sub-Category-li"><a href="/products/${value[i]}" class="aTagSub">${value[i]}</a></li>`;
 			}
 			break;
 		} else if (found >= 0) {
-			subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>`;
+			subCategory.innerHTML = `<h1 id="subCategoryTitle">${key}</h1>
+			<li class="sub-Category-li"><a href="/products/${key}" class="aTagSub">All</a></li>`;
 			for (let i = 0; i < value.length; i++) {
 				subCategory.innerHTML += `<li class="sub-Category-li"><a href="/products/${value[i]}" class="aTagSub">${value[i]}</a></li>`;
 			}
@@ -103,9 +106,26 @@ for (let i = 0; i < categoryLi.length; i++) {
 //서브카테고리 current
 for (let i = 0; i < subCategoryLi.length; i++) {
 	const subCategoryLiText = subCategoryLi[i].innerText;
-	if (subCategoryLiText === getProductCategory[0].category.name) {
+
+	//상품들의 타입이 같은지 확인
+	const arr = [];
+	getProductCategory.forEach((el) => {
+		const type = el.category.name;
+		arr.push(type);
+	});
+	const sameCategory = arr.every((el) => el == arr[0]);
+
+	if (!sameCategory) {
+		aTagsSub[i].classList.add('current');
+		break;
+	} else if (subCategoryLiText === getProductCategory[0].category.name) {
 		aTagsSub[i].classList.add('current');
 	}
 }
-console.log(getProductCategory);
-console.log(getProductCategory[0].category.name); //현재페이지 하위 카테고리
+
+const current = document.querySelectorAll('.current');
+const currentPage = document.getElementById('currentPage');
+const mainCategoryName = current[0].innerText;
+const subCategoryName = current[1].innerText;
+
+currentPage.innerHTML += `<h3>${mainCategoryName} > ${subCategoryName}</h3>`;

@@ -1,5 +1,4 @@
 .container {
-	padding: 80px 0 40px;
 	display: flex;
 }
 .categories {
@@ -24,7 +23,7 @@
 	cursor: pointer;
 }
 .rankedproducts {
-	padding: 0 0 0 190px;
+	padding: 40px 0 0 190px;
 	width: 100%;
 }
 .rankedproducts .title {
@@ -37,6 +36,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	padding-top: 80px;
 }
 .rankedproducts .inputProduct #productImage {
 	cursor: pointer;
@@ -93,6 +93,10 @@
 	bottom: 30px;
 	right: 30px;
 	z-index: 9;
+}
+#currentPage {
+	font-size: 14px;
+	float: right;
 }
 .current {
 	color: #4287f5;
