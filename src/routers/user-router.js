@@ -4,6 +4,7 @@ import is from '@sindresorhus/is';
 import { loginRequired, isAdmin } from '../middlewares';
 import { userService } from '../services';
 import upload from '../utils/s3';
+
 import bcrypt from 'bcrypt';
 
 const userRouter = Router();
@@ -184,7 +185,7 @@ userRouter.get('/isadmin', loginRequired, async (req, res, next) => {
 	if (role !== 'admin') {
 		throw new Error(`관리자가 아니어서 상품추가를 할 수 없습니다.`);
 	}
-	res.status(200).json({ isCorrect: ok });
+	res.status(200).json({ isCorrect: 'ok' });
 });
 
 export { userRouter };

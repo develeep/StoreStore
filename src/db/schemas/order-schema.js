@@ -24,6 +24,10 @@ const OrderSchema = new Schema(
 			type: String,
 			required: false,
 		},
+		product: {
+			type: String,
+			required: false,
+		},
 		receiver: {
 			type: new Schema(
 				{

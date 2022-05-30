@@ -40,7 +40,7 @@ const ProductSchema = new Schema(
 		},
 		review: {
 			type: Schema.Types.ObjectId,
-			ref: 'Review',
+			ref: 'reviews',
 			required: false,
 		},
 	},
