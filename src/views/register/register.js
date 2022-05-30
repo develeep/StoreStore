@@ -161,15 +161,15 @@ async function handleSubmit(e) {
 	const isPasswordSame = password === passwordConfirm;
 
 	if (!isFullNameValid || !isPasswordValid) {
-		return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
+		return swal('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
 	}
 
 	if (!isEmailValid) {
-		return alert('이메일 형식이 맞지 않습니다.');
+		return swal('이메일 형식이 맞지 않습니다.');
 	}
 
 	if (!isPasswordSame) {
-		return alert('비밀번호가 일치하지 않습니다.');
+		return swal('비밀번호가 일치하지 않습니다.');
 	}
 
 	// 회원가입 api 요청
