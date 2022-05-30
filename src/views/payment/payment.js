@@ -51,9 +51,6 @@ async function getUserInfo() {
 			addressDiv.value = address1;
 			detailAddressDiv.value = address2;
 		}
-		// if (userData.address) {
-		// 	addressInput.value = Object.values(userData.address).join(' ');
-		// }
 		selectWrite();
 	} catch (err) {
 		console.error(err.stack);
