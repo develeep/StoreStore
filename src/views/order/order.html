@@ -78,6 +78,7 @@
                   <div class="orderTableCell">주문정보</div>
                   <div class="orderTableCell">수량</div>
                   <div class="orderTableCell">주문금액</div>
+                  <div class="orderTableCell">배송상태</div>
                   <div class="orderTableCell">비고</div>
                 </div>
                 <!-- 아래로 예시 한 줄. 실제로는 insertadjacenthtml 사용해서 주문 데이터를 DB에서 받아와서 상품 한 줄씩 추가 -->
@@ -85,9 +86,10 @@
                 <div class="orderTableRow">
                   <div class="orderTableCell" id="orderDate">2022-5-26</div>
                   <div class="orderTableCell" id="orderInfo">알록달록 티셔츠</div>
-                  <div class="orderTableCell" id="orderState">1</div>
+                  <div class="orderTableCell" id="orderNumber">1</div>
                   <div class="orderTableCell" id="orderSignUp">30000</div>
-                  <div class="orderTableCell"><button id="orderInfo">상세보기</button></div>
+                  <div class="orderTableCell" id="orderState">배송지시</div>
+                  <div class="orderTableCell"><button id="orderInfoButton">상세보기</button><br><button id="cancelOrderButton">주문취소</button></div>
                 </div>
               </div>  
             </div>
