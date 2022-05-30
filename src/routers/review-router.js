@@ -2,34 +2,14 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
-import { productService, SmallcateService } from '../services';
+import { reviewService } from '../services';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
-const productRouter = Router();
-
-// 판매 최상위 8개 상품 가져오기
-productRouter.get('/bestproducts', async (req, res, next) => {
-	try {
-		const products = await productService.getRank_8_Product();
-		res.status(200).json(products);
-	} catch (error) {
-		next(error);
-	}
-});
-
-// 가장 많이 팔린 순으로 전체 상품 가져오기
-productRouter.get('/rankedproducts', async (req, res, next) => {
-	try {
-		const rankedProducts = await productService.getRankedProduct();
-		res.status(200).json(rankedProducts);
-	} catch (error) {
-		next(error);
-	}
-});
+const reviewRouter = Router();
 
 // 테스트용 상품 상세보기
-productRouter.get('/testproduct', async (req, res, next) => {
+reviewRouter.get('/reviews', async (req, res, next) => {
 	try {
 		const productId = 'lsd2TYkEnNLNgUXwszw5K';
 		const product = await productService.getProductById(productId);
@@ -39,31 +19,8 @@ productRouter.get('/testproduct', async (req, res, next) => {
 	}
 });
 
-// 상품 상세보기
-productRouter.get('/product/:productId', async (req, res, next) => {
-	try {
-		// 여기서 productId 가 product Schema의 shortId임
-		const productId = req.params.productId;
-		const product = await productService.getProductById(productId);
-		res.status(200).json(product);
-	} catch (error) {
-		next(error);
-	}
-});
-
-// 카테고리 별 조회 -> /api/productlist
-productRouter.get('/productist/:category', async (req, res, next) => {
-	try {
-		const category = req.params.category;
-		const products = await productService.getProductsByCategory(category);
-		res.status(200).json(products);
-	} catch (error) {
-		next(error);
-	}
-});
-
 // 상품등록 -> /api/productRegister
-productRouter.post(
+reviewRouter.post(
 	'/productregister',
 	// loginRequired,
 	// isAdmin,
@@ -117,7 +74,7 @@ productRouter.post(
 );
 
 // 상품 수정
-productRouter.patch(
+reviewRouter.patch(
 	'/productupdate',
 	loginRequired,
 	isAdmin,
@@ -166,7 +123,7 @@ productRouter.patch(
 );
 
 // 상품 삭제
-productRouter.delete(
+reviewRouter.delete(
 	'/productdelete',
 	loginRequired,
 	isAdmin,
@@ -191,19 +148,4 @@ productRouter.delete(
 	},
 );
 
-// 카테고리별 상품 수집
-productRouter.get('/getProductCategory/:id', async (req, res, next) => {
-	const category_name = req.params.id;
-	let isSmallcategory = await SmallcateService.getCategoryname(category_name);
-	let CategoryProducts;
-	if (isSmallcategory == null) {
-		let isBigcategory = await SmallcateService.getbCategoryname(category_name);
-		CategoryProducts = await productService.BgetCategoryOne(isBigcategory);
-	} else {
-		isSmallcategory = isSmallcategory._id;
-		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
-	}
-	res.status(200).json(CategoryProducts);
-});
-
-export { productRouter };
+export { reviewRouter };
