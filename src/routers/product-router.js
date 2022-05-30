@@ -64,7 +64,7 @@ productRouter.get('/productist/:category', async (req, res, next) => {
 
 // 상품등록 -> /api/productRegister
 productRouter.post(
-	'/productregister',
+	'/products',
 	// loginRequired,
 	// isAdmin,
 	async (req, res, next) => {
@@ -85,15 +85,12 @@ productRouter.post(
 			const categoryId = getCategory._id;
 			// req (request)의 body 에서 데이터 가져오기
 
-			const {
-				name,
-				price,
-				imageUrl,
-				description,
-				inventory,
-				company,
-				salesRate,
-			} = req.body;
+			const { name, price, description, inventory, company } = req.body;
+
+			// image를 S3에 저장
+			// 이후 생성된 url을 받아야 함.
+			// ~~~s3에 저장~~~
+			// const imageUrl =
 
 			// 위 데이터를 product db에 추가하기
 			const newProduct = await productService.addProduct({
@@ -104,7 +101,6 @@ productRouter.post(
 				description,
 				inventory,
 				company,
-				salesRate,
 			});
 
 			// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
