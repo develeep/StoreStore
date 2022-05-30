@@ -4,6 +4,9 @@ import { validateEmail } from '/useful-functions.js';
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
+const emailcheck = document.querySelector('#emailcheck');
+const sendemailButton = document.querySelector('#send-email-button');
+const emailcheckButton = document.querySelector('#email-check-button');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitButton = document.querySelector('#submitButton');
@@ -28,6 +31,26 @@ function addAllEvents() {
 function Match(password1, password2) {
 	return password1 === password2;
 }
+
+// 인증요청
+
+sendemailButton.addEventListener('click', async (e) => {
+	e.preventDefault();
+	const email = emailInput.value;
+	const data = { email };
+	const email_data = await Api.post('/api/sendmail', data);
+	console.log(email_data);
+});
+
+emailcheckButton.addEventListener('click', async (e) => {
+	e.preventDefault();
+	const Enumber = emailcheck.value;
+	let hashAuth = decodeURIComponent(document.cookie).split('=');
+	hashAuth = hashAuth[hashAuth.length - 1];
+	const data = { Enumber, hashAuth };
+	const check_data = await Api.post('/api/checkEmail', data);
+	console.log(check_data);
+});
 
 // 입력창에 onkeyup 이벤트가 발생했을때(키보드의 키를 눌렀다가 뗐을때) 사용하는 함수 작성
 fullNameInput.onkeyup = function () {
