@@ -13,14 +13,19 @@ import mongoose from 'mongoose';
 const orderRouter = Router();
 
 // 모든 주문 가져오기, 주문 기본정보/총 금액만 있고 물품정보는 없음.
-orderRouter.get('/orders', loginRequired, isAdmin, async (req, res, next) => {
-	try {
-		const orders = await orderService.getAllOrders();
-		res.status(200).json(orders);
-	} catch (error) {
-		next(error);
-	}
-});
+orderRouter.get(
+	'/allorders',
+	loginRequired,
+	isAdmin,
+	async (req, res, next) => {
+		try {
+			const orders = await orderService.getAllOrders();
+			res.status(200).json(orders);
+		} catch (error) {
+			next(error);
+		}
+	},
+);
 
 // 특정 주문 상세보기(by orderId)
 orderRouter.get('/orders/:orderId', async (req, res, next) => {
@@ -35,9 +40,10 @@ orderRouter.get('/orders/:orderId', async (req, res, next) => {
 });
 
 // 특정 사람이 주문한 목록 상세보기(by buyerId === user ObjectId)
-orderRouter.get('/orders/:buyerId', async (req, res, next) => {
+orderRouter.get('/orders', loginRequired, async (req, res, next) => {
 	try {
-		const buyerId = req.params.buyerId;
+		// loign되었다면 id를 가져옴
+		const buyerId = req.currentUserId;
 		const orders = await orderService.getOrdersByBuyerId(buyerId);
 		res.status(200).json(orders);
 	} catch (error) {
@@ -103,7 +109,7 @@ orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
 
 		for (let i = 0; i < orderTokens.length; i++) {
 			const product = await productService.getProductById(orderTokens[i].id);
-			let newOrderedProdcut = await orderedProductService.addOrderedProduct({
+			let newOrderedProduct = await orderedProductService.addOrderedProduct({
 				orderId,
 				product: product._id,
 				numbers: orderTokens[i].num,

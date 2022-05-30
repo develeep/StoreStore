@@ -96,7 +96,7 @@ productRouter.post(
 			} = req.body;
 
 			// 위 데이터를 product db에 추가하기
-			const newProdcut = await productService.addProduct({
+			const newProduct = await productService.addProduct({
 				category: categoryId, // 추후 카테고리 스키마에서 카테고리 id 얻어오기,
 				name,
 				price,
@@ -109,7 +109,7 @@ productRouter.post(
 
 			// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
 			// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-			res.status(201).json(newProdcut);
+			res.status(201).json(newProduct);
 		} catch (error) {
 			next(error);
 		}
