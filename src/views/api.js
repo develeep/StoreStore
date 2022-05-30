@@ -7,7 +7,6 @@ async function get(endpoint, params = '') {
 			Authorization: `Bearer ${localStorage.getItem('token')}`,
 		},
 	});
-	console.log(res);
 	// 응답 코드가 4XX 계열일 때 (400, 403 등)
 	if (!res.ok) {
 		const errorContent = await res.json();
@@ -43,8 +42,6 @@ async function post(endpoint, data) {
 	// JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
 	// 예시: {name: "Kim"} => {"name": "Kim"}
 	const bodyData = JSON.stringify(data);
-	console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
-	console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
 
 	const res = await fetch(apiUrl, {
 		method: 'POST',

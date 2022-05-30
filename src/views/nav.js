@@ -2,6 +2,7 @@ import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 
 const inputCategory = document.getElementById('input-category');
+const subCategory = document.getElementById('s-category');
 
 addAllElements();
 addAllEvents();
@@ -22,7 +23,7 @@ Object.entries(categories).forEach(([key, value]) => {
 	for (let i of value) {
 		itemList += `<li><a href="/products/${i}">${i}</a></li>`;
 	}
-	inputCategory.innerHTML += `<li class="main-Category-li"><a href="/products/${key}" class="aTag">${key}</a>
+	inputCategory.innerHTML += `<li class="main-Category-li"><a href="/products/${key}" class="aTagMain">${key}</a>
 	<ul>
 	${itemList}
 	</ul>
