@@ -1,0 +1,41 @@
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+.home-btn{
+    min-width: 100px;
+    line-height: 36px;
+    color: #f7f7f7;
+    border: 1px solid #2a2929;
+    background-color: #2a2929;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: border 0.2s, background 0.2s ease-in-out;
+}
+.home-btn:hover{
+  border: 1px solid #787777;
+  background-color: #787777;
+}
+.order-article{
+  font-size: 18px;
+  
+  width: 50vh;
+  margin: 24px;
+}
+.title-content{
+  text-align: start;
+}
+.result {
+  text-align: end;
+  font-size: 15px;
+}
+.order-list{
+  text-align: center;
+}
