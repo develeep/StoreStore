@@ -44,7 +44,7 @@ orderRouter.get('/orders', loginRequired, async (req, res, next) => {
 	try {
 		// loign되었다면 id를 가져옴
 		const buyerId = req.currentUserId;
-		const orders = await orderService.getOrdersByBuyerId(buyerId);
+		const orders = await orderService.getOrdersByBuyer(buyerId);
 		res.status(200).json(orders);
 	} catch (error) {
 		next(error);
