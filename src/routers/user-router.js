@@ -4,6 +4,7 @@ import is from '@sindresorhus/is';
 import { loginRequired, isAdmin } from '../middlewares';
 import { userService } from '../services';
 import upload from '../utils/s3';
+
 import bcrypt from 'bcrypt';
 
 const userRouter = Router();

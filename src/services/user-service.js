@@ -75,6 +75,11 @@ class UserService {
 		return { token };
 	}
 
+	async findByEmail(email) {
+		const Email = await this.userModel.findByEmail(email);
+		return Email;
+	}
+
 	// 사용자 목록을 받음.
 	async getUsers() {
 		const users = await this.userModel.findAll();
