@@ -8,9 +8,9 @@ const updatePasswordButton = document.querySelector('#updatePasswordButton');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmLabel = document.querySelector('#passwordConfirmLabel');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
-const postalCodeDiv = document.querySelector('#sample6_postcode');
-const addressDiv = document.querySelector('#sample6_address');
-const detailAddressDiv = document.querySelector('#sample6_detailAddress');
+const postalCodeDiv = document.querySelector('#postcodeInput');
+const addressDiv = document.querySelector('#addressInput');
+const detailAddressDiv = document.querySelector('#detailAddressInput');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const saveButton = document.querySelector('#saveButton');
 
