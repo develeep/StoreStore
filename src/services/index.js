@@ -4,3 +4,4 @@ export * from './small_category_service';
 export * from './product-service';
 export * from './order-service';
 export * from './ordered-product-service';
+export * from './review-service';
