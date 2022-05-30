@@ -182,7 +182,6 @@ userRouter.get('/isadmin', loginRequired, async (req, res, next) => {
 	const userId = req.currentUserId;
 	const user = await userService.getUserInfo(userId);
 	const role = user.role
-	console.log(role)
 	if (role !== 'admin') {
 		res.status(200).json({isCorrect : 'false'})
 	}

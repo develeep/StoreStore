@@ -44,7 +44,7 @@ const renderLogin = () => {
 	params.splice(0, 3);
 
 	const login = createListTag(
-		`/login/${params.length == 1 ? 'home' : params}`,
+		`/login/${params.length === 1 ? 'home' : params}`,
 		'로그인',
 	);
 	const register = createListTag('/register', '회원가입');
