@@ -1,100 +1,213 @@
-/* COMMON */
-* {
+/* BASE */
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+body {
+	position: relative;
+	margin: 0;
+	font-size: 62.5%;
+}
+
+h1 {
+	margin: 0;
+}
+
+ul {
 	margin: 0;
 	padding: 0;
-}
-body {
-	font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
-	font-size: 12px;
-	line-height: 1;
-	letter-spacing: 0.05em;
-	color: #4c4c4c;
-	max-width: 100%;
-}
-img {
-	display: block;
-}
-a {
-	text-decoration: none;
-	color: #4c4c4c;
-}
-li {
 	list-style: none;
 }
-h1 {
-	font-size: 28px;
-	line-height: 1.15;
-	letter-spacing: -0.26px;
+
+a {
+	text-decoration: none;
+	color: #141414;
+}
+
+/* header */
+header {
+	width: 100%;
+	top: 0;
+	position: sticky;
+	z-index: 99;
+	background-color: #fff;
+}
+
+.navbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding: 0 10px;
+	height: 1.5rem;
+	align-items: flex-end;
+	font-size: 12px;
+}
+.navbar > li {
+	position: relative;
+}
+
+.navbar > li::before {
+	content: '';
+	width: 1px;
+	height: 12px;
+	background-color: #e5e5e5;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.navbar > li > a {
+	padding: 10px;
+}
+
+.navbar > li:first-child::before {
+	display: none;
+}
+
+.container {
+	justify-content: space-between;
+	display: flex;
+	height: 4rem;
+	align-items: center;
+}
+
+.headerLeft {
+	padding-left: 10px;
+}
+
+.headerRight {
+	padding-right: 10px;
+}
+
+/* Slidebar */
+.sidebarBtn {
+	font-size: 26px;
+	cursor: pointer;
+	position: absolute;
+	top: 2.7rem;
+	left: 10px;
+	padding-right: 52px;
+}
+
+.hidden-Toggle {
+	visibility: hidden;
+}
+
+.sidebar-text {
+	font-size: 14px;
+	padding-left: 32px;
+}
+
+/* l NAV */
+.l-navbar {
+	position: fixed;
+	top: 5.5rem;
+	left: 0;
+	width: 0;
+	height: 100vh;
+	background-color: #fff;
+	color: #141414;
+	padding: 1.5rem 1.5rem 2rem;
+	transition: 0.5s;
+	z-index: 100;
+}
+
+/* NAV */
+.nav {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow: hidden;
+}
+
+.nav__brand {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	font-size: 18px;
+}
+
+.nav__logo {
+	color: #141414;
 	font-weight: 600;
 }
 
-/* HEADER */
-.category {
-	display: flex;
-	width: 100%;
-	background: #fff;
-	filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-	z-index: 9;
-}
-#main-category {
-	display: flex;
-	width: 100%;
-	padding: 0 50px;
-	text-align: center;
-}
-#main-category > ul {
-	display: flex;
-}
-#main-category > ul > li {
-	font-size: 16px;
-	font-weight: 600;
-	padding-top: 16px;
-	width: 124px;
-	height: 55px;
-	line-height: 20px;
-	color: #4c4c4c;
-	background-color: #fff;
+.nav__link {
+	padding: 0.75rem;
+	color: #141414;
+	border-radius: 0.5rem;
+	transition: 0.3s;
 	cursor: pointer;
-}
-#main-category > ul > li:hover > a {
-	color: #4287f5;
-	border-bottom: 2px solid #4287f5;
-	padding-bottom: 3px;
-}
-#main-category > ul > li > ul {
-	font-size: 14px;
-	font-weight: 600;
-	line-height: 20px;
-	display: none;
-	padding: 10px 0;
-	background-color: #fff;
-}
-#main-category > ul > li:hover > ul {
+	position: relative;
 	display: block;
 }
-#main-category > ul > li > ul > li {
-	padding: 10px 0;
-}
-#main-category > ul > li > ul > li:hover > a {
-	color: #4287f5;
-}
-#sub-category {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-right: 50px;
-}
-#sub-category .material-icons-outlined {
-	font-size: 30px;
-	color: #4c4c4c;
-}
-#sub-category:hover .material-icons-outlined {
-	color: #4287f5;
+
+.nav__link:hover > a {
+	font-weight: 700;
 }
 
-.current {
-	color: #4287f5;
+.nav__icon {
+	font-size: 1.25rem;
+}
+
+.nav_name {
+	font-size: 14px;
+}
+
+/* Expander menu */
+.expander {
+	width: 270px;
+}
+
+/* COLLAPSE */
+.collapse {
+	grid-template-columns: 20px max-content 1fr;
+}
+
+.collapse__link {
+	justify-self: flex-end;
+	position: absolute;
+	top: 4px;
+	right: 0;
+	transition: 0.5;
+	font-size: 14px;
+	padding: 10px;
+}
+
+.collapse__menu {
+	display: none;
+	padding: 0.75rem 2.25rem;
+}
+
+.collapse__sublink {
+	font-size: 12px;
+	display: block;
+	padding-bottom: 5px;
+}
+
+.collapse__sublink:hover {
+	color: #141414;
+	font-weight: 700;
+}
+
+/* Show collapse */
+.showCollapse {
+	display: block;
+}
+
+/* Rotate icon */
+.rotate {
+	transform: rotate(180deg);
+	transition: 0.5s;
+}
+
+/* logo */
+h1.logo {
+	display: block;
 }
