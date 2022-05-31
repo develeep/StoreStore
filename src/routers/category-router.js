@@ -2,8 +2,9 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
-import { cateService } from '../services';
+import { productService, cateService } from '../services';
 import { SmallcateService } from '../services';
+
 import bcrypt from 'bcrypt';
 
 const categoryRouter = Router();
@@ -52,8 +53,13 @@ categoryRouter.get('/getcategorys', async (req, res, next) => {
 categoryRouter.delete('/Categorydelete', async (req, res, next) => {
 	try {
 		const name = req.body.selectedCategory;
-		let deleteCategory = await SmallcateService.deleteCategory(name);
-		res.status(200).json(deleteCategory);
+		console.log(name);
+		// let deleteCategory = await SmallcateService.deleteCategory(name);
+		let categoryId = await SmallcateService.getCategoryname(name);
+		const deleteCategorys = await productService.deleteProductBySCategoryId(
+			categoryId._id,
+		);
+		res.status(200).json({ result: 'ok' });
 	} catch (error) {
 		next(error);
 	}
