@@ -78,7 +78,7 @@ header {
 	display: none;
 }
 
-.container {
+.container-box {
 	justify-content: space-between;
 	display: flex;
 	height: 4rem;

@@ -11,29 +11,25 @@
       sizes="16x16"
       href="/elice-rabbit-favicon.png"
     />
-    <!-- bulma css 관련 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <!-- 폰트 어썸: 아이콘 -->
-    <script
-      defer
-      src="https://kit.fontawesome.com/7630448495.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"
-        integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- sweetalert -->
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>    
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="product-detail.css" />
     <link rel="stylesheet" href="../../css/common.css">
@@ -42,45 +38,58 @@
   </head>
   <body>
     <!-- 헤더 -->
-    <header id="header">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-              <img src="/elice-rabbit.png" width="30" height="30" />
-              <span class="has-text-link">쇼핑-n팀</span>
-            </a>
-          </div>
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <div class="category" id="category">
-      <div id="main-category">
-        <ul id="input-category">
-          <li><a href="/ranking" aria-current="page">BEST</a>
-          </li>
-        </ul>
-      </div>
-      <div id="sub-category">
-        <ul id="submenu">
-          <li>
-            <a href="/cart" aria-current="page">
-              <span class="material-icons-outlined">
-                shopping_cart
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
+			</div>
+			<div class="container-box">
+				<div class="headerLeft">
+					<div class="nav__toggle" id="nav-toggle">
+						<div class="sidebarBtn">
+							<ion-icon name="menu-outline"></ion-icon>
+						</div>
+						<div class="sidebarBtn hidden-Toggle">
+							<ion-icon name="close-outline"></ion-icon>
+						</div>
+						<span class="sidebar-text">Menu</span>
+					</div>
+					<div class="l-navbar" id="categoryNavbar">
+						<nav class="nav">
+							<div>
+								<div class="nav__brand">
+									<div class="nav__brand">Category</div>
+								</div>
+								<div class="nav__list" id="nav-list">
+									<div class="nav__link active">
+										<a href="/" class="nav_name">Home</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+					<div id="sub-category">
+						<ul id="submenu">
+							<li>
+								<a href="/cart" aria-current="page">
+									<ion-icon name="bag-handle-outline"></ion-icon>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
 
     <!-- 제품 상세 설명 카드 -->
-    <section class="section">
+    <section class="section product-section">
       <div class="container">
         <div class="tile is-ancestor product-detail-card">
           <div class="tile is-6 is-parent">
@@ -110,6 +119,52 @@
               <button class="button is-info ml-2" id="purchaseButton">
                 바로 구매하기
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section comment-section">
+      <div class="container">
+        <form id="comment-form">
+          <div class="star-rate">
+            <label for="star">별점을 매겨주세요</label>
+            <div class="rating">
+              <input type="radio" name="rating" id="rating-5">
+              <label for="rating-5"></label>
+              <input type="radio" name="rating" id="rating-4">
+              <label for="rating-4"></label>
+              <input type="radio" name="rating" id="rating-3">
+              <label for="rating-3"></label>
+              <input type="radio" name="rating" id="rating-2">
+              <label for="rating-2"></label>
+              <input type="radio" name="rating" id="rating-1">
+              <label for="rating-1"></label>
+            </div>
+          </div>
+          <div class="comment-box">
+            <input type="text" id="comment-input" class="comment-input" placeholder="리뷰를 작성해 주세요">
+            <input type="submit" value="Post" class="comment-btn">
+          </div>
+        </form>
+        <div class="comment-list">
+          <div class="comment-item-box">
+            <div class="rating-item">
+              <input type="radio" name="rating" id="rating-5" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-4" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-3" checked="true" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-2" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-1"  disabled="true">
+              <label></label>
+            </div>
+            <div class="comment-item">
+              <p class="comment-item-username">이승훈</p>
+              <input class="comment" value="이거 정말 대박입니다." disabled="true"></input>
             </div>
           </div>
         </div>

@@ -67,7 +67,7 @@ function addToCart() {
 		},
 	).then((value) => {
 		switch (value) {
-			case 'defeat':
+			case 'cancel':
 				break;
 			case 'yes':
 				location.href = '/cart';
@@ -100,3 +100,18 @@ function purchase() {
 	localStorage.setItem('order', JSON.stringify(arr));
 	window.location.href = '/payment';
 }
+let star = ''
+const radio = document.querySelector('#comment-form')
+radio.addEventListener('submit',(e)=>{
+	e.preventDefault()
+	radio.rating.forEach(element => {
+		if(element.checked){
+			star = element.id.split('-')[1]
+		}
+	});
+	if(!star){
+		swal('평점을 선택해주세요')
+		return;
+	}
+	console.log(star)
+})

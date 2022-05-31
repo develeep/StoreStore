@@ -32,9 +32,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
         integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- sweetalert -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>   
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="productAdd.css" />
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="productAdd.js" type="module" defer></script>
   </head>
   <body>
@@ -62,43 +63,57 @@
             <h1>제품판매</h1>
           </div>
           <div>
-            <form>
+            <form action="/api/products" method="post" enctype="multipart/form-data" id="addForm">
               <p>제품을 판매해 보세요</p>
               <div>
                 <label for="titleInput">제품 이름</label>
-                <input type="text" id="titleInput" placeholder="아이보리 티셔츠">
+                <input type="text" name="name" id="titleInput" placeholder="아이보리 티셔츠">
               </div>
               <div>
                 <label for="categorySelectBox">카테고리</label>
                 <input id="Bcategory" type="text" readonly>
-                <input id="Scategory" type="text" readonly>
-                <button id="categroyButton">카테고리</button>
-              </div>
+                <input id="Scategory" name="Scategory" type="text" readonly>
+                <button type='button' id="modal_btn">모달창아 나와랏</button>
+                <div class="black_bg"></div>
+                <div class="modal_wrap">
+                  <div class="modal_close">
+                  <a href="#">close</a>
+                </div>
+                <div class="modal-box">
+                  <label for="">CATEGORY</label>
+                  <select name="" id="categorySelectBox"></select>
+                  <div>
+                    <ul id="ScategoyUl">
+                    </ul>
+                  </div>
+                </div>
+                </div>
+              </div> 
               <div>
                 <label for="manufacturerInput">제조사</label>
-                <input type="text" id="manufacturerInput" placeholder="OO의류제조(주)">
+                <input type="text" name="company" id="manufacturerInput" placeholder="OO의류제조(주)">
               </div>
               <div>
                 <label for="descriptionInput">제품 설명</label>
-                <textarea type="textarea" id="descriptionInput" rows="3" placeholder="제품에 대한 설명을 적어 주세요."></textarea>
+                <textarea type="textarea" name="description" id="descriptionInput" rows="3" placeholder="제품에 대한 설명을 적어 주세요."></textarea>
               </div>
               <div>
                 <label for="imageInput">제품 사진</label>
-                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
+                <input type="file" id="img" name="img" accept="image/*"> <!-- onchange="loadFile(this)">-->
               </div>
               <div>
                 <label for="inventoryInput">재고 수</label>
-                <input type="number" id="inventoryInput" placeholder="10">
+                <input type="number" name="inventory" id="inventoryInput" placeholder="10">
               </div>
               <div>
                 <label for="priceInput">가격</label>
                 <div>
-                  <input type="number" id="priceInput" placeholder="10000">
+                  <input type="number" name="price" id="priceInput" placeholder="10000">
                   <span>원</span>
                 </div>
               </div>
               <div>
-                <button id="submitButton">제품 판매하기</button>
+                <input type="submit" value="제품 등록하기">
               </div>
             </form>
           </div>

@@ -30,6 +30,23 @@ class SmallcategoryService {
 		const bCategory = await this.SmallcateModel.BfindById(name);
 		return bCategory;
 	}
+
+	// 사용자 삭제
+	async deleteCategory(name) {
+		// db에서 삭제
+		const deletename = await this.SmallcateModel.delete(name);
+
+		return deletename;
+	}
+
+	async updateCategory(olddata, toUpdate) {
+		const updateData = await this.SmallcateModel.updateCategory(
+			olddata,
+			toUpdate,
+		);
+
+		return updateData;
+	}
 }
 
 const SmallcateService = new SmallcategoryService(SmallcateModel);

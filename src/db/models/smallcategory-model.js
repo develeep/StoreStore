@@ -37,6 +37,22 @@ export class SmallCategoryModel {
 			._id;
 		return Bcategorys;
 	}
+
+	async delete(name) {
+		const deletename = await SmallCategory.deleteOne({ name: name });
+		return deletename;
+	}
+	async updateCategory(olddata, toUpdate) {
+		const filter = { name: olddata };
+		const option = { returnOriginal: false };
+
+		const updateCategory = await SmallCategory.findOneAndUpdate(
+			filter,
+			toUpdate,
+			option,
+		);
+		return updateCategory;
+	}
 }
 
 const SmallcateModel = new SmallCategoryModel();
