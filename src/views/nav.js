@@ -23,7 +23,7 @@ Object.entries(categories).forEach(([key, value]) => {
 	for (let i of value) {
 		itemList += `<li><a href="/products/${i}">${i}</a></li>`;
 	}
-	inputCategory.innerHTML += `<li class="main-Category-li"><a href="/products/${key}" class="aTagMain">${key}</a>
+	inputCategory.innerHTML += `<li class="main-Category-li"><a href="/products/${key}" class="aTags">${key}</a>
 	<ul>
 	${itemList}
 	</ul>
