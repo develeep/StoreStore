@@ -1,5 +1,6 @@
 import * as Api from '/api.js';
 import { isAdmin } from '/useful-functions.js';
+
 export const renderGnb = () => {
 	console.log(hasLoginToken());
 	if (hasLoginToken()) {
@@ -46,7 +47,7 @@ const renderLogin = () => {
 		`/login?beforeURI=${encodeURI}`,
 		'로그인',
 	);
-	const register = createListTag('/register', '회원가입');
+	const register = createListTag(`/register?beforeURI=${encodeURI}`, '회원가입');
 
 	navBar.prepend(login, register);
 };
