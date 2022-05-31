@@ -9,13 +9,10 @@ const viewsRouter = express.Router();
 
 viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
-viewsRouter.use('/login/:href', serveStatic('login'));
+viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/mypage', serveStatic('mypage'));
 viewsRouter.use('/mypage/order', serveStatic('order'));
-viewsRouter.use(
-	'/product-detail/:id',
-	serveStatic('product-detail'),
-); // 제품상세 페이지 확인용 라우터
+viewsRouter.use('/product-detail/:id', serveStatic('product-detail')); // 제품상세 페이지 확인용 라우터
 viewsRouter.use('/products/:id', serveStatic('products'));
 viewsRouter.use('/payment', serveStatic('payment')); // 결제 페이지
 viewsRouter.use('/mypage/userinfo', serveStatic('userinfo'));
@@ -23,10 +20,10 @@ viewsRouter.use('/mypage/signout', serveStatic('signout'));
 viewsRouter.use('/cart', serveStatic('cart'));
 viewsRouter.use('/ranking', serveStatic('ranking'));
 viewsRouter.use('/category', serveStatic('category'));
-viewsRouter.use('/payment/:orderId',serveStatic('paymentComplete'))
-viewsRouter.use('/admin',serveStatic('admin'))
-viewsRouter.use('/admin/orderList', serveStatic('orderList'))
-viewsRouter.use('/admin/productAdd',serveStatic('productAdd'))
+viewsRouter.use('/payment/:orderId', serveStatic('paymentComplete'));
+viewsRouter.use('/admin', serveStatic('admin'));
+viewsRouter.use('/admin/orderList', serveStatic('orderList'));
+viewsRouter.use('/admin/productAdd', serveStatic('productAdd'));
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
 

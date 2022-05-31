@@ -3,7 +3,7 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
-import { getElement,getElementAll } from "/useful-functions.js";
+import { getElement, getElementAll } from '/useful-functions.js';
 
 const productImageTag = getElement('#productImageTag');
 const manufacturerTag = getElement('#manufacturerTag');
@@ -18,8 +18,7 @@ getProductInfo();
 addAllEvents();
 addAllElements();
 
-function addAllElements() {
-}
+function addAllElements() {}
 
 function addAllEvents() {
 	addToCartButton.addEventListener('click', addToCart);
@@ -40,7 +39,7 @@ async function getProductInfo() {
 		description.innerHTML = productData.description;
 	} catch (err) {
 		console.error(err.stack);
-		alert(`상품정보를 받아오지 못했습니다.: ${err.message}`);
+		swal(`상품정보를 받아오지 못했습니다.: ${err.message}`);
 	}
 }
 
@@ -52,20 +51,28 @@ function addToCart() {
 		// await Api.patch("/api/update","", item_lsd2TYkEnNLNgUXwszw5K);
 	} catch (err) {
 		console.error(err.stack);
-		alert(
+		swal(
 			`장바구니에 데이터를 담는 과정에서 문제가 발생했습니다. 확인 후 다시 시도해 주세요.: ${err.message}`,
 		);
 	}
 
-	// 장바구니에 담겼고 장바구니 페이지로의 이동여부를 묻는 alert 발생(alert 버튼 두 개 띄우는 것 검색...)
-	if (
-		confirm(
-			'장바구니에 상품이 추가되었습니다. 장바구니 페이지로 이동하시겠습니까?',
-		) == true
-	) {
-		// 예 => 장바구니 페이지로 이동
-		window.location.href = '/cart';
-	}
+	// 장바구니에 담겼고 장바구니 페이지로의 이동여부를 묻는 swal 발생(swal 버튼 두 개 띄우는 것 검색...)
+	swal(
+		'장바구니에 상품이 추가되었습니다. 장바구니 페이지로 이동하시겠습니까?',
+		{
+			buttons: {
+				cancel: '아니요',
+				yes: '네',
+			},
+		},
+	).then((value) => {
+		switch (value) {
+			case 'defeat':
+				break;
+			case 'yes':
+				location.href = '/cart';
+		}
+	});
 	// 아니오 => 현재 페이지에 잔류
 }
 
@@ -88,10 +95,8 @@ function addCart() {
 function purchase() {
 	// 구매 페이지로 이동
 	addCart();
-	const cart = cartItem.find(localStorage.getItem('productId'))
-	const arr = [cart]
-	localStorage.setItem('order',JSON.stringify(arr))
+	const cart = cartItem.find(localStorage.getItem('productId'));
+	const arr = [cart];
+	localStorage.setItem('order', JSON.stringify(arr));
 	window.location.href = '/payment';
 }
-
-

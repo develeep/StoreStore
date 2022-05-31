@@ -20,6 +20,19 @@ orderRouter.get(
 	async (req, res, next) => {
 		try {
 			const orders = await orderService.getAllOrders();
+			for (let i = 0; i < orders.length; i++) {
+				const date = orders[i].createdAt;
+				let dateKor = new Date(date.getTime() + 3600000 * 9);
+				let month = dateKor.getMonth() + 1;
+				let day = dateKor.getDate();
+				let goodDate =
+					dateKor.getFullYear() +
+					'-' +
+					('00' + month.toString()).slice(-2) +
+					'-' +
+					('00' + day.toString()).slice(-2);
+				orders[i]._doc.timeKor = goodDate;
+			}
 			res.status(200).json(orders);
 		} catch (error) {
 			next(error);
@@ -33,6 +46,17 @@ orderRouter.get('/orders/:orderId', async (req, res, next) => {
 		// 여기서 orderId 가 order Schema의 shortId임
 		const orderId = req.params.orderId;
 		const order = await orderService.getOrder(orderId);
+		let date = order.createdAt;
+		let dateKor = new Date(date.getTime() + 3600000 * 9);
+		let month = dateKor.getMonth() + 1;
+		let day = dateKor.getDate();
+		let goodDate =
+			dateKor.getFullYear() +
+			'-' +
+			('00' + month.toString()).slice(-2) +
+			'-' +
+			('00' + day.toString()).slice(-2);
+		order._doc.timeKor = goodDate;
 		res.status(200).json(order);
 	} catch (error) {
 		next(error);
@@ -45,15 +69,19 @@ orderRouter.get('/orders', loginRequired, async (req, res, next) => {
 		// loign되었다면 id를 가져옴
 		const buyerId = req.currentUserId;
 		let orders = await orderService.getOrdersByBuyer(buyerId);
-		let timeKor = [];
 		for (let i = 0; i < orders.length; i++) {
 			const date = orders[i].createdAt;
 			let dateKor = new Date(date.getTime() + 3600000 * 9);
-			// let goodDate = dateKor.getFullYear + '-' + dateKor.getMonth
-			orders[i]._doc.timeKor = dateKor;
+			let month = dateKor.getMonth() + 1;
+			let day = dateKor.getDate();
+			let goodDate =
+				dateKor.getFullYear() +
+				'-' +
+				('00' + month.toString()).slice(-2) +
+				'-' +
+				('00' + day.toString()).slice(-2);
+			orders[i]._doc.timeKor = goodDate;
 		}
-		// let order = JSON.stringify(orders);
-		// console.log(typeof order);
 		res.status(200).json(orders);
 	} catch (error) {
 		next(error);

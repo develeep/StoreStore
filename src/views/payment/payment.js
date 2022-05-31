@@ -8,13 +8,13 @@ import { getElement, getElementAll } from '/useful-functions.js';
 const fullNameInput = getElement('#nameInput');
 const phoneNumberInput = getElement('#phoneNumberInput');
 const requestSelectBox = getElement('#requestSelectBox');
-const writeOption = getElement("#writeOption");
+const writeOption = getElement('#writeOption');
 const writeOptionSaveButton = getElement('#writeOptionSaveButton');
-const postalCodeDiv = getElement("#postcodeInput");
-const addressDiv = getElement("#addressInput");
-const detailAddressDiv = getElement("#detailAddressInput");
+const postalCodeDiv = getElement('#postcodeInput');
+const addressDiv = getElement('#addressInput');
+const detailAddressDiv = getElement('#detailAddressInput');
 
-let selectResult = "";
+let selectResult = '';
 
 const order = new Cart();
 order.getStore('order');
@@ -29,9 +29,9 @@ function addAllElements() {
 function addAllEvents() {
 	getOrder();
 	getUserInfo();
-	const checkOutButton = document.querySelector("#checkoutButton")
-    // 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
-	checkOutButton.addEventListener('click', payment)
+	const checkOutButton = document.querySelector('#checkoutButton');
+	// 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
+	checkOutButton.addEventListener('click', payment);
 	// 요청사항
 	requestSelectBox.addEventListener('change', selectWrite);
 	writeOptionSaveButton.addEventListener('click', saveWriteOption);
@@ -45,8 +45,8 @@ async function getUserInfo() {
 		if (userData.phoneNumber) {
 			phoneNumberInput.value = userData.phoneNumber;
 		}
-		if(userData.address){
-			const {postalCode,address1,address2} = userData.address;
+		if (userData.address) {
+			const { postalCode, address1, address2 } = userData.address;
 			postalCodeDiv.value = postalCode;
 			addressDiv.value = address1;
 			detailAddressDiv.value = address2;
@@ -54,8 +54,11 @@ async function getUserInfo() {
 		selectWrite();
 	} catch (err) {
 		console.error(err.stack);
-		alert(err.message);
-		location.href = `/login/${['payment', '']}`;
+		swal(err.message).then(() => {
+			const loc = location.href
+			const encodeURI = encodeURIComponent(loc)
+			location.href = `/login?beforeURI=${encodeURI}`;
+		});
 	}
 }
 // 장바구니 랜더링
@@ -160,54 +163,52 @@ function updateNum(e) {
 function selectWrite() {
 	const options = requestSelectBox.selectedOptions;
 
-	if (options[0].label != "직접 입력") {
-		writeOption.style.display = "none";
-		writeOptionSaveButton.style.display = "none";
+	if (options[0].label != '직접 입력') {
+		writeOption.style.display = 'none';
+		writeOptionSaveButton.style.display = 'none';
 		selectResult = options[0].label;
 		console.log(selectResult);
 	} else {
-		writeOption.style.display = "block";
-		writeOptionSaveButton.style.display = "block";
-		console.log("직접입력을 선택했습니다.");
+		writeOption.style.display = 'block';
+		writeOptionSaveButton.style.display = 'block';
+		console.log('직접입력을 선택했습니다.');
 	}
 }
 
 function saveWriteOption(e) {
 	e.preventDefault();
-	if (writeOptionSaveButton.innerHTML =="저장") {
+	if (writeOptionSaveButton.innerHTML == '저장') {
 		selectResult = writeOption.value;
 		console.log(selectResult);
-		alert('요청사항이 저장되었습니다.');
+		swal('요청사항이 저장되었습니다.');
 		writeOption.disabled = true;
-		writeOptionSaveButton.innerHTML = "수정";
+		writeOptionSaveButton.innerHTML = '수정';
 	} else {
 		writeOption.disabled = false;
-		writeOptionSaveButton.innerHTML = "저장";		
+		writeOptionSaveButton.innerHTML = '저장';
 	}
-	
 }
 
 async function payment(e) {
 	e.preventDefault();
-	try{
-	const receiveAddress = {
-		receiverPostalCode: postalCodeDiv.value,
-		receiverAddress: addressDiv.value,
-		receiverAddress2: detailAddressDiv.value
+	try {
+		const receiveAddress = {
+			receiverPostalCode: postalCodeDiv.value,
+			receiverAddress: addressDiv.value,
+			receiverAddress2: detailAddressDiv.value,
+		};
+		const order = JSON.parse(localStorage.getItem('order'));
+		const data = {
+			nameInput: fullNameInput.value,
+			addressInput: Object.values(receiveAddress).join(' '),
+			phoneNumberInput: phoneNumberInput.value,
+			requestSelectBox: selectResult,
+			orderProducts: order,
+		};
+		const result = await Api.post('/api/orderadd', data);
+		console.log(result);
+		location.href = `/payment/${result.orderId}`;
+	} catch (err) {
+		swal(`결제중 문제가 발생하였습니다. ${err.message}`);
 	}
-	const order = JSON.parse(localStorage.getItem('order'))
-	const data = {
-		nameInput: fullNameInput.value,
-		addressInput: Object.values(receiveAddress).join(' '),
-		phoneNumberInput: phoneNumberInput.value,
-		requestSelectBox: selectResult,
-		orderProducts: order
-	}
-	const result = await Api.post('/api/orderadd',data)
-	console.log(result)
-	location.href = `/payment/${result.orderId}`
-}catch(err){
-	alert(`결제중 문제가 발생하였습니다. ${err.message}`)
 }
-}
-
