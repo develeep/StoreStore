@@ -37,6 +37,11 @@ export class SmallCategoryModel {
 			._id;
 		return Bcategorys;
 	}
+
+	async delete(name) {
+		const deletename = await SmallCategory.deleteOne({ name: name });
+		return deletename;
+	}
 }
 
 const SmallcateModel = new SmallCategoryModel();

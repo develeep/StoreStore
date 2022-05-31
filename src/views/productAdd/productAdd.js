@@ -6,6 +6,7 @@ const categorySelectBox = document.getElementById('categorySelectBox');
 const categroyButton = document.getElementById('categroyButton');
 const BcategoryInput = document.getElementById('Bcategory');
 const ScategoryInput = document.getElementById('Scategory');
+const ScategoyUl = document.getElementById('ScategoyUl');
 // const categorySelectBox = document.getElementById('categorySelectBox');
 
 addAllElements();
@@ -18,42 +19,73 @@ async function addAllElements() {
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {}
-categroyButton.addEventListener('click', async (e) => {
+
+const modalwrap = document.getElementById('modal_btn');
+
+modalwrap.addEventListener('click', async (e) => {
 	e.preventDefault();
+	document.querySelector('.modal_wrap').style.display = 'block';
+	document.querySelector('.black_bg').style.display = 'block';
+
 	const categories = await Api.get('/api/getcategorys');
 	let categorys = Object.entries(categories);
+	categorySelectBox.innerHTML += `<option value>카테고리를 선택해주세요.</option>`;
 	for (const [key, value] of categorys) {
-		let newItem = value.reduce(function (target, key) {
-			target[key] = key;
-			return target;
-		}, {});
-		categories[key] = newItem;
+		categorySelectBox.innerHTML += `<option value="${key}">${key}</option>`;
 	}
-
-	const { value: category } = await Swal.fire({
-		title: 'CATEGORY',
-		input: 'select',
-		inputOptions: categories,
-		inputPlaceholder: 'CATEGORY를 선택해주세요.',
-		showCancelButton: true,
+	categorySelectBox.addEventListener('change', async (event) => {
+		const targetCategory = event.target.value;
+		const categorysData = await categorys.find(
+			(e) => e[0] == targetCategory,
+		)[1];
+		console.log(categorysData);
+		await categoryReset(categorysData);
+		// 카테고리추가
 	});
-
-	let Bcategory = categorys.find((e) => e[1].includes(category))[0];
-	BcategoryInput.value = Bcategory;
-	ScategoryInput.value = category;
-	console.log(category);
-	console.log(Bcategory);
+	const categoryAdd = document.getElementById('categoryAdd');
+	let cateogryInput = document.getElementById('cateogryInput');
+	categoryAdd.addEventListener('click', async (e) => {
+		e.preventDefault();
+		const ScateogryInput = cateogryInput.value;
+		console.log(ScateogryInput);
+		const data = { targetCategory, ScateogryInput };
+		const newCategory = await Api.post('/api/category_update', data);
+		if (newCategory.result == 'ok') {
+			categorysData.push(ScateogryInput);
+			await categoryReset(categorysData);
+		} else {
+			alert('error');
+		}
+	});
+	// 카테고리삭제
+	const categoryLi = document.querySelectorAll('#categoryId');
+	categoryLi.forEach(async (el) => {
+		const deleteButton = el.querySelector('#delete');
+		deleteButton.addEventListener('click', async (e) => {
+			e.preventDefault();
+			const selectedCategory = el.querySelector('#categoryName').innerText;
+			const data = { selectedCategory };
+			console.log(data);
+			const deleteCategory = await Api.delete('/api/Categorydelete', '', data);
+			console.log(deleteCategory);
+		});
+	});
 });
 
-// // 카테고리 api 가져오기
-// const categories = await Api.get('/api/getcategorys');
-// console.log(categories);
+const modalclose = document.querySelector('.modal_close');
 
-// // 카테고리 데이터 옵션에 추가
-// for (const [key, value] of Object.entries(categories)) {
-// 	categorySelectBox.innerHTML += `<option value>${key}</option>`;
-// }
+modalclose.addEventListener('click', async (e) => {
+	e.preventDefault();
+	document.querySelector('.modal_wrap').style.display = 'none';
+	document.querySelector('.black_bg').style.display = 'none';
+});
 
-// `<select id="subCategorySelectBox">
-// <option value>하위 카테고리를 선택해 주세요.</option>
-// </select>`
+async function categoryReset(categorysData) {
+	let Scategorys = await categorysData.reduce(function (prev, curr) {
+		return (
+			prev +
+			`<li id = "categoryId"><button id = "categoryName">${curr}</button><button id = "delete"><i class="fa fa-trash"></i></button></li>`
+		);
+	}, '');
+	ScategoyUl.innerHTML = `${Scategorys}<input id='cateogryInput' type='text'></input><button id='categoryAdd'>추가</button>`;
+}
