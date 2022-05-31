@@ -20,8 +20,8 @@ categoryRouter.post('/category_update', async (req, res, next) => {
 		}
 
 		// req (request)의 body 에서 데이터 가져오기
-		const Bcategory = req.body.Bcategory;
-		const Scategory = req.body.Scategory;
+		const Bcategory = req.body.targetCategory;
+		const Scategory = req.body.ScateogryInput;
 
 		// 위 데이터를 유저 db에 추가하기
 		const getCategoryInfo = await cateService.getCategory({
@@ -34,7 +34,7 @@ categoryRouter.post('/category_update', async (req, res, next) => {
 
 		// 추가된 유저의 db 데이터를 프론트에 다시 보내줌
 		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-		res.status(200).json(newCategory);
+		res.status(200).json({ result: 'ok' });
 	} catch (error) {
 		next(error);
 	}
@@ -42,9 +42,18 @@ categoryRouter.post('/category_update', async (req, res, next) => {
 
 categoryRouter.get('/getcategorys', async (req, res, next) => {
 	try {
-		// 위 데이터를 유저 db에 추가하기
 		let newCategory = await SmallcateService.getCategorys();
 		res.status(200).json(newCategory);
+	} catch (error) {
+		next(error);
+	}
+});
+
+categoryRouter.delete('/Categorydelete', async (req, res, next) => {
+	try {
+		const name = req.body.selectedCategory;
+		let deleteCategory = await SmallcateService.deleteCategory(name);
+		res.status(200).json(deleteCategory);
 	} catch (error) {
 		next(error);
 	}
