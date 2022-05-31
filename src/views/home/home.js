@@ -48,7 +48,6 @@ new Swiper('.promotion .swiper-container', {
 
 // 8개 제품 api 가져오기
 const bestproducts = await Api.get('/api/bestproducts');
-console.log(bestproducts);
 
 for (let i = 0; i < bestproducts.length; i++) {
 	const image = bestproducts[i].imageUrl;
