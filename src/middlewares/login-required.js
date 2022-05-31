@@ -25,6 +25,16 @@ function loginRequired(req, res, next) {
 
 		// 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
 		req.currentUserId = userId;
+		// console.log(req.passwordReset);
+		// console.log(req.user.passwordReset);
+		// console.log('이건?');
+		// if (req.passwordReset) {
+		// 비밀번호 초기화 페이지로 이동시킴
+		// location.href= '';
+		// 초기화 페이지에서 User 의 passwordReset 값 false로 변경시켜야함
+		// return;
+		// console.log('여기까지 왔다.');
+		// }
 
 		next();
 	} catch (error) {

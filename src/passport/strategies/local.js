@@ -20,6 +20,7 @@ const local = new LocalStrategy(config, async (email, password, done) => {
 		done(null, {
 			email: user.email,
 			fullName: user.fullName,
+			passwordReset: user.passwordReset,
 		});
 	} catch (err) {
 		done(err, null);

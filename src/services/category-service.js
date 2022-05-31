@@ -29,14 +29,6 @@ class categoryService {
 		const Bigcategory = await this.cateModel.findAll();
 		return Bigcategory;
 	}
-
-	// 사용자 삭제
-	async deleteUser(userId) {
-		// db에서 삭제
-		await userModel.delete(userId);
-
-		return;
-	}
 }
 
 const cateService = new categoryService(cateModel);

@@ -26,8 +26,12 @@
 	justify-content: center;
 	padding: 0 10px 60px 10px;
 }
-.rankedproducts .product-item #productImage {
+.rankedproducts .product-item .image-box{
+	width: 220px;
 	height: 220px;
+	overflow: hidden;
+}
+.rankedproducts .product-item #productImage {
 	width: 220px;
 }
 .rankedproducts .product-item .description {
