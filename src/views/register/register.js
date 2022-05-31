@@ -15,6 +15,7 @@ const failnameMessage = document.querySelector('.failname-message');
 const failemailMessage = document.querySelector('.failemail-message');
 const failpassMessage = document.querySelector('.failpass-message');
 const misspassMessage = document.querySelector('.misspass-message');
+const successMessage = document.querySelector('.success-message')
 
 addAllElements();
 addAllEvents();
@@ -80,7 +81,7 @@ function getEmailCorrect() {
 					text: '인증을 완료했습니다.',
 					icon: 'success',
 				});
-				localStorage.setItem('mail', 'ok');
+				localStorage.setItem('mail', emailInput.value);
 			} else {
 				swal({
 					text: '인증에 실패했습니다. 다시 시도해 주세요',
@@ -116,6 +117,13 @@ emailInput.onkeyup = function () {
 	} else {
 		// classlist에 hide를 지워서 실패메세지 출력
 		failemailMessage.classList.remove('hide');
+	}
+	const emailMatch = localStorage.getItem('mail')
+	if(emailInput.value === emailMatch){
+		successMessage.classList.remove('hide');
+	}
+	else{
+		successMessage.classList.add('hide')
 	}
 };
 
@@ -176,7 +184,7 @@ async function handleSubmit(e) {
 	try {
 		const data = { fullName, email, password };
 		const correctEmail = localStorage.getItem('mail');
-		if (correctEmail) {
+		if (correctEmail===emailInput.value) {
 			await Api.post('/api/register', data);
 			const login = { email, password };
 			const result = await Api.post('/api/login', login);
@@ -185,7 +193,6 @@ async function handleSubmit(e) {
 				text: '가입이 완료되었습니다.',
 			}).then(() => {
 				localStorage.setItem('token', token);
-				localStorage.removeItem('mail');
 				window.location.href = '/';
 			});
 		} else {
@@ -199,4 +206,8 @@ async function handleSubmit(e) {
 			text: err.message,
 		});
 	}
+}
+
+window.onunload=()=>{
+	localStorage.removeItem('mail');
 }
