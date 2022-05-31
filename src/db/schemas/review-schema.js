@@ -11,6 +11,10 @@ const ReviewSchema = new Schema(
 			ref: 'users',
 			required: true,
 		},
+		starRate: {
+			type: Number,
+			required: false,
+		},
 	},
 	{
 		collection: 'reviews',

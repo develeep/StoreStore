@@ -41,6 +41,14 @@ export class ProductModel {
 		return productsRanked;
 	}
 
+	async getNext8Products(page) {
+		const products = await Product.find({})
+			.sort({ salesRate: -1 })
+			.skip(8 * page)
+			.limit(8);
+		return products;
+	}
+
 	async findRank_8_Product() {
 		const rank_8_Products = await Product.find({})
 			.sort({ salesRate: -1 })
@@ -61,6 +69,11 @@ export class ProductModel {
 	}
 	async delete(productId) {
 		await Product.deleteOne({ productId });
+		return;
+	}
+
+	async deleteByCategory(category) {
+		await Product.deleteMany({ category });
 		return;
 	}
 }
