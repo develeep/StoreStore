@@ -1,31 +1,76 @@
 import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 
-const inputCategory = document.getElementById('input-category');
-const subCategory = document.getElementById('s-category');
-
 addAllElements();
-addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	renderGnb();
 }
 
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {}
+// navbar 데이터 가져오기
+const getCategories = await Api.get('/api/getcategorys');
+const categories = document.querySelector('#nav-list');
 
-// 카테고리 api 가져오기
-const categories = await Api.get('/api/getcategorys');
-
-Object.entries(categories).forEach(([key, value]) => {
+Object.entries(getCategories).forEach(([key, value]) => {
 	let itemList = '';
+
 	for (let i of value) {
-		itemList += `<li><a href="/products/${i}">${i}</a></li>`;
+		itemList += `<a href="/products/${i}" class="collapse__sublink">${i}</a>`;
 	}
-	inputCategory.innerHTML += `<li class="main-Category-li"><a href="/products/${key}" class="aTags">${key}</a>
-	<ul>
-	${itemList}
-	</ul>
-</li>`;
+
+	categories.innerHTML += `<div class="nav__link collapse">
+  <a href="/products/${key}" class="nav_name">${key}</a>
+  <ion-icon
+  name="chevron-down-outline"
+  class="collapse__link"
+></ion-icon>
+  <ul class="collapse__menu">
+  	${itemList}
+  </ul>
+</div>`;
 });
+
+/* EXPANDER MENU */
+const showMenu = (toggleId, categoryNavbarId) => {
+	const toggle = document.getElementById(toggleId),
+		categoryNavbar = document.getElementById(categoryNavbarId);
+
+	if (toggle && categoryNavbar) {
+		toggle.addEventListener('click', () => {
+			categoryNavbar.classList.toggle('expander');
+		});
+	}
+};
+
+showMenu('nav-toggle', 'categoryNavbar');
+
+/* LINK ACTIVE */
+const linkColor = document.querySelectorAll('.nav__link');
+function colorLink() {
+	linkColor.forEach((l) => l.classList.remove('active'));
+	this.classList.add('active');
+}
+linkColor.forEach((l) => l.addEventListener('click', colorLink));
+
+/* COLLAPSE MENU */
+const linkCollapse = document.getElementsByClassName('collapse__link');
+
+for (let i = 0; i < linkCollapse.length; i++) {
+	linkCollapse[i].addEventListener('click', function () {
+		const collapseMenu = document.getElementsByClassName('collapse__menu');
+		collapseMenu[i].classList.toggle('showCollapse');
+
+		const rotate = collapseMenu.previousElementSibling;
+		rotate.classList.toggle('rotate');
+	});
+}
+
+const sidebarBtn = document.getElementsByClassName('sidebarBtn');
+
+for (let i = 0; i < sidebarBtn.length; i++) {
+	sidebarBtn[i].addEventListener('click', function () {
+		sidebarBtn[0].classList.toggle('hidden-Toggle');
+		sidebarBtn[1].classList.toggle('hidden-Toggle');
+	});
+}
