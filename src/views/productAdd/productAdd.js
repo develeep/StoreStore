@@ -8,11 +8,19 @@ const BcategoryInput = getElement('#Bcategory');
 const ScategoryInput = getElement('#Scategory');
 const ScategoyUl = getElement('#ScategoyUl');
 let categorysData = [];
+const nameInput = document.getElementById('titleInput');
+const categoryInput = document.getElementById('Scategory');
+const companyInput = document.getElementById('manufacturerInput');
+const descriptionInput = document.getElementById('descriptionInput');
+const inventoryInput = document.getElementById('inventoryInput');
+const priceInput = document.getElementById('priceInput');
+const imageInput = document.getElementById('img');
+const addForm = document.getElementById('addForm');
 // const categorySelectBox = document.getElementById('categorySelectBox');
 
 addAllElements();
 addAllEvents();
-
+var imageFile;
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	renderGnb();
@@ -23,7 +31,14 @@ function addAllEvents() {}
 
 const modalwrap = document.getElementById('modal_btn');
 
-modalwrap.addEventListener('click', async (e) => {
+modalwrap.addEventListener('click', async (e) => {})
+
+function addAllEvents() {
+	// submitButton.addEventListener('click', buttonSubmit);
+	// imageInput.addEventListener('change', loadFile);
+	// addForm.addEventListener('submit', addProudct);
+}
+categroyButton.addEventListener('click', async (e) => {
 	e.preventDefault();
 	document.querySelector('.modal_wrap').style.display = 'block';
 	document.querySelector('.black_bg').style.display = 'block';
@@ -204,4 +219,47 @@ function addItem(itemName) {
 		}
 	});
 	return li;
+}
+// `<select id="subCategorySelectBox">
+// <option value>하위 카테고리를 선택해 주세요.</option>
+// </select>`
+
+async function buttonSubmit(e) {
+	e.preventDefault();
+
+	const name = nameInput.value;
+	const category = categoryInput.value;
+	const company = companyInput.value;
+	const description = descriptionInput.value;
+	const inventory = inventoryInput.value;
+	const price = priceInput.value;
+	const data = {
+		...(name && { name }),
+		...(category && { category }),
+		...(company && { company }),
+		...(description && { description }),
+		...(inventory && { inventory }),
+		...(price && { price }),
+	};
+
+	const categories = await Api.post('/api/products', data);
+	console.log('등록된 상품은');
+	console.log(categories);
+}
+
+function loadFile(e) {
+	console.log(e.target.files[0]);
+	imageFile = e.target.files[0];
+}
+
+async function addProudct(e) {
+	e.preventDefault();
+	console.log('what????');
+	const addformData = new FormData(addForm);
+	addformData.append('img', imageFile);
+	console.log(addformData);
+	const result = await Api.post('/api/products', addformData);
+	console.log('상품 추가완료되었습니다.');
+	console.log(result);
+	location.href = '/admin';
 }

@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
 import { productService, SmallcateService } from '../services';
+import upload from '../utils/s3';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
@@ -23,6 +24,18 @@ productRouter.get('/rankedproducts', async (req, res, next) => {
 	try {
 		const rankedProducts = await productService.getRankedProduct();
 		res.status(200).json(rankedProducts);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 무한 스크롤을 위한 상품 8개씩 계속 가져오기
+productRouter.get('/rankednext8products', async (req, res, next) => {
+	try {
+		const page = Number(req.query.page);
+		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
+		const rankedNext8Products = await productService.getNext8Products(page);
+		res.status(200).json(rankedNext8Products);
 	} catch (error) {
 		next(error);
 	}
@@ -65,20 +78,21 @@ productRouter.get('/productist/:category', async (req, res, next) => {
 // 상품등록 -> /api/productRegister
 productRouter.post(
 	'/products',
+	upload.single('img'),
 	// loginRequired,
 	// isAdmin,
 	async (req, res, next) => {
 		try {
 			// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
 			// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-			if (is.emptyObject(req.body)) {
+			if (is.emptyObject(req.headers)) {
 				throw new Error(
 					'headers의 Content-Type을 application/json으로 설정해주세요',
 				);
 			}
 
 			// 카테고리를 폼에서 입력했을 거란 가정하에..
-			const category = req.body.category;
+			const category = req.body.Scategory;
 
 			// 카테고리 스키마에서 category로 _id 얻어오기
 			let getCategory = await SmallcateService.getCategoryname(category);
@@ -89,8 +103,10 @@ productRouter.post(
 
 			// image를 S3에 저장
 			// 이후 생성된 url을 받아야 함.
-			// ~~~s3에 저장~~~
-			// const imageUrl =
+			// middleware에서 s3에 저장
+			const imageUrl = req.file.location;
+			console.log(req.file);
+			console.log(imageUrl);
 
 			// 위 데이터를 product db에 추가하기
 			const newProduct = await productService.addProduct({

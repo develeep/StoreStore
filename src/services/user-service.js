@@ -115,6 +115,22 @@ class UserService {
 
 		return user;
 	}
+
+	async setUserByEmail(email, toUpdate) {
+		const { password } = toUpdate;
+
+		if (password) {
+			const newPasswordHash = await bcrypt.hash(password, 10);
+			toUpdate.password = newPasswordHash;
+		}
+		// 업데이트 진행
+		const user = await this.userModel.updateByEmail({
+			email,
+			update: toUpdate,
+		});
+
+		return user;
+	}
 }
 
 const userService = new UserService(userModel);
