@@ -61,8 +61,8 @@ for (let i = 0; i < linkCollapse.length; i++) {
 		const collapseMenu = document.getElementsByClassName('collapse__menu');
 		collapseMenu[i].classList.toggle('showCollapse');
 
-		const rotate = collapseMenu.previousElementSibling;
-		rotate.classList.toggle('rotate');
+		const rotate = document.getElementsByClassName('collapse__link');
+		rotate[i].classList.toggle('rotate');
 	});
 }
 
