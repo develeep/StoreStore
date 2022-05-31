@@ -9,7 +9,7 @@ const viewsRouter = express.Router();
 
 viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
-viewsRouter.use('/login/:href', serveStatic('login'));
+viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/mypage', serveStatic('mypage'));
 viewsRouter.use('/mypage/order', serveStatic('order'));
 viewsRouter.use('/product-detail/:id', serveStatic('product-detail')); // 제품상세 페이지 확인용 라우터

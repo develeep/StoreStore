@@ -5,18 +5,29 @@ import { validateEmail } from '/useful-functions.js';
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const submitButton = document.querySelector('#submitButton');
+const navBar = document.querySelector('#navbar')
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
+async function addAllElements() {
+	registerBtn()
+}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
 	submitButton.addEventListener('click', handleSubmit);
 }
 
+function registerBtn() {
+	const liTag = document.createElement('li');
+	const aTag = document.createElement('a');
+	aTag.href = `/register${location.search}`;
+	aTag.textContent = '회원가입';
+	liTag.append(aTag);
+	navBar.prepend(liTag);
+}
 // 로그인 진행
 async function handleSubmit(e) {
 	e.preventDefault();
@@ -46,17 +57,14 @@ async function handleSubmit(e) {
 		localStorage.setItem('token', token);
 
 		swal(`정상적으로 로그인되었습니다.`).then(() => {
-			const loc = location.href.split('/');
-			const params = loc[loc.length - 2].split(',');
-
-			if (params === 'home') {
-				location.href = '/';
-			} else if (params.length == 2) {
-				location.href = `/${params[0]}`;
-			} else if (params.length > 2) {
-				location.href = `/${params[0]}/${params[1]}`;
-			} else {
-				location.href = '/';
+			const encodeURI = location.search
+			const URI = decodeURIComponent(encodeURI)
+			const searchURI = new URLSearchParams(URI)
+			const beforeURI = searchURI.get('beforeURI')
+			if(beforeURI){
+				location.href = beforeURI;
+			}else{
+				swal('비정상적인 접근입니다.')
 			}
 		});
 	} catch (err) {
