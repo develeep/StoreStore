@@ -34,6 +34,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="productAdd.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="productAdd.js" type="module" defer></script>
   </head>
   <body>
@@ -69,9 +70,9 @@
               </div>
               <div>
                 <label for="categorySelectBox">카테고리</label>
-                <select id="categorySelectBox">
-                  <option value>카테고리를 선택해 주세요.</option>
-                </select>
+                <input id="Bcategory" type="text" readonly>
+                <input id="Scategory" type="text" readonly>
+                <button id="categroyButton">카테고리</button>
               </div>
               <div>
                 <label for="manufacturerInput">제조사</label>
