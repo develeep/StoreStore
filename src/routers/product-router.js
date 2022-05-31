@@ -85,12 +85,7 @@ productRouter.post(
 		try {
 			// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
 			// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-			if (is.emptyObject(req.headers)) {
-				throw new Error(
-					'headers의 Content-Type을 application/json으로 설정해주세요',
-				);
-			}
-
+			console.log(req.body)
 			// 카테고리를 폼에서 입력했을 거란 가정하에..
 			const category = req.body.Scategory;
 

@@ -3,11 +3,12 @@ import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 
 const categorySelectBox = getElement('#categorySelectBox');
-const categroyButton = getElement('#categroyButton');
+const categroyButton = getElement('#modal_btn');
 const BcategoryInput = getElement('#Bcategory');
 const ScategoryInput = getElement('#Scategory');
 const ScategoyUl = getElement('#ScategoyUl');
 let categorysData = [];
+const addForm = document.getElementById('addForm');
 const nameInput = document.getElementById('titleInput');
 const categoryInput = document.getElementById('Scategory');
 const companyInput = document.getElementById('manufacturerInput');
@@ -15,7 +16,6 @@ const descriptionInput = document.getElementById('descriptionInput');
 const inventoryInput = document.getElementById('inventoryInput');
 const priceInput = document.getElementById('priceInput');
 const imageInput = document.getElementById('img');
-const addForm = document.getElementById('addForm');
 // const categorySelectBox = document.getElementById('categorySelectBox');
 
 addAllElements();
@@ -27,16 +27,13 @@ async function addAllElements() {
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {}
-
 const modalwrap = document.getElementById('modal_btn');
 
-modalwrap.addEventListener('click', async (e) => {})
+modalwrap.addEventListener('click', async (e) => {});
 
 function addAllEvents() {
-	// submitButton.addEventListener('click', buttonSubmit);
-	// imageInput.addEventListener('change', loadFile);
-	// addForm.addEventListener('submit', addProudct);
+	imageInput.addEventListener('change', loadFile);
+	addForm.addEventListener('submit', addProudct);
 }
 categroyButton.addEventListener('click', async (e) => {
 	e.preventDefault();
@@ -113,8 +110,6 @@ async function categoryReset(targetCategory) {
 			alert('error');
 		}
 	});
-
-	
 }
 
 function addItem(itemName) {
@@ -183,7 +178,6 @@ function addItem(itemName) {
 						});
 				}
 			});
-			
 		} catch (err) {
 			alert(err.message);
 		}
@@ -252,14 +246,45 @@ function loadFile(e) {
 	imageFile = e.target.files[0];
 }
 
-async function addProudct(e) {
+function addProudct(e) {
 	e.preventDefault();
-	console.log('what????');
-	const addformData = new FormData(addForm);
-	addformData.append('img', imageFile);
-	console.log(addformData);
-	const result = await Api.post('/api/products', addformData);
-	console.log('상품 추가완료되었습니다.');
-	console.log(result);
-	location.href = '/admin';
+	const formData = new FormData();
+
+
+	formData.append(nameInput.name, nameInput.value);
+	formData.append(categoryInput.name, categoryInput.value);
+	formData.append(companyInput.name, companyInput.value);
+	formData.append(descriptionInput.name, descriptionInput.value);
+	formData.append(inventoryInput.name, inventoryInput.value);
+	formData.append(priceInput.name, priceInput.value);
+	formData.append(imageInput.name, imageInput.files[0]);
+
+	let object = {};
+	formData.forEach(function(value, key){
+			object[key] = value;
+	});
+	console.log(object)
+	swal(
+		'상품을 추가하시겠습니까?',
+		{
+			buttons: {
+				cancel: '아니요',
+				yes: '네',
+			},
+		},
+	).then((value) => {
+		switch (value) {
+			case 'cancel':
+				break;
+			case 'yes':
+				Api.formPost('/api/products',formData).then(()=>{
+					swal('상품 추가가 완료되었습니다.').then(()=>{
+						location.href = '/admin'
+					})
+				}).catch((err)=>{
+					alert(err.message)
+				})
+		}
+	});
+	
 }
