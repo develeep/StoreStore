@@ -143,16 +143,32 @@ function addItem(itemName) {
 	delBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 		try {
-			const selectedCategory = { selectedCategory: itemName };
-			Api.delete('/api/Categorydelete', '', selectedCategory).then(() => {
-				li.remove();
-				categorysData.forEach((data, index) => {
-					if (data === itemName) {
-						categorysData.splice(index, 1);
-					}
-				});
-				console.log(categorysData);
+			swal(
+				'카테고리 삭제시 해당 카테고리의 상품이 전부 삭제됩니다. 정말 삭제하시겠습니까?',
+				{
+					buttons: {
+						cancel: '아니요',
+						yes: '네',
+					},
+				},
+			).then((value) => {
+				switch (value) {
+					case 'cancel':
+						break;
+					case 'yes':
+						const selectedCategory = { selectedCategory: itemName };
+						Api.delete('/api/Categorydelete', '', selectedCategory).then(() => {
+							li.remove();
+							categorysData.forEach((data, index) => {
+								if (data === itemName) {
+									categorysData.splice(index, 1);
+								}
+							});
+							console.log(categorysData);
+						});
+				}
 			});
+			
 		} catch (err) {
 			alert(err.message);
 		}
@@ -169,7 +185,7 @@ function addItem(itemName) {
 		e.preventDefault();
 		try {
 			const newData = updateInput.value;
-			const data = { oldData: itemName, newData: newData };
+			const data = { OldData: itemName, NewData: newData };
 			console.log(data);
 			Api.patch('/api/Ucategory', '', data).then(() => {
 				btn.textContent = newData;
@@ -178,6 +194,10 @@ function addItem(itemName) {
 						? (categorysData[index] = newData)
 						: false;
 				});
+				updateInput.classList.toggle('hide');
+				updateInputSubmit.classList.toggle('hide');
+				delBtn.classList.toggle('hide');
+				btn.classList.toggle('hide');
 			});
 		} catch (err) {
 			alert(err.message);

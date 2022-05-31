@@ -67,7 +67,7 @@ function addToCart() {
 		},
 	).then((value) => {
 		switch (value) {
-			case 'defeat':
+			case 'cancel':
 				break;
 			case 'yes':
 				location.href = '/cart';
