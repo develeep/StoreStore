@@ -59,4 +59,16 @@ categoryRouter.delete('/Categorydelete', async (req, res, next) => {
 	}
 });
 
+categoryRouter.patch('/Ucategory', async (req, res, next) => {
+	try {
+		const OldData = req.body.OldData;
+		const NewData = req.body.NewData;
+		let toUpdate = await SmallcateService.getCategoryname(OldData);
+		toUpdate.name = NewData;
+		let updateData = await SmallcateService.updateCategory(OldData, toUpdate);
+		res.status(200).json({ result: 'ok' });
+	} catch (error) {
+		next(error);
+	}
+});
 export { categoryRouter };
