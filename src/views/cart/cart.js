@@ -44,7 +44,7 @@ function getCart() {
 		deleteBtn.classList.add('hide');
 		orderBtn.classList.add('hide');
 		priceInfo.classList.add('hide');
-		emptyTable.classList.add('empty-table')
+		emptyTable.classList.add('empty-table');
 		return;
 	}
 	// newCart에 아이템 추가(변경사항 있을시)
@@ -181,11 +181,11 @@ function delChoice() {
 		}
 	});
 	if (!checking) {
-		alert('물품을 선택해 주세요.');
+		swal('물품을 선택해 주세요.');
 		return;
 	}
 	cartList.remove();
-	alert('선택된 물품이 삭제외었습니다.');
+	swal('선택된 물품이 삭제되었습니다.');
 	if (JSON.parse(newCart.valueOf()).length === 0) {
 		localStorage.removeItem('cart');
 		localStorage.removeItem('order');
@@ -205,7 +205,7 @@ function deleteAll() {
 	cartList.remove();
 	localStorage.removeItem('cart');
 	localStorage.removeItem('order');
-	alert('장바구니가 삭제되었습니다.');
+	swal('장바구니가 삭제되었습니다.');
 	getCart();
 }
 
@@ -287,7 +287,7 @@ function createExamData() {
 
 function goPayment() {
 	if (getAllPrice() === 0) {
-		alert('물품을 선택해 주세요');
+		swal('물품을 선택해 주세요');
 		return;
 	}
 	location.href = '/payment';
