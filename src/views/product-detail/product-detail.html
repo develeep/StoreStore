@@ -80,7 +80,7 @@
     </div>
 
     <!-- 제품 상세 설명 카드 -->
-    <section class="section">
+    <section class="section product-section">
       <div class="container">
         <div class="tile is-ancestor product-detail-card">
           <div class="tile is-6 is-parent">
@@ -110,6 +110,52 @@
               <button class="button is-info ml-2" id="purchaseButton">
                 바로 구매하기
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section comment-section">
+      <div class="container">
+        <form id="comment-form">
+          <div class="star-rate">
+            <label for="star">별점을 매겨주세요</label>
+            <div class="rating">
+              <input type="radio" name="rating" id="rating-5">
+              <label for="rating-5"></label>
+              <input type="radio" name="rating" id="rating-4">
+              <label for="rating-4"></label>
+              <input type="radio" name="rating" id="rating-3">
+              <label for="rating-3"></label>
+              <input type="radio" name="rating" id="rating-2">
+              <label for="rating-2"></label>
+              <input type="radio" name="rating" id="rating-1">
+              <label for="rating-1"></label>
+            </div>
+          </div>
+          <div class="comment-box">
+            <input type="text" id="comment-input" class="comment-input" placeholder="리뷰를 작성해 주세요">
+            <input type="submit" value="Post" class="comment-btn">
+          </div>
+        </form>
+        <div class="comment-list">
+          <div class="comment-item-box">
+            <div class="rating-item">
+              <input type="radio" name="rating" id="rating-5" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-4" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-3" checked="true" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-2" disabled="true">
+              <label></label>
+              <input type="radio" name="rating" id="rating-1"  disabled="true">
+              <label></label>
+            </div>
+            <div class="comment-item">
+              <p class="comment-item-username">이승훈</p>
+              <input class="comment" value="이거 정말 대박입니다." disabled="true"></input>
             </div>
           </div>
         </div>
