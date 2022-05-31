@@ -26,6 +26,14 @@ a {
 	color: #141414;
 }
 
+.md.hydrated {
+	font-size: 24px;
+}
+
+section {
+	margin: 0 3rem;
+}
+
 /* header */
 header {
 	width: 100%;
@@ -62,11 +70,15 @@ header {
 	padding: 10px;
 }
 
+.navbar > li:hover > a {
+	font-weight: 700;
+}
+
 .navbar > li:first-child::before {
 	display: none;
 }
 
-.container {
+.container-box {
 	justify-content: space-between;
 	display: flex;
 	height: 4rem;
@@ -75,6 +87,14 @@ header {
 
 .headerLeft {
 	padding-left: 10px;
+}
+
+.logo > a {
+	/* font-family: 'Playfair Display', serif; */
+	/* font-family: 'Cormorant Garamond', serif;
+	font-family: 'Prata', serif; */
+	font-family: 'Libre Bodoni', serif;
+	font-size: 30px;
 }
 
 .headerRight {
@@ -130,6 +150,7 @@ header {
 	align-items: center;
 	margin-bottom: 1rem;
 	font-size: 18px;
+	font-weight: 700;
 }
 
 .nav__logo {

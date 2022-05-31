@@ -14,17 +14,6 @@
 		<!-- sweetalert -->
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-			rel="stylesheet"
-		/>
-
 		<!--Swiper-->
 		<link
 			rel="stylesheet"
@@ -32,8 +21,21 @@
 		/>
 		<script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
 
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
 		<!-- IONICONS -->
-		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
 		<!-- 커스텀 css, js -->
 		<link rel="stylesheet" href="home.css" />
 		<link rel="stylesheet" href="../css/common.css" />
@@ -47,7 +49,7 @@
 				<!-- 회원가입,로그인 -->
 				<ul id="navbar" class="navbar"></ul>
 			</div>
-			<div class="container">
+			<div class="container-box">
 				<div class="headerLeft">
 					<div class="nav__toggle" id="nav-toggle">
 						<div class="sidebarBtn">
@@ -68,6 +70,9 @@
 									<div class="nav__link active">
 										<a href="/" class="nav_name">Home</a>
 									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
 								</div>
 							</div>
 						</nav>
@@ -80,7 +85,7 @@
 						<ul id="submenu">
 							<li>
 								<a href="/cart" aria-current="page">
-									<span class="material-icons-outlined"> shopping_cart </span>
+									<ion-icon name="bag-handle-outline"></ion-icon>
 								</a>
 							</li>
 						</ul>

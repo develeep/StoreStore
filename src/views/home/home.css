@@ -106,9 +106,10 @@
 	justify-content: center;
 }
 .main-product .product-item #productImage {
-	height: 270px;
-	width: 270px;
-	border: #333 solid 1px;
+	height: 320px;
+	width: 220px;
+	cursor: pointer;
+	object-fit: cover;
 }
 .main-product .product-item .description {
 	display: flex;
