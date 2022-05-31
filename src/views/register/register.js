@@ -1,33 +1,45 @@
 import * as Api from '/api.js';
-import { validateEmail } from '/useful-functions.js';
+import { validateEmail,getElement,getElementAll } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
-const fullNameInput = document.querySelector('#fullNameInput');
-const emailInput = document.querySelector('#emailInput');
-const emailcheck = document.querySelector('#emailcheck');
-const sendemailButton = document.querySelector('#send-email-button');
-const emailcheckButton = document.querySelector('#email-check-button');
-const passwordInput = document.querySelector('#passwordInput');
-const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
-const submitButton = document.querySelector('#submitButton');
+const fullNameInput = getElement('#fullNameInput');
+const emailInput = getElement('#emailInput');
+const emailcheck = getElement('#emailcheck');
+const sendemailButton = getElement('#send-email-button');
+const emailcheckButton = getElement('#email-check-button');
+const passwordInput = getElement('#passwordInput');
+const passwordConfirmInput = getElement('#passwordConfirmInput');
+const submitButton = getElement('#submitButton');
+const navBar = getElement('#navbar')
 
-const failnameMessage = document.querySelector('.failname-message');
-const failemailMessage = document.querySelector('.failemail-message');
-const failpassMessage = document.querySelector('.failpass-message');
-const misspassMessage = document.querySelector('.misspass-message');
-const successMessage = document.querySelector('.success-message')
+const failnameMessage = getElement('.failname-message');
+const failemailMessage = getElement('.failemail-message');
+const failpassMessage = getElement('.failpass-message');
+const misspassMessage = getElement('.misspass-message');
+const successMessage = getElement('.success-message')
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
+async function addAllElements() {
+	createLogin()
+}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
 	submitButton.addEventListener('click', handleSubmit);
 }
 
+function createLogin() {
+
+	const liTag = document.createElement('li');
+	const aTag = document.createElement('a');
+	aTag.href = `/login${location.search}`;
+	aTag.textContent = '로그인';
+	liTag.append(aTag);
+	navBar.prepend(liTag);
+}
 // 두 값이 일치하는지 확인하는 Match 함수 작성
 function Match(password1, password2) {
 	return password1 === password2;
