@@ -34,7 +34,6 @@ async function getOrder() {
 }
 
 async function cancelOrder() {
-  // 버튼 되면 name과 같은 주문번호 데이터 삭제하는 코드 추가
   console.log(this.name);
   const orders = await Api.delete(`/api/orders/${this.name}`);
   location.reload();
