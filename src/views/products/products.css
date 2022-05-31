@@ -1,21 +1,16 @@
 .rankedproducts {
-	padding: 40px 0 0 190px;
 	width: 100%;
-}
-.rankedproducts .title {
-	text-align: center;
-}
-.rankedproducts .title h1 {
-	font-weight: 400;
 }
 .rankedproducts .inputProduct {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	padding-top: 80px;
 }
 .rankedproducts .inputProduct #productImage {
 	cursor: pointer;
+	height: 320px;
+	width: 220px;
+	object-fit: cover;
 }
 .rankedproducts .inputProduct #productDescription {
 	cursor: pointer;
@@ -25,10 +20,6 @@
 	flex-direction: column;
 	justify-content: center;
 	padding: 0 10px 60px 10px;
-}
-.rankedproducts .product-item #productImage {
-	height: 220px;
-	width: 220px;
 }
 .rankedproducts .product-item .description {
 	display: flex;
