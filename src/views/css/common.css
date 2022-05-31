@@ -39,7 +39,6 @@ header {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	padding: 0 10px;
 	height: 1.5rem;
 	align-items: flex-end;
 	font-size: 12px;
