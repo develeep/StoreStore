@@ -46,18 +46,11 @@ async function handleSubmit(e) {
 		localStorage.setItem('token', token);
 
 		swal(`정상적으로 로그인되었습니다.`).then(() => {
-			const loc = location.href.split('/');
-			const params = loc[loc.length - 2].split(',');
-
-			if (params === 'home') {
-				location.href = '/';
-			} else if (params.length == 2) {
-				location.href = `/${params[0]}`;
-			} else if (params.length > 2) {
-				location.href = `/${params[0]}/${params[1]}`;
-			} else {
-				location.href = '/';
-			}
+			const encodeURI = location.search
+			const URI = decodeURIComponent(encodeURI)
+			const searchURI = new URLSearchParams(URI)
+			const beforeURI = searchURI.get('beforeURI')
+			location.href = beforeURI;ß
 		});
 	} catch (err) {
 		console.error(err.stack);

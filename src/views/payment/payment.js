@@ -58,7 +58,9 @@ async function getUserInfo() {
 	} catch (err) {
 		console.error(err.stack);
 		swal(err.message).then(() => {
-			location.href = `/login/${['payment', '']}`;
+			const loc = location.href
+			const encodeURI = encodeURIComponent(loc)
+			location.href = `/login?beforeURI=${encodeURI}`;
 		});
 	}
 }

@@ -82,20 +82,9 @@
                     <input type="password" class="input" id="passwordInput" placeholder="비밀번호를 입력해 주세요." autocomplete="off">
                 </div>
             </div>
-            <button class="button" id="submitButton">회원정보 안전하게 삭제하기</button>
+            <input type="submit" class="button" id="submitButton" value="회원정보 안전하게 삭제하기"></input>
             <!-- 회원정보를 정말 삭제할 지 묻는 Modal 창 -->
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <div class="box">
-                        <p>회원정보 삭제 시 복구할 수 없습니다. 정말로 삭제하시겠습니까?</p>
-                        <div class="buttons">
-                            <button class="button" id="deleteCompleteButton" aria-label="close">네</button>
-                            <button class="button" id="deleteCancelButton" aria-label="close">아니오</button>
-                        </div>
-                    </div>
-                </div>
-                <button class="modal-close is-large" id="modalCloseButton" aria-label="close"></button>
-            </div>
+            
         </form>
     </div>
 </body>
