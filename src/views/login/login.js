@@ -50,7 +50,11 @@ async function handleSubmit(e) {
 			const URI = decodeURIComponent(encodeURI)
 			const searchURI = new URLSearchParams(URI)
 			const beforeURI = searchURI.get('beforeURI')
-			location.href = beforeURI;ß
+			if(beforeURI){
+				location.href = beforeURI;
+			}else{
+				swal('비정상적인 접근입니다.')
+			}
 		});
 	} catch (err) {
 		console.error(err.stack);
