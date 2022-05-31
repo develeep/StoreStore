@@ -41,33 +41,36 @@ modalwrap.addEventListener('click', async (e) => {
 		console.log(categorysData);
 		await categoryReset(categorysData);
 		// 카테고리추가
-	});
-	const categoryAdd = document.getElementById('categoryAdd');
-	let cateogryInput = document.getElementById('cateogryInput');
-	categoryAdd.addEventListener('click', async (e) => {
-		e.preventDefault();
-		const ScateogryInput = cateogryInput.value;
-		console.log(ScateogryInput);
-		const data = { targetCategory, ScateogryInput };
-		const newCategory = await Api.post('/api/category_update', data);
-		if (newCategory.result == 'ok') {
-			categorysData.push(ScateogryInput);
-			await categoryReset(categorysData);
-		} else {
-			alert('error');
-		}
-	});
-	// 카테고리삭제
-	const categoryLi = document.querySelectorAll('#categoryId');
-	categoryLi.forEach(async (el) => {
-		const deleteButton = el.querySelector('#delete');
-		deleteButton.addEventListener('click', async (e) => {
+		const categoryAdd = document.getElementById('categoryAdd');
+		let cateogryInput = document.getElementById('cateogryInput');
+		categoryAdd.addEventListener('click', async (e) => {
 			e.preventDefault();
-			const selectedCategory = el.querySelector('#categoryName').innerText;
-			const data = { selectedCategory };
-			console.log(data);
-			const deleteCategory = await Api.delete('/api/Categorydelete', '', data);
-			console.log(deleteCategory);
+			const ScateogryInput = cateogryInput.value;
+			const data = { targetCategory, ScateogryInput };
+			const newCategory = await Api.post('/api/category_update', data);
+			if (newCategory.result == 'ok') {
+				categorysData.push(ScateogryInput);
+				await categoryReset(categorysData);
+			} else {
+				alert('error');
+			}
+		});
+		// 카테고리삭제
+		const categoryLi = document.querySelectorAll('#categoryId');
+		categoryLi.forEach(async (el) => {
+			const deleteButton = el.querySelector('#delete');
+			deleteButton.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const selectedCategory = el.querySelector('#categoryName').innerText;
+				const data = { selectedCategory };
+				console.log(data);
+				const deleteCategory = await Api.delete(
+					'/api/Categorydelete',
+					'',
+					data,
+				);
+				console.log(deleteCategory);
+			});
 		});
 	});
 });

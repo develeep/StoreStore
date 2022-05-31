@@ -38,6 +38,15 @@ class SmallcategoryService {
 
 		return deletename;
 	}
+
+	async updateCategory(olddata, toUpdate) {
+		const updateData = await this.SmallcateModel.updateCategory(
+			olddata,
+			toUpdate,
+		);
+
+		return updateData;
+	}
 }
 
 const SmallcateService = new SmallcategoryService(SmallcateModel);
