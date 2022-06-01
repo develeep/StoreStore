@@ -47,6 +47,10 @@ header {
 	background-color: #fff;
 }
 
+.sub-menu {
+	margin-right: -10px;
+}
+
 .navbar {
 	display: flex;
 	flex-direction: row;
