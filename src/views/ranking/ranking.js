@@ -1,14 +1,18 @@
 import * as Api from '/api.js';
 
-const toTopEl = document.getElementById('to-top');
 const inputProduct = document.getElementById('inputProduct');
 
 const rankedproducts = await Api.get('/api/rankedproducts');
 console.log(rankedproducts);
 
-makeRank();
+addAllElements();
+
+async function addAllElements() {
+	makeRank();
+}
 
 // 상단으로 가는 버튼
+const toTopEl = document.getElementById('to-top');
 toTopEl.addEventListener('click', function () {
 	window.scrollTo({
 		top: 0,

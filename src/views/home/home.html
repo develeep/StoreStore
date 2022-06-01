@@ -1,133 +1,162 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
-    <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/elice-rabbit-favicon.png"
-    />
-    <!-- bulma css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <!-- sweetalert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- 폰트 어썸: 아이콘 -->
-    <script
-      defer
-      src="https://kit.fontawesome.com/7630448495.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-  
-    <!--Swiper-->
-    <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>쇼핑-n팀</title>
+		<!-- 아이콘 -->
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/elice-rabbit-favicon.png"
+		/>
+		<!-- sweetalert -->
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="home.css" />
-    <link rel="stylesheet" href="../css/common.css">
-    <script src="home.js" type="module" defer></script>
-    <script src="../nav.js" type="module" defer></script>
-  </head>
-  <body>
-    <!-- 헤더 -->
-    <header id="header">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-              <img src="/elice-rabbit.png" width="30" height="30" />
-              <span class="has-text-link">쇼핑-n팀</span>
-            </a>
-          </div>
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <div class="category" id="category">
-      <div id="main-category">
-        <ul id="input-category">
-          <li><a href="/ranking" aria-current="page">BEST</a>
-          </li>
-        </ul>
-      </div>
-      <div id="sub-category">
-        <ul id="submenu">
-          <li>
-            <a href="/cart" aria-current="page">
-              <span class="material-icons-outlined">
-                shopping_cart
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+		<!--Swiper-->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css"
+		/>
+		<script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
 
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+		<!-- 커스텀 css, js -->
+		<link rel="stylesheet" href="home.css" />
+		<link rel="stylesheet" href="../css/common.css" />
+		<script src="home.js" type="module" defer></script>
+		<script src="../nav.js" type="module" defer></script>
+	</head>
+	<body>
+		<!-- 헤더 -->
+		<header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
+			</div>
+			<div class="container-box">
+				<div class="headerLeft">
+					<div class="nav__toggle" id="nav-toggle">
+						<div class="sidebarBtn">
+							<ion-icon name="menu-outline"></ion-icon>
+						</div>
+						<div class="sidebarBtn hidden-Toggle">
+							<ion-icon name="close-outline"></ion-icon>
+						</div>
+						<span class="sidebar-text">Menu</span>
+					</div>
+					<div class="l-navbar" id="categoryNavbar">
+						<nav class="nav">
+							<div>
+								<div class="nav__brand">
+									<div class="nav__brand">Category</div>
+								</div>
+								<div class="nav__list" id="nav-list">
+									<div class="nav__link active">
+										<a href="/" class="nav_name">Home</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+					<div id="sub-category">
+						<ul id="submenu">
+							<li>
+								<a href="/cart" aria-current="page">
+									<ion-icon name="bag-handle-outline"></ion-icon>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
 
-    <!-- 이미지 슬라이더 -->
-    <section class="promotion-swiper">
-      <div class="promotion">
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1072" alt="예시이미지1">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171" alt="예시이미지2">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1072" alt="예시이미지3">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170" alt="예시이미지4">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025" alt="예시이미지5">
-            </div>
-          </div>
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-prev">
-          <i class="fa-solid fa-angle-left"></i>
-        </div>
-        <div class="swiper-next">
-          <i class="fa-solid fa-angle-right"></i>
-        </div>
-      </div>
-    </section>
+		<!-- 이미지 슬라이더 -->
+		<section class="promotion-swiper">
+			<div class="promotion">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<img
+								src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1072"
+								alt="예시이미지1"
+							/>
+						</div>
+						<div class="swiper-slide">
+							<img
+								src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171"
+								alt="예시이미지2"
+							/>
+						</div>
+						<div class="swiper-slide">
+							<img
+								src="https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1072"
+								alt="예시이미지3"
+							/>
+						</div>
+						<div class="swiper-slide">
+							<img
+								src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170"
+								alt="예시이미지4"
+							/>
+						</div>
+						<div class="swiper-slide">
+							<img
+								src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025"
+								alt="예시이미지5"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-prev">
+					<i class="fa-solid fa-angle-left"></i>
+				</div>
+				<div class="swiper-next">
+					<i class="fa-solid fa-angle-right"></i>
+				</div>
+			</div>
+		</section>
 
-    <section class="main-product">
-      <div class="title">
-        <h1>TODAY 랭킹</h1>
-        <h2>이번주 가장 많이 구매했어요</h2>
-      </div>
-      <div class="container" id="inputProduct">
-      </div>
-      <div>
-        <button class="button is-primary"><a href="/ranking" aria-current="page">랭킹 더보기</a></button>
-      </div>
-    </section>
+		<section class="main-product">
+			<div class="title">
+				<h1>TODAY 랭킹</h1>
+				<h2>이번주 가장 많이 구매했어요</h2>
+			</div>
+			<div class="container" id="inputProduct"></div>
+			<div>
+				<button class="button is-primary">
+					<a href="/ranking" aria-current="page">랭킹 더보기</a>
+				</button>
+			</div>
+		</section>
 
-
-    <!-- 상단으로 가는 버튼 -->
-    <div id="to-top">
-      <i class="fa-solid fa-angle-up"></i>
-    </div>
-  </body>
+		<!-- 상단으로 가는 버튼 -->
+		<div id="to-top">
+			<i class="fa-solid fa-angle-up"></i>
+		</div>
+	</body>
 </html>

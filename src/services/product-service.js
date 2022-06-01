@@ -39,6 +39,11 @@ class ProductService {
 		return products;
 	}
 
+	async getNext8Products(page) {
+		const products = await this.productModel.getNext8Products(page);
+		return products;
+	}
+
 	// 카테고리 별로 모아보기
 	async getProductsByCategory(category) {
 		const products = await this.productModel.findBycategory(category);
@@ -77,6 +82,12 @@ class ProductService {
 			(el) => String(el.category._id) === String(category_Id),
 		);
 		return Products;
+	}
+
+	// 카테고리 삭제 시 속해있는 상품 모두 삭제, 인자로 ScategoryId 받아야 함
+	async deleteProductBySCategoryId(category) {
+		await this.productModel.deleteByCategory(category);
+		return;
 	}
 }
 

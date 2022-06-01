@@ -35,11 +35,12 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 		// loginRequired에서 토큰에 있는 userId를 받아왔음.
 		// user는 objectId 임
 		const userId = req.currentUserId;
-		const { comment } = req.body;
+		const { comment, starRate } = req.body;
 
 		// 위 데이터를 review db에 추가하기
 		const newReview = await reviewService.addReview({
 			comment,
+			starRate,
 			author: userId,
 		});
 
@@ -70,10 +71,11 @@ reviewRouter.patch('/reviews', loginRequired, async function (req, res, next) {
 		// front에서 이렇게 줄 것이라 예상
 		const reviewId = req.query.reviewId;
 
-		const { comment } = req.body;
+		const { comment, starRate } = req.body;
 
 		const toUpdate = {
 			...(comment && { comment }),
+			...(starRate ** { starRate }),
 		};
 		const updatedReview = await reviewService.setReview(reviewId, toUpdate);
 
