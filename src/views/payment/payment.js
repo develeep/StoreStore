@@ -23,7 +23,6 @@ addAllEvents();
 addAllElements();
 
 function addAllElements() {
-	renderGnb();
 }
 
 function addAllEvents() {
