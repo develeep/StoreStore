@@ -3,7 +3,7 @@ import * as Api from '/api.js';
 
 const submitButton = document.querySelector('#submitButton');
 const passwordInput = document.querySelector('#passwordInput');
-
+loginMatch()
 addAllElements();
 addAllEvents();
 
@@ -14,7 +14,15 @@ async function addAllElements() {}
 function addAllEvents() {
 	submitButton.addEventListener('click', signout);
 }
-
+function loginMatch() {
+	if(!localStorage.getItem('token')){
+		swal('로그인 해 주세요').then(()=>{
+			const href = location.href;
+			const beforeURI = encodeURIComponent(href)
+			location.href = `/login?beforeURI=${beforeURI}`
+		})
+	}
+}
 // 모달
 async function signout(e) {
 	e.preventDefault();

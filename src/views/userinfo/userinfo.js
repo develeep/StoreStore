@@ -54,8 +54,7 @@ async function renderUserInfo() {
 		passwordConfirmLabel.style.display = 'none';
 		passwordConfirmInput.style.display = 'none';
 	} catch (err) {
-		console.error(err.stack);
-		swal(`회원정보를 받아오지 못했습니다.: ${err.message}`).then(() => {
+		swal(`${err.message}`).then(() => {
 			location.href = '/';
 		});
 	}
