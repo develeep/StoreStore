@@ -12,8 +12,7 @@ addAllEvents();
 function addAllElements() {}
 
 function addAllEvents() {
-	renderGnb();
-	getOrder();
+  getOrder();
 }
 
 async function getOrder() {
