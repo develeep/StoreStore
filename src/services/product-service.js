@@ -13,8 +13,16 @@ class ProductService {
 	// 상품 추가
 	async addProduct(productInfo) {
 		// 객체 destructuring
-		const { category, name, price, imageUrl, description, inventory, company } =
-			productInfo;
+		const {
+			category,
+			name,
+			price,
+			imageUrl,
+			description,
+			inventory,
+			company,
+			imageKey,
+		} = productInfo;
 
 		// db에 저장
 		const createdNewProduct = await this.productModel.create(productInfo);
@@ -36,6 +44,11 @@ class ProductService {
 	// 최신순으로 상품 가져오기
 	async getNewestProducts() {
 		const products = await this.productModel.findNewest();
+		return products;
+	}
+
+	async getNewestProductsWithCategory() {
+		const products = await this.productModel.findNewestWithCategory();
 		return products;
 	}
 
@@ -66,6 +79,12 @@ class ProductService {
 	async deleteProductByProductId(productId) {
 		await this.productModel.delete(productId);
 		return;
+	}
+
+	// 상품 검색 불러오기
+	async SearchProducts(keyword) {
+		const searchData = await this.productModel.Search(keyword);
+		return searchData;
 	}
 
 	// 상품정보 수정

@@ -49,8 +49,27 @@ export class ProductModel {
 		return products;
 	}
 
+	async Search(keyword) {
+		let keywords = keyword.split(' ');
+		const keywordfind = [];
+		keywords.forEach((el) => {
+			keywordfind.push({ name: { $regex: `${el}` } });
+		});
+		const searchData = await Product.find({
+			$and: keywordfind,
+		});
+		return searchData;
+	}
+
 	async findNewest() {
 		const products = await Product.find({}).sort({ createdAt: -1 });
+		return products;
+	}
+
+	async findNewestWithCategory() {
+		const products = await Product.find({})
+			.sort({ createdAt: -1 })
+			.populate('category', 'name');
 		return products;
 	}
 
