@@ -62,14 +62,12 @@ categoryRouter.get('/Bcategorys', async (req, res, next) => {
 categoryRouter.delete('/Categorydelete', async (req, res, next) => {
 	try {
 		const name = req.body.selectedCategory;
-		console.log(name);
-		let deleteCategory = await SmallcateService.deleteCategory(name);
 		let categoryId = await SmallcateService.getCategoryname(name);
-		if (categoryId != null) {
-			const deleteCategorys = await productService.deleteProductBySCategoryId(
-				categoryId._id,
-			);
-		}
+		console.log(categoryId);
+		const deleteCategorys = await productService.deleteProductBySCategoryId(
+			categoryId._id,
+		);
+		let deleteCategory = await SmallcateService.deleteCategory(name);
 		res.status(200).json({ result: 'ok' });
 	} catch (error) {
 		next(error);
