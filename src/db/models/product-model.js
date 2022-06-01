@@ -49,6 +49,11 @@ export class ProductModel {
 		return products;
 	}
 
+	async findNewest() {
+		const products = await Product.find({}).sort({ createdAt: -1 });
+		return products;
+	}
+
 	async findRank_8_Product() {
 		const rank_8_Products = await Product.find({})
 			.sort({ salesRate: -1 })
