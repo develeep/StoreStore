@@ -229,8 +229,27 @@ productRouter.patch(
 				productId,
 				toUpdate,
 			);
+			if (req.file) {
+				// s3에서 이미지 삭제
+				const imgKey = req.body.imageKey;
+				console.log(imgKey);
 
-			res.status(200).json(updatedProductInfo);
+				var params = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: imgKey,
+				};
+				s3.deleteObject(params, function (err, data) {
+					if (err) {
+						console.log(err, err.stack); // error
+						res.status(200).json({ updatedProductInfo, status: 'no' });
+					} else {
+						console.log(data); // deleted
+						res.status(200).json({ updatedProductInfo, status: 'ok' });
+					}
+				});
+			} else {
+				res.status(200).json(updatedProductInfo);
+			}
 		} catch (error) {
 			next(error);
 		}
@@ -255,8 +274,28 @@ productRouter.delete(
 			// front에서 이렇게 줄 것이라 예상 -> shortId로
 			const productId = req.body.productId;
 
+			// DB에서 상품 삭제
 			await productService.deleteProductByProductId(productId);
-			res.status(200).json({ status: 'ok' });
+
+			// s3에서 이미지 삭제
+			const imgKey = req.body.imageKey;
+			console.log(imgKey);
+
+			var params = {
+				Bucket: process.env.AWS_BUCKET_NAME,
+				Key: imgKey,
+			};
+			s3.deleteObject(params, function (err, data) {
+				if (err) {
+					res.status(200).json({ status: 'no' });
+				} else {
+					res.status(200).json({ status: 'ok' });
+				}
+				// if (err) console.log(err, err.stack); // error
+				// else console.log(data); // deleted
+			});
+
+			// res.status(200).json({ status: 'ok' });
 		} catch (error) {
 			next(error);
 		}
@@ -280,6 +319,15 @@ productRouter.get('/productCategory/:id', async (req, res, next) => {
 		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
 	}
 	res.status(200).json(CategoryProducts);
+});
+
+productRouter.delete('/allproducts', async (req, res, next) => {
+	try {
+		await productService.deleteAllProducts();
+		res.status(200).json({ status: 'ok' });
+	} catch (error) {
+		next(error);
+	}
 });
 
 export { productRouter };
