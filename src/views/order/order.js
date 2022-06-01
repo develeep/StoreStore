@@ -3,8 +3,6 @@ import * as Api from '/api.js';
 import { getElement, getElementAll } from '/useful-functions.js';
 
 const orderTableTitle = getElement('.orderTableTitle');
-const modalWindow = getElement('.modal');
-// modalWindow.style.display = 'none';
 
 addAllElements();
 addAllEvents();
