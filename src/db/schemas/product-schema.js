@@ -25,6 +25,10 @@ const ProductSchema = new Schema(
 			type: String,
 			required: false,
 		},
+		imageKey: {
+			type: String,
+			required: false,
+		},
 		description: {
 			type: String,
 			required: false,
