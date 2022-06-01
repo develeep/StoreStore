@@ -121,6 +121,12 @@ class ProductService {
 		await this.productModel.deleteByCategory(category);
 		return;
 	}
+
+	// 테스트용 product 전부 삭제
+	async deleteAllProducts() {
+		await this.productModel.deleteAll();
+		return;
+	}
 }
 
 const productService = new ProductService(productModel);

@@ -3,7 +3,8 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
 import { productService, smallCategoryService } from '../services';
-import upload from '../utils/s3';
+import { upload, s3 } from '../utils/s3';
+import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
@@ -105,6 +106,21 @@ productRouter.get('/productlist/:category', async (req, res, next) => {
 	} catch (error) {
 		next(error);
 	}
+});
+
+productRouter.post('/checkout', async (req, res, next) => {
+	const imgdata = req.body.key;
+	console.log(imgdata);
+
+	var params = {
+		Bucket: process.env.AWS_BUCKET_NAME,
+		Key: imgdata,
+	};
+	s3.deleteObject(params, function (err, data) {
+		if (err) console.log(err, err.stack); // error
+		else console.log(data); // deleted
+	});
+	next();
 });
 
 // 상품등록 -> /api/productRegister
@@ -213,8 +229,27 @@ productRouter.patch(
 				productId,
 				toUpdate,
 			);
+			if (req.file) {
+				// s3에서 이미지 삭제
+				const imgKey = req.body.imageKey;
+				console.log(imgKey);
 
-			res.status(200).json(updatedProductInfo);
+				var params = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: imgKey,
+				};
+				s3.deleteObject(params, function (err, data) {
+					if (err) {
+						console.log(err, err.stack); // error
+						res.status(200).json({ updatedProductInfo, status: 'no' });
+					} else {
+						console.log(data); // deleted
+						res.status(200).json({ updatedProductInfo, status: 'ok' });
+					}
+				});
+			} else {
+				res.status(200).json(updatedProductInfo);
+			}
 		} catch (error) {
 			next(error);
 		}
@@ -239,8 +274,28 @@ productRouter.delete(
 			// front에서 이렇게 줄 것이라 예상 -> shortId로
 			const productId = req.body.productId;
 
+			// DB에서 상품 삭제
 			await productService.deleteProductByProductId(productId);
-			res.status(200).json({ status: 'ok' });
+
+			// s3에서 이미지 삭제
+			const imgKey = req.body.imageKey;
+			console.log(imgKey);
+
+			var params = {
+				Bucket: process.env.AWS_BUCKET_NAME,
+				Key: imgKey,
+			};
+			s3.deleteObject(params, function (err, data) {
+				if (err) {
+					res.status(200).json({ status: 'no' });
+				} else {
+					res.status(200).json({ status: 'ok' });
+				}
+				// if (err) console.log(err, err.stack); // error
+				// else console.log(data); // deleted
+			});
+
+			// res.status(200).json({ status: 'ok' });
 		} catch (error) {
 			next(error);
 		}
@@ -264,6 +319,15 @@ productRouter.get('/productCategory/:id', async (req, res, next) => {
 		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
 	}
 	res.status(200).json(CategoryProducts);
+});
+
+productRouter.delete('/allproducts', async (req, res, next) => {
+	try {
+		await productService.deleteAllProducts();
+		res.status(200).json({ status: 'ok' });
+	} catch (error) {
+		next(error);
+	}
 });
 
 export { productRouter };
