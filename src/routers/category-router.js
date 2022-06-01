@@ -65,9 +65,11 @@ categoryRouter.delete('/Categorydelete', async (req, res, next) => {
 		console.log(name);
 		let deleteCategory = await SmallcateService.deleteCategory(name);
 		let categoryId = await SmallcateService.getCategoryname(name);
-		const deleteCategorys = await productService.deleteProductBySCategoryId(
-			categoryId._id,
-		);
+		if (categoryId != null) {
+			const deleteCategorys = await productService.deleteProductBySCategoryId(
+				categoryId._id,
+			);
+		}
 		res.status(200).json({ result: 'ok' });
 	} catch (error) {
 		next(error);
