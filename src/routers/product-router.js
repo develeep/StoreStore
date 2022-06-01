@@ -19,6 +19,18 @@ productRouter.get('/bestproducts', async (req, res, next) => {
 	}
 });
 
+// 검색으로 상품 가져오기
+
+productRouter.get('/searchproducts', async (req, res, next) => {
+	try {
+		const keyword = req.body.keyword;
+		const products = await productService.SearchProducts(keyword);
+		res.status(200).json(products);
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 가장 많이 팔린 순으로 전체 상품 가져오기
 productRouter.get('/rankedproducts', async (req, res, next) => {
 	try {

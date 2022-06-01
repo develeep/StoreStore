@@ -68,6 +68,12 @@ class ProductService {
 		return;
 	}
 
+	// 상품 검색 불러오기
+	async SearchProducts(keyword) {
+		const searchData = await this.productModel.Search(keyword);
+		return searchData;
+	}
+
 	// 상품정보 수정
 	async setProduct(productId, toUpdate) {
 		// 업데이트 진행
