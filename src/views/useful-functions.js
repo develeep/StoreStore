@@ -1,3 +1,4 @@
+import * as Api from '/api.js'
 // 문자열+숫자로 이루어진 랜덤 5글자 반환
 export const randomId = () => {
   return Math.random().toString(36).substring(2, 7);
@@ -27,3 +28,32 @@ export const convertToNumber = (string) => {
 export const wait = (ms) => {
   return new Promise((r) => setTimeout(r, ms));
 };
+
+// document.querySelect
+export const getElement = (selector)=>{
+  return document.querySelector(selector)
+}
+
+export const getElementAll = (selector)=>{
+  return document.querySelectorAll(selector)
+}
+
+export const createElement = (tag) => {
+  return document.createElement(tag)
+}
+
+export const isAdmin = async() => {
+		try{
+      const admin = await Api.get('/api/isadmin')
+      console.log(admin)
+      if(admin.isCorrect === 'ok'){
+        return true;
+      }
+      else if(admin.isCorrect === 'false'){
+        return false;
+      }
+  }catch(err){
+    alert(err.message)
+    localStorage.removeItem('token')
+  }
+}

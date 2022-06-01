@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<head>
+    <html>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>StoreStore</title>
+    <!-- 아이콘 -->
+    <link
+      rel="icon"
+      type="image/png"
+			sizes="32x32"
+			href="/StoreStore-favicon.png"
+    />
+    <!-- sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+    <!-- 폰트 어썸: 아이콘 -->
+    <script
+    defer
+    src="https://kit.fontawesome.com/7630448495.js"
+    crossorigin="anonymous"
+    ></script>
+		<!-- 커스텀 css, js -->
+		<link rel="stylesheet" href="../../css/common.css" />
+		<script src="../../nav.js" type="module" defer></script>
+    <link rel="stylesheet" href="productAdd.css" />
+    <script src="productAdd.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="black_bg"></div>
+    <!-- 헤더 -->
+    <header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
+			</div>
+			<div class="container-box">
+				<div class="headerLeft">
+					<div class="nav__toggle" id="nav-toggle">
+						<div class="sidebarBtn">
+							<ion-icon name="menu-outline"></ion-icon>
+						</div>
+						<div class="sidebarBtn hidden-Toggle">
+							<ion-icon name="close-outline"></ion-icon>
+						</div>
+						<span class="sidebar-text">Menu</span>
+					</div>
+					<div class="l-navbar" id="categoryNavbar">
+						<nav class="navbox">
+							<div class="nav__brand">
+								<div class="nav__brand">Category</div>
+							</div>
+						</nav>
+						<nav class="nav">
+							<div>
+								<div class="nav__list" id="nav-list">
+									<div class="nav__link active">
+										<a href="/" class="nav_name">Home</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/newproducts" class="nav_name">New</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+					<div id="sub-category">
+						<ul id="submenu">
+							<li>
+								<a href="/cart" aria-current="page">
+									<ion-icon name="bag-handle-outline"></ion-icon>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
+
+      <section>
+        <div class="container">
+          <div id="title">
+            <h1>제품판매</h1>
+          </div>
+          <div>
+            <form action="/api/products" method="post" enctype="multipart/form-data" id="addForm">
+              <p>제품을 판매해 보세요</p>
+              <div>
+                <label for="titleInput">제품 이름</label>
+                <input type="text" name="name" id="titleInput" placeholder="아이보리 티셔츠">
+              </div>
+              <div>
+                <label for="categorySelectBox">카테고리</label>
+                <input id="Bcategory" type="text" readonly>
+                <input id="Scategory" name="Scategory" type="text" readonly>
+                <button type='button' id="modal_btn">모달창아 나와랏</button>
+                
+                <div class="modal_wrap">
+                  <div class="modal_close">
+                  <a href="#">close</a>
+                </div>
+                <div class="modal-box">
+                  <label for="">CATEGORY</label>
+                  <select name="" id="categorySelectBox"></select>
+                  <div>
+                    <ul id="ScategoyUl">
+                    </ul>
+                  </div>
+                </div>
+                </div>
+              </div> 
+              <div>
+                <label for="manufacturerInput">제조사</label>
+                <input type="text" name="company" id="manufacturerInput" placeholder="OO의류제조(주)">
+              </div>
+              <div>
+                <label for="descriptionInput">제품 설명</label>
+                <textarea type="textarea" name="description" id="descriptionInput" rows="3" placeholder="제품에 대한 설명을 적어 주세요."></textarea>
+              </div>
+              <div>
+                <label >이미지 미리보기</label>
+                <img alt="이미지를 등록해 주세요" id="imageViewr">
+                <label for="imageInput">제품 사진</label>
+                <input type="file" id="img" name="img" accept="image/*"> <!-- onchange="loadFile(this)">-->
+              </div>
+              <div>
+                <label for="inventoryInput">재고 수</label>
+                <input type="number" name="inventory" id="inventoryInput" placeholder="10">
+              </div>
+              <div>
+                <label for="priceInput">가격</label>
+                <div>
+                  <input type="number" name="price" id="priceInput" placeholder="10000">
+                  <span>원</span>
+                </div>
+              </div>
+              <div>
+                <input type="submit" value="제품 등록하기">
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      </body>
+    </header>

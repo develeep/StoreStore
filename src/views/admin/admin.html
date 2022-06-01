@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 아이콘 -->
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+
+    <!-- 구글 OAuth -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- 카카오 OAuth -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- 커스텀 css, js -->
+      <!-- sweetalert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../../nav.js" type="module" defer></script>
+    <link rel="stylesheet" href="../../css/common.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="admin.js" type="module" defer></script>
+    <title>StoreStore</title>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <div class="sub-menu">
+      <!-- 회원가입,로그인 -->
+      <ul id="navbar" class="navbar"></ul>
+    </div>
+    <div class="container-box">
+      <div class="headerLeft">
+        <div class="nav__toggle" id="nav-toggle">
+          <div class="sidebarBtn">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+          <div class="sidebarBtn hidden-Toggle">
+            <ion-icon name="close-outline"></ion-icon>
+          </div>
+          <span class="sidebar-text">Menu</span>
+        </div>
+        <div class="l-navbar" id="categoryNavbar">
+          <nav class="nav">
+            <div>
+              <div class="nav__brand">
+                <div class="nav__brand">Category</div>
+              </div>
+              <div class="nav__list" id="nav-list">
+                <div class="nav__link active">
+                  <a href="/" class="nav_name">Home</a>
+                </div>
+                <div class="nav__link active">
+                  <a href="/ranking" class="nav_name">Best</a>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <h1 class="logo"><a href="/">StoreStore</a></h1>
+      <div class="headerRight">
+        <!-- 장바구니 -->
+        <div id="sub-category">
+          <ul id="submenu">
+            <li>
+              <a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+    
+    <!-- 계정관리 페이지 블록들 구현 -->
+    <section class="section">
+      <div class="block account-header">
+        <h1 class="title">관리자 페이지</h1>
+      </div>
+      <div class="menu-container">
+        <a class="menu-card" href="/admin/orderList">
+          <div class="menu-body">
+            <p class="title">주문조회</p>
+            <p class="subtitle">전체 주문 내역을 확인, 취소할 수 있습니다.</p>
+          </div>
+        </a>
+        <a class="menu-card" href="/admin/productAdd">
+          <div class="menu-body">
+            <p class="title">상품 등록</p>
+            <p class="subtitle">
+              상품을 등록하여, 판매를 시작할 수 있습니다.
+            </p>
+          </div>
+        </a>
+        <a class="menu-card" href="/admin/productList">
+          <div class="menu-body">
+            <p class="title">상품 목록</p>
+            <p class="subtitle">
+              상품 목록 보기 및 상품을 수정 및 삭제 할 수 있습니다.
+            </p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </body>
+</html>
