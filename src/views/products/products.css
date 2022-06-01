@@ -1,51 +1,64 @@
-.rankedproducts {
+#currentPage {
+	display: flex;
+}
+.inputProduct {
+	display: flex;
 	width: 100%;
-}
-.rankedproducts .inputProduct {
-	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.product-item {
+	margin-bottom: 3rem;
+	width: 23%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
+	flex-grow: inherit;
+	position: relative;
 }
-.rankedproducts .inputProduct #productImage {
-	cursor: pointer;
-	height: 320px;
-	width: 220px;
-	object-fit: cover;
-}
-.rankedproducts .inputProduct #productDescription {
-	cursor: pointer;
-}
-.rankedproducts .product-item {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 0 10px 60px 10px;
-}
-.rankedproducts .product-item .image-box {
-	width: 220px;
-	height: 220px;
+.image-box {
+	margin: 0 auto;
+	height: 350px;
+	width: 100%;
+	position: relative;
+	text-align: center;
 	overflow: hidden;
+	background-color: #eee;
+	cursor: pointer;
 }
-.rankedproducts .product-item .description {
-	display: flex;
-	flex-direction: column;
-	padding: 14px 10px 0 0;
+#productImage {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }
-.rankedproducts .product-item .description .detail #seller {
-	font-size: 12px;
-	margin-bottom: 4px;
+.description {
+	text-align: center;
+	cursor: pointer;
+	margin-top: 1.25rem;
+	width: 100%;
+	color: #141414;
 	font-weight: 400;
+	font-family: 'Nanum Gothic', sans-serif;
 }
-.rankedproducts .product-item .description .detail #productDescription {
-	font-size: 16px;
-	margin-bottom: 8px;
-	font-weight: 400;
-}
-.rankedproducts .product-item .description .price {
-	font-size: 16px;
-	font-weight: 800;
-}
-.rankedproducts .button {
-	margin: auto;
+#seller {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	display: block;
+	font-size: 12px;
+	color: #888;
+}
+#productDescription {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 13px;
+	display: block;
+	margin-top: 0.4rem;
+}
+.price {
+	margin-top: 0.4rem;
+	font-size: 13px;
+	font-weight: 700;
 }
