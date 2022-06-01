@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 아이콘 -->
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/elice-rabbit-favicon.png"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+		<!-- 커스텀 css, js -->
+		<link rel="stylesheet" href="../../css/common.css" />
+		<script src="../../nav.js" type="module" defer></script>
+		<link rel="stylesheet" href="orderList.css" />
+		<title>StoreStore</title>
+	</head>
+	<body>
+		<!-- 헤더 -->
+		<header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
+			</div>
+			<div class="container-box">
+				<div class="headerLeft">
+					<div class="nav__toggle" id="nav-toggle">
+						<div class="sidebarBtn">
+							<ion-icon name="menu-outline"></ion-icon>
+						</div>
+						<div class="sidebarBtn hidden-Toggle">
+							<ion-icon name="close-outline"></ion-icon>
+						</div>
+						<span class="sidebar-text">Menu</span>
+					</div>
+					<div class="l-navbar" id="categoryNavbar">
+						<nav class="nav">
+							<div>
+								<div class="nav__brand">
+									<div class="nav__brand">Category</div>
+								</div>
+								<div class="nav__list" id="nav-list">
+									<div class="nav__link active">
+										<a href="/" class="nav_name">Home</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+					<div id="sub-category">
+						<ul id="submenu">
+							<li>
+								<a href="/cart" aria-current="page">
+									<ion-icon name="bag-handle-outline"></ion-icon>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- 관리자페이지 주문조회 -->
+		<section class="section">
+			<div class="container">
+				<div class="block account-header">
+					<h1 class="title">관리자 주문조회</h1>
+				</div>
+				<div class="orderTable">
+					<div class="orderTableRowGroup">
+						<div class="orderTableTitle">
+							<!-- - orderId, timeKor, buyer, product, priceSum, deliveryStatus -->
+							<!-- - 주문취소버튼 추가 -->
+							<div class="orderTableCell" id="orderInfo">주문번호</div>
+							<div class="orderTableCell" id="orderDate">날짜</div>
+							<div class="orderTableCell" id="orderProduct">구매자</div>
+							<div class="orderTableCell" id="orderProduct">구매상품</div>
+							<div class="orderTableCell" id="orderPriceSum">주문금액</div>
+							<div class="orderTableCell" id="orderState">배송상태</div>
+							<div class="orderTableCell">비고</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+	<script src="orderList.js" type="module" defer></script>
+</html>
