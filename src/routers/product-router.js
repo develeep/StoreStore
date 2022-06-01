@@ -266,4 +266,13 @@ productRouter.get('/productCategory/:id', async (req, res, next) => {
 	res.status(200).json(CategoryProducts);
 });
 
+productRouter.delete('/allproducts', async (req, res, next) => {
+	try {
+		await productService.deleteAllProducts();
+		res.status(200).json({ status: 'ok' });
+	} catch (error) {
+		next(error);
+	}
+});
+
 export { productRouter };

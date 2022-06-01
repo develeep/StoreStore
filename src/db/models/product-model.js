@@ -111,6 +111,11 @@ export class ProductModel {
 			product.category.bCategory.name + '/' + product.category.name;
 		return categoryName;
 	}
+
+	async deleteAll() {
+		await Product.deleteMany({});
+		return;
+	}
 }
 
 const productModel = new ProductModel();
