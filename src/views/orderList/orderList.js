@@ -24,13 +24,13 @@ async function getOrder() {
 		orderTableTitle.insertAdjacentHTML(
 			'afterend',
 			`<div class="orderTableRow">
-        <div class="orderTableCell" id="orderNumber">${obj['orderId']}</div>
-        <div class="orderTableCell" id="orderDate">${obj['timeKor']}</div>
-        <div class="orderTableCell" id="orderBuyer">${obj['buyer']}</div>
-        <div class="orderTableCell" id="orderProduct">${obj['product']}</div>
-        <div class="orderTableCell" id="orderPriceSum">${addCommas(obj['priceSum'])}원</div>
-        <div class="orderTableCell" id="orderState">${obj['deliveryStatus']}</div>
-        <button class="cancelOrderButton" name=${obj['orderId']}>주문취소</button></div>
+        <div class="orderTableCell" id="orderNumber">${obj.orderId}</div>
+        <div class="orderTableCell" id="orderDate">${obj.timeKor}</div>
+        <div class="orderTableCell" id="orderBuyer">${obj.buyer.fullName}</div>
+        <div class="orderTableCell" id="orderProduct">${obj.product}</div>
+        <div class="orderTableCell" id="orderPriceSum">${addCommas(obj.priceSum)}원</div>
+        <div class="orderTableCell" id="orderState">${obj.deliveryStatus}</div>
+        <button class="cancelOrderButton" name=${obj.orderId}>주문취소</button></div>
       </div>
   `,
 		),
