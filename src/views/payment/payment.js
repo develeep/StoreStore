@@ -1,5 +1,4 @@
 import * as Api from '/api.js';
-import { renderGnb } from '/renderGnb.js';
 import { addTable } from '../cart/cartTable.js';
 import { Cart } from '/CartClass.js';
 import { addCommas } from '/useful-functions.js';
@@ -22,9 +21,7 @@ order.getStore('order');
 addAllEvents();
 addAllElements();
 
-function addAllElements() {
-	renderGnb();
-}
+function addAllElements() {}
 
 function addAllEvents() {
 	getOrder();
@@ -40,7 +37,7 @@ function addAllEvents() {
 // 1. 화면 로딩 시 주문자 정보 렌더링
 async function getUserInfo() {
 	try {
-		const userData = await Api.get('/api/update');
+		const userData = await Api.get('/api/users');
 		fullNameInput.value = userData.fullName;
 		if (userData.phoneNumber) {
 			phoneNumberInput.value = userData.phoneNumber;
@@ -55,8 +52,8 @@ async function getUserInfo() {
 	} catch (err) {
 		console.error(err.stack);
 		swal(err.message).then(() => {
-			const loc = location.href
-			const encodeURI = encodeURIComponent(loc)
+			const loc = location.href;
+			const encodeURI = encodeURIComponent(loc);
 			location.href = `/login?beforeURI=${encodeURI}`;
 		});
 	}
@@ -205,7 +202,7 @@ async function payment(e) {
 			requestSelectBox: selectResult,
 			orderProducts: order,
 		};
-		const result = await Api.post('/api/orderadd', data);
+		const result = await Api.post('/api/ordes', data);
 		console.log(result);
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {

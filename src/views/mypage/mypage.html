@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- 아이콘 -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/elice-rabbit-favicon.png"
-    />
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 아이콘 -->
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/StoreStore-favicon.png"
+		/>
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,96 +29,99 @@
 			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
 		></script>
 
-    <!-- 구글 OAuth -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <!-- 카카오 OAuth -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- 커스텀 css, js -->
-    <script src="../../nav.js" type="module" defer></script>
-    <link rel="stylesheet" href="../../css/common.css" />
-    <link rel="stylesheet" href="mypage.css" />
-    <script src="mypage.js" type="module" defer></script>
-    <title>StoreStore</title>
-  </head>
-  <body>
-    <!-- 헤더 -->
-    <div class="sub-menu">
-      <!-- 회원가입,로그인 -->
-      <ul id="navbar" class="navbar"></ul>
-    </div>
-    <div class="container-box">
-      <div class="headerLeft">
-        <div class="nav__toggle" id="nav-toggle">
-          <div class="sidebarBtn">
-            <ion-icon name="menu-outline"></ion-icon>
-          </div>
-          <div class="sidebarBtn hidden-Toggle">
-            <ion-icon name="close-outline"></ion-icon>
-          </div>
-          <span class="sidebar-text">Menu</span>
-        </div>
-        <div class="l-navbar" id="categoryNavbar">
-          <nav class="nav">
-            <div>
-              <div class="nav__brand">
-                <div class="nav__brand">Category</div>
-              </div>
-              <div class="nav__list" id="nav-list">
-                <div class="nav__link active">
-                  <a href="/" class="nav_name">Home</a>
-                </div>
-                <div class="nav__link active">
-                  <a href="/ranking" class="nav_name">Best</a>
-                </div>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </div>
-      <h1 class="logo"><a href="/">StoreStore</a></h1>
-      <div class="headerRight">
-        <!-- 장바구니 -->
-        <div id="sub-category">
-          <ul id="submenu">
-            <li>
-              <a href="/cart" aria-current="page">
-                <ion-icon name="bag-handle-outline"></ion-icon>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
+		<!-- 구글 OAuth -->
+		<script src="https://accounts.google.com/gsi/client" async defer></script>
+		<!-- 카카오 OAuth -->
+		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<!-- 커스텀 css, js -->
+		<script src="../../nav.js" type="module" defer></script>
+		<link rel="stylesheet" href="../../css/common.css" />
+		<link rel="stylesheet" href="mypage.css" />
+		<script src="mypage.js" type="module" defer></script>
+		<title>StoreStore</title>
+	</head>
+	<body>
+		<!-- 헤더 -->
+		<header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
+			</div>
+			<div class="container-box">
+				<div class="headerLeft">
+					<div class="nav__toggle" id="nav-toggle">
+						<div class="sidebarBtn">
+							<ion-icon name="menu-outline"></ion-icon>
+						</div>
+						<div class="sidebarBtn hidden-Toggle">
+							<ion-icon name="close-outline"></ion-icon>
+						</div>
+						<span class="sidebar-text">Menu</span>
+					</div>
+					<div class="l-navbar" id="categoryNavbar">
+						<nav class="navbox">
+							<div class="nav__brand">
+								<div class="nav__brand">Category</div>
+							</div>
+						</nav>
+						<nav class="nav">
+							<div>
+								<div class="nav__list" id="nav-list">
+									<div class="nav__link active">
+										<a href="/" class="nav_name">Home</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+					<div id="sub-category">
+						<ul id="submenu">
+							<li>
+								<a href="/cart" aria-current="page">
+									<ion-icon name="bag-handle-outline"></ion-icon>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
 
-    <!-- 계정관리 페이지 블록들 구현 -->
-    <section class="section">
-      <div class="block account-header">
-        <h1 class="title">계정관리</h1>
-      </div>
-      <div class="menu-container">
-        <a class="menu-card" href="/mypage/order">
-          <div class="menu-body">
-            <p class="title">주문조회</p>
-            <p class="subtitle">지난 주문 내역을 확인, 취소할 수 있습니다.</p>
-          </div>
-        </a>
-        <a class="menu-card" href="/mypage/userinfo">
-          <div class="menu-body">
-            <p class="title">회원정보 관리</p>
-            <p class="subtitle">회원 정보를 확인, 수정할 수 있습니다.</p>
-          </div>
-        </a>
-        <a class="menu-card" href="/mypage/signout">
-          <div class="menu-body">
-            <p class="title">회원탈퇴</p>
-            <p class="subtitle">
-              모든 정보를 안전하게 삭제한 후 탈퇴할 수 있습니다.
-            </p>
-          </div>
-        </a>
-      </div>
-    </section>
-  </body>
+		<!-- 계정관리 페이지 블록들 구현 -->
+		<section class="section">
+			<div class="block account-header">
+				<h1 class="title">계정관리</h1>
+			</div>
+			<div class="menu-container">
+				<a class="menu-card" href="/mypage/order">
+					<div class="menu-body">
+						<p class="title">주문조회</p>
+						<p class="subtitle">지난 주문 내역을 확인, 취소할 수 있습니다.</p>
+					</div>
+				</a>
+				<a class="menu-card" href="/mypage/userinfo">
+					<div class="menu-body">
+						<p class="title">회원정보 관리</p>
+						<p class="subtitle">회원 정보를 확인, 수정할 수 있습니다.</p>
+					</div>
+				</a>
+				<a class="menu-card" href="/mypage/signout">
+					<div class="menu-body">
+						<p class="title">회원탈퇴</p>
+						<p class="subtitle">
+							모든 정보를 안전하게 삭제한 후 탈퇴할 수 있습니다.
+						</p>
+					</div>
+				</a>
+			</div>
+		</section>
+	</body>
 </html>
