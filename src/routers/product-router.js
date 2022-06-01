@@ -232,7 +232,7 @@ productRouter.patch(
 			if (req.file) {
 				// s3에서 이미지 삭제
 				const imgKey = req.body.imageKey;
-				console.log(imgdata);
+				console.log(imgKey);
 
 				var params = {
 					Bucket: process.env.AWS_BUCKET_NAME,
@@ -279,7 +279,7 @@ productRouter.delete(
 
 			// s3에서 이미지 삭제
 			const imgKey = req.body.imageKey;
-			console.log(imgdata);
+			console.log(imgKey);
 
 			var params = {
 				Bucket: process.env.AWS_BUCKET_NAME,
