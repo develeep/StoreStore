@@ -15,7 +15,7 @@ export class OrderModel {
 	}
 
 	async findAll() {
-		const orders = await Order.find({});
+		const orders = await Order.find({}).populate('buyer', 'fullName');
 		return orders;
 	}
 
