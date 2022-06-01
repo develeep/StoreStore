@@ -287,8 +287,10 @@ productRouter.delete(
 			};
 			s3.deleteObject(params, function (err, data) {
 				if (err) {
+					console.log(err, err.stack); // error
 					res.status(200).json({ status: 'no' });
 				} else {
+					console.log(data); // deleted
 					res.status(200).json({ status: 'ok' });
 				}
 				// if (err) console.log(err, err.stack); // error
