@@ -19,21 +19,83 @@
 			rel="stylesheet"
 		/>
 
-		<!-- IONICONS -->
-		<script
-			type="module"
-			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
-		></script>
-		<script
-			nomodule=""
-			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
-		></script>
-
+          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+            <ul id="navbar">
+              <li>
+                <a href="/cart" aria-current="page">
+                  <span class="icon">
+                    <i class="fas fa-cart-shopping"></i>
+                  </span>
+                  <span>카트</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- 주문조회 -->
+    <section class="section">
+        <div class="container">
+            <div class="block account-header">
+                <h1 class="title">주문조회</h1>
+            </div>
+            <div class="orderTable">
+              <div class="orderTableRowGroup">
+                <div class="orderTableTitle">
+                  <!-- 의논하여 요소 추가/수정 예정 -->
+                  <div class="orderTableCell" id="orderDate">날짜</div>
+                  <div class="orderTableCell" id="orderInfo">주문번호</div>
+                  <div class="orderTableCell" id="orderProduct">구매상품</div>
+                  <div class="orderTableCell" id="orderPriceSum">주문금액</div>
+                  <div class="orderTableCell" id="orderState">배송상태</div>
+                  <div class="orderTableCell">비고</div>
+                </div>
+              </div>  
+            </div>
+        </div>
+    </section>
+    <!-- 상세보기 modal 창 -->
+    <div class="modal_background">
+      <div class="modal" tabindex="-1" role="dialog"> 
+        <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" > 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <h3 class="modal-title">상세보기</h3> 
+                </div> 
+                <div class="modal-body">
+                  <div class="modal-subtitle">구매날짜</div>
+                  <div class="modalOrderDate"></div>
+                  <div class="modal-subtitle">주문번호</div>
+                  <div class="modalOrderNumber"></div>
+                  <div class="modal-subtitle">구매상품</div>
+                  <div class="modalOrderProduct"></div>
+                  <div class="modal-subtitle">가격</div>
+                  <div class="modalOrderPriceSum"></div>
+                  <div class="modal-subtitle">요청사항</div><div class="modalOrderReqestMsg"></div> 
+                  <div class="modal-subtitle">배송상태</div><div class="modalOrderState"></div>  
+                  
+              
+                </div>
+                <div class="modal-footer"><button class="close-button">닫기</button></div> 
+            </div> 
+        </div> 
+    </div>
+  </div>
 		<!-- 커스텀 css, js -->
 		<link rel="stylesheet" href="../../css/common.css" />
 		<script src="../../nav.js" type="module" defer></script>
 		<link rel="stylesheet" href="order.css" />
 		<title>StoreStore</title>
+    <!-- IONICONS -->
+		<script
+    type="module"
+    src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule=""
+      src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+    ></script>
 	</head>
 	<body>
 		<!-- 헤더 -->
