@@ -99,8 +99,8 @@ orderRouter.get('/address/:orderId', async (req, res, next) => {
 	}
 });
 
-// 주문 추가 -> /api/orderadd
-orderRouter.post('/orderadd', loginRequired, async (req, res, next) => {
+// 주문 추가 -> /api/orders
+orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 	try {
 		// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
 		// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
