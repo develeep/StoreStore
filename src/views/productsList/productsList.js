@@ -86,8 +86,10 @@ async function renderProducts(object) {
 		try {
 			const del = await Api.delete('/api/products', '', {
 				productId: object.productId,
+				imageKey:object.imageKey,
 			});
 			if (del.status === 'ok') {
+				console.log(del)
 				swal('삭제가 완료되었습니다.').then(() => {
 					getProducts();
 				});
