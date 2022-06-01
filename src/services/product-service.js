@@ -39,6 +39,13 @@ class ProductService {
 		return products;
 	}
 
+	async getCategoryNameById(productId) {
+		const categoryName = await this.productModel.findCategoryNameById(
+			productId,
+		);
+		return categoryName;
+	}
+
 	// product DB에서 랜덤으로 8개의 상품을 가져옴 -> 메인페이지에 띄워줄 용도
 	async getRank_8_Product() {
 		const products = await this.productModel.findRank_8_Product();
