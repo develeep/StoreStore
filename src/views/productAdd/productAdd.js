@@ -1,5 +1,4 @@
 import { getElement, getElementAll } from '/useful-functions.js';
-import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 
 const categorySelectBox = getElement('#categorySelectBox');
@@ -22,9 +21,7 @@ addAllElements();
 addAllEvents();
 var imageFile;
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-	renderGnb();
-}
+async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 const modalwrap = document.getElementById('modal_btn');
@@ -250,7 +247,6 @@ function addProudct(e) {
 	e.preventDefault();
 	const formData = new FormData();
 
-
 	formData.append(nameInput.name, nameInput.value);
 	formData.append(categoryInput.name, categoryInput.value);
 	formData.append(companyInput.name, companyInput.value);
@@ -260,31 +256,29 @@ function addProudct(e) {
 	formData.append(imageInput.name, imageInput.files[0]);
 
 	let object = {};
-	formData.forEach(function(value, key){
-			object[key] = value;
+	formData.forEach(function (value, key) {
+		object[key] = value;
 	});
-	console.log(object)
-	swal(
-		'상품을 추가하시겠습니까?',
-		{
-			buttons: {
-				cancel: '아니요',
-				yes: '네',
-			},
+	console.log(object);
+	swal('상품을 추가하시겠습니까?', {
+		buttons: {
+			cancel: '아니요',
+			yes: '네',
 		},
-	).then((value) => {
+	}).then((value) => {
 		switch (value) {
 			case 'cancel':
 				break;
 			case 'yes':
-				Api.formPost('/api/products',formData).then(()=>{
-					swal('상품 추가가 완료되었습니다.').then(()=>{
-						location.href = '/admin'
+				Api.formPost('/api/products', formData)
+					.then(() => {
+						swal('상품 추가가 완료되었습니다.').then(() => {
+							location.href = '/admin';
+						});
 					})
-				}).catch((err)=>{
-					alert(err.message)
-				})
+					.catch((err) => {
+						alert(err.message);
+					});
 		}
 	});
-	
 }
