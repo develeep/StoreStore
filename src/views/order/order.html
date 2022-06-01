@@ -51,11 +51,13 @@
 						<span class="sidebar-text">Menu</span>
 					</div>
 					<div class="l-navbar" id="categoryNavbar">
+						<nav class="navbox">
+							<div class="nav__brand">
+								<div class="nav__brand">Category</div>
+							</div>
+						</nav>
 						<nav class="nav">
 							<div>
-								<div class="nav__brand">
-									<div class="nav__brand">Category</div>
-								</div>
 								<div class="nav__list" id="nav-list">
 									<div class="nav__link active">
 										<a href="/" class="nav_name">Home</a>
@@ -104,39 +106,49 @@
 				</div>
 			</div>
 		</section>
-        <!-- 상세보기 modal 창 -->
-    <div class="modal_background">
-        <div class="modal" tabindex="-1" role="dialog"> 
-          <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" > 
-              <div class="modal-content"> 
-                  <div class="modal-header"> 
-                      <h3 class="modal-title">상세보기</h3> 
-                  </div> 
-                  <div class="modal-body">
-                    <div class="modal-subtitle">구매날짜</div>
-                    <div class="modalOrderDate"></div>
-                    <div class="modal-subtitle">주문번호</div>
-                    <div class="modalOrderNumber"></div>
-                    <div class="modal-subtitle">구매상품</div>
-                    <div class="modalOrderProduct"></div>
-                    <div class="modal-subtitle">가격</div>
-                    <div class="modalOrderPriceSum"></div>
-                    <div class="modal-subtitle">받는이</div>
-                    <div class="modalOrderReceiver"></div>
-                    <div class="modal-subtitle">배송지 연락처</div>
-                    <div class="modalOrderPhoneNumber"></div>
-                    <div class="modal-subtitle">배송지 주소</div>
-                    <div class="modalOrderAddress"></div>
-                    <div class="modal-subtitle">요청사항</div><div class="modalOrderReqestMsg"></div> 
-                    <div class="modal-subtitle">배송상태</div><div class="modalOrderState"></div>  
-                    
-                
-                  </div>
-                  <div class="modal-footer"><button class="close-button">닫기</button></div> 
-              </div> 
-          </div> 
-      </div>
-    </div>
+		<!-- 상세보기 modal 창 -->
+		<div class="modal_background">
+			<div class="modal" tabindex="-1" role="dialog">
+				<div
+					class="modal-dialog"
+					style="
+						overflow-y: scroll;
+						max-height: 85%;
+						margin-top: 50px;
+						margin-bottom: 50px;
+					"
+				>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title">상세보기</h3>
+						</div>
+						<div class="modal-body">
+							<div class="modal-subtitle">구매날짜</div>
+							<div class="modalOrderDate"></div>
+							<div class="modal-subtitle">주문번호</div>
+							<div class="modalOrderNumber"></div>
+							<div class="modal-subtitle">구매상품</div>
+							<div class="modalOrderProduct"></div>
+							<div class="modal-subtitle">가격</div>
+							<div class="modalOrderPriceSum"></div>
+							<div class="modal-subtitle">받는이</div>
+							<div class="modalOrderReceiver"></div>
+							<div class="modal-subtitle">배송지 연락처</div>
+							<div class="modalOrderPhoneNumber"></div>
+							<div class="modal-subtitle">배송지 주소</div>
+							<div class="modalOrderAddress"></div>
+							<div class="modal-subtitle">요청사항</div>
+							<div class="modalOrderReqestMsg"></div>
+							<div class="modal-subtitle">배송상태</div>
+							<div class="modalOrderState"></div>
+						</div>
+						<div class="modal-footer">
+							<button class="close-button">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 	<script src="order.js" type="module" defer></script>
 </html>

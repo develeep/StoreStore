@@ -45,54 +45,56 @@
 <body>
     <!-- 헤더 -->
     <header>
-			<div class="sub-menu">
-				<!-- 회원가입,로그인 -->
-				<ul id="navbar" class="navbar"></ul>
-			</div>
-			<div class="container-box">
-				<div class="headerLeft">
-					<div class="nav__toggle" id="nav-toggle">
-						<div class="sidebarBtn">
-							<ion-icon name="menu-outline"></ion-icon>
-						</div>
-						<div class="sidebarBtn hidden-Toggle">
-							<ion-icon name="close-outline"></ion-icon>
-						</div>
-						<span class="sidebar-text">Menu</span>
+		<div class="sub-menu">
+			<!-- 회원가입,로그인 -->
+			<ul id="navbar" class="navbar"></ul>
+		</div>
+		<div class="container-box">
+			<div class="headerLeft">
+				<div class="nav__toggle" id="nav-toggle">
+					<div class="sidebarBtn">
+						<ion-icon name="menu-outline"></ion-icon>
 					</div>
-					<div class="l-navbar" id="categoryNavbar">
-						<nav class="nav">
-							<div>
-								<div class="nav__brand">
-									<div class="nav__brand">Category</div>
+					<div class="sidebarBtn hidden-Toggle">
+						<ion-icon name="close-outline"></ion-icon>
+					</div>
+					<span class="sidebar-text">Menu</span>
+				</div>
+				<div class="l-navbar" id="categoryNavbar">
+					<nav class="navbox">
+						<div class="nav__brand">
+							<div class="nav__brand">Category</div>
+						</div>
+					</nav>
+					<nav class="nav">
+						<div>
+							<div class="nav__list" id="nav-list">
+								<div class="nav__link active">
+									<a href="/" class="nav_name">Home</a>
 								</div>
-								<div class="nav__list" id="nav-list">
-									<div class="nav__link active">
-										<a href="/" class="nav_name">Home</a>
-									</div>
-									<div class="nav__link active">
-										<a href="/ranking" class="nav_name">Best</a>
-									</div>
+								<div class="nav__link active">
+									<a href="/ranking" class="nav_name">Best</a>
 								</div>
 							</div>
-						</nav>
-					</div>
-				</div>
-				<h1 class="logo"><a href="/">StoreStore</a></h1>
-				<div class="headerRight">
-					<!-- 장바구니 -->
-					<div id="sub-category">
-						<ul id="submenu">
-							<li>
-								<a href="/cart" aria-current="page">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-								</a>
-							</li>
-						</ul>
-					</div>
+						</div>
+					</nav>
 				</div>
 			</div>
-		</header>
+			<h1 class="logo"><a href="/">StoreStore</a></h1>
+			<div class="headerRight">
+				<!-- 장바구니 -->
+				<div id="sub-category">
+					<ul id="submenu">
+						<li>
+							<a href="/cart" aria-current="page">
+								<ion-icon name="bag-handle-outline"></ion-icon>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
 
     <!-- 삭제 폼 -->
     <div class="register-user-form-container">

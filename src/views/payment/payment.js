@@ -1,5 +1,4 @@
 import * as Api from '/api.js';
-import { renderGnb } from '/renderGnb.js';
 import { addTable } from '../cart/cartTable.js';
 import { Cart } from '/CartClass.js';
 import { addCommas } from '/useful-functions.js';
@@ -22,9 +21,7 @@ order.getStore('order');
 addAllEvents();
 addAllElements();
 
-function addAllElements() {
-	renderGnb();
-}
+function addAllElements() {}
 
 function addAllEvents() {
 	getOrder();
