@@ -40,3 +40,60 @@
     box-shadow:none;
     outline:none;
 }
+
+.modal_background-on{
+    position: fixed;
+    top:0; left: 0; bottom: 0; right: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    /* top: calc(50vh - 200px); */
+    /* left: calc(50vw - 200px); */
+    background-color: white;
+    align-items: center;
+    border-radius: 10px;
+    width: 800px;
+    height: 500px;
+}
+.show-modal {
+    display: block !important;;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    /* top: calc(50vh - 200px); */
+    /* left: calc(50vw - 200px); */
+    background-color: white;
+    align-items: center;
+    border-radius: 10px;
+    width: 600px;
+    height: 550px;
+}
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    align-items: left;
+    height: 400px;
+    overflow-y: auto;
+    padding: 10px 50px 10px 50px;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.modal-subtitle {
+    font-weight: bold;
+}
+
+.close-button {
+    /* margin: auto; */
+    margin: 10px 10px 10px 10px;
+}

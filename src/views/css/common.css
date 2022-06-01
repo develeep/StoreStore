@@ -193,7 +193,7 @@ header {
 .collapse__link {
 	justify-self: flex-end;
 	position: absolute;
-	top: 4px;
+	top: 0;
 	right: 0;
 	transition: 0.5;
 	font-size: 14px;
