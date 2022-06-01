@@ -229,26 +229,27 @@ productRouter.patch(
 				productId,
 				toUpdate,
 			);
+			if (req.file) {
+				// s3에서 이미지 삭제
+				const imgKey = req.body.imageKey;
+				console.log(imgdata);
 
-			// s3에서 이미지 삭제
-			const imgKey = req.body.imageKey;
-			console.log(imgdata);
-
-			var params = {
-				Bucket: process.env.AWS_BUCKET_NAME,
-				Key: imgKey,
-			};
-			s3.deleteObject(params, function (err, data) {
-				if (err) {
-					res.status(200).json({ updatedProductInfo, status: 'no' });
-				} else {
-					res.status(200).json({ updatedProductInfo, status: 'ok' });
-				}
-				// if (err) console.log(err, err.stack); // error
-				// else console.log(data); // deleted
-			});
-
-			// res.status(200).json(updatedProductInfo);
+				var params = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: imgKey,
+				};
+				s3.deleteObject(params, function (err, data) {
+					if (err) {
+						console.log(err, err.stack); // error
+						res.status(200).json({ updatedProductInfo, status: 'no' });
+					} else {
+						console.log(data); // deleted
+						res.status(200).json({ updatedProductInfo, status: 'ok' });
+					}
+				});
+			} else {
+				res.status(200).json(updatedProductInfo);
+			}
 		} catch (error) {
 			next(error);
 		}
