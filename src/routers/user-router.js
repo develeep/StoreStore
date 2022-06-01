@@ -173,11 +173,6 @@ userRouter.delete('/delete', loginRequired, async function (req, res, next) {
 	}
 });
 
-// 이미지 s3 업로드
-userRouter.post('/single', upload.single('img'), (req, res, next) => {
-	res.status(201).send(req.file);
-});
-
 userRouter.get('/isadmin', loginRequired, async (req, res, next) => {
 	// loign되었다면 id를 가져옴
 	const userId = req.currentUserId;

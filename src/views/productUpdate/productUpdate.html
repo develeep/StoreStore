@@ -8,8 +8,8 @@
     <link
       rel="icon"
       type="image/png"
-			sizes="32x32"
-			href="/StoreStore-favicon.png"
+      sizes="16x16"
+      href="/elice-rabbit-favicon.png"
     />
     <!-- sweetalert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
@@ -39,8 +39,8 @@
 		<!-- 커스텀 css, js -->
 		<link rel="stylesheet" href="../../css/common.css" />
 		<script src="../../nav.js" type="module" defer></script>
-    <link rel="stylesheet" href="productAdd.css" />
-    <script src="productAdd.js" type="module" defer></script>
+    <link rel="stylesheet" href="productUpdate.css" />
+    <script src="productUpdate.js" type="module" defer></script>
   </head>
   <body>
     <div class="black_bg"></div>
@@ -62,22 +62,17 @@
 						<span class="sidebar-text">Menu</span>
 					</div>
 					<div class="l-navbar" id="categoryNavbar">
-						<nav class="navbox">
-							<div class="nav__brand">
-								<div class="nav__brand">Category</div>
-							</div>
-						</nav>
 						<nav class="nav">
 							<div>
+								<div class="nav__brand">
+									<div class="nav__brand">Category</div>
+								</div>
 								<div class="nav__list" id="nav-list">
 									<div class="nav__link active">
 										<a href="/" class="nav_name">Home</a>
 									</div>
 									<div class="nav__link active">
 										<a href="/ranking" class="nav_name">Best</a>
-									</div>
-									<div class="nav__link active">
-										<a href="/newproducts" class="nav_name">New</a>
 									</div>
 								</div>
 							</div>
@@ -103,11 +98,11 @@
       <section>
         <div class="container">
           <div id="title">
-            <h1>제품판매</h1>
+            <h1>제품 업데이트</h1>
           </div>
           <div>
             <form action="/api/products" method="post" enctype="multipart/form-data" id="addForm">
-              <p>제품을 판매해 보세요</p>
+              <p>제품을 업데이트 합니다.</p>
               <div>
                 <label for="titleInput">제품 이름</label>
                 <input type="text" name="name" id="titleInput" placeholder="아이보리 티셔츠">
@@ -142,9 +137,9 @@
               </div>
               <div>
                 <label >이미지 미리보기</label>
-                <img alt="이미지를 등록해 주세요" id="imageViewr">
-                <label for="imageInput">제품 사진</label>
-                <input type="file" id="img" name="img" accept="image/*"> <!-- onchange="loadFile(this)">-->
+                <img alt="이미지" id="imageViewr">
+                <label for="imageInput">이미지 변경</label>
+                <input type="file" id="img" name="img" accept="image/*" > <!-- onchange="loadFile(this)">-->
               </div>
               <div>
                 <label for="inventoryInput">재고 수</label>
@@ -158,7 +153,7 @@
                 </div>
               </div>
               <div>
-                <input type="submit" value="제품 등록하기">
+                <input type="submit" value="제품 업데이트 하기">
               </div>
             </form>
           </div>
