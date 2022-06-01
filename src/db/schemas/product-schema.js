@@ -38,11 +38,13 @@ const ProductSchema = new Schema(
 			type: Number,
 			required: true,
 		},
-		review: {
-			type: Schema.Types.ObjectId,
-			ref: 'reviews',
-			required: false,
-		},
+		review: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'reviews',
+				required: false,
+			},
+		],
 	},
 	{
 		collection: 'products',

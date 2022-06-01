@@ -93,6 +93,17 @@ export class ProductModel {
 		await Product.deleteMany({ category });
 		return;
 	}
+
+	async findCategoryNameById(productId) {
+		const product = await Product.findOne({ productId }).populate({
+			path: 'category',
+			populate: { path: 'bCategory' },
+		});
+		console.log(product);
+		const categoryName =
+			product.category.bCategory.name + '/' + product.category.name;
+		return categoryName;
+	}
 }
 
 const productModel = new ProductModel();
