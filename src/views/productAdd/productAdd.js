@@ -39,7 +39,7 @@ categroyButton.addEventListener('click', async (e) => {
 
 	categorySelectBox.innerHTML = null;
 
-	const categories = await Api.get('/api/getcategorys');
+	const categories = await Api.get('/api/categories');
 	const Bcategories = await Api.get('/api/Bcategorys');
 	let Bcategorys = Object.entries(Bcategories);
 	for (let i of Bcategorys) {
@@ -105,7 +105,7 @@ async function categoryReset(targetCategory) {
 		const ScateogryInput = categoryInput.value;
 		console.log(targetCategory, ScateogryInput);
 		const data = { targetCategory, ScateogryInput };
-		const newCategory = await Api.post('/api/category_update', data);
+		const newCategory = await Api.post('/api/categories', data);
 		if (newCategory.result == 'ok') {
 			if (categorysData != undefined) {
 				categorysData.push(ScateogryInput);
@@ -172,7 +172,7 @@ function addItem(itemName) {
 						break;
 					case 'yes':
 						const selectedCategory = { selectedCategory: itemName };
-						Api.delete('/api/Categorydelete', '', selectedCategory).then(() => {
+						Api.delete('/api/categories', '', selectedCategory).then(() => {
 							li.remove();
 							categorysData.forEach((data, index) => {
 								if (data === itemName) {
@@ -199,7 +199,7 @@ function addItem(itemName) {
 		try {
 			const newData = updateInput.value;
 			const data = { OldData: itemName, NewData: newData };
-			Api.patch('/api/Ucategory', '', data).then(() => {
+			Api.patch('/api/categories', '', data).then(() => {
 				btn.textContent = newData;
 				categorysData.forEach((data, index) => {
 					categorysData[index] === data
@@ -220,29 +220,6 @@ function addItem(itemName) {
 // `<select id="subCategorySelectBox">
 // <option value>하위 카테고리를 선택해 주세요.</option>
 // </select>`
-
-async function buttonSubmit(e) {
-	e.preventDefault();
-
-	const name = nameInput.value;
-	const category = categoryInput.value;
-	const company = companyInput.value;
-	const description = descriptionInput.value;
-	const inventory = inventoryInput.value;
-	const price = priceInput.value;
-	const data = {
-		...(name && { name }),
-		...(category && { category }),
-		...(company && { company }),
-		...(description && { description }),
-		...(inventory && { inventory }),
-		...(price && { price }),
-	};
-
-	const categories = await Api.post('/api/products', data);
-	console.log('등록된 상품은');
-	console.log(categories);
-}
 
 function loadFile(e) {
 	console.log(e.target.files[0]);

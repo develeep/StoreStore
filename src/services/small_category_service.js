@@ -1,4 +1,4 @@
-import { SmallcateModel } from '../db';
+import { smallCategoryModel } from '../db';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -6,41 +6,41 @@ import mongoose from 'mongoose';
 
 class SmallcategoryService {
 	// 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
-	constructor(SmallcateModel) {
-		this.SmallcateModel = SmallcateModel;
+	constructor(smallCategoryModel) {
+		this.smallCategoryModel = smallCategoryModel;
 	}
 
 	async addCategory(categoryInfo) {
-		const newCategory = await this.SmallcateModel.create(categoryInfo);
+		const newCategory = await this.smallCategoryModel.create(categoryInfo);
 
 		return newCategory;
 	}
 
-	async getCategorys() {
-		const Categorys = await this.SmallcateModel.findAll();
+	async getCategories() {
+		const Categorys = await this.smallCategoryModel.findAll();
 		return Categorys;
 	}
 
 	async getCategoryname(name) {
-		const oneCategory = await this.SmallcateModel.findById(name);
+		const oneCategory = await this.smallCategoryModel.findById(name);
 		return oneCategory;
 	}
 
 	async getbCategoryname(name) {
-		const bCategory = await this.SmallcateModel.BfindById(name);
+		const bCategory = await this.smallCategoryModel.BfindById(name);
 		return bCategory;
 	}
 
 	// 사용자 삭제
 	async deleteCategory(name) {
 		// db에서 삭제
-		const deletename = await this.SmallcateModel.delete(name);
+		const deletename = await this.smallCategoryModel.delete(name);
 
 		return deletename;
 	}
 
 	async updateCategory(olddata, toUpdate) {
-		const updateData = await this.SmallcateModel.updateCategory(
+		const updateData = await this.smallCategoryModel.updateCategory(
 			olddata,
 			toUpdate,
 		);
@@ -49,6 +49,6 @@ class SmallcategoryService {
 	}
 }
 
-const SmallcateService = new SmallcategoryService(SmallcateModel);
+const smallCategoryService = new SmallcategoryService(smallCategoryModel);
 
-export { SmallcateService };
+export { smallCategoryService };

@@ -38,7 +38,7 @@ function updatePassword(e) {
 // 페이지 로드 시 저장된 유저 정보를 화면에 띄우는 함수
 async function renderUserInfo() {
 	try {
-		const userData = await Api.get('/api/update');
+		const userData = await Api.get('/api/users');
 		console.log(userData);
 		nameInput.value = userData.fullName;
 		if (userData.address) {

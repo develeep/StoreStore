@@ -55,6 +55,6 @@ export class SmallCategoryModel {
 	}
 }
 
-const SmallcateModel = new SmallCategoryModel();
+const smallCategoryModel = new SmallCategoryModel();
 
-export { SmallcateModel };
+export { smallCategoryModel };

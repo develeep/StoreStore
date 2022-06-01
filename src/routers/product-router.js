@@ -2,7 +2,7 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
-import { productService, SmallcateService } from '../services';
+import { productService, smallCategoryService } from '../services';
 import upload from '../utils/s3';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
@@ -41,17 +41,6 @@ productRouter.get('/rankednext8products', async (req, res, next) => {
 	}
 });
 
-// 테스트용 상품 상세보기
-productRouter.get('/testproduct', async (req, res, next) => {
-	try {
-		const productId = 'lsd2TYkEnNLNgUXwszw5K';
-		const product = await productService.getProductById(productId);
-		res.status(200).json(product);
-	} catch (error) {
-		next(error);
-	}
-});
-
 // 상품 상세보기
 productRouter.get('/product/:productId', async (req, res, next) => {
 	try {
@@ -65,7 +54,7 @@ productRouter.get('/product/:productId', async (req, res, next) => {
 });
 
 // 카테고리 별 조회 -> /api/productlist
-productRouter.get('/productist/:category', async (req, res, next) => {
+productRouter.get('/productlist/:category', async (req, res, next) => {
 	try {
 		const category = req.params.category;
 		const products = await productService.getProductsByCategory(category);
@@ -85,12 +74,12 @@ productRouter.post(
 		try {
 			// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
 			// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-			console.log(req.body)
+			console.log(req.body);
 			// 카테고리를 폼에서 입력했을 거란 가정하에..
 			const category = req.body.Scategory;
 
 			// 카테고리 스키마에서 category로 _id 얻어오기
-			let getCategory = await SmallcateService.getCategoryname(category);
+			let getCategory = await smallCategoryService.getCategoryname(category);
 			const categoryId = getCategory._id;
 			// req (request)의 body 에서 데이터 가져오기
 
@@ -125,7 +114,7 @@ productRouter.post(
 
 // 상품 수정
 productRouter.patch(
-	'/productupdate',
+	'/products',
 	loginRequired,
 	isAdmin,
 	async function (req, res, next) {
@@ -174,7 +163,7 @@ productRouter.patch(
 
 // 상품 삭제
 productRouter.delete(
-	'/productdelete',
+	'/products',
 	loginRequired,
 	isAdmin,
 	async function (req, res, next) {
@@ -199,12 +188,16 @@ productRouter.delete(
 );
 
 // 카테고리별 상품 수집
-productRouter.get('/getProductCategory/:id', async (req, res, next) => {
+productRouter.get('/productCategory/:id', async (req, res, next) => {
 	const category_name = req.params.id;
-	let isSmallcategory = await SmallcateService.getCategoryname(category_name);
+	let isSmallcategory = await smallCategoryService.getCategoryname(
+		category_name,
+	);
 	let CategoryProducts;
 	if (isSmallcategory == null) {
-		let isBigcategory = await SmallcateService.getbCategoryname(category_name);
+		let isBigcategory = await smallCategoryService.getbCategoryname(
+			category_name,
+		);
 		CategoryProducts = await productService.BgetCategoryOne(isBigcategory);
 	} else {
 		isSmallcategory = isSmallcategory._id;
