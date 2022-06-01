@@ -1,17 +1,22 @@
 import * as Api from '/api.js';
 
-//상품 가져오기
 const inputProduct = document.getElementById('inputProduct');
+const currentPage = document.getElementById('currentPage');
+const currentTitle = document.getElementById('currentTitle');
+
+const getCategories = await Api.get('/api/categories');
 
 let params = location.href.split('/');
 params = params[params.length - 2];
 // console.log(params);
 const getProductCategory = await Api.get(`/api/productCategory`, params);
+const paramsKR = decodeURIComponent(params);
 
 addAllElements();
 
 async function addAllElements() {
 	makeCategory();
+	makeCurrentPage();
 }
 
 function makeCategory() {
@@ -40,5 +45,23 @@ function makeCategory() {
 	  </div>
 	  </div>
 	  </div>`;
+	}
+}
+
+function makeCurrentPage() {
+	//현재페이지 경로
+	let arr = [];
+	Object.entries(getCategories).forEach(([key, value]) => {
+		const findValue = value.find((e) => e === paramsKR);
+		arr.push(findValue);
+	});
+	const currentIndex = arr.indexOf(paramsKR);
+	const topCategory = Object.keys(getCategories)[currentIndex];
+	// console.log(`${paramsKR}의 index 값은 ${currentIndex}번째`);
+	if (topCategory !== undefined) {
+		currentPage.innerHTML += `<a href="/products/${topCategory}" class="topCategory">${topCategory} > </a>
+		<a href="/products/${paramsKR}" class="subCategory">${paramsKR}</a>`;
+	} else {
+		currentPage.innerHTML += `<a href="/products/${paramsKR}" class="topCategory" style="font-weight:700;">${paramsKR}</a>`;
 	}
 }
