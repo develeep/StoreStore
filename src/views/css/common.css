@@ -31,7 +31,11 @@ a {
 }
 
 section {
-	margin: 0 3rem;
+	margin: 0 2.4%;
+}
+
+.marginbox {
+	margin: 0 2.4%;
 }
 
 /* header */
@@ -50,6 +54,7 @@ header {
 	height: 1.5rem;
 	align-items: flex-end;
 	font-size: 12px;
+	margin-right: 2.4%;
 }
 .navbar > li {
 	position: relative;
@@ -67,7 +72,7 @@ header {
 }
 
 .navbar > li > a {
-	padding: 10px;
+	padding: 0 10px;
 }
 
 .navbar > li:hover > a {
@@ -86,7 +91,7 @@ header {
 }
 
 .headerLeft {
-	padding-left: 10px;
+	padding-left: 2.4%;
 }
 
 .logo > a {
@@ -98,7 +103,7 @@ header {
 }
 
 .headerRight {
-	padding-right: 10px;
+	padding-right: 2.4%;
 }
 
 /* Slidebar */
@@ -107,7 +112,7 @@ header {
 	cursor: pointer;
 	position: absolute;
 	top: 2.7rem;
-	left: 10px;
+	left: 2.4%;
 	padding-right: 52px;
 }
 
@@ -129,7 +134,7 @@ header {
 	height: 100vh;
 	background-color: #fff;
 	color: #141414;
-	padding: 1.5rem 1.5rem 2rem;
+	padding: 1.5rem 1.2% 2rem;
 	transition: 0.5s;
 	z-index: 100;
 }
