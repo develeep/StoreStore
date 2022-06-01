@@ -28,8 +28,14 @@ class ProductService {
 	}
 
 	// 랭킹순으로(많이 팔린 순) 상품 가져오기
-	async getRankedProduct() {
+	async getRankedProducts() {
 		const products = await this.productModel.getRankedProduct();
+		return products;
+	}
+
+	// 최신순으로 상품 가져오기
+	async getNewestProducts() {
+		const products = await this.productModel.findNewest();
 		return products;
 	}
 

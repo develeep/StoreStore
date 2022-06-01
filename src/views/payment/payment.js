@@ -202,7 +202,7 @@ async function payment(e) {
 			requestSelectBox: selectResult,
 			orderProducts: order,
 		};
-		const result = await Api.post('/api/ordes', data);
+		const result = await Api.post('/api/orders', data);
 		console.log(result);
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {

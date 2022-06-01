@@ -22,8 +22,18 @@ productRouter.get('/bestproducts', async (req, res, next) => {
 // 가장 많이 팔린 순으로 전체 상품 가져오기
 productRouter.get('/rankedproducts', async (req, res, next) => {
 	try {
-		const rankedProducts = await productService.getRankedProduct();
+		const rankedProducts = await productService.getRankedProducts();
 		res.status(200).json(rankedProducts);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 최신 순으로 전체 상품 가져오기, get 으로 ('/api/newestproducts') 주소로 보내면 됨
+productRouter.get('/newestproducts', async (req, res, next) => {
+	try {
+		const newestProducts = await productService.getNewestProducts();
+		res.status(200).json(newestProducts);
 	} catch (error) {
 		next(error);
 	}
