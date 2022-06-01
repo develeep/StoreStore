@@ -163,7 +163,7 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 // 주문 삭제
 orderRouter.delete(
 	'/orders/:orderId',
-	// loginRequired,
+	loginRequired,
 	// isAdmin,
 	async function (req, res, next) {
 		try {
@@ -188,5 +188,25 @@ orderRouter.delete(
 		}
 	},
 );
+
+orderRouter.patch('/orders', loginRequired, async function (req, res, next) {
+	try {
+		// content-type 을 application/json 로 프론트에서
+		// 설정 안 하고 요청하면, body가 비어 있게 됨.
+		if (is.emptyObject(req.body)) {
+			throw new Error(
+				'headers의 Content-Type을 application/json으로 설정해주세요',
+			);
+		}
+		const { orderId, deliveryStatus } = req.body;
+		const toUpdate = {
+			...(deliveryStatus && { deliveryStatus }),
+		};
+		const updatedOrderInfo = await orderService.setOrder(orderId, toUpdate);
+		res.status(200).json(updatedOrderInfo);
+	} catch (error) {
+		next(error);
+	}
+});
 
 export { orderRouter };
