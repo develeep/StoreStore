@@ -84,9 +84,10 @@ export class ProductModel {
 
 	async findCategoryNameById(productId) {
 		const product = await Product.findOne({ productId }).populate({
-			path: 'catgory',
+			path: 'category',
 			populate: { path: 'bCategory' },
 		});
+		console.log(product);
 		const categoryName =
 			product.category.bCategory.name + '/' + product.category.name;
 		return categoryName;
