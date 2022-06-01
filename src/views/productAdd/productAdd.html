@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<head>
+    <html>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>StoreStore</title>
@@ -30,7 +30,12 @@
 			nomodule=""
 			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
 		></script>
-
+    <!-- 폰트 어썸: 아이콘 -->
+    <script
+    defer
+    src="https://kit.fontawesome.com/7630448495.js"
+    crossorigin="anonymous"
+    ></script>
 		<!-- 커스텀 css, js -->
 		<link rel="stylesheet" href="../../css/common.css" />
 		<script src="../../nav.js" type="module" defer></script>
@@ -38,6 +43,7 @@
     <script src="productAdd.js" type="module" defer></script>
   </head>
   <body>
+    <div class="black_bg"></div>
     <!-- 헤더 -->
     <header>
 			<div class="sub-menu">
@@ -106,7 +112,7 @@
                 <input id="Bcategory" type="text" readonly>
                 <input id="Scategory" name="Scategory" type="text" readonly>
                 <button type='button' id="modal_btn">모달창아 나와랏</button>
-                <div class="black_bg"></div>
+                
                 <div class="modal_wrap">
                   <div class="modal_close">
                   <a href="#">close</a>
@@ -151,4 +157,6 @@
           </div>
         </div>
       </section>
+
+      </body>
     </header>
