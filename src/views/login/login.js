@@ -64,7 +64,7 @@ async function handleSubmit(e) {
 			if (beforeURI) {
 				location.href = beforeURI;
 			} else {
-				swal('비정상적인 접근입니다.');
+				location.href = '/'
 			}
 		});
 	} catch (err) {
