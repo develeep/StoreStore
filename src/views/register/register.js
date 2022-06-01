@@ -52,6 +52,10 @@ sendemailButton.addEventListener('click', async (e) => {
 	try {
 		const email = emailInput.value;
 		const data = { email };
+		if(!validateEmail(email)){
+			swal('이메일 형식이 맞지 않습니다.')
+			return;
+		}
 		const email_data = await Api.post('/api/sendmail', data);
 		console.log(email_data);
 		if (email_data.result === 'send') {
