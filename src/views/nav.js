@@ -9,7 +9,7 @@ async function addAllElements() {
 }
 
 // navbar 데이터 가져오기
-const getCategories = await Api.get('/api/getcategorys');
+const getCategories = await Api.get('/api/categories');
 const categories = document.querySelector('#nav-list');
 
 Object.entries(getCategories).forEach(([key, value]) => {

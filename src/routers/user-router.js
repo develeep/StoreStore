@@ -79,7 +79,7 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
 });
 
 // 사용자 데이터 수집
-userRouter.get('/update', loginRequired, async function (req, res, next) {
+userRouter.get('/users', loginRequired, async function (req, res, next) {
 	try {
 		// content-type 을 application/json 로 프론트에서
 		// 설정 안 하고 요청하면, body가 비어 있게 됨.
