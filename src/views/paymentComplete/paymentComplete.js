@@ -6,7 +6,6 @@ addAllEvents();
 addAllElements();
 
 function addAllElements() {
-	renderGnb();
   getOrder();
 }
 
