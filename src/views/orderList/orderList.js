@@ -81,5 +81,10 @@ function getChangeStatus(orderId) {
 function saveStatus() {
   const status = getChangeStatus(this.name);
   console.log(status);
-  // const orders = await Api.??('/api/orders', );
+  // 배송상태(status)를 DB에 반영
+  const saveObject = {
+    orderId: this.name,
+    deliveryStatus: status,
+  }
+  const orders = await Api.patch('/api/orders', '', saveObject);
 }
