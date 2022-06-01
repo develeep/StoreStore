@@ -39,6 +39,16 @@ productRouter.get('/newestproducts', async (req, res, next) => {
 	}
 });
 
+// productId로 category 이름 가져오기 => 대카테고리/소카테고리 이렇게 가져옴
+productRouter.get('/categoryname', async (req, res, next) => {
+	try {
+		const { productId } = req.params;
+		const categoryName = await productService.getCategoryNameById(productId);
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 무한 스크롤을 위한 상품 8개씩 계속 가져오기
 productRouter.get('/rankednext8products', async (req, res, next) => {
 	try {
