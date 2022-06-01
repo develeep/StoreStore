@@ -3,7 +3,8 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
 import { productService, smallCategoryService } from '../services';
-import upload from '../utils/s3';
+import { upload, s3 } from '../utils/s3';
+import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
@@ -95,6 +96,21 @@ productRouter.get('/productlist/:category', async (req, res, next) => {
 	} catch (error) {
 		next(error);
 	}
+});
+
+productRouter.post('/checkout', async (req, res, next) => {
+	const imgdata = req.body.key;
+	console.log(imgdata);
+
+	var params = {
+		Bucket: process.env.AWS_BUCKET_NAME,
+		Key: imgdata,
+	};
+	s3.deleteObject(params, function (err, data) {
+		if (err) console.log(err, err.stack); // error
+		else console.log(data); // deleted
+	});
+	next();
 });
 
 // 상품등록 -> /api/productRegister
