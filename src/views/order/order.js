@@ -1,4 +1,3 @@
-import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 import { getElement, getElementAll } from '/useful-functions.js';
 
@@ -12,11 +11,7 @@ addAllEvents();
 function addAllElements() {}
 
 function addAllEvents() {
-<<<<<<< HEAD
 	getOrder();
-=======
-  getOrder();
->>>>>>> 25f8e7fa13dd162c1c4d6088659a2dfa8e7d1881
 }
 
 async function getOrder() {
@@ -53,8 +48,7 @@ async function getOrder() {
 
 async function cancelOrder() {
 	console.log(this.name);
-	const name = this.name;
-	const orders = await Api.delete('/api/orders', name);
+	const orders = await Api.delete(`/api/orders/${this.name}`);
 	location.reload();
 }
 
@@ -70,20 +64,14 @@ async function makeModalContent() {
 	const orderNumber = getElement('.modalOrderNumber');
 	const orderProduct = getElement('.modalOrderProduct');
 	const orderPriceSum = getElement('.modalOrderPriceSum');
-	const orderReceiver = getElement('.modalOrderReceiver');
-	const orderPhoneNumber = getElement('.modalOrderPhoneNumber');
-	const orderAddress = getElement('.modalOrderAddress');
 	const orderReqestMsg = getElement('.modalOrderReqestMsg');
 	const orderState = getElement('.modalOrderState');
 	orderDate.innerHTML = `${order.timeKor}`;
 	orderNumber.innerHTML = `${order.orderId}`;
 	orderProduct.innerHTML = `${order.product}`;
 	orderPriceSum.innerHTML = `${order.priceSum}`;
-	orderReceiver.innerHTML = `${order.receiver.name}`;
-	orderPhoneNumber.innerHTML = `${order.receiver.phoneNumber}`;
-	orderAddress.innerHTML = `${order.receiver.address}`;
-	orderReqestMsg.innerHTML = `${order.requestMessage}`;
 	orderState.innerHTML = `${order.deliveryStatus}`;
+	orderReqestMsg.innerHTML = `${order.requestMessage}`;
 }
 
 // 상세보기 버튼과 modal창의 닫기 버튼 클릭 시 modal창
