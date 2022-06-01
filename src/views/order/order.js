@@ -12,11 +12,7 @@ addAllEvents();
 function addAllElements() {}
 
 function addAllEvents() {
-<<<<<<< HEAD
-	getOrder();
-=======
   getOrder();
->>>>>>> 25f8e7fa13dd162c1c4d6088659a2dfa8e7d1881
 }
 
 async function getOrder() {
