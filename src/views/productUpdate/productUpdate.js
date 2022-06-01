@@ -276,6 +276,7 @@ function addProudct(e) {
 	formData.append(priceInput.name, priceInput.value);
 	if (imageInput.files[0]) {
 		formData.append(imageInput.name, imageInput.files[0]);
+		formData.append('imageKey', product.imageKey)
 	}
 
 	const query = location.search;
@@ -298,8 +299,9 @@ function addProudct(e) {
 				break;
 			case 'yes':
 				Api.formPatch('/api/products', productId, formData)
-					.then(() => {
-						swal('상품 추가가 완료되었습니다.').then(() => {
+					.then((data) => {
+						console.log(data)
+						swal('상품 업데이트가 완료되었습니다.').then(() => {
 							location.href = '/admin';
 						});
 					})
