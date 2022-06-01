@@ -1,5 +1,4 @@
 import { getElement, getElementAll } from '/useful-functions.js';
-import { renderGnb } from '/renderGnb.js';
 import * as Api from '/api.js';
 
 const categorySelectBox = getElement('#categorySelectBox');
@@ -22,9 +21,7 @@ addAllElements();
 addAllEvents();
 var imageFile;
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-	renderGnb();
-}
+async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 const modalwrap = document.getElementById('modal_btn');
@@ -43,24 +40,30 @@ categroyButton.addEventListener('click', async (e) => {
 	categorySelectBox.innerHTML = null;
 
 	const categories = await Api.get('/api/categories');
-
+	const Bcategories = await Api.get('/api/Bcategorys');
+	let Bcategorys = Object.entries(Bcategories);
+	for (let i of Bcategorys) {
+		console.log(i[1].name);
+		if (!(i[1].name in categories)) {
+			categories[i[1].name] = [];
+		}
+	}
 	let categorys = Object.entries(categories);
-	console.log(categories);
-	console.log(categorys);
 
 	const option = document.createElement('option');
 	option.textContent = '카테고리를 선택해 주세요.';
 	categorySelectBox.append(option);
 
-	categorys.forEach(([key, value]) => {
+	Bcategorys.forEach(([key, value]) => {
 		const optionItem = document.createElement('option');
-		optionItem.value = key;
-		optionItem.textContent = key;
+		optionItem.value = value.name;
+		optionItem.textContent = value.name;
 		categorySelectBox.append(optionItem);
 	});
 
 	categorySelectBox.addEventListener('change', async (event) => {
 		const targetCategory = event.target.value;
+
 		categorysData = categories[targetCategory];
 		// console.log(categorysData);
 		// await categoryReset(categorysData);
@@ -80,12 +83,12 @@ modalclose.addEventListener('click', async (e) => {
 async function categoryReset(targetCategory) {
 	const category = document.createElement('div');
 	category.classList.add('category-item');
-	console.log(categorysData);
-	categorysData.forEach((data) => {
-		const item = addItem(data);
-		category.append(item);
-	});
-
+	if (categorysData != undefined) {
+		categorysData.forEach((data) => {
+			const item = addItem(data);
+			category.append(item);
+		});
+	}
 	const categoryInput = document.createElement('input');
 	categoryInput.id = 'categoryInput';
 	categoryInput.type = 'text';
@@ -104,8 +107,10 @@ async function categoryReset(targetCategory) {
 		const data = { targetCategory, ScateogryInput };
 		const newCategory = await Api.post('/api/categories', data);
 		if (newCategory.result == 'ok') {
-			categorysData.push(ScateogryInput);
-			categoryReset(targetCategory, categorysData);
+			if (categorysData != undefined) {
+				categorysData.push(ScateogryInput);
+				categoryReset(targetCategory, categorysData);
+			}
 		} else {
 			alert('error');
 		}
@@ -174,7 +179,6 @@ function addItem(itemName) {
 									categorysData.splice(index, 1);
 								}
 							});
-							console.log(categorysData);
 						});
 				}
 			});
@@ -195,7 +199,6 @@ function addItem(itemName) {
 		try {
 			const newData = updateInput.value;
 			const data = { OldData: itemName, NewData: newData };
-			console.log(data);
 			Api.patch('/api/categories', '', data).then(() => {
 				btn.textContent = newData;
 				categorysData.forEach((data, index) => {

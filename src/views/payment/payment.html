@@ -25,7 +25,7 @@
     crossorigin="anonymous"
   ></script>
   <link rel="stylesheet" href="payment.css">
-  <title>쇼핑-8팀</title>
+  <title>StoreStore</title>
 </head>
   <body>
     <!-- 헤더 -->
@@ -67,131 +67,138 @@
     </nav>
     <!-- 결제화면 -->
     <div class="block account-header">
-        <h1 class="title">주문결제</h1>
+        <!-- <h1 class="title">주문결제</h1> -->
     </div>
     <div class="container">
-      <div>
-        <h3 class="title">주문상품</h3>
-        <div  class="cart-product-box ">
-          <div class="tit-box">
-            <p class="product-info-cell">상품정보</p> 
-            <p class="product-option-cell">옵션</p> 
-            <p class="product-price-cell">상품금액</p>
-          </div> 
+      <div class="cart-header">
+        <div class="subtitle">
+          <p class="is-size-6">
+            장바구니 &gt; &nbsp;
+          </p>
+        </div>
+        <div class="title">
+          <p class="is-size-2">주문결제</p>
+        </div>
+        <div class="subtitle">
+          <p class="is-size-6">
+            &gt; &nbsp; 주문완료
+          </p>
         </div>
       </div>
-      
+      <h3 class="title">주문상품</h3>
+      <div  class="cart-product-box ">
+        <div class="tit-box">
+          <p class="product-info-cell">상품정보</p> 
+          <p class="product-option-cell">옵션</p> 
+          <p class="product-price-cell">상품금액</p>
+        </div> 
+      </div>
       <div>
-          <h3 class="title">받는이 정보</h3>
+        <h3 class="title">받는이 정보</h3>
       </div>
         <div class="box delivery-info">
-            <div class="form-container">
-                <form id="loginForm">
-                    <div class="field is-horizontal">
-                        <label class="label">이름</label>
-                        <div class="control">
-                            <input type="text" id="nameInput">
-                        </div>
-                    </div>
-                    <div class="field is-horizontal">
-                        <!-- <label class="label">주소</label>
-                        <input type="text" id="addressInput"> -->
-                        <div class="field">
-                          <label class="label">주소</label>
-                        </div>
-                        <input type="text" id="postcodeInput" placeholder="우편번호">
-                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                        <input type="text" id="addressInput" placeholder="주소"><br>
-                        <input type="text" id="detailAddressInput" placeholder="상세주소">
-                      
-                    </div>
-                    <div class="field is-horizontal">
-                        <label class="label">전화번호</label>
-                        <div class="control">
-                            <input type="text" id="phoneNumberInput">
-                        </div>
-                    </div>
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">요청사항</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="select">
-                                <select id="requestSelectBox">
-                                    <option value="0">배송시 요청사항을 선택해 주세요.</option>
-                                    <option value="1" class="select-option">직접 수령하겠습니다.</option>
-                                    <option value="2" class="select-option">배송 전 연락바랍니다.</option>
-                                    <option value="3" class="select-option">부재 시 경비실에 맡겨주세요.</option>
-                                    <option value="4" class="select-option">부재 시 문 앞에 놓아주세요.</option>
-                                    <option value="5" class="select-option">부재 시 택배함에 넣어주세요.</option>
-                                    <option value="6" class="select-option">직접 입력</option>
-                                </select>
-                            </div>
-                            <div>
-                              <input type="text" id="writeOption" hidden>
-                            </div>
-                        </div>
-                        <div>
-                          <button id="writeOptionSaveButton" hidden>저장</button>
-                        </div>
-                    </div>
-                    <div class="field is-horizontal custom-request" id="customRequestContainer">
-                        <div class="field-label is-normal no-label"></div>
-                        <div class="field-body">
-                          <div class="field">
-                            <p class="control">
-                            <input
-                                class="input"
-                                id="customRequest"
-                                type="text"
-                                maxlength="50"
-                                placeholder="최대 50자 입력이 가능합니다."
-                                autocomplete="on"
-                            />
-                            </p>
-                          </div>
-                        </div>
-                    </div>
+          <div class="form-container">
+              <form id="loginForm">
+                  <div class="field is-horizontal">
+                      <label class="label">이름</label>
+                      <div class="control">
+                          <input type="text" id="nameInput">
+                      </div>
                   </div>
-                </div>
-                        <!-- 주문 정보 요약 -->
-                    <div class="tile is-parent tile-order-summary">
-                        <div class="box order-summary">
-                            <div class="header">
-                                <p>결제정보</p>
-                            </div>
-                            <div class="order-info">
-                                <div class="info">
-                                <p>주문상품</p>
-                                <p class="products-title" id="productsTitle"></p>
-                                </div>
-                                <div class="info">
-                                <p>상품총액</p>
-                                <p id="productsTotal"></p>
-                                </div>
-                                <div class="info">
-                                <p>배송비</p>
-                                <p id="deliveryFee">3,000원</p>
-                                </div>
-                            </div>
-                            <div class="total">
-                                <p class="total-label">총 결제금액</p>
-                                <p class="total-price" id="orderTotal"></p>
-                            </div>
-                            <div class="purchase">
-                                <button class="button is-info" id="checkoutButton">
-                                결제하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+          <div class="field is-horizontal">
+              <!-- <label class="label">주소</label>
+              <input type="text" id="addressInput"> -->
+              <div class="field">
+                <label class="label">주소</label>
+              </div>
+              <input type="text" id="postcodeInput" placeholder="우편번호">
+              <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+              <input type="text" id="addressInput" placeholder="주소"><br>
+              <input type="text" id="detailAddressInput" placeholder="상세주소">
+            
+          </div>
+          <div class="field is-horizontal">
+              <label class="label">전화번호</label>
+              <div class="control">
+                  <input type="text" id="phoneNumberInput">
+              </div>
+          </div>
+          <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                  <label class="label">요청사항</label>
+              </div>
+              <div class="field-body">
+                  <div class="select">
+                      <select id="requestSelectBox">
+                          <option value="0">배송시 요청사항을 선택해 주세요.</option>
+                          <option value="1" class="select-option">직접 수령하겠습니다.</option>
+                          <option value="2" class="select-option">배송 전 연락바랍니다.</option>
+                          <option value="3" class="select-option">부재 시 경비실에 맡겨주세요.</option>
+                          <option value="4" class="select-option">부재 시 문 앞에 놓아주세요.</option>
+                          <option value="5" class="select-option">부재 시 택배함에 넣어주세요.</option>
+                          <option value="6" class="select-option">직접 입력</option>
+                      </select>
+                  </div>
+                  <div>
+                    <input type="text" id="writeOption" hidden>
+                  </div>
+              </div>
+              <div>
+                <button id="writeOptionSaveButton" hidden>저장</button>
+              </div>
+          </div>
+          <div class="field is-horizontal custom-request" id="customRequestContainer">
+              <div class="field-label is-normal no-label"></div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                  <input
+                    class="input"
+                    id="customRequest"
+                    type="text"
+                    maxlength="50"
+                    placeholder="최대 50자 입력이 가능합니다."
+                    autocomplete="on"
+                  />
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+      </form>
       </div>
-    </div>
-    <div>
-
-    </div>
+      <!-- 주문 정보 요약 -->
+      <div class="tile is-parent tile-order-summary">
+        <div class="box order-summary">
+            <div class="header">
+                <p>결제정보</p>
+            </div>
+            <div class="order-info">
+                <div class="info">
+                <p>주문상품</p>
+                <p class="products-title" id="productsTitle"></p>
+                </div>
+                <div class="info">
+                <p>상품총액</p>
+                <p id="productsTotal"></p>
+                </div>
+                <div class="info">
+                <p>배송비</p>
+                <p id="deliveryFee">3,000원</p>
+                </div>
+            </div>
+            <div class="total">
+                <p class="total-label">총 결제금액</p>
+                <p class="total-price" id="orderTotal"></p>
+            </div>
+            <div class="purchase">
+                <button class="button is-info" id="checkoutButton">
+                결제하기
+                </button>
+            </div>
+        </div>
+      </div> 
+    </div>  
   </body>
   <script src="payment.js" type="module" defer></script>
   <!-- 다음 주소 api -->

@@ -5,14 +5,14 @@ import { validateEmail } from '/useful-functions.js';
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const submitButton = document.querySelector('#submitButton');
-const navBar = document.querySelector('#navbar')
+const navBar = document.querySelector('#navbar');
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-	registerBtn()
+	registerBtn();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -57,14 +57,14 @@ async function handleSubmit(e) {
 		localStorage.setItem('token', token);
 
 		swal(`정상적으로 로그인되었습니다.`).then(() => {
-			const encodeURI = location.search
-			const URI = decodeURIComponent(encodeURI)
-			const searchURI = new URLSearchParams(URI)
-			const beforeURI = searchURI.get('beforeURI')
-			if(beforeURI){
+			const encodeURI = location.search;
+			const URI = decodeURIComponent(encodeURI);
+			const searchURI = new URLSearchParams(URI);
+			const beforeURI = searchURI.get('beforeURI');
+			if (beforeURI) {
 				location.href = beforeURI;
-			}else{
-				swal('비정상적인 접근입니다.')
+			} else {
+				location.href = '/'
 			}
 		});
 	} catch (err) {

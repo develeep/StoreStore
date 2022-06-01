@@ -1,91 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 아이콘 -->
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="16x16"
-    href="/elice-rabbit-favicon.png"
-  />
-  <!-- bulma css 관련 -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-  />
-  <!-- 폰트 어썸: 아이콘 -->
-  <script
-    defer
-    src="https://kit.fontawesome.com/7630448495.js"
-    crossorigin="anonymous"
-  ></script>
-  <link rel="stylesheet" href="order.css">
-  <title>쇼핑-8팀</title>
-</head>
-  <body>
-    <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
-          </a>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 아이콘 -->
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/elice-rabbit-favicon.png"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+		<!-- 커스텀 css, js -->
+		<link rel="stylesheet" href="../../css/common.css" />
+		<script src="../../nav.js" type="module" defer></script>
+		<link rel="stylesheet" href="order.css" />
+		<title>StoreStore</title>
+	</head>
+	<body>
+		<!-- 헤더 -->
+		<header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
+			</div>
+			<div class="container-box">
+				<div class="headerLeft">
+					<div class="nav__toggle" id="nav-toggle">
+						<div class="sidebarBtn">
+							<ion-icon name="menu-outline"></ion-icon>
+						</div>
+						<div class="sidebarBtn hidden-Toggle">
+							<ion-icon name="close-outline"></ion-icon>
+						</div>
+						<span class="sidebar-text">Menu</span>
+					</div>
+					<div class="l-navbar" id="categoryNavbar">
+						<nav class="nav">
+							<div>
+								<div class="nav__brand">
+									<div class="nav__brand">Category</div>
+								</div>
+								<div class="nav__list" id="nav-list">
+									<div class="nav__link active">
+										<a href="/" class="nav_name">Home</a>
+									</div>
+									<div class="nav__link active">
+										<a href="/ranking" class="nav_name">Best</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+					<div id="sub-category">
+						<ul id="submenu">
+							<li>
+								<a href="/cart" aria-current="page">
+									<ion-icon name="bag-handle-outline"></ion-icon>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li>
-                <a href="/cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+		<!-- 주문조회 -->
+		<section class="section">
+			<div class="container">
+				<div class="block account-header">
+					<h1 class="title">주문조회</h1>
+				</div>
+				<div class="orderTable">
+					<div class="orderTableRowGroup">
+						<div class="orderTableTitle">
+							<div class="orderTableCell" id="orderDate">날짜</div>
+							<div class="orderTableCell" id="orderInfo">주문번호</div>
+							<div class="orderTableCell" id="orderProduct">구매상품</div>
+							<div class="orderTableCell" id="orderPriceSum">주문금액</div>
+							<div class="orderTableCell" id="orderState">배송상태</div>
+							<div class="orderTableCell">비고</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+        <!-- 상세보기 modal 창 -->
+    <div class="modal_background">
+        <div class="modal" tabindex="-1" role="dialog"> 
+          <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" > 
+              <div class="modal-content"> 
+                  <div class="modal-header"> 
+                      <h3 class="modal-title">상세보기</h3> 
+                  </div> 
+                  <div class="modal-body">
+                    <div class="modal-subtitle">구매날짜</div>
+                    <div class="modalOrderDate"></div>
+                    <div class="modal-subtitle">주문번호</div>
+                    <div class="modalOrderNumber"></div>
+                    <div class="modal-subtitle">구매상품</div>
+                    <div class="modalOrderProduct"></div>
+                    <div class="modal-subtitle">가격</div>
+                    <div class="modalOrderPriceSum"></div>
+                    <div class="modal-subtitle">받는이</div>
+                    <div class="modalOrderReceiver"></div>
+                    <div class="modal-subtitle">배송지 연락처</div>
+                    <div class="modalOrderPhoneNumber"></div>
+                    <div class="modal-subtitle">배송지 주소</div>
+                    <div class="modalOrderAddress"></div>
+                    <div class="modal-subtitle">요청사항</div><div class="modalOrderReqestMsg"></div> 
+                    <div class="modal-subtitle">배송상태</div><div class="modalOrderState"></div>  
+                    
+                
+                  </div>
+                  <div class="modal-footer"><button class="close-button">닫기</button></div> 
+              </div> 
+          </div> 
       </div>
-    </nav>
-    <!-- 주문조회 -->
-    <section class="section">
-        <div class="container">
-            <div class="block account-header">
-                <h1 class="title">주문조회</h1>
-            </div>
-            <div class="orderTable">
-              <div class="orderTableRowGroup">
-                <div class="orderTableTitle">
-                  <!-- 의논하여 요소 추가/수정 예정 -->
-                  <div class="orderTableCell" id="orderDate">날짜</div>
-                  <div class="orderTableCell" id="orderInfo">주문번호</div>
-                  <div class="orderTableCell" id="orderProduct">구매상품</div>
-                  <div class="orderTableCell" id="orderPriceSum">주문금액</div>
-                  <div class="orderTableCell" id="orderState">배송상태</div>
-                  <div class="orderTableCell">비고</div>
-                </div>
-              </div>  
-            </div>
-        </div>
-    </section>
-    <!-- 주문취소 modal창 -->
-
-  </body>
-  <script src="order.js" type="module" defer></script>
+    </div>
+	</body>
+	<script src="order.js" type="module" defer></script>
 </html>

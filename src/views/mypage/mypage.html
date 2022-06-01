@@ -11,64 +11,87 @@
       sizes="16x16"
       href="/elice-rabbit-favicon.png"
     />
-    <!-- bulma css -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <!-- 폰트 어썸: 아이콘 -->
-    <script
-      defer
-      src="https://kit.fontawesome.com/7630448495.js"
-      crossorigin="anonymous"
-    ></script>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
+
     <!-- 구글 OAuth -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- 카카오 OAuth -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- 커스텀 css, js -->
+    <script src="../../nav.js" type="module" defer></script>
+    <link rel="stylesheet" href="../../css/common.css" />
     <link rel="stylesheet" href="mypage.css" />
     <script src="mypage.js" type="module" defer></script>
-    <title>쇼핑-n팀</title>
+    <title>StoreStore</title>
   </head>
   <body>
     <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
-          </a>
-
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-            <ul id="navbar">
-              <li>
-                <a href="/cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
-            </ul>
+    <div class="sub-menu">
+      <!-- 회원가입,로그인 -->
+      <ul id="navbar" class="navbar"></ul>
+    </div>
+    <div class="container-box">
+      <div class="headerLeft">
+        <div class="nav__toggle" id="nav-toggle">
+          <div class="sidebarBtn">
+            <ion-icon name="menu-outline"></ion-icon>
           </div>
+          <div class="sidebarBtn hidden-Toggle">
+            <ion-icon name="close-outline"></ion-icon>
+          </div>
+          <span class="sidebar-text">Menu</span>
+        </div>
+        <div class="l-navbar" id="categoryNavbar">
+          <nav class="nav">
+            <div>
+              <div class="nav__brand">
+                <div class="nav__brand">Category</div>
+              </div>
+              <div class="nav__list" id="nav-list">
+                <div class="nav__link active">
+                  <a href="/" class="nav_name">Home</a>
+                </div>
+                <div class="nav__link active">
+                  <a href="/ranking" class="nav_name">Best</a>
+                </div>
+              </div>
+            </div>
+          </nav>
         </div>
       </div>
-    </nav>
+      <h1 class="logo"><a href="/">StoreStore</a></h1>
+      <div class="headerRight">
+        <!-- 장바구니 -->
+        <div id="sub-category">
+          <ul id="submenu">
+            <li>
+              <a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
     <!-- 계정관리 페이지 블록들 구현 -->
     <section class="section">
       <div class="block account-header">
