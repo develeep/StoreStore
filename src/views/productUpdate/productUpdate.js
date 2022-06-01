@@ -6,8 +6,8 @@ const categroyButton = getElement('#modal_btn');
 const BcategoryInput = getElement('#Bcategory');
 const ScategoryInput = getElement('#Scategory');
 const ScategoyUl = getElement('#ScategoyUl');
-let categorysData = [];
-const imageView = document.getElementById('imageViewr');
+const modalclose = document.querySelector('.modal_close');
+
 const addForm = document.getElementById('addForm');
 const nameInput = document.getElementById('titleInput');
 const categoryInput = document.getElementById('Scategory');
@@ -16,31 +16,61 @@ const descriptionInput = document.getElementById('descriptionInput');
 const inventoryInput = document.getElementById('inventoryInput');
 const priceInput = document.getElementById('priceInput');
 const imageInput = document.getElementById('img');
+const imageView = document.getElementById('imageViewr');
+const product = await getBeforeProductData();
+
+let categorysData = [];
 const reader = new FileReader();
 reader.onload = function (e) {
 	imageView.src = e.target.result;
 };
-// const categorySelectBox = document.getElementById('categorySelectBox');
+
+async function getBeforeProductData() {
+	const query = location.search;
+	const searchURI = new URLSearchParams(query);
+	const productId = searchURI.get('productId');
+	if (!productId) {
+		swal('상품정보가 없습니다.').then(() => {
+			location.href = '/admin/productList/';
+		});
+	}
+	const productData = await Api.get('/api/product', productId);
+	console.log(productData);
+	return productData;
+}
+inputBeforeProductData();
+async function inputBeforeProductData() {
+	console.log(product);
+	nameInput.value = product.name;
+	const category = await Api.get('/api/categoryname', product.productId);
+	const categoryArr = category.split('/');
+	BcategoryInput.value = categoryArr[0];
+	ScategoryInput.value = categoryArr[1];
+	companyInput.value = product.company;
+	descriptionInput.value = product.description;
+	inventoryInput.value = product.inventory;
+	priceInput.value = product.price;
+	imageView.src = product.imageUrl;
+}
 
 addAllElements();
 addAllEvents();
-var imageFile;
+
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-const modalwrap = document.getElementById('modal_btn');
-
-modalwrap.addEventListener('click', async (e) => {});
 
 function addAllEvents() {
-	imageInput.addEventListener('change', loadFile);
 	addForm.addEventListener('submit', addProudct);
+	categroyButton.addEventListener('click', getCategory);
+	modalclose.addEventListener('click', closeModal);
 	imageInput.addEventListener('change', () => {
 		reader.readAsDataURL(imageInput.files[0]);
 	});
 }
-categroyButton.addEventListener('click', async (e) => {
+
+async function getCategory(e) {
 	e.preventDefault();
 	document.querySelector('.modal_wrap').style.display = 'block';
 	document.querySelector('.black_bg').style.display = 'block';
@@ -78,15 +108,13 @@ categroyButton.addEventListener('click', async (e) => {
 		// 카테고리추가
 		categoryReset(targetCategory, categorysData);
 	});
-});
+}
 
-const modalclose = document.querySelector('.modal_close');
-
-modalclose.addEventListener('click', async (e) => {
+async function closeModal(e) {
 	e.preventDefault();
 	document.querySelector('.modal_wrap').style.display = 'none';
 	document.querySelector('.black_bg').style.display = 'none';
-});
+}
 
 async function categoryReset(targetCategory) {
 	const category = document.createElement('div');
@@ -162,7 +190,6 @@ function addItem(itemName) {
 		document.querySelector('.modal_wrap').style.display = 'none';
 		document.querySelector('.black_bg').style.display = 'none';
 	});
-
 	delBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 		try {
@@ -194,6 +221,7 @@ function addItem(itemName) {
 			alert(err.message);
 		}
 	});
+
 	updateBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 
@@ -202,6 +230,7 @@ function addItem(itemName) {
 		updateInput.classList.toggle('hide');
 		updateInputSubmit.classList.toggle('hide');
 	});
+
 	updateInputSubmit.addEventListener('click', (e) => {
 		e.preventDefault();
 		try {
@@ -223,6 +252,7 @@ function addItem(itemName) {
 			alert(err.message);
 		}
 	});
+
 	return li;
 }
 // `<select id="subCategorySelectBox">
@@ -238,49 +268,26 @@ function addProudct(e) {
 	e.preventDefault();
 	const formData = new FormData();
 
-	if (!nameInput.value) {
-		swal('이름을 등록해 주세요');
-		return;
-	}
-	if (!categoryInput.value) {
-		swal('카테고리를 등록해 주세요');
-		return;
-	}
-	if (!companyInput.value) {
-		swal('제조사명을 등록해 주세요');
-		return;
-	}
-	if (!descriptionInput.value) {
-		swal('제품 상세를 등록해 주세요');
-		return;
-	}
-	if (!inventoryInput.value) {
-		swal('상품수량을 등록해 주세요');
-		return;
-	}
-	if (!priceInput.value) {
-		swal('상품가격을 설정해 주세요');
-		return;
-	}
-	if (!imageInput.files[0]) {
-		swal('이미지를 등록해 주세요');
-		return;
-	}
-
 	formData.append(nameInput.name, nameInput.value);
 	formData.append(categoryInput.name, categoryInput.value);
 	formData.append(companyInput.name, companyInput.value);
 	formData.append(descriptionInput.name, descriptionInput.value);
 	formData.append(inventoryInput.name, inventoryInput.value);
 	formData.append(priceInput.name, priceInput.value);
-	formData.append(imageInput.name, imageInput.files[0]);
+	if (imageInput.files[0]) {
+		formData.append(imageInput.name, imageInput.files[0]);
+	}
+
+	const query = location.search;
+	const searchURI = new URLSearchParams(query);
+	const productId = searchURI.get('productId');
 
 	let object = {};
 	formData.forEach(function (value, key) {
 		object[key] = value;
 	});
 	console.log(object);
-	swal('상품을 추가하시겠습니까?', {
+	swal('상품을 업데이트하시겠습니까?', {
 		buttons: {
 			cancel: '아니요',
 			yes: '네',
@@ -290,7 +297,7 @@ function addProudct(e) {
 			case 'cancel':
 				break;
 			case 'yes':
-				Api.formPost('/api/products', formData)
+				Api.formPatch('/api/products', productId, formData)
 					.then(() => {
 						swal('상품 추가가 완료되었습니다.').then(() => {
 							location.href = '/admin';
