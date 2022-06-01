@@ -38,7 +38,7 @@ function updatePassword(e) {
 // 페이지 로드 시 저장된 유저 정보를 화면에 띄우는 함수
 async function renderUserInfo() {
 	try {
-		const userData = await Api.get('/api/update');
+		const userData = await Api.get('/api/users');
 		console.log(userData);
 		nameInput.value = userData.fullName;
 		if (userData.address) {
@@ -54,8 +54,7 @@ async function renderUserInfo() {
 		passwordConfirmLabel.style.display = 'none';
 		passwordConfirmInput.style.display = 'none';
 	} catch (err) {
-		console.error(err.stack);
-		swal(`회원정보를 받아오지 못했습니다.: ${err.message}`).then(() => {
+		swal(`${err.message}`).then(() => {
 			location.href = '/';
 		});
 	}

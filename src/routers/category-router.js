@@ -2,15 +2,17 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
-import { productService, cateService } from '../services';
-import { SmallcateService } from '../services';
+import {
+	productService,
+	categoryService,
+	smallCategoryService,
+} from '../services';
 
 import bcrypt from 'bcrypt';
 
 const categoryRouter = Router();
 
-// 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-categoryRouter.post('/category_update', async (req, res, next) => {
+categoryRouter.post('/categories', async (req, res, next) => {
 	try {
 		// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
 		// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -25,13 +27,13 @@ categoryRouter.post('/category_update', async (req, res, next) => {
 		const Scategory = req.body.ScateogryInput;
 
 		// 위 데이터를 유저 db에 추가하기
-		const getCategoryInfo = await cateService.getCategory({
+		const getCategoryInfo = await categoryService.getCategory({
 			Bcategory,
 			Scategory,
 		});
 		console.log(getCategoryInfo);
 
-		const newCategory = await SmallcateService.addCategory(getCategoryInfo);
+		const newCategory = await smallCategoryService.addCategory(getCategoryInfo);
 
 		// 추가된 유저의 db 데이터를 프론트에 다시 보내줌
 		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
@@ -41,37 +43,61 @@ categoryRouter.post('/category_update', async (req, res, next) => {
 	}
 });
 
-categoryRouter.get('/getcategorys', async (req, res, next) => {
+categoryRouter.get('/categories', async (req, res, next) => {
 	try {
-		let newCategory = await SmallcateService.getCategorys();
+		let newCategory = await smallCategoryService.getCategories();
 		res.status(200).json(newCategory);
 	} catch (error) {
 		next(error);
 	}
 });
 
-categoryRouter.delete('/Categorydelete', async (req, res, next) => {
+categoryRouter.get('/Bcategorys', async (req, res, next) => {
+	try {
+		let newCategory = await categoryService.getCategories();
+		res.status(200).json(newCategory);
+	} catch (error) {
+		next(error);
+	}
+});
+
+categoryRouter.delete('/categories', async (req, res, next) => {
 	try {
 		const name = req.body.selectedCategory;
-		console.log(name);
-		// let deleteCategory = await SmallcateService.deleteCategory(name);
-		let categoryId = await SmallcateService.getCategoryname(name);
+
+		let categoryId = await smallCategoryService.getCategoryname(name);
 		const deleteCategorys = await productService.deleteProductBySCategoryId(
 			categoryId._id,
 		);
+		let deleteCategory = await smallCategoryService.deleteCategory(name);
 		res.status(200).json({ result: 'ok' });
 	} catch (error) {
 		next(error);
 	}
 });
 
-categoryRouter.patch('/Ucategory', async (req, res, next) => {
+// 무한 스크롤을 위한 상품 8개씩 계속 가져오기
+categoryRouter.get('/Category8products', async (req, res, next) => {
+	try {
+		const page = Number(req.query.page);
+		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
+		const rankedNext8Products = await productService.getNext8Products(page);
+		res.status(200).json(rankedNext8Products);
+	} catch (error) {
+		next(error);
+	}
+});
+
+categoryRouter.patch('/categories', async (req, res, next) => {
 	try {
 		const OldData = req.body.OldData;
 		const NewData = req.body.NewData;
-		let toUpdate = await SmallcateService.getCategoryname(OldData);
+		let toUpdate = await smallCategoryService.getCategoryname(OldData);
 		toUpdate.name = NewData;
-		let updateData = await SmallcateService.updateCategory(OldData, toUpdate);
+		let updateData = await smallCategoryService.updateCategory(
+			OldData,
+			toUpdate,
+		);
 		res.status(200).json({ result: 'ok' });
 	} catch (error) {
 		next(error);

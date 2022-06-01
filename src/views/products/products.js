@@ -6,7 +6,7 @@ const inputProduct = document.getElementById('inputProduct');
 let params = location.href.split('/');
 params = params[params.length - 2];
 // console.log(params);
-const getProductCategory = await Api.get(`/api/getProductCategory`, params);
+const getProductCategory = await Api.get(`/api/productCategory`, params);
 
 addAllElements();
 

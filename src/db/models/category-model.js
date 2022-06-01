@@ -20,6 +20,6 @@ export class CategoryModel {
 	}
 }
 
-const cateModel = new CategoryModel();
+const categoryModel = new CategoryModel();
 
-export { cateModel };
+export { categoryModel };
