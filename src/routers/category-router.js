@@ -50,16 +50,37 @@ categoryRouter.get('/getcategorys', async (req, res, next) => {
 	}
 });
 
+categoryRouter.get('/Bcategorys', async (req, res, next) => {
+	try {
+		let newCategory = await cateService.getCategorys();
+		res.status(200).json(newCategory);
+	} catch (error) {
+		next(error);
+	}
+});
+
 categoryRouter.delete('/Categorydelete', async (req, res, next) => {
 	try {
 		const name = req.body.selectedCategory;
 		console.log(name);
-		// let deleteCategory = await SmallcateService.deleteCategory(name);
+		let deleteCategory = await SmallcateService.deleteCategory(name);
 		let categoryId = await SmallcateService.getCategoryname(name);
 		const deleteCategorys = await productService.deleteProductBySCategoryId(
 			categoryId._id,
 		);
 		res.status(200).json({ result: 'ok' });
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 무한 스크롤을 위한 상품 8개씩 계속 가져오기
+categoryRouter.get('/Category8products', async (req, res, next) => {
+	try {
+		const page = Number(req.query.page);
+		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
+		const rankedNext8Products = await productService.getNext8Products(page);
+		res.status(200).json(rankedNext8Products);
 	} catch (error) {
 		next(error);
 	}
