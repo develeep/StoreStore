@@ -56,36 +56,3 @@ input:-webkit-autofill {
 	min-width: 100%;
 	margin: 1.5rem;
 }
-.swal-modal {
-	border-radius: 0%;
-}
-.swal-text {
-	font-size: 14px;
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #141414;
-}
-.swal-footer {
-	text-align: center;
-}
-.swal-button {
-	max-width: 20rem;
-	border: 1px solid #141414;
-	background-color: #fff;
-	padding: 0 3.2rem;
-	text-transform: capitalize;
-	text-align: center;
-	display: inline-block;
-	color: #141414;
-	font-size: 13px;
-	transition: 0.3s;
-	height: 2.3rem;
-	line-height: 2.3rem;
-	cursor: pointer;
-	box-sizing: border-box;
-	white-space: nowrap;
-	border-radius: 0%;
-}
-.swal-button:hover {
-	background-color: #141414;
-	color: #fff;
-}
