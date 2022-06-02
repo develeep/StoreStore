@@ -3,6 +3,9 @@ import * as Api from '/api.js';
 // /요소(element), input 혹은 상수
 const toTopEl = document.getElementById('to-top');
 
+const Categorylatestproduct = await Api.get('/api/Categorylatestproduct');
+console.log(Categorylatestproduct);
+
 addAllElements();
 addAllEvents();
 
