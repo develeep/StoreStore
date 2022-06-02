@@ -104,12 +104,12 @@ productRouter.get('/categoryname/:productId', async (req, res, next) => {
 	}
 });
 
-// 무한 스크롤을 위한 상품 16개씩 계속 가져오기
-productRouter.get('/rankednextproducts', async (req, res, next) => {
+// 무한 스크롤을 위한 상품 8개씩 계속 가져오기
+productRouter.get('/rankednext8products', async (req, res, next) => {
 	try {
 		const page = Number(req.query.page);
-		// page가 0이면 skip 없이 16개 가져오기, page가 1이면 16개 skip 후 9~16 가져옴
-		const rankedNext8Products = await productService.getNextProducts(page);
+		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
+		const rankedNext8Products = await productService.getNext8Products(page);
 		res.status(200).json(rankedNext8Products);
 	} catch (error) {
 		next(error);
@@ -336,8 +336,9 @@ productRouter.delete(
 );
 
 // 카테고리별 상품 수집
-productRouter.get('/productCategory/:id', async (req, res, next) => {
+productRouter.get('/categorynext8products/:id', async (req, res, next) => {
 	const category_name = req.params.id;
+	const page = Number(req.query.page);
 	let isSmallcategory = await smallCategoryService.getCategoryname(
 		category_name,
 	);
@@ -346,10 +347,16 @@ productRouter.get('/productCategory/:id', async (req, res, next) => {
 		let isBigcategory = await smallCategoryService.getbCategoryname(
 			category_name,
 		);
-		CategoryProducts = await productService.BgetCategoryOne(isBigcategory);
+		CategoryProducts = await productService.BgetCategoryOne(
+			isBigcategory,
+			page,
+		);
 	} else {
 		isSmallcategory = isSmallcategory._id;
-		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
+		CategoryProducts = await productService.SgetCategoryOne(
+			isSmallcategory,
+			page,
+		);
 	}
 	res.status(200).json(CategoryProducts);
 });
