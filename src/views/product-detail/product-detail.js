@@ -76,15 +76,16 @@ function addToCart() {
 	// 아니오 => 현재 페이지에 잔류
 }
 
-function addCart() {
-	const itemPrice = priceTag.textContent.slice(0, -1);
+async function addCart() {
+	const productId = localStorage.getItem('productId');
+	const productData = await Api.get('/api/product', productId);
 	const item = {
 		// 테스트용. 추후 변수명 수정
-		src: productImageTag.src,
-		product: titleTag.textContent,
-		price: parseInt(itemPrice),
+		src: productData.imageUrl,
+		product: productData.name,
+		price: productData.price,
 		num: 1,
-		id: localStorage.getItem('productId'),
+		id: productId,
 	};
 	console.log(item.id);
 	cartItem.getStore('cart');
