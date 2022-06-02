@@ -34,8 +34,8 @@ async function getOrder() {
           <div class="select">
             <select class="requestSelectBox" id=${obj.orderId}>
               <option value="0">배송준비중</option>
-              <option value="1" class="select-option">배송중</option>
-              <option value="2" class="select-option">배송완료</option>
+              <option value="1">배송중</option>
+              <option value="2">배송완료</option>
             </select>
             <button class="changeOrderStateButton" name=${obj.orderId}>저장</button>
           </div>
@@ -78,7 +78,7 @@ function getChangeStatus(orderId) {
   return "배송완료";
 }
 
-function saveStatus() {
+async function saveStatus() {
   const status = getChangeStatus(this.name);
   console.log(status);
   // 배송상태(status)를 DB에 반영
@@ -87,4 +87,7 @@ function saveStatus() {
     deliveryStatus: status,
   }
   const orders = await Api.patch('/api/orders', '', saveObject);
+  if (orders) {
+    console.log('성공');
+  }
 }
