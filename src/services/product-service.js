@@ -100,8 +100,8 @@ class ProductService {
 	}
 
 	// 상품 검색 불러오기
-	async SearchProducts(keyword) {
-		const searchData = await this.productModel.Search(keyword);
+	async SearchProducts(keyword, page) {
+		const searchData = await this.productModel.Search(keyword, page);
 		return searchData;
 	}
 

@@ -51,8 +51,9 @@ productRouter.post('/carts', async (req, res, next) => {
 // 검색으로 상품 가져오기
 productRouter.get('/searchproducts', async (req, res, next) => {
 	try {
+		const page = Number(req.query.page);
 		const keyword = req.body.keyword;
-		const products = await productService.SearchProducts(keyword);
+		const products = await productService.SearchProducts(keyword, page);
 		res.status(200).json(products);
 	} catch (error) {
 		next(error);

@@ -66,7 +66,7 @@ export class ProductModel {
 		return products;
 	}
 
-	async Search(keyword) {
+	async Search(keyword, page) {
 		let keywords = keyword.split(' ');
 		const keywordfind = [];
 		keywords.forEach((el) => {
@@ -74,7 +74,9 @@ export class ProductModel {
 		});
 		const searchData = await Product.find({
 			$and: keywordfind,
-		});
+		})
+			.skip(16 * Number(page))
+			.limit(16);
 		return searchData;
 	}
 
