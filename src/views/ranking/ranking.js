@@ -57,18 +57,23 @@ toTopEl.addEventListener('click', function () {
 	});
 });
 
+function delBeforeLoading() {
+	const loadingBoxBefore = getElement('#loading-box');
+	if (limit < 1) {
+		loadingBoxBefore.remove();
+	}
+}
 async function getProducts(limit) {
 	return await Api.getItem(`/api/rankednextproducts?page=${limit}`);
 }
 
 async function makeRank() {
+	delBeforeLoading();
 	const getProductsList = await getProducts(limit++);
 	const getProductCategory = [...getProductsList];
 
 	console.log(limit);
-	if (getProductCategory.length === 0) {
-		inputProduct.append(renderNoneCategory());
-	} else {
+	if(getProductCategory.length > 0) {
 		const inputProductBox = createElement('div');
 		inputProductBox.classList.add('inputProduct', 'productBox', `box${limit}`);
 
@@ -84,6 +89,12 @@ async function makeRank() {
 
 		observing(limit);
 		intersectionoObserver.observe(scrollDiv);
+	}
+	else {
+		const productBoxFind = getElement('.productBox');
+		if (!productBoxFind) {
+			inputProduct.append(renderNoneCategory());`	`
+		}
 	}
 }
 

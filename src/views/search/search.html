@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>쇼핑-n팀</title>
 		<!-- 아이콘 -->
 		<link
 			rel="icon"
@@ -11,7 +11,6 @@
 			sizes="32x32"
 			href="/StoreStore-favicon.png"
 		/>
-
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -29,20 +28,13 @@
 			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
 		></script>
 
-		<!-- 구글 OAuth -->
-		<script src="https://accounts.google.com/gsi/client" async defer></script>
-		<!-- 카카오 OAuth -->
-		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<!-- 커스텀 css, js -->
-		<script src="../../nav.js" type="module" defer></script>
-		<link rel="stylesheet" href="../../css/common.css" />
-		<link rel="stylesheet" href="mypage.css" />
-		<script src="mypage.js" type="module" defer></script>
-		<title>StoreStore</title>
+		<link rel="stylesheet" href="search.css" />
+		<link rel="stylesheet" href="../css/common.css" />
+		<script src="search.js" type="module" defer></script>
+		<script src="../nav.js" type="module" defer></script>
 	</head>
 	<body>
-		<!-- 헤더 -->
 		<header>
 			<div class="sub-menu">
 				<!-- 회원가입,로그인 -->
@@ -88,7 +80,7 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<form class="searchForm">
+                <form class="searchForm">
 									<div class="search">
 										<input type="text" placeholder=" " name="searchBar">
 										<div>
@@ -112,34 +104,21 @@
 			</div>
 		</header>
 
-		<!-- 계정관리 페이지 블록들 구현 -->
-		<section class="section">
-			<div class="block account-header">
-				<h1 class="title">계정관리</h1>
-			</div>
-			<div class="menu-container">
-				<a class="menu-card" href="/mypage/order">
-					<div class="menu-body">
-						<p class="title">주문조회</p>
-						<p class="subtitle">지난 주문 내역을 확인, 취소할 수 있습니다.</p>
-					</div>
-				</a>
-				<a class="menu-card" href="/mypage/userinfo">
-					<div class="menu-body">
-						<p class="title">회원정보 관리</p>
-						<p class="subtitle">회원 정보를 확인, 수정할 수 있습니다.</p>
-					</div>
-				</a>
-				<a class="menu-card" href="/mypage/signout">
-					<div class="menu-body">
-						<p class="title">회원탈퇴</p>
-						<p class="subtitle">
-							모든 정보를 안전하게 삭제한 후 탈퇴할 수 있습니다.
-						</p>
-					</div>
-				</a>
+		<section class="rankedproducts" id="rankedproducts">
+      <div class="searchResultTItle-box">
+        <h1>
+        </h1>
+      </div>
+			<div class="inputProduct" id="inputProduct">
+				<div id="loading-box">
+					<div class="lds-ring"><div></div></div>
+				</div>
 			</div>
 		</section>
+
+		<div id="to-top">
+			<ion-icon name="chevron-up-outline"></ion-icon>
+		</div>
 		<footer>
 			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
 		</footer>

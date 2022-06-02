@@ -52,7 +52,7 @@ productRouter.post('/carts', async (req, res, next) => {
 productRouter.get('/searchproducts', async (req, res, next) => {
 	try {
 		const page = Number(req.query.page);
-		const keyword = req.body.keyword;
+		const keyword = req.query.keyword
 		const products = await productService.SearchProducts(keyword, page);
 		res.status(200).json(products);
 	} catch (error) {
