@@ -10,8 +10,10 @@ class OrderedProductService {
 
 	//테스트
 	async findByOrderId(orderId) {
-		const orders = await this.orderedProductModel.findByOrderId(orderId);
-		return orders;
+		const orderedProducts = await this.orderedProductModel.findByOrderId(
+			orderId,
+		);
+		return orderedProducts;
 	}
 
 	// 주문상품목록 추가

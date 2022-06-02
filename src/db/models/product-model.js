@@ -19,6 +19,11 @@ export class ProductModel {
 		return product;
 	}
 
+	async findByObjectId(objectId) {
+		const product = await Product.findOne({ _id: objectId });
+		return product;
+	}
+
 	async create(productInfo) {
 		const createdNewProduct = await Product.create(productInfo);
 		return createdNewProduct;
@@ -43,9 +48,9 @@ export class ProductModel {
 
 	async getNext8Products(page) {
 		const products = await Product.find({})
-			.sort({ salesRate: -1 })
-			.skip(8 * page)
-			.limit(8);
+			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
 		return products;
 	}
 
