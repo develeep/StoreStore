@@ -1,5 +1,5 @@
 import * as Api from '/api.js';
-import { validateEmail,getElement,getElementAll } from '/useful-functions.js';
+import { validateEmail, getElement, getElementAll } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
 const fullNameInput = getElement('#fullNameInput');
@@ -10,20 +10,20 @@ const emailcheckButton = getElement('#email-check-button');
 const passwordInput = getElement('#passwordInput');
 const passwordConfirmInput = getElement('#passwordConfirmInput');
 const submitButton = getElement('#submitButton');
-const navBar = getElement('#navbar')
+const navBar = getElement('#navbar');
 
-const failnameMessage = getElement('.failname-message');
-const failemailMessage = getElement('.failemail-message');
-const failpassMessage = getElement('.failpass-message');
-const misspassMessage = getElement('.misspass-message');
-const successMessage = getElement('.success-message')
+const failnameMessage = getElement('#failname-message');
+const failemailMessage = getElement('#failemail-message');
+const failpassMessage = getElement('#failpass-message');
+const misspassMessage = getElement('#misspass-message');
+const successMessage = getElement('.success-message');
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-	createLogin()
+	createLogin();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -32,7 +32,6 @@ function addAllEvents() {
 }
 
 function createLogin() {
-
 	const liTag = document.createElement('li');
 	const aTag = document.createElement('a');
 	aTag.href = `/login${location.search}`;
@@ -52,8 +51,8 @@ sendemailButton.addEventListener('click', async (e) => {
 	try {
 		const email = emailInput.value;
 		const data = { email };
-		if(!validateEmail(email)){
-			swal('이메일 형식이 맞지 않습니다.')
+		if (!validateEmail(email)) {
+			swal('이메일 형식이 맞지 않습니다.');
 			return;
 		}
 		const email_data = await Api.post('/api/sendmail', data);
@@ -134,12 +133,11 @@ emailInput.onkeyup = function () {
 		// classlist에 hide를 지워서 실패메세지 출력
 		failemailMessage.classList.remove('hide');
 	}
-	const emailMatch = localStorage.getItem('mail')
-	if(emailInput.value === emailMatch){
+	const emailMatch = localStorage.getItem('mail');
+	if (emailInput.value === emailMatch) {
 		successMessage.classList.remove('hide');
-	}
-	else{
-		successMessage.classList.add('hide')
+	} else {
+		successMessage.classList.add('hide');
 	}
 };
 
@@ -200,7 +198,7 @@ async function handleSubmit(e) {
 	try {
 		const data = { fullName, email, password };
 		const correctEmail = localStorage.getItem('mail');
-		if (correctEmail===emailInput.value) {
+		if (correctEmail === emailInput.value) {
 			await Api.post('/api/register', data);
 			const login = { email, password };
 			const result = await Api.post('/api/login', login);
@@ -224,6 +222,6 @@ async function handleSubmit(e) {
 	}
 }
 
-window.onunload=()=>{
+window.onunload = () => {
 	localStorage.removeItem('mail');
-}
+};

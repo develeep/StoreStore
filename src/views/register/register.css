@@ -20,6 +20,7 @@
 	text-align: center;
 	border-bottom: 1px solid #e5e5e5;
 	padding: 5rem 0 2rem;
+	margin: 1.5rem 0;
 }
 .inner {
 	width: 100%;
@@ -55,16 +56,25 @@
 input:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0 1000px #fff inset;
 }
-
+.fail-message {
+	font-size: 12px;
+	padding: 0 0 0.5rem;
+	color: #b3130b;
+}
 .register-user-form-box > .btn {
 	max-width: 100%;
 	min-width: 100%;
-	margin: 1.5rem;
+	margin: 1.5rem 0;
 }
 .swal-modal {
 	border-radius: 0%;
 }
-.swal-text {
+.swal-title {
+	font-size: 18px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.swal-text,
+.swal-title {
 	font-size: 14px;
 	font-family: 'Nanum Gothic', sans-serif;
 	color: #141414;

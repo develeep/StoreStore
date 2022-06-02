@@ -97,25 +97,23 @@
 		<!-- 회원정보 박스 -->
 		<section class="section">
 			<div class="container">
-				<div class="block account-header">
-					<h1 id="userInfoTitle" class="label">
-						회원정보 관리(test2@test.com)
-					</h1>
-				</div>
+				<h1 id="userInfoTitle">회원정보 관리</h1>
 				<div class="menu-container">
 					<div class="form-container">
-						<form id="loginForm">
+						<form id="loginForm" class="login-form">
 							<div class="field">
 								<label class="label">이름</label>
 								<div class="control">
-									<input type="text" id="nameInput" />
+									<input type="text" id="nameInput" class="input" />
 								</div>
 							</div>
 							<div class="field">
 								<label class="label">비밀번호</label>
-								<button id="updatePasswordButton">변경하기</button>
+								<button id="updatePasswordButton" class="btn btn--gray">
+									변경하기
+								</button>
 								<div class="control">
-									<input type="password" id="passwordInput" />
+									<input type="password" id="passwordInput" class="input" />
 								</div>
 							</div>
 							<div class="field">
@@ -123,24 +121,42 @@
 									>비밀번호 확인</label
 								>
 								<div class="control">
-									<input type="password" id="passwordConfirmInput" />
+									<input
+										type="password"
+										id="passwordConfirmInput"
+										class="input"
+									/>
 								</div>
 							</div>
 							<div class="field">
 								<label class="label">주소</label>
+								<div class="control">
+									<input
+										type="text"
+										id="postcodeInput"
+										placeholder="우편번호"
+										class="input"
+									/>
+									<input
+										type="button"
+										onclick="sample6_execDaumPostcode()"
+										value="우편번호 찾기"
+										class="btn btn--gray"
+									/>
+									<input
+										type="text"
+										id="addressInput"
+										placeholder="주소"
+										class="input"
+									/>
+									<input
+										type="text"
+										id="detailAddressInput"
+										placeholder="상세주소"
+										class="input"
+									/>
+								</div>
 							</div>
-							<input type="text" id="postcodeInput" placeholder="우편번호" />
-							<input
-								type="button"
-								onclick="sample6_execDaumPostcode()"
-								value="우편번호 찾기"
-							/><br />
-							<input type="text" id="addressInput" placeholder="주소" /><br />
-							<input
-								type="text"
-								id="detailAddressInput"
-								placeholder="상세주소"
-							/>
 							<div class="field">
 								<label class="label">전화번호</label>
 								<div class="control">
@@ -148,12 +164,11 @@
 										type="text"
 										id="phoneNumberInput"
 										placeholder="010-1234-5678"
+										class="input"
 									/>
 								</div>
 							</div>
-							<div>
-								<button id="saveButton">저장하기</button>
-							</div>
+							<button id="saveButton" class="btn">저장하기</button>
 						</form>
 					</div>
 				</div>
