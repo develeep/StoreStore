@@ -102,7 +102,6 @@
 .select select {
     color: rgba(0, 0, 0, .8);
     height: 100%;
-    width: 100%
 }
 
 .select .select-option {
@@ -445,6 +444,11 @@ input[type="checkbox"] {
     display: none;
 }
 
-#writeOption {
-    width: 400px;
+
+.requestSelectBox {
+    /* width: 400px; */
+}
+
+.inputTextnButton {
+    display: inline-block;
 }
