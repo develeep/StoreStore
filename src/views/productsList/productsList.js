@@ -1,6 +1,6 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
-import { getElement, getElementAll, createElement,checkLoginAdmin } from '/useful-functions.js';
+import { getElement, getElementAll, createElement,checkLoginAdmin,addCommas } from '/useful-functions.js';
 
 checkLoginAdmin();
 addAllElements();
@@ -62,7 +62,7 @@ function renderProducts(object) {
 	productId.textContent = object.productId;
 	productName.textContent = object.name;
 	productCategory.textContent = object.category.name;
-	productPrice.textContent = object.price;
+	productPrice.textContent = addCommas(object.price)+'원';
 	productAmount.textContent = object.inventory;
 	productSales.textContent = object.salesRate;
 	productCompany.textContent = object.company;
