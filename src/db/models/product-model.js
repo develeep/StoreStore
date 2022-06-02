@@ -46,7 +46,7 @@ export class ProductModel {
 		return productsRanked;
 	}
 
-	async getNext8Products(page) {
+	async getNextProducts(page) {
 		const products = await Product.find({})
 			.sort({ salesRate: -1, _id: 1 })
 			.skip(16 * Number(page))
