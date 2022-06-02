@@ -10,6 +10,12 @@ class ProductService {
 		this.productModel = productModel;
 	}
 
+	// 테스트
+	async findAll() {
+		const products = await this.productModel.findAll();
+		return products;
+	}
+
 	// 상품 추가
 	async addProduct(productInfo) {
 		// 객체 destructuring
@@ -76,6 +82,16 @@ class ProductService {
 		return products;
 	}
 
+	async getNextNewestProducts(page) {
+		const products = await this.productModel.getNextNewestProducts(page);
+		return products;
+	}
+
+	async getCategory8Products(page) {
+		const products = await this.productModel.getCategory8Products(page);
+		return products;
+	}
+
 	// 카테고리 별로 모아보기
 	async getProductsByCategory(category) {
 		const products = await this.productModel.findBycategory(category);
@@ -94,8 +110,8 @@ class ProductService {
 	}
 
 	// 상품 검색 불러오기
-	async SearchProducts(keyword) {
-		const searchData = await this.productModel.Search(keyword);
+	async SearchProducts(keyword, page) {
+		const searchData = await this.productModel.Search(keyword, page);
 		return searchData;
 	}
 
@@ -111,20 +127,14 @@ class ProductService {
 	}
 
 	// B 카테고리별 상품 수집
-	async BgetCategoryOne(category_Id) {
-		let Products = await this.productModel.CategoryfindAll();
-		Products = Products.filter(
-			(el) => String(el.category.bCategory) === String(category_Id),
-		);
+	async BgetCategoryOne(category_Id, page) {
+		let Products = await this.productModel.CategoryB8findAll(category_Id, page);
 		return Products;
 	}
 
 	// S 카테고리별 상품 수집
-	async SgetCategoryOne(category_Id) {
-		let Products = await this.productModel.CategoryfindAll();
-		Products = Products.filter(
-			(el) => String(el.category._id) === String(category_Id),
-		);
+	async SgetCategoryOne(category_Id, page) {
+		let Products = await this.productModel.CategoryS8findAll(category_Id, page);
 		return Products;
 	}
 

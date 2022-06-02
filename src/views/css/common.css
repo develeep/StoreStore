@@ -115,6 +115,7 @@ header {
 	position: sticky;
 	z-index: 99;
 	background-color: #fff;
+	margin-bottom: 20px;
 }
 
 .navbar {

@@ -208,7 +208,7 @@ userRouter.post('/reset-password', async (req, res, next) => {
 		const html =
 			"<div style='font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; border-top: 4px solid #348fe2; margin: 100px auto; padding: 30px 0; box-sizing: border-box;'>" +
 			"<h1 style='margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;'>" +
-			"<span style='font-size: 15px; margin: 0 0 10px 3px;'>Elice 8 TEAM</span><br />" +
+			"<span style='font-size: 15px; margin: 0 0 10px 3px;'>[StoreStore]</span><br />" +
 			"<span style='color: #348fe2;'>변경된 비밀번호</span> 안내입니다." +
 			'</h1>' +
 			"<p style='font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;'>" +
@@ -230,7 +230,7 @@ userRouter.post('/reset-password', async (req, res, next) => {
 		await sendMail(
 			from,
 			email,
-			'ELICE 8TEAM 비밀번호 변경 관련 메일 입니다.',
+			'[StoreStore] 비밀번호 변경 관련 메일 입니다.',
 			`변경된 비밀번호는: ${password} 입니다.`,
 			html,
 		);

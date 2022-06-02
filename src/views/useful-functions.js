@@ -57,3 +57,21 @@ export const isAdmin = async() => {
     localStorage.removeItem('token')
   }
 }
+
+export async function checkLoginAdmin() {
+	try {
+		if (!(await isAdmin())) {
+			swal('관리자가 아닙니다.').then(() => {
+				const url = location.href;
+        const beforeURI = encodeURIComponent(url);
+        location.href = `/login?beforeURI=${beforeURI}`;
+			});
+		}
+	} catch (err) {
+		swal(err.message).then(() => {
+			const url = location.href;
+			const beforeURI = encodeURIComponent(url);
+			location.href = `/login?beforeURI=${beforeURI}`;
+		});
+	}
+}

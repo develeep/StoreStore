@@ -33,8 +33,7 @@ export class SmallCategoryModel {
 
 	async BfindById(name) {
 		let Bcategorys = await SmallCategory.find({}).populate('bCategory');
-		Bcategorys = Bcategorys.find((el) => el.bCategory.name == name).bCategory
-			._id;
+		Bcategorys = Bcategorys.filter((el) => el.bCategory.name == name);
 		return Bcategorys;
 	}
 

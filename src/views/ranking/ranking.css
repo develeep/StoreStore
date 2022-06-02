@@ -3,6 +3,7 @@
 	width: 100%;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	/* transition: all 0.7s linear; */
 }
 @media (min-width: 1920px) {
 	.inputProduct {
@@ -78,7 +79,11 @@
 	font-size: 12px;
 	border-top: 1px solid #e5e5e5;
 }
-
+#loading-box{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
 /* loading */
 .lds-ring {
 	display: inline-block;
