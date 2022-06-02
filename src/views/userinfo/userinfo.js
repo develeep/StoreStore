@@ -55,7 +55,9 @@ async function renderUserInfo() {
 		passwordConfirmInput.style.display = 'none';
 	} catch (err) {
 		swal(`${err.message}`).then(() => {
-			location.href = '/';
+			const url = location.href;
+			const beforeURI = encodeURIComponent(url);
+			location.href = `/login?beforeURI=${beforeURI}`;
 		});
 	}
 }

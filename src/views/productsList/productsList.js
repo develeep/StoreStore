@@ -1,7 +1,8 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
-import { getElement, getElementAll, createElement } from '/useful-functions.js';
+import { getElement, getElementAll, createElement,checkLoginAdmin } from '/useful-functions.js';
 
+checkLoginAdmin();
 addAllElements();
 
 addAllEvents();
