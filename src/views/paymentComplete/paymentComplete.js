@@ -1,6 +1,6 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
-import { getElement, getElementAll } from '/useful-functions.js';
+import { getElement, addCommas } from '/useful-functions.js';
 
 addAllEvents();
 addAllElements();
@@ -39,7 +39,7 @@ function renderOrdered(order){
   phoneBox.textContent = receiver.phoneNumber
   requestBox.textContent = requestMessage
   productsBox.textContent = product
-  priceBox.textContent = priceSum
+  priceBox.textContent = addCommas(priceSum)+"원"
   statusBox.textContent = deliveryStatus
 
 }
