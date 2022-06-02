@@ -120,3 +120,12 @@
   }
 }
 
+.nullcategory {
+	display: block;
+	width: 100%;
+	height: auto;
+	padding: 100px 0;
+	font-weight: 700;
+	font-size: 14px;
+	text-align: center;
+}
