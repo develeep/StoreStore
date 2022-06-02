@@ -35,7 +35,7 @@ export class OrderModel {
 		return orders;
 	}
 
-	// priceSum 추가 위한 update
+	// 주문 update
 	async update({ orderId, update }) {
 		const filter = { orderId };
 		const option = { returnOriginal: false };
