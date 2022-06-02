@@ -2,7 +2,11 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
-import { productService, smallCategoryService } from '../services';
+import {
+	productService,
+	smallCategoryService,
+	categoryService,
+} from '../services';
 import { upload, s3 } from '../utils/s3';
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
@@ -71,6 +75,19 @@ productRouter.get('/productswithcategory', async (req, res, next) => {
 		const productsWithCategory =
 			await productService.getNewestProductsWithCategory();
 		res.status(200).json(productsWithCategory);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 카테고리별 최신 상품
+productRouter.get('/Categorylatestproduct', async (req, res, next) => {
+	try {
+		const Bcategorys = await categoryService.getCategories();
+		const latestproduct = await productService.Categorylatestproduct(
+			Bcategorys,
+		);
+		res.status(200).json(latestproduct);
 	} catch (error) {
 		next(error);
 	}
