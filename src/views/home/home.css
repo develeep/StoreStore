@@ -80,7 +80,7 @@
 
 /* main-newproduct */
 .main-product {
-	margin: 0 7.1%;
+	margin: 0 7%;
 	height: 85vh;
 	margin-bottom: 5rem;
 }
@@ -110,8 +110,28 @@
 	cursor: pointer;
 }
 
-.main-product .btn {
-	margin: 2vh 0 0;
+.main-product .btn,
+.swiper-slide .btn {
+	margin: 1rem 0 0;
+}
+
+.products {
+	margin: 0 7% 5rem;
+	position: relative;
+	padding: 0 2rem;
+}
+
+@media (min-width: 1920px) {
+	.main-product {
+		margin: 0 auto 5rem;
+		width: 100%;
+		max-width: 1920px;
+	}
+	.products {
+		margin: 0 auto 5rem;
+		width: 100%;
+		max-width: 1920px;
+	}
 }
 
 .swiper {
@@ -123,6 +143,9 @@
 	text-align: center;
 	font-size: 18px;
 	background: #fff;
+
+	display: flex;
+	flex-direction: column;
 
 	/* Center slide text vertically */
 	display: -webkit-box;
@@ -138,7 +161,10 @@
 	-webkit-align-items: center;
 	align-items: center;
 }
-
+.image-box {
+	cursor: pointer;
+	height: 50vh;
+}
 .swiper-slide img {
 	display: block;
 	width: 100%;
@@ -151,4 +177,33 @@
 	margin-right: auto;
 }
 
-/* FOOTER */
+.swiper-button-next,
+.swiper-button-prev {
+	background: url(https://s3.ap-northeast-2.amazonaws.com/res.kurly.com/kurly/ico/2021/arrow_list_right_60_60.svg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 4rem;
+	display: none;
+	top: 50%;
+}
+.products:hover .swiper-button-next,
+.products:hover .swiper-button-prev {
+	display: block;
+}
+.swiper-button-next {
+	right: 0;
+}
+.swiper-button-prev {
+	left: 0;
+	transform: rotate(180deg);
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	display: none;
+}
+@media (min-width: 320px) and (max-width: 1020px) {
+	.swiper-button-next,
+	.swiper-button-prev {
+		display: block;
+	}
+}
