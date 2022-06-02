@@ -206,6 +206,6 @@ async function payment(e) {
 		console.log(result);
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {
-		swal(`결제중 문제가 발생하였습니다. ${err.message}`);
+		swal(`${err.message}`);
 	}
 }
