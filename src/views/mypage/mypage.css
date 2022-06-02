@@ -1,29 +1,43 @@
-.account-header {
-    display: block;
+.section {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 20%;
 }
-
-.menu_container {
-    grid-gap: 2rem;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-    text-decoration: none;
+.block.account-header > h1 {
+	font-size: 20px;
+	font-weight: 700;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	padding: 5rem 0 0rem;
+	margin: 1.5rem 0;
 }
-
 .menu-card {
-    align-items: center;
-    border: 1px solid;
-    border-radius: 6px;
-    display: flex;
-    font-size: 1.26rem;
-    padding: .5rem;
+	border: 1px solid #e5e5e5;
+	padding: 0.5rem 3rem;
+	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin: 1rem 0;
 }
-
-.menu-body {
-    border-radius: 6px;
-    flex-grow: 1;
+.menu-card:hover {
+	border: 1px solid #141414;
 }
-
 .title {
-    font-weight: bold;
+	font-size: 16px;
+	font-weight: 700;
+}
+.subtitle {
+	font-size: 14px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }

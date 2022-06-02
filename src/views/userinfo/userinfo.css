@@ -65,3 +65,9 @@ input:-webkit-autofill {
 	display: block;
 	margin: 0.5rem 0 0;
 }
+footer {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}

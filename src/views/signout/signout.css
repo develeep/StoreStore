@@ -56,3 +56,9 @@ input:-webkit-autofill {
 	min-width: 100%;
 	margin: 1.5rem;
 }
+footer {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
