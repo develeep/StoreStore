@@ -2,6 +2,10 @@ import * as Api from '/api.js';
 
 // /요소(element), input 혹은 상수
 const toTopEl = document.getElementById('to-top');
+const swiperWrapper = document.getElementById('swiper-wrapper');
+
+const Categorylatestproduct = await Api.get('/api/Categorylatestproduct');
+// console.log(Categorylatestproduct);
 
 addAllElements();
 addAllEvents();
@@ -16,6 +20,26 @@ function addAllEvents() {
 	toTopEl.addEventListener('click', toTopEvent);
 }
 
+function makeCategory() {
+	for (const [key, value] of Object.entries(Categorylatestproduct)) {
+		const categoryName = key;
+		const productImageUrl = value.imageUrl;
+		const productId = value.productId;
+
+		swiperWrapper.innerHTML += `<div class="swiper-slide">
+		<div class="image-box">
+			<img
+				src="${productImageUrl}"
+				alt="${categoryName}"
+				onclick="localStorage.setItem('productId','${productId}'); 
+				location.href = '/product-detail/${productId}';"
+			/>
+		</div>
+		<a href="/products/${categoryName}" class="btn">${categoryName}</a>
+	</div>`;
+	}
+}
+
 // 상단으로 가는 버튼
 function toTopEvent() {
 	window.scrollTo({
@@ -26,7 +50,7 @@ function toTopEvent() {
 
 // 이미지슬라이드
 const swiper = new Swiper('.mySwiper', {
-	slidesPerView: 4,
+	slidesPerView: 2,
 	spaceBetween: 30,
 	loop: true,
 	pagination: {
@@ -36,5 +60,9 @@ const swiper = new Swiper('.mySwiper', {
 	navigation: {
 		nextEl: '.swiper-button-next',
 		prevEl: '.swiper-button-prev',
+	},
+	breakpoints: {
+		//반응형 width
+		1020: { slidesPerView: 4 },
 	},
 });

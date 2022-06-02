@@ -11,7 +11,7 @@ async function addAllElements() {
 // navbar 데이터 가져오기
 const getCategories = await Api.get('/api/categories');
 const categories = document.querySelector('#nav-list');
-console.log(getCategories);
+// console.log(getCategories);
 
 Object.entries(getCategories).forEach(([key, value]) => {
 	let itemList = '';

@@ -88,6 +88,12 @@ class ProductService {
 		return products;
 	}
 
+	// 카테고리 최신 상품 찾기
+	async Categorylatestproduct(categorys) {
+		const products = await this.productModel.findBycategorys(categorys);
+		return products;
+	}
+
 	async deleteProductByProductId(productId) {
 		await this.productModel.delete(productId);
 		return;
