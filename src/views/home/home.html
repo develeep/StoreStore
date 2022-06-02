@@ -99,9 +99,9 @@
 				<div class="inner">
 					<div
 						class="main-newproducts"
-						OnClick="location.href ='/newproducts'"
+						OnClick="location.href ='/ranking'"
 					></div>
-					<a href="/newproducts" class="btn">신제품</a>
+					<a href="/ranking" class="btn">인기제품</a>
 				</div>
 			</article>
 
@@ -115,8 +115,11 @@
 
 			<article class="main-product">
 				<div class="inner">
-					<div class="main-ranking" OnClick="location.href ='/ranking'"></div>
-					<a href="/ranking" class="btn">인기제품</a>
+					<div
+						class="main-ranking"
+						OnClick="location.href ='/newproducts'"
+					></div>
+					<a href="/newproducts" class="btn">신제품</a>
 				</div>
 			</article>
 		</section>
@@ -127,7 +130,6 @@
 		</div>
 
 		<footer>
-			<img src="../StoreStore-favicon.png" alt="logo" />
 			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
 		</footer>
 	</body>
