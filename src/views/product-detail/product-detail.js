@@ -3,7 +3,7 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
-import { getElement, getElementAll } from '/useful-functions.js';
+import { getElement, getElementAll,addCommas } from '/useful-functions.js';
 
 const productImageTag = getElement('#productImageTag');
 const manufacturerTag = getElement('#manufacturerTag');
@@ -35,7 +35,7 @@ async function getProductInfo() {
 		productImageTag.src = productData.imageUrl;
 		manufacturerTag.innerHTML = productData.company;
 		titleTag.innerHTML = productData.name;
-		priceTag.innerHTML = productData.price + '원';
+		priceTag.innerHTML = addCommas(productData.price) + '원';
 		description.innerHTML = productData.description;
 	} catch (err) {
 		console.error(err.stack);
