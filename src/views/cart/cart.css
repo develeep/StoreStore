@@ -193,7 +193,12 @@ input[type="checkbox"] {
   justify-content: flex-start;
   border-left: 1px solid #e2e3e6;
 }
-
+.item-option{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .item-option-wrap{
   display: flex;
   align-items: center;
@@ -256,6 +261,7 @@ input[type="checkbox"] {
 }
 
 .btn-quanity-box {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -263,21 +269,27 @@ input[type="checkbox"] {
 }
 
 .btn-quanity-box .num_minus_btn {
+  font-size: 20px;
   cursor: pointer;
   width: 30px;
   height: 30px;
+  padding: 2px;
   text-align: center;
+  vertical-align: middle;
   background-color: #fff;
   border: 1px solid #e2e3e6;
 }
 
 .btn-quanity-box .num_plus_btn {
   cursor: pointer;
+  font-size: 20px;
   width: 30px;
   height: 30px;
   text-align: center;
+  vertical-align: middle;
   background-color: #fff;
   border: 1px solid #e2e3e6;
+  padding: 2px;
 }
 
 .btn-quanity-box .input_num {
@@ -288,7 +300,6 @@ input[type="checkbox"] {
   padding: 0;
   margin: 0;
   border: 0;
-  border-radius: 0;
   text-align: center;
   background-color: #fff;
   color: #000;
