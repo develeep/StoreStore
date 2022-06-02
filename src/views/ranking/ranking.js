@@ -1,5 +1,10 @@
 import * as Api from '/api.js';
-import { getElement, getElementAll, createElement,addCommas } from '/useful-functions.js'
+import {
+	getElement,
+	getElementAll,
+	createElement,
+	addCommas,
+} from '/useful-functions.js';
 
 const inputProduct = document.getElementById('inputProduct');
 console.log(rankedproducts);
@@ -10,21 +15,37 @@ addAllElements();
 async function addAllElements() {
 	makeRank();
 }
-const intersectionoObserver = new IntersectionObserver(async (entries)=>{
-	if(entries.some(entry=>entry.intersectionRatio > 0)){
-		await makeRank();
-		entries[0].target.remove();
-	}
-})
+
+const intersectionoObserver = new IntersectionObserver(
+	async (entries) => {
+		if (entries.some((entry) => entry.intersectionRatio > 0)) {
+			await makeRank();
+			entries[0].target.remove();
+			const loadingBox = getElement('#loading-box');
+			loadingBox.remove();
+		}
+	},
+	{
+		rootMargin: '50px',
+	},
+);
 
 const testObserve = new IntersectionObserver(
 	(entries) => {
-			console.log(entries.isIntersecting)
-			console.log((entries.intersectionRatio * 100).toFixed(2))
-		},
+		entries.forEach((entry, index) => {
+			entry.target.style.opacity = (entry.intersectionRatio * 10).toFixed(2);
+			if (entry.isIntersecting) {
+				entry.target.style.visibility = 'visible';
+			} else {
+				entry.target.style.visibility = 'hidden';
+			}
+		});
+	},
 	{
-		threshold: [...new Array(1000).fill(0).map((_, i) => i * 0.001), 1]
-	}
+		threshold: [...new Array(1000).fill(0).map((_, i) => i * 0.001), 1],
+		rootMargin: '-150px 0px -30px 0px',
+		// threshold:0
+	},
 );
 
 // 상단으로 가는 버튼
@@ -35,101 +56,106 @@ toTopEl.addEventListener('click', function () {
 		behavior: 'smooth',
 	});
 });
+
 async function getProducts(limit) {
 	return await Api.getItem(`/api/rankednextproducts?page=${limit}`);
 }
 
 async function makeRank() {
-	
-	const getProductsList = await getProducts(limit++)
-	const getProductCategory = [...getProductsList]
+	const getProductsList = await getProducts(limit++);
+	const getProductCategory = [...getProductsList];
 
-	console.log(limit)
+	console.log(limit);
 	if (getProductCategory.length === 0) {
-		inputProduct.append(renderNoneCategory())
+		inputProduct.append(renderNoneCategory());
 	} else {
+		const inputProductBox = createElement('div');
+		inputProductBox.classList.add('inputProduct', 'productBox', `box${limit}`);
 
-		const inputProductBox = createElement('div')
-		inputProductBox.classList.add('inputProduct')
+		getProductCategory.forEach((product, index) => {
+			const item = renderProductItem(product);
+			inputProductBox.append(item);
+		});
+		const scrollDiv = createElement('div');
 
-		getProductCategory.forEach((product,index)=>{
-			const item = renderProductItem(product)
-			inputProductBox.append(item)
-		})
-		inputProduct.append(inputProductBox)
-		
-		const lodingBox = createElement('div')
-		lodingBox.id = 'loading-box'
-		const loding = createElement('div')
-		loding.classList.add('lds-ring')
-		const div = createElement('div')
-		
-		loding.append(div,div,div,div)
-		lodingBox.append(loding)
-		inputProduct.appendChild(lodingBox)
-		
-		intersectionoObserver.observe(lodingBox)
-		testObserve.observe(inputProductBox)
+		const lodingBox = renderLoadingBox();
+
+		inputProduct.append(inputProductBox, scrollDiv, lodingBox);
+
+		observing(limit);
+		intersectionoObserver.observe(scrollDiv);
 	}
 }
 
-function renderNoneCategory() {
-	const nullBox = createElement('div')
-	nullBox.classList.add('nullcategory')
-	nullBox.id = 'nullcategory'
-	nullBox.textContent = '등록된 상품이 없습니다.'
-	return nullBox
+function renderLoadingBox() {
+	const lodingBox = createElement('div');
+	lodingBox.id = 'loading-box';
+	const loding = createElement('div');
+	loding.classList.add('lds-ring');
+	const div = createElement('div');
+	loding.append(div, div, div, div);
+	lodingBox.append(loding);
+	return lodingBox;
 }
 
-function renderProductItem(product){
+function observing(limit) {
+	console.log('observing');
+	const product = getElement(`.box${limit}`);
+	testObserve.observe(product);
+}
 
-	const productItem = createElement('div')
-	productItem.classList.add('product-item')
-	productItem.id = 'product-item'
+function renderNoneCategory() {
+	const nullBox = createElement('div');
+	nullBox.classList.add('nullcategory');
+	nullBox.id = 'nullcategory';
+	nullBox.textContent = '등록된 상품이 없습니다.';
+	return nullBox;
+}
 
-	const imageBox = createElement('div')
-	const img = createElement('img')
-	imageBox.classList.add('image-box')
-	img.id = 'productImage'
-	img.alt = product.name
-	img.src = product.imageUrl
-	imageBox.append(img)
-	
-	const descriptionBox = createElement('div')
-	descriptionBox.classList.add('description')
+function renderProductItem(product) {
+	const productItem = createElement('div');
+	productItem.classList.add('product-item');
+	productItem.id = 'product-item';
 
-	const detailBox = createElement('div')
-	detailBox.classList.add('detail')
+	const imageBox = createElement('div');
+	const img = createElement('img');
+	imageBox.classList.add('image-box');
+	img.id = 'productImage';
+	img.alt = product.name;
+	img.src = product.imageUrl;
+	imageBox.append(img);
 
-	const seller = createElement('div')
-	seller.id = 'seller'
+	const descriptionBox = createElement('div');
+	descriptionBox.classList.add('description');
+
+	const detailBox = createElement('div');
+	detailBox.classList.add('detail');
+
+	const seller = createElement('div');
+	seller.id = 'seller';
 	seller.textContent = product.company;
-	const productDescription = createElement('div')
-	productDescription.classList.add('productDescription')
-	productDescription.textContent = product.name
-	detailBox.append(seller,productDescription)
+	const productDescription = createElement('div');
+	productDescription.classList.add('productDescription');
+	productDescription.textContent = product.name;
+	detailBox.append(seller, productDescription);
 
+	const priceBox = createElement('div');
+	priceBox.classList.add('price');
 
-	const priceBox = createElement('div')
-	priceBox.classList.add('price')
-
-	const price = createElement('div')
-	price.id = 'productPrice'
+	const price = createElement('div');
+	price.id = 'productPrice';
 	price.textContent = `${addCommas(product.price)}원`;
-	priceBox.append(price)
+	priceBox.append(price);
 
-	productItem.append
+	productItem.append;
 
-	descriptionBox.append(detailBox,priceBox)
-	productItem.append(imageBox,descriptionBox,)
+	descriptionBox.append(detailBox, priceBox);
+	productItem.append(imageBox, descriptionBox);
 
-	productItem.addEventListener('click',()=>{
-			localStorage.setItem('productId',product.productId); 
-			location.href = `/product-detail/${product.productId}`;
-	})
+	productItem.addEventListener('click', () => {
+		localStorage.setItem('productId', product.productId);
+		location.href = `/product-detail/${product.productId}`;
+	});
 
 	return productItem;
 }
-
-
-
