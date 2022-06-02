@@ -13,13 +13,14 @@ function addAllEvents() {
 }
 
 async function getOrder() {
-	const orders = await Api.get('/api/orders');
-	console.log(orders);
+	try {
+		const orders = await Api.get('/api/orders');
+		console.log(orders);
 
-	orders.forEach((obj) =>
-		orderTableTitle.insertAdjacentHTML(
-			'afterend',
-			`<div class="orderTableRow">
+		orders.forEach((obj) =>
+			orderTableTitle.insertAdjacentHTML(
+				'afterend',
+				`<div class="orderTableRow">
         <div class="orderTableCell" id="orderDate">${obj['timeKor']}</div>
         <div class="orderTableCell" id="orderNumber"><a href="/payment/${obj['orderId']}">${obj['orderId']}</a></div>
         <div class="orderTableCell" id="orderProduct">${obj['product']}</div>
@@ -29,19 +30,26 @@ async function getOrder() {
         <button class="cancelOrderButton" name=${obj['orderId']}>주문취소</button></div>
       </div>
   `,
-		),
-	);
-	const cancelOrderButtons = getElementAll('.cancelOrderButton');
-	var cancelButtonArray = [...cancelOrderButtons];
-	cancelButtonArray.forEach((btn) =>
-		btn.addEventListener('click', cancelOrder),
-	);
-	const detailProductButton = getElementAll('.detailShowButton');
-	var detailButtonArray = [...detailProductButton];
-	detailButtonArray.forEach((btn) => {
-		btn.addEventListener('click', makeModalContent);
-		btn.addEventListener('click', toggleModal);
-	});
+			),
+		);
+		const cancelOrderButtons = getElementAll('.cancelOrderButton');
+		var cancelButtonArray = [...cancelOrderButtons];
+		cancelButtonArray.forEach((btn) =>
+			btn.addEventListener('click', cancelOrder),
+		);
+		const detailProductButton = getElementAll('.detailShowButton');
+		var detailButtonArray = [...detailProductButton];
+		detailButtonArray.forEach((btn) => {
+			btn.addEventListener('click', makeModalContent);
+			btn.addEventListener('click', toggleModal);
+		});
+	} catch (err) {
+		swal(err.message).then(() => {
+			const url = location.href;
+			const beforeURI = encodeURIComponent(url);
+			location.href = `/login?beforeURI=${beforeURI}`;
+		});
+	}
 }
 
 async function cancelOrder() {
