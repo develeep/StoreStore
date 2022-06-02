@@ -8,12 +8,20 @@ import {
 
 const inputProduct = document.getElementById('inputProduct');
 
+const encodeURI = location.search;
+const URI = decodeURIComponent(encodeURI);
+const searchURI = new URLSearchParams(URI);
+const searchInput = searchURI.get('searchInput');
+
+
 let limit = 0;
 
 addAllElements();
 
 async function addAllElements() {
+  InputTitleRender();
 	makeRank();
+  
 }
 
 const intersectionoObserver = new IntersectionObserver(
@@ -56,23 +64,30 @@ toTopEl.addEventListener('click', function () {
 		behavior: 'smooth',
 	});
 });
+
+async function getProducts(limit) {
+	return await Api.getItem(`/api/searchProducts?page=${limit}&keyword=${searchInput}`);
+}
+
+function InputTitleRender() {
+  const h1 = getElement('.searchResultTItle-box h1')
+  h1.innerHTML = `<strong>${searchInput}</strong> 검색 결과`
+}
+
 function delBeforeLoading() {
 	const loadingBoxBefore = getElement('#loading-box');
 	if (limit < 1) {
 		loadingBoxBefore.remove();
 	}
 }
-async function getProducts(limit) {
-	return await Api.getItem(`/api/newestnextproducts?page=${limit}`);
-}
 
 async function makeRank() {
-	delBeforeLoading();
+  delBeforeLoading();
 	const getProductsList = await getProducts(limit++);
 	const getProductCategory = [...getProductsList];
-
 	console.log(limit);
 	if(getProductCategory.length > 0) {
+
 		const inputProductBox = createElement('div');
 		inputProductBox.classList.add('inputProduct', 'productBox', `box${limit}`);
 
@@ -88,8 +103,8 @@ async function makeRank() {
 
 		observing(limit);
 		intersectionoObserver.observe(scrollDiv);
-	}
-	else {
+  }
+  else {
 		const productBoxFind = getElement('.productBox');
 		if (!productBoxFind) {
 			inputProduct.append(renderNoneCategory());`	`
@@ -169,3 +184,4 @@ function renderProductItem(product) {
 
 	return productItem;
 }
+
