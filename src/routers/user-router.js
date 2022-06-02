@@ -186,54 +186,58 @@ userRouter.get('/isadmin', loginRequired, async (req, res, next) => {
 });
 
 userRouter.post('/reset-password', async (req, res, next) => {
-	const { email } = req.body;
-	const user = await userService.findByEmail(email);
-	if (!user) {
-		throw new Error('해당 메일로 가입된 사용자가 없습니다.');
+	try {
+		const { email } = req.body;
+		const user = await userService.findByEmail(email);
+		if (!user) {
+			throw new Error('해당 메일로 가입된 사용자가 없습니다.');
+		}
+
+		// 랜덤 패스워드 생성하기
+		const password = generateRandomPassword();
+
+		const updatedUser = await userService.setUserByEmail(email, {
+			password,
+			// passwordReset
+			passwordReset: true,
+		});
+		const from = process.env.NAVER_EMAIL_ID;
+		// req.passwordReset = updatedUser.passwordReset;
+		// console.log('뭐지?');
+		// console.log(req.passwordReset);
+		const html =
+			"<div style='font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; border-top: 4px solid #348fe2; margin: 100px auto; padding: 30px 0; box-sizing: border-box;'>" +
+			"<h1 style='margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;'>" +
+			"<span style='font-size: 15px; margin: 0 0 10px 3px;'>Elice 8 TEAM</span><br />" +
+			"<span style='color: #348fe2;'>변경된 비밀번호</span> 안내입니다." +
+			'</h1>' +
+			"<p style='font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;'>" +
+			'안녕하세요.<br />' +
+			'비밀번호가 초기화되었습니다.<br />' +
+			'변경된 비밀번호는 아래와 같습니다.<br />' +
+			'감사합니다.' +
+			'</p>' +
+			"<p style='font-size: 16px; margin: 40px 5px 20px; line-height: 28px;'>" +
+			'변경된 비밀번호: <br />' +
+			"<span style='font-size: 24px;'>" +
+			password +
+			'</span>' +
+			'</p>' +
+			"<div style='border-top: 1px solid #DDD; padding: 5px;'>" +
+			'</div>' +
+			'</div>';
+		// 패스워드 발송하기
+		await sendMail(
+			from,
+			email,
+			'ELICE 8TEAM 비밀번호 변경 관련 메일 입니다.',
+			`변경된 비밀번호는: ${password} 입니다.`,
+			html,
+		);
+		res.status(200).json({ status: 'ok' });
+	} catch (err) {
+		next(err);
 	}
-
-	// 랜덤 패스워드 생성하기
-	const password = generateRandomPassword();
-
-	const updatedUser = await userService.setUserByEmail(email, {
-		password,
-		// passwordReset
-		passwordReset: true,
-	});
-	const from = process.env.NAVER_EMAIL_ID;
-	// req.passwordReset = updatedUser.passwordReset;
-	// console.log('뭐지?');
-	// console.log(req.passwordReset);
-	const html =
-		"<div style='font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; border-top: 4px solid #348fe2; margin: 100px auto; padding: 30px 0; box-sizing: border-box;'>" +
-		"<h1 style='margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;'>" +
-		"<span style='font-size: 15px; margin: 0 0 10px 3px;'>Elice 8 TEAM</span><br />" +
-		"<span style='color: #348fe2;'>변경된 비밀번호</span> 안내입니다." +
-		'</h1>' +
-		"<p style='font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;'>" +
-		'안녕하세요.<br />' +
-		'비밀번호가 초기화되었습니다.<br />' +
-		'변경된 비밀번호는 아래와 같습니다.<br />' +
-		'감사합니다.' +
-		'</p>' +
-		"<p style='font-size: 16px; margin: 40px 5px 20px; line-height: 28px;'>" +
-		'변경된 비밀번호: <br />' +
-		"<span style='font-size: 24px;'>" +
-		password +
-		'</span>' +
-		'</p>' +
-		"<div style='border-top: 1px solid #DDD; padding: 5px;'>" +
-		'</div>' +
-		'</div>';
-	// 패스워드 발송하기
-	await sendMail(
-		from,
-		email,
-		'ELICE 8TEAM 비밀번호 변경 관련 메일 입니다.',
-		`변경된 비밀번호는: ${password} 입니다.`,
-		html,
-	);
-	res.status(200).json({ status: 'ok' });
 });
 
 export { userRouter };
