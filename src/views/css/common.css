@@ -100,6 +100,12 @@ header {
 
 .headerLeft {
 	padding-left: 2.4%;
+	flex: 1 0 20%;
+}
+
+.logo {
+	flex: 1 0 auto;
+	text-align: center;
 }
 
 .logo > a {
@@ -112,6 +118,8 @@ header {
 
 .headerRight {
 	padding-right: 2.4%;
+	flex: 1 0 20%;
+	text-align: end;
 }
 
 /* Slidebar */
