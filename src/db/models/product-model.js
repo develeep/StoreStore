@@ -30,19 +30,7 @@ export class ProductModel {
 	}
 
 	async findAll() {
-		const products = await Product.find({
-			// 'category.bCategory.name': '아이웨어',
-		})
-			.populate({
-				path: 'category',
-				populate: {
-					path: 'bCategory',
-					select: 'name',
-					// match: { name: '아이웨어' },
-				},
-			})
-			.aggregate({ $match: { 'category.bCategory.name': '아이웨어' } });
-		console.log(products);
+		const products = await Product.find({});
 		return products;
 	}
 
@@ -83,6 +71,14 @@ export class ProductModel {
 	async getNextProducts(page) {
 		const products = await Product.find({})
 			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return products;
+	}
+
+	async getNextNewestProducts(page) {
+		const products = await Product.find({})
+			.sort({ createdAt: -1, _id: 1 })
 			.skip(16 * Number(page))
 			.limit(16);
 		return products;

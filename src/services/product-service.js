@@ -82,6 +82,11 @@ class ProductService {
 		return products;
 	}
 
+	async getNextNewestProducts(page) {
+		const products = await this.productModel.getNextNewestProducts(page);
+		return products;
+	}
+
 	async getCategory8Products(page) {
 		const products = await this.productModel.getCategory8Products(page);
 		return products;
