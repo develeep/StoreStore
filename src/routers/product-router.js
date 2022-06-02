@@ -2,7 +2,11 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
-import { productService, smallCategoryService } from '../services';
+import {
+	productService,
+	smallCategoryService,
+	categoryService,
+} from '../services';
 import { upload, s3 } from '../utils/s3';
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
@@ -76,6 +80,19 @@ productRouter.get('/productswithcategory', async (req, res, next) => {
 	}
 });
 
+// 카테고리별 최신 상품
+productRouter.get('/Categorylatestproduct', async (req, res, next) => {
+	try {
+		const Bcategorys = await categoryService.getCategories();
+		const latestproduct = await productService.Categorylatestproduct(
+			Bcategorys,
+		);
+		res.status(200).json(latestproduct);
+	} catch (error) {
+		next(error);
+	}
+});
+
 // productId로 category 이름 가져오기 => 대카테고리/소카테고리 이렇게 가져옴
 productRouter.get('/categoryname/:productId', async (req, res, next) => {
 	try {
@@ -87,12 +104,12 @@ productRouter.get('/categoryname/:productId', async (req, res, next) => {
 	}
 });
 
-// 무한 스크롤을 위한 상품 8개씩 계속 가져오기
-productRouter.get('/rankednext8products', async (req, res, next) => {
+// 무한 스크롤을 위한 상품 16개씩 계속 가져오기
+productRouter.get('/rankednextproducts', async (req, res, next) => {
 	try {
 		const page = Number(req.query.page);
-		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
-		const rankedNext8Products = await productService.getNext8Products(page);
+		// page가 0이면 skip 없이 16개 가져오기, page가 1이면 16개 skip 후 9~16 가져옴
+		const rankedNext8Products = await productService.getNextProducts(page);
 		res.status(200).json(rankedNext8Products);
 	} catch (error) {
 		next(error);
@@ -140,8 +157,8 @@ productRouter.post('/checkout', async (req, res, next) => {
 // 상품등록 -> /api/productRegister
 productRouter.post(
 	'/products',
-	loginRequired,
-	isAdmin,
+	// loginRequired,
+	// isAdmin,
 	upload.single('img'),
 	async (req, res, next) => {
 		try {

@@ -35,6 +35,12 @@ class ProductService {
 		return product;
 	}
 
+	// product ObjectId로 product 찾아서 반환
+	async getProductByObjectId(objectId) {
+		const product = await this.productModel.findByObjectId(objectId);
+		return product;
+	}
+
 	// 랭킹순으로(많이 팔린 순) 상품 가져오기
 	async getRankedProducts() {
 		const products = await this.productModel.getRankedProduct();
@@ -65,14 +71,20 @@ class ProductService {
 		return products;
 	}
 
-	async getNext8Products(page) {
-		const products = await this.productModel.getNext8Products(page);
+	async getNextProducts(page) {
+		const products = await this.productModel.getNextProducts(page);
 		return products;
 	}
 
 	// 카테고리 별로 모아보기
 	async getProductsByCategory(category) {
 		const products = await this.productModel.findBycategory(category);
+		return products;
+	}
+
+	// 카테고리 최신 상품 찾기
+	async Categorylatestproduct(categorys) {
+		const products = await this.productModel.findBycategorys(categorys);
 		return products;
 	}
 
