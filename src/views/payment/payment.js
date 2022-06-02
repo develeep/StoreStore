@@ -166,8 +166,8 @@ function selectWrite() {
 		selectResult = options[0].label;
 		console.log(selectResult);
 	} else {
-		writeOption.style.display = 'block';
-		writeOptionSaveButton.style.display = 'block';
+		writeOption.style.display = 'inline-block';
+		writeOptionSaveButton.style.display = 'inline-block';
 		console.log('직접입력을 선택했습니다.');
 	}
 }
