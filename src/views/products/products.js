@@ -8,7 +8,7 @@ const getCategories = await Api.get('/api/categories');
 
 let params = location.href.split('/');
 params = params[params.length - 2];
-// console.log(params);
+console.log(params);
 const getProductCategory = await Api.get(`/api/productCategory`, params);
 const paramsKR = decodeURIComponent(params);
 
