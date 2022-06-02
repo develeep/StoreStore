@@ -204,8 +204,32 @@ orderRouter.delete(
 
 			await orderService.deleteOrder(orderId);
 
-			// 주문 상세 Schema에서도 값 지워줘야 함
+			// Product Schema에 구매했던 개수를 재고에 +, 구매했던 개수를 판매량에서 -
+			const orderedProducts = await orderedProductService.findByOrderId(
+				orderId,
+			);
+			for (let i = 0; i < orderedProducts.length; i++) {
+				const objectId = orderedProducts[i].product;
+				const product = await productService.getProductByObjectId(objectId);
+				const currentInventory = product.inventory;
+				const purchasedAmount = orderedProducts[i].numbers;
+				const resultInventory = currentInventory + purchasedAmount;
+
+				const currentSalesRate = product.salesRate;
+				const resultSalesRate = currentSalesRate - purchasedAmount;
+				const toUpdate = {
+					salesRate: resultSalesRate,
+					inventory: resultInventory,
+				};
+				const updatedProduct = await productService.setProduct(
+					product.productId,
+					toUpdate,
+				);
+			}
+
+			// 주문 취소 로직 종료 후 주문 상세 Schema에서도 값 지워줌
 			await orderedProductService.deleteOrderedProduct(orderId);
+
 			res.status(200).json({ status: 'ok' });
 		} catch (error) {
 			next(error);
@@ -213,6 +237,7 @@ orderRouter.delete(
 	},
 );
 
+// 주문 배송상태 변경
 orderRouter.patch('/orders', loginRequired, async function (req, res, next) {
 	try {
 		// content-type 을 application/json 로 프론트에서
