@@ -139,6 +139,18 @@ productRouter.get('/productlist/:category', async (req, res, next) => {
 	}
 });
 
+// 무한 스크롤을 위한 상품 8개씩 계속 가져오기 카테고리
+productRouter.get('/rankednext8products/:category', async (req, res, next) => {
+	try {
+		const page = Number(req.query.page);
+		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
+		const rankedNext8Products = await productService.getNext8Products(page);
+		res.status(200).json(rankedNext8Products);
+	} catch (error) {
+		next(error);
+	}
+});
+
 productRouter.post('/checkout', async (req, res, next) => {
 	const imgdata = req.body.key;
 	console.log(imgdata);

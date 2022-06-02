@@ -70,6 +70,11 @@ class ProductService {
 		return products;
 	}
 
+	async getCategory8Products(page) {
+		const products = await this.productModel.getCategory8Products(page);
+		return products;
+	}
+
 	// 카테고리 별로 모아보기
 	async getProductsByCategory(category) {
 		const products = await this.productModel.findBycategory(category);
