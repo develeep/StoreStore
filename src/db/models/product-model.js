@@ -76,7 +76,15 @@ export class ProductModel {
 		return products;
 	}
 
-	async Search(keyword) {
+	async getNextNewestProducts(page) {
+		const products = await Product.find({})
+			.sort({ createdAt: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return products;
+	}
+
+	async Search(keyword, page) {
 		let keywords = keyword.split(' ');
 		const keywordfind = [];
 		keywords.forEach((el) => {
@@ -84,7 +92,9 @@ export class ProductModel {
 		});
 		const searchData = await Product.find({
 			$and: keywordfind,
-		});
+		})
+			.skip(16 * Number(page))
+			.limit(16);
 		return searchData;
 	}
 

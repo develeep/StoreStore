@@ -10,6 +10,12 @@ class ProductService {
 		this.productModel = productModel;
 	}
 
+	// 테스트
+	async findAll() {
+		const products = await this.productModel.findAll();
+		return products;
+	}
+
 	// 상품 추가
 	async addProduct(productInfo) {
 		// 객체 destructuring
@@ -76,6 +82,11 @@ class ProductService {
 		return products;
 	}
 
+	async getNextNewestProducts(page) {
+		const products = await this.productModel.getNextNewestProducts(page);
+		return products;
+	}
+
 	async getCategory8Products(page) {
 		const products = await this.productModel.getCategory8Products(page);
 		return products;
@@ -99,8 +110,8 @@ class ProductService {
 	}
 
 	// 상품 검색 불러오기
-	async SearchProducts(keyword) {
-		const searchData = await this.productModel.Search(keyword);
+	async SearchProducts(keyword, page) {
+		const searchData = await this.productModel.Search(keyword, page);
 		return searchData;
 	}
 
