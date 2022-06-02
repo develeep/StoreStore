@@ -15,7 +15,7 @@ function addAllEvents() {}
 
 async function getProducts() {
 	
-	const items = await Api.get('/api/newestproducts');
+	const items = await Api.get('/api/productswithcategory');
 	const products = [...items];
 	console.log(products);
 
@@ -28,7 +28,7 @@ async function getProducts() {
 	productItemBox.classList.add('product-items-box');
 
 	products.forEach(async(product) => {
-		const item = await renderProducts(product);
+		const item = renderProducts(product);
 		productItemBox.append(item);
 	});
 
@@ -36,7 +36,7 @@ async function getProducts() {
 	productsBox.append(productItemBox);
 }
 
-async function renderProducts(object) {
+function renderProducts(object) {
 	const item = createElement('li');
 	item.classList.add('product-item');
 
@@ -60,8 +60,7 @@ async function renderProducts(object) {
 
 	productId.textContent = object.productId;
 	productName.textContent = object.name;
-	const category = await Api.get('/api/categoryname',object.productId)
-	productCategory.textContent = category;
+	productCategory.textContent = object.category.name;
 	productPrice.textContent = object.price;
 	productAmount.textContent = object.inventory;
 	productSales.textContent = object.salesRate;

@@ -179,7 +179,7 @@ function saveWriteOption(e) {
 		console.log(selectResult);
 		swal('요청사항이 저장되었습니다.');
 		writeOption.disabled = true;
-		writeOptionSaveButton.innerHTML = '수정';
+		writeOptionSaveButton.innerHTML = '수정';		
 	} else {
 		writeOption.disabled = false;
 		writeOptionSaveButton.innerHTML = '저장';
@@ -189,6 +189,16 @@ function saveWriteOption(e) {
 async function payment(e) {
 	e.preventDefault();
 	try {
+		if (!postalCodeDiv.value || !addressDiv.value || !detailAddressDiv.value) {
+			swal('받는이 주소를 제대로 입력해주세요.');
+			return;
+		} else if (!phoneNumberInput.value) {
+			swal('받는이 연락처를 입력해주세요.')
+			return;
+		} else if (selectResult == "배송시 요청사항을 선택해 주세요.") {
+			swal('배송시 요청사항을 선택해주세요.');
+			return;
+		}
 		const receiveAddress = {
 			receiverPostalCode: postalCodeDiv.value,
 			receiverAddress: addressDiv.value,
@@ -206,6 +216,6 @@ async function payment(e) {
 		console.log(result);
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {
-		swal(`결제중 문제가 발생하였습니다. ${err.message}`);
+		swal(`${err.message}`);
 	}
 }
