@@ -51,17 +51,6 @@ productRouter.get('/newestproducts', async (req, res, next) => {
 	}
 });
 
-// 최신 순으로 전체 상품 가져오는데, category 실제 이름 populate해서 추가
-productRouter.get('/productswithcategory', async (req, res, next) => {
-	try {
-		const productsWithCategory =
-			await productService.getNewestProductsWithCategory();
-		res.status(200).json(productsWithCategory);
-	} catch (error) {
-		next(error);
-	}
-});
-
 // productId로 category 이름 가져오기 => 대카테고리/소카테고리 이렇게 가져옴
 productRouter.get('/categoryname/:productId', async (req, res, next) => {
 	try {
@@ -108,31 +97,17 @@ productRouter.get('/productlist/:category', async (req, res, next) => {
 	}
 });
 
-productRouter.post('/checkout', async (req, res, next) => {
-	const imgdata = req.body.key;
-	console.log(imgdata);
-
-	var params = {
-		Bucket: process.env.AWS_BUCKET_NAME,
-		Key: imgdata,
-	};
-	s3.deleteObject(params, function (err, data) {
-		if (err) console.log(err, err.stack); // error
-		else console.log(data); // deleted
-	});
-	next();
-});
-
 // 상품등록 -> /api/productRegister
 productRouter.post(
 	'/products',
-	loginRequired,
-	isAdmin,
 	upload.single('img'),
+	// loginRequired,
+	// isAdmin,
 	async (req, res, next) => {
 		try {
 			// Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
 			// application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
+			console.log(req.body);
 			// 카테고리를 폼에서 입력했을 거란 가정하에..
 			const category = req.body.Scategory;
 
@@ -142,19 +117,13 @@ productRouter.post(
 			// req (request)의 body 에서 데이터 가져오기
 
 			const { name, price, description, inventory, company } = req.body;
-			let imageUrl = '';
-			let imageKey = '';
+
 			// image를 S3에 저장
 			// 이후 생성된 url을 받아야 함.
 			// middleware에서 s3에 저장
-			if (req.file) {
-				imageUrl = req.file.location;
-				imageKey = req.file.key;
-				console.log(req.file);
-				console.log(imageUrl);
-			} else {
-				throw new Error('이미지가 없습니다. 이미지를 추가해주세요!');
-			}
+			const imageUrl = req.file.location;
+			console.log(req.file);
+			console.log(imageUrl);
 
 			// 위 데이터를 product db에 추가하기
 			const newProduct = await productService.addProduct({
@@ -165,7 +134,6 @@ productRouter.post(
 				description,
 				inventory,
 				company,
-				imageKey,
 			});
 
 			// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
@@ -179,10 +147,9 @@ productRouter.post(
 
 // 상품 수정
 productRouter.patch(
-	'/products/:productId',
+	'/products',
 	loginRequired,
 	isAdmin,
-	upload.single('img'),
 	async function (req, res, next) {
 		try {
 			// content-type 을 application/json 로 프론트에서
@@ -192,35 +159,25 @@ productRouter.patch(
 					'headers의 Content-Type을 application/json으로 설정해주세요',
 				);
 			}
-			const { productId } = req.params;
-			// 카테고리를 폼에서 입력했을 거란 가정하에..
-			const category = req.body.Scategory;
 
-			// 카테고리 스키마에서 category로 _id 얻어오기
-			let getCategory = await smallCategoryService.getCategoryname(category);
-			const categoryId = getCategory._id;
-			// req (request)의 body 에서 데이터 가져오기
+			// front에서 이렇게 줄 것이라 예상
+			const productId = req.body.productId;
 
-			const { name, price, description, inventory, company } = req.body;
-
-			let imageUrl = '';
-			let imageKey = '';
-			// image를 S3에 저장
-			// 이후 생성된 url을 받아야 함.
-			// middleware에서 s3에 저장
-			if (req.file) {
-				imageUrl = req.file.location;
-				imageKey = req.file.key;
-				console.log(req.file);
-				console.log(imageUrl);
-			}
+			const {
+				category,
+				name,
+				price,
+				imageUrl,
+				description,
+				inventory,
+				company,
+			} = req.body;
 
 			const toUpdate = {
-				...(categoryId && { category: categoryId }),
+				...(category && { category }),
 				...(name && { name }),
 				...(price && { price }),
 				...(imageUrl && { imageUrl }),
-				...(imageKey && { imageKey }),
 				...(description && { description }),
 				...(company && { company }),
 				...(inventory && { inventory }),
@@ -229,27 +186,8 @@ productRouter.patch(
 				productId,
 				toUpdate,
 			);
-			if (req.file) {
-				// s3에서 이미지 삭제
-				const imgKey = req.body.imageKey;
-				console.log(imgKey);
 
-				var params = {
-					Bucket: process.env.AWS_BUCKET_NAME,
-					Key: imgKey,
-				};
-				s3.deleteObject(params, function (err, data) {
-					if (err) {
-						console.log(err, err.stack); // error
-						res.status(200).json({ updatedProductInfo, status: 'no' });
-					} else {
-						console.log(data); // deleted
-						res.status(200).json({ updatedProductInfo, status: 'ok' });
-					}
-				});
-			} else {
-				res.status(200).json(updatedProductInfo);
-			}
+			res.status(200).json(updatedProductInfo);
 		} catch (error) {
 			next(error);
 		}
@@ -274,28 +212,8 @@ productRouter.delete(
 			// front에서 이렇게 줄 것이라 예상 -> shortId로
 			const productId = req.body.productId;
 
-			// DB에서 상품 삭제
 			await productService.deleteProductByProductId(productId);
-
-			// s3에서 이미지 삭제
-			const imgKey = req.body.imageKey;
-			console.log(imgKey);
-
-			var params = {
-				Bucket: process.env.AWS_BUCKET_NAME,
-				Key: imgKey,
-			};
-			s3.deleteObject(params, function (err, data) {
-				if (err) {
-					res.status(200).json({ status: 'no' });
-				} else {
-					res.status(200).json({ status: 'ok' });
-				}
-				// if (err) console.log(err, err.stack); // error
-				// else console.log(data); // deleted
-			});
-
-			// res.status(200).json({ status: 'ok' });
+			res.status(200).json({ status: 'ok' });
 		} catch (error) {
 			next(error);
 		}
@@ -319,15 +237,6 @@ productRouter.get('/productCategory/:id', async (req, res, next) => {
 		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
 	}
 	res.status(200).json(CategoryProducts);
-});
-
-productRouter.delete('/allproducts', async (req, res, next) => {
-	try {
-		await productService.deleteAllProducts();
-		res.status(200).json({ status: 'ok' });
-	} catch (error) {
-		next(error);
-	}
 });
 
 export { productRouter };
