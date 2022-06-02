@@ -115,6 +115,7 @@ header {
 	position: sticky;
 	z-index: 99;
 	background-color: #fff;
+	margin-bottom: 20px;
 }
 
 .navbar {
@@ -352,3 +353,4 @@ h1.logo {
 	letter-spacing: 0.85px;
 	text-align: center;
 }
+

@@ -51,6 +51,28 @@ export class ProductModel {
 		return Categoryproducts;
 	}
 
+	async CategoryB8findAll(category_Id, page) {
+		let category_list = [];
+		category_Id.forEach((el) => {
+			category_list.push({ category: el._id });
+		});
+		const Categoryproducts = await Product.find({
+			$or: category_list,
+		})
+			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return Categoryproducts;
+	}
+
+	async CategoryS8findAll(category_Id, page) {
+		const Categoryproducts = await Product.find({ category: category_Id })
+			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return Categoryproducts;
+	}
+
 	async getRankedProduct() {
 		const productsRanked = await Product.find({}).sort({
 			salesRate: -1,
@@ -141,7 +163,6 @@ export class ProductModel {
 			path: 'category',
 			populate: { path: 'bCategory' },
 		});
-		console.log(product);
 		const categoryName =
 			product.category.bCategory.name + '/' + product.category.name;
 		return categoryName;

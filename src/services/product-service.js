@@ -82,6 +82,11 @@ class ProductService {
 		return products;
 	}
 
+	async getCategory8Products(page) {
+		const products = await this.productModel.getCategory8Products(page);
+		return products;
+	}
+
 	// 카테고리 별로 모아보기
 	async getProductsByCategory(category) {
 		const products = await this.productModel.findBycategory(category);
@@ -117,20 +122,14 @@ class ProductService {
 	}
 
 	// B 카테고리별 상품 수집
-	async BgetCategoryOne(category_Id) {
-		let Products = await this.productModel.CategoryfindAll();
-		Products = Products.filter(
-			(el) => String(el.category.bCategory) === String(category_Id),
-		);
+	async BgetCategoryOne(category_Id, page) {
+		let Products = await this.productModel.CategoryB8findAll(category_Id, page);
 		return Products;
 	}
 
 	// S 카테고리별 상품 수집
-	async SgetCategoryOne(category_Id) {
-		let Products = await this.productModel.CategoryfindAll();
-		Products = Products.filter(
-			(el) => String(el.category._id) === String(category_Id),
-		);
+	async SgetCategoryOne(category_Id, page) {
+		let Products = await this.productModel.CategoryS8findAll(category_Id, page);
 		return Products;
 	}
 
