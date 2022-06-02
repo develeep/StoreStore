@@ -10,6 +10,16 @@ import mongoose from 'mongoose';
 
 const productRouter = Router();
 
+// 테스트
+productRouter.get('/testtest', async (req, res, next) => {
+	try {
+		const products = await productService.findAll();
+		res.status(200).json({ status: 'ok' });
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 판매 최상위 8개 상품 가져오기
 productRouter.get('/bestproducts', async (req, res, next) => {
 	try {

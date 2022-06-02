@@ -10,6 +10,12 @@ class ProductService {
 		this.productModel = productModel;
 	}
 
+	// 테스트
+	async findAll() {
+		const products = await this.productModel.findAll();
+		return products;
+	}
+
 	// 상품 추가
 	async addProduct(productInfo) {
 		// 객체 destructuring
