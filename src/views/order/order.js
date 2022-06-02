@@ -52,8 +52,8 @@ async function cancelOrder() {
 
 // modal 구현
 const modal = getElement('.modal');
-const modal_background = getElement('.modal_background');
-const closeButton = getElement('.close-button');
+const modalBackground = getElement('.modalBackground');
+const closeButton = getElement('.closeButton');
 
 async function makeModalContent() {
 	const order = await Api.get('/api/orders', this.name);
@@ -74,8 +74,8 @@ async function makeModalContent() {
 
 // 상세보기 버튼과 modal창의 닫기 버튼 클릭 시 modal창
 function toggleModal() {
-	modal.classList.toggle('show-modal');
-	modal_background.classList.toggle('modal_background-on');
+	modal.classList.toggle('showModal');
+	modalBackground.classList.toggle('modalBackgroundOn');
 }
 
 function windowOnClick(event) {
@@ -84,6 +84,5 @@ function windowOnClick(event) {
 	}
 }
 
-// trigger.addEventListener("click", toggleModal);
 closeButton.addEventListener('click', toggleModal);
 window.addEventListener('click', windowOnClick);
