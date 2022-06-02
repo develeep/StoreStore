@@ -20,6 +20,20 @@ productRouter.get('/bestproducts', async (req, res, next) => {
 	}
 });
 
+productRouter.get('carts', async (req, res, next) => {
+	try {
+		const cartProducts = req.body.cartProducts;
+		let existProducts = [];
+		for (let i = 0; i < cartProducts.length; i++) {
+			const product = await productService.getProductById(cartProducts[i].id);
+			if (product) existProducts.push(product);
+		}
+		res.status(200).json(existProducts);
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 검색으로 상품 가져오기
 productRouter.get('/searchproducts', async (req, res, next) => {
 	try {

@@ -120,14 +120,24 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 			phoneNumber: phoneNumberInput,
 			address: addressInput,
 		};
-		let product = '';
+		let productList = '';
 		let priceSum = 0;
+		let products = [];
+		// 주문 품목 갯수만큼 순회
 		for (let i = 0; i < orderTokens.length; i++) {
+			// 재고량 확인, 재고수 - 주문수량 < 0 이면 주문 못하도록, DB접근 횟수 줄이기 위해 상품 배열에 저장
+			const product = await productService.getProductById(orderTokens[i].id);
+			if (product.inventory - orderTokens[i].num < 0) {
+				throw new Error('죄송합니다. 재고 부족입니다.');
+			}
+			products.push(product);
+
+			// 주문 상품 간략히 보기 / 총 금액 생성
 			priceSum += orderTokens[i].price * orderTokens[i].num;
 			if (i === orderTokens.length - 1) {
-				product += `${orderTokens[i].product} ${orderTokens[i].num}`;
+				productList += `${orderTokens[i].product} ${orderTokens[i].num}`;
 			} else {
-				product += `${orderTokens[i].product} ${orderTokens[i].num} / `;
+				productList += `${orderTokens[i].product} ${orderTokens[i].num} / `;
 			}
 		}
 		// 배송비 추가
@@ -139,19 +149,33 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 			receiver,
 			requestMessage: requestSelectBox,
 			priceSum,
-			product,
+			product: productList,
 		});
 		const orderId = newOrder.orderId;
-		// const priceSum = await orderedProductService.getPriceSum(orderId);
 
 		for (let i = 0; i < orderTokens.length; i++) {
-			const product = await productService.getProductById(orderTokens[i].id);
+			// 주문 상세 Schema에 데이터 추가
 			let newOrderedProduct = await orderedProductService.addOrderedProduct({
 				orderId,
-				product: product._id,
+				product: products[i]._id,
 				numbers: orderTokens[i].num,
 			});
+			// Product Schema에 판매량에 개수 추가
+			const currentSalesRate = products[i].salesRate;
+			const afterSalesRate = currentSalesRate + orderTokens[i].num;
+			// Product Schema에 구매한 개수만큼 재고 감소
+			const currentInventory = products[i].inventory;
+			const afterInventory = currentInventory - orderTokens[i].num;
+			const toUpdate = {
+				salesRate: afterSalesRate,
+				inventory: afterInventory,
+			};
+			const updatedProduct = await productService.setProduct(
+				products[i].productId,
+				toUpdate,
+			);
 		}
+
 		// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
 		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
 		res.status(201).json({ orderId: orderId });
