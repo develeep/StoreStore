@@ -66,6 +66,22 @@ export class ProductModel {
 		return searchData;
 	}
 
+	async findBycategorys(categoroys) {
+		let lastProduct = await Product.find({})
+			.populate('category')
+			.sort({ createdAt: -1 });
+		const latestData = {};
+		for (const [key, value] of Object.entries(categoroys)) {
+			const categoryName = value.name;
+			const categoryId = value._id;
+			const filterData = lastProduct.find(
+				(e) => String(e.category.bCategory) == String(categoryId),
+			);
+			latestData[categoryName] = filterData;
+		}
+		return latestData;
+	}
+
 	async findNewest() {
 		const products = await Product.find({}).sort({ createdAt: -1 });
 		return products;
