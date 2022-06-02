@@ -1,9 +1,9 @@
 import { renderGnb } from '/renderGnb.js'
 import * as Api from '/api.js';
-import { getElement, getElementAll, addCommas } from '/useful-functions.js';
+import { getElement, getElementAll, addCommas,checkLoginAdmin } from '/useful-functions.js';
 
 const orderTableTitle = getElement('.orderTableTitle');
-
+checkLoginAdmin();
 addAllElements();
 addAllEvents();
 
