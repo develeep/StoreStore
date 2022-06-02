@@ -9,7 +9,7 @@ body {
 	position: relative;
 	margin: 0;
 	font-size: 62.5%;
-	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	color: #141414;
 	font-weight: 400;
 }
@@ -523,4 +523,50 @@ h1.logo {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+}
+/* swal  */
+.swal-modal {
+	border-radius: 0%;
+}
+.swal-text,
+.swal-title {
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: #141414;
+}
+.swal-title {
+	font-size: 18px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.swal-text {
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: #141414;
+}
+.swal-footer {
+	text-align: center;
+}
+.swal-button {
+	max-width: 20rem;
+	border: 1px solid #141414;
+	background-color: #fff;
+	padding: 0 3.2rem;
+	text-transform: capitalize;
+	text-align: center;
+	display: inline-block;
+	color: #141414;
+	font-size: 13px;
+	transition: 0.3s;
+	height: 2.3rem;
+	line-height: 2.3rem;
+	cursor: pointer;
+	box-sizing: border-box;
+	white-space: nowrap;
+	border-radius: 0%;
+}
+.swal-content__input {
+	border: 1px solid #e5e5e5;
+}
+.swal-content__input:focus {
+	border: 1px solid #141414;
 }
