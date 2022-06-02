@@ -52,8 +52,8 @@ class OrderService {
 		return orders;
 	}
 
-	// priceSum 추가위한 함수
-	async updateForPriceSum(orderId, toUpdate) {
+	// Order update
+	async setOrder(orderId, toUpdate) {
 		const order = await this.orderModel.update({
 			orderId,
 			update: toUpdate,

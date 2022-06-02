@@ -43,12 +43,17 @@ export const createElement = (tag) => {
 }
 
 export const isAdmin = async() => {
-		const admin = await Api.get('/api/isadmin')
-    console.log(admin)
-		if(admin.isCorrect === 'ok'){
-			return true;
-		}
-    else if(admin.isCorrect === 'false'){
-      return false;
-    }
+		try{
+      const admin = await Api.get('/api/isadmin')
+      console.log(admin)
+      if(admin.isCorrect === 'ok'){
+        return true;
+      }
+      else if(admin.isCorrect === 'false'){
+        return false;
+      }
+  }catch(err){
+    alert(err.message)
+    localStorage.removeItem('token')
+  }
 }
