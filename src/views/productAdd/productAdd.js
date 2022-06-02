@@ -1,4 +1,4 @@
-import { getElement, getElementAll } from '/useful-functions.js';
+import { getElement, getElementAll,checkLoginAdmin } from '/useful-functions.js';
 import * as Api from '/api.js';
 
 const categorySelectBox = getElement('#categorySelectBox');
@@ -21,7 +21,7 @@ reader.onload = function (e) {
 	imageView.src = e.target.result;
 };
 // const categorySelectBox = document.getElementById('categorySelectBox');
-
+checkLoginAdmin();
 addAllElements();
 addAllEvents();
 var imageFile;

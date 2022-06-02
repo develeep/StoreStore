@@ -57,7 +57,10 @@ async function addAllElements() {
 }
 
 async function getProducts(limit) {
-	const products = await Api.getItem(`/api/rankednextproducts?page=${limit}`);
+	const products = await Api.get(
+		`/api/categorynext8products`,
+		`${paramsKR}?page=${limit}`,
+	);
 	return [...products];
 }
 
@@ -74,9 +77,7 @@ async function makeCategory() {
 
 	const Products = await getProducts(limit++);
 
-	if (Products.length === 0) {
-		inputProduct.append(renderNoneCategory());
-	} else {
+	if (Products.length > 0) {
 		const inputProductBox = createElement('div');
 		inputProductBox.classList.add('inputProduct', 'productBox', `box${limit}`);
 
@@ -92,6 +93,11 @@ async function makeCategory() {
 
 		observing(limit);
 		intersectionoObserver.observe(scrollDiv);
+	} else {
+		const productBoxFind = getElement('.productBox');
+		if (!productBoxFind) {
+			inputProduct.append(renderNoneCategory());`	`
+		}
 	}
 }
 
