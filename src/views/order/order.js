@@ -22,12 +22,23 @@ async function getOrder() {
 				'afterend',
 				`<div class="orderTableRow">
         <div class="orderTableCell" id="orderDate">${obj['timeKor']}</div>
-        <div class="orderTableCell" id="orderNumber"><a href="/payment/${obj['orderId']}">${obj['orderId']}</a></div>
+        <div class="orderTableCell" id="orderNumber"><a href="/payment/${
+					obj['orderId']
+				}">${obj['orderId']}</a></div>
         <div class="orderTableCell" id="orderProduct">${obj['product']}</div>
-        <div class="orderTableCell" id="orderPriceSum">${addCommas(obj['priceSum'])}원</div>
-        <div class="orderTableCell" id="orderState">${obj['deliveryStatus']}</div>
-        <button class="detailShowButton" name=${obj['orderId']}>상세보기</button>
-        <button class="cancelOrderButton" name=${obj['orderId']}>주문취소</button></div>
+        <div class="orderTableCell" id="orderPriceSum">${addCommas(
+					obj['priceSum'],
+				)}원</div>
+        <div class="orderTableCell" id="orderState">${
+					obj['deliveryStatus']
+				}</div>
+				<div class="buttons">
+        <button class="detailShowButton" name=${
+					obj['orderId']
+				}>상세보기</button>
+        <button class="cancelOrderButton" name=${
+					obj['orderId']
+				}>주문취소</button></div>
       </div>
   `,
 			),
