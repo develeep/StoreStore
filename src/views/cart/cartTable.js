@@ -37,10 +37,10 @@ export function addTable(cartObject) {
 	const optionDiv = createElement('div');
 	const itemOption = createElement('div');
 	const quantityBox = createElement('div');
-	const minusBtn = createElement('div');
+	const minusBtn = createElement('button');
 	const quantity = createElement('label');
 	const inputNum = createElement('input');
-	const plusBtn = createElement('div');
+	const plusBtn = createElement('button');
 
 	optionDiv.classList.add('item-option-wrap');
 	itemOption.classList.add('item-option');
