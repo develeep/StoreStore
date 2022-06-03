@@ -44,8 +44,10 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 		const { comment, starRate, productId } = req.body;
 
 		// 해당 제품을 주문했던 주문 기록 여러 개 (배열)
+		const product = await productService.getProductById(productId);
+		const productObjectId = product._id;
 		const orderedProducts = await orderedProductService.findByProductId(
-			productId,
+			productObjectId,
 		);
 		let people = [];
 		for (let i = 0; i < orderedProducts.length; i++) {
@@ -54,7 +56,9 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 			// order.buyer가 user objectId 임
 			people.push(order.buyer);
 		}
-
+		for (let i = 0; i < people.length; i++) {
+			people[i] = people[i].toString();
+		}
 		if (people.indexOf(userId) >= 0) {
 			// 위 데이터를 review db에 추가하기
 			const newReview = await reviewService.addReview({
@@ -65,7 +69,10 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 
 			// product schema에 reivew 추가
 			const newReviewId = newReview._id;
-			await productService.setProduct(productId, { review: newReviewId });
+			const product = await productService.getProductById(productId);
+			let reviews = product.review;
+			reviews.push(newReviewId);
+			await productService.setProduct(productId, { review: reviews });
 
 			// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
 			// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
