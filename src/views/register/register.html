@@ -12,9 +12,12 @@
 			href="/StoreStore-favicon.png"
 		/>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap"
+			rel="stylesheet"
+		/>
 
 		<!-- IONICONS -->
 		<script
@@ -39,18 +42,18 @@
 	</head>
 	<body>
 		<!-- 헤더 -->
-		<div class="sub-menu">
-			<!-- 회원가입,로그인 -->
-			<ul id="navbar" class="navbar"></ul>
-		  </div>
-		  <div class="container-box">
-			<div class="headerLeft">
+		<header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
 			</div>
-			<h1 class="logo"><a href="/">StoreStore</a></h1>
-			<div class="headerRight">
-			  <!-- 장바구니 -->
+			<div class="container-box">
+				<div class="headerLeft"></div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+				</div>
 			</div>
-		  </div>
 		</header>
 
 		<!-- 회원가입 폼(Form) -->
@@ -85,9 +88,15 @@
 								autocomplete="on"
 							/>
 						</div>
-						<div class="fail-message hide" id="failemail-message">이메일 형식이 맞지 않습니다.</div>
-						<div class="success-message hide">이메일 인증이 완료되었습니다.</div>
-						<button id="send-email-button" class="btn btn--gray">인증요청</button>
+						<div class="fail-message hide" id="failemail-message">
+							이메일 형식이 맞지 않습니다.
+						</div>
+						<div class="success-message hide">
+							이메일 인증이 완료되었습니다.
+						</div>
+						<button id="send-email-button" class="btn btn--gray">
+							인증요청
+						</button>
 					</div>
 
 					<div class="field">
@@ -107,7 +116,9 @@
 					</div>
 
 					<div class="field mb-5">
-						<label class="label" for="passwordConfirmInput">비밀번호 확인</label>
+						<label class="label" for="passwordConfirmInput"
+							>비밀번호 확인</label
+						>
 						<div class="control">
 							<input
 								class="input"
@@ -117,13 +128,13 @@
 								autocomplete="off"
 							/>
 						</div>
-						<div class="fail-message hide" id="misspass-message">비밀번호가 일치하지 않습니다</div>
+						<div class="fail-message hide" id="misspass-message">
+							비밀번호가 일치하지 않습니다
+						</div>
 					</div>
 				</div>
 
-				<button class="btn" id="submitButton">
-					회원가입하기
-				</button>
+				<button class="btn" id="submitButton">회원가입하기</button>
 			</form>
 		</div>
 		<footer>
