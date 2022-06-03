@@ -7,7 +7,6 @@ import {
 } from '/useful-functions.js';
 
 const inputProduct = document.getElementById('inputProduct');
-console.log(rankedproducts);
 let limit = 0;
 
 addAllElements();
@@ -72,8 +71,7 @@ async function makeRank() {
 	const getProductsList = await getProducts(limit++);
 	const getProductCategory = [...getProductsList];
 
-	console.log(limit);
-	if(getProductCategory.length > 0) {
+	if (getProductCategory.length > 0) {
 		const inputProductBox = createElement('div');
 		inputProductBox.classList.add('inputProduct', 'productBox', `box${limit}`);
 
@@ -89,11 +87,11 @@ async function makeRank() {
 
 		observing(limit);
 		intersectionoObserver.observe(scrollDiv);
-	}
-	else {
+	} else {
 		const productBoxFind = getElement('.productBox');
 		if (!productBoxFind) {
-			inputProduct.append(renderNoneCategory());`	`
+			inputProduct.append(renderNoneCategory());
+			`	`;
 		}
 	}
 }
@@ -110,7 +108,6 @@ function renderLoadingBox() {
 }
 
 function observing(limit) {
-	console.log('observing');
 	const product = getElement(`.box${limit}`);
 	testObserve.observe(product);
 }
