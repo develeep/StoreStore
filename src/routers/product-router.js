@@ -6,6 +6,7 @@ import {
 	productService,
 	smallCategoryService,
 	categoryService,
+	reviewService,
 } from '../services';
 import { upload, s3 } from '../utils/s3';
 import 'dotenv/config';
@@ -48,11 +49,28 @@ productRouter.post('/carts', async (req, res, next) => {
 	}
 });
 
+// 해당 상품의 리뷰 가져오기
+productRouter.get('/reviews', async (req, res, next) => {
+	try {
+		const { productId } = req.params;
+		const product = await productService.getProductById(productId);
+		const starRateSum = product.starRateSum;
+		const reviewCount = product.reviewCount;
+		const reviewList = product.review;
+		// reviews 는 [{}, {}] 구조
+		const reviews = await reviewService.findByIds(reviewList);
+		const result = { starRateSum, reviewCount, reviews };
+		res.status(200).json(result);
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 검색으로 상품 가져오기
 productRouter.get('/searchproducts', async (req, res, next) => {
 	try {
 		const page = Number(req.query.page);
-		const keyword = req.query.keyword
+		const keyword = req.query.keyword;
 		const products = await productService.SearchProducts(keyword, page);
 		res.status(200).json(products);
 	} catch (error) {
