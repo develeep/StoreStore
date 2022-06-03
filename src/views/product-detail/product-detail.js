@@ -3,7 +3,7 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
-import { getElement, getElementAll,addCommas } from '/useful-functions.js';
+import { getElement, getElementAll,addCommas,createElement } from '/useful-functions.js';
 
 const productImageTag = getElement('#productImageTag');
 const manufacturerTag = getElement('#manufacturerTag');
@@ -18,7 +18,9 @@ getProductInfo();
 addAllEvents();
 addAllElements();
 
-function addAllElements() {}
+function addAllElements() {
+	renderReview();
+}
 
 function addAllEvents() {
 	addToCartButton.addEventListener('click', addToCart);
@@ -119,15 +121,89 @@ radio.addEventListener('submit', (e) => {
 		swal('평점을 선택해주세요');
 		return;
 	}
-	const reviewComment = getElement('#comment-input')
-	const productId = localStorage.getItem('productId')
+	try{
+		const reviewComment = getElement('#comment-input')
+		const productId = localStorage.getItem('productId')
 
-	const reviewObj = {
-		comment : reviewComment.value,
-		starRate : star,
-		productId : productId,
-	} 
-	console.log(reviewObj)
-	const review = Api.post('/api/reviews',reviewObj)
-	console.log(review);
+		const reviewObj = {
+			comment : reviewComment.value,
+			starRate : star,
+			productId : productId,
+		} 
+		const review = Api.post('/api/reviews',reviewObj)
+		console.log(review);
+
+		renderReview();
+	}catch(err){
+		swal(err.message).then(()=>{
+			return;
+		})
+	}
 });
+
+
+async function renderReview() {
+	try{
+	const productId = localStorage.getItem('productId')
+	const fetchData = await Api.get('/api/reviews',productId)
+	const reviews = fetchData.reviews;
+
+	const container = getElement('.container')
+	const beforeCommentList = getElement('.comment-list')
+	if(beforeCommentList){
+		beforeCommentList.remove();
+	}
+
+	const commentList = createElement('div')
+	commentList.classList.add('comment-list')
+
+	reviews.forEach((review)=>{
+		const reviewTable = addReviewTable(review)
+		commentList.append(reviewTable)
+	})
+
+	container.append(commentList)
+
+}catch(err){
+	swal(err.message).then(()=>{
+		return
+	})
+}
+}
+
+function addReviewTable(review) {
+	const commentItemBox = createElement('div')
+	const nameStar = createElement('div')
+	const comment = createElement('div')
+
+	commentItemBox.classList.add('comment-item-box')
+	nameStar.classList.add('name-star')
+	comment.classList.add('comment')
+
+	const commentUser = createElement('p')
+	commentUser.classList.add('comment-item-username')
+	commentUser.textContent = review.author
+	
+	const ratingStar = createElement('div')
+	ratingStar.classList.add('rating-item')
+
+	for(let i = 5;i>0;i--){
+		const inputRadio = createElement('input')
+		inputRadio.type = 'radio'
+		inputRadio.name = 'rating'
+		inputRadio.id = `rating-${i}`
+		inputRadio.disabled = true
+		if(i===review.starRate){
+			inputRadio.checked = true;
+		}
+		ratingStar.append(inputRadio)
+	}
+
+	comment.value = review.comment
+	comment.disabled = true;
+
+	nameStar.append(commentUser,ratingStar)
+	commentItemBox.append(nameStar,comment)
+
+	return commentItemBox;
+}
