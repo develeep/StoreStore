@@ -27,7 +27,6 @@ function addAllElements() {
 }
 
 function addAllEvents() {
-
 	const checkOutButton = document.querySelector('#checkoutButton');
 	// 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
 	checkOutButton.addEventListener('click', payment);
@@ -63,10 +62,10 @@ async function getUserInfo() {
 // 장바구니 랜더링
 function getOrder() {
 	const orderCart = JSON.parse(localStorage.getItem('order'));
-	if(!orderCart){
-		swal('장바구니가 비어있습니다.').then(()=>{
-			location.href = '/'
-		})
+	if (!orderCart) {
+		swal('장바구니가 비어있습니다.').then(() => {
+			location.href = '/';
+		});
 	}
 	const cartBox = getElement('.cart-product-box');
 
@@ -186,7 +185,7 @@ function saveWriteOption(e) {
 		console.log(selectResult);
 		swal('요청사항이 저장되었습니다.');
 		writeOption.disabled = true;
-		writeOptionSaveButton.innerHTML = '수정';		
+		writeOptionSaveButton.innerHTML = '수정';
 	} else {
 		writeOption.disabled = false;
 		writeOptionSaveButton.innerHTML = '저장';
@@ -200,9 +199,9 @@ async function payment(e) {
 			swal('받는이 주소를 제대로 입력해주세요.');
 			return;
 		} else if (!phoneNumberInput.value) {
-			swal('받는이 연락처를 입력해주세요.')
+			swal('받는이 연락처를 입력해주세요.');
 			return;
-		} else if (selectResult == "배송시 요청사항을 선택해 주세요.") {
+		} else if (selectResult == '배송시 요청사항을 선택해 주세요.') {
 			swal('배송시 요청사항을 선택해주세요.');
 			return;
 		}
@@ -221,7 +220,7 @@ async function payment(e) {
 		};
 		const result = await Api.post('/api/orders', data);
 		console.log(result);
-		localStorage.setItem('check',JSON.stringify(true))
+		localStorage.setItem('check', JSON.stringify(true));
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {
 		swal(`${err.message}`);
