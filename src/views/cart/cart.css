@@ -95,10 +95,12 @@
 	display: none;
 }
 .empty-table {
+	text-align: center;
 	font-size: 24px;
 	display: flex;
 	justify-content: center;
 	margin: 20px 0;
+		word-break: keep-all;
 }
 
 .cart-products-header {
@@ -382,4 +384,7 @@ input[type='checkbox'] {
 		width: 20px;
 		height: 20px;
 	}
+	.hide {
+    display: none;
+}
 }
