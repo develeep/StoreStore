@@ -42,6 +42,16 @@ const ProductSchema = new Schema(
 			type: Number,
 			required: true,
 		},
+		starRateSum: {
+			type: Number,
+			required: false,
+			default: 0,
+		},
+		reviewCount: {
+			type: Number,
+			required: false,
+			default: 0,
+		},
 		review: [
 			{
 				type: Schema.Types.ObjectId,

@@ -6,6 +6,7 @@ import {
 	productService,
 	smallCategoryService,
 	categoryService,
+	reviewService,
 } from '../services';
 import { upload, s3 } from '../utils/s3';
 import 'dotenv/config';
@@ -48,11 +49,49 @@ productRouter.post('/carts', async (req, res, next) => {
 	}
 });
 
+// 해당 상품의 리뷰 가져오기
+productRouter.get('/reviews/:productId', async (req, res, next) => {
+	try {
+		const { productId } = req.params;
+		const product = await productService.findByIdForReview(productId);
+		const starRateSum = product.starRateSum;
+		const reviewCount = product.reviewCount;
+		const reviewList = product.review;
+		let findReviewList = [];
+		let productStarRate;
+		for (let i = 0; i < reviewList.length; i++) {
+			findReviewList.push({ _id: reviewList[i] });
+		}
+		if (starRateSum === 0 || reviewCount === 0 || findReviewList.length === 0) {
+			productStarRate = 0;
+			const result = { productStarRate, hasReview: 'no' };
+			res.status(200).json(result);
+		} else {
+			productStarRate = (starRateSum / reviewCount).toFixed(1);
+			// reviews 는 [{}, {}] 구조
+			const reviews = await reviewService.findByIds(findReviewList);
+			let sendReviews = [];
+			for (let i = 0; i < reviews.length; i++) {
+				sendReviews.push({
+					comment: reviews[i].comment,
+					starRate: reviews[i].starRate,
+					createdAt: reviews[i].createdAt,
+					author: reviews[i].author.fullName,
+				});
+			}
+			const result = { productStarRate, sendReviews };
+			res.status(200).json(result);
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 검색으로 상품 가져오기
 productRouter.get('/searchproducts', async (req, res, next) => {
 	try {
 		const page = Number(req.query.page);
-		const keyword = req.query.keyword
+		const keyword = req.query.keyword;
 		const products = await productService.SearchProducts(keyword, page);
 		res.status(200).json(products);
 	} catch (error) {

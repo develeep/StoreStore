@@ -14,6 +14,11 @@ export class ProductModel {
 		return product;
 	}
 
+	async findByIdForReview(productId) {
+		const product = await Product.findOne({ productId });
+		return product;
+	}
+
 	async findById(productId) {
 		const product = await Product.findOne({ productId }).populate('review');
 		return product;

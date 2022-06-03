@@ -8,6 +8,12 @@ class ReviewService {
 		this.reviewModel = reviewModel;
 	}
 
+	// objectIdList로 리뷰들 찾기, 최신순으로 정렬
+	async findByIds(objectIdList) {
+		const reviews = await this.reviewModel.findByIds(objectIdList);
+		return reviews;
+	}
+
 	// 리뷰 추가
 	async addReview(reviewInfo) {
 		// 객체 destructuring
