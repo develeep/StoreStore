@@ -2,7 +2,12 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
-import { reviewService, productService } from '../services';
+import {
+	reviewService,
+	productService,
+	orderedProductService,
+	orderService,
+} from '../services';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
@@ -32,26 +37,42 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 				'headers의 Content-Type을 application/json으로 설정해주세요',
 			);
 		}
+
 		// loginRequired에서 토큰에 있는 userId를 받아왔음.
 		// user는 objectId 임
 		const userId = req.currentUserId;
-		const { comment, starRate } = req.body;
+		const { comment, starRate, productId } = req.body;
 
-		// 위 데이터를 review db에 추가하기
-		const newReview = await reviewService.addReview({
-			comment,
-			starRate,
-			author: userId,
-		});
+		// 해당 제품을 주문했던 주문 기록 여러 개 (배열)
+		const orderedProducts = await orderedProductService.findByProductId(
+			productId,
+		);
+		let people = [];
+		for (let i = 0; i < orderedProducts.length; i++) {
+			const orderId = orderedProducts[i].orderId;
+			const order = await orderService.getOrder(orderId);
+			// order.buyer가 user objectId 임
+			people.push(order.buyer);
+		}
 
-		// product schema에 reivew 추가
-		const productId = req.query.productId;
-		const newReviewId = newReview._id;
-		await productService.setProduct(productId, { review: newReviewId });
+		if (people.indexOf(userId) >= 0) {
+			// 위 데이터를 review db에 추가하기
+			const newReview = await reviewService.addReview({
+				comment,
+				starRate,
+				author: userId,
+			});
 
-		// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
-		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-		res.status(201).json(newReview);
+			// product schema에 reivew 추가
+			const newReviewId = newReview._id;
+			await productService.setProduct(productId, { review: newReviewId });
+
+			// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
+			// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
+			res.status(201).json(newReview);
+		} else {
+			throw new Error('제품을 구매한 사용자만 리뷰를 등록할 수 있습니다.');
+		}
 	} catch (error) {
 		next(error);
 	}
