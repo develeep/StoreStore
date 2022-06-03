@@ -2,6 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import { userService } from '../services/user-service';
 // const { setUserToken } = require('../utils/jwt');
 
 const authRouter = Router();
@@ -23,11 +24,17 @@ authRouter.get(
 	(req, res, next) => {
 		const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
+		if (req.body.email) {
+			const updatedUser = userService.setUser(req.user._id, {
+				email: req.body.email,
+			});
+		}
+
 		if (req.user.email === 'no_email') {
 			res.send(`<h2>이메일을 KAKAO에서 가져오지 못했습니다.</h2>
 			<h3>이메일은 필수입력사항이므로 이메일을 입력해주세요.</h3>
-			<form action="/auth/google/callback" method="get">
-			<input type="email" placeholder="abc@example.com" autocomplete="on"/>
+			<form action="/auth/kakao/callback" method="get">
+			<input type="email" name="email" placeholder="abc@example.com" autocomplete="on"/>
 			<input type="submit" value="이메일 전송">
 		  	</form>
 			`);

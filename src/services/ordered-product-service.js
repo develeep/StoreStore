@@ -8,6 +8,13 @@ class OrderedProductService {
 		this.orderedProductModel = orderedProductModel;
 	}
 
+	async findByProductId(productId) {
+		const orderedProducts = await this.orderedProductModel.findByProductId(
+			productId,
+		);
+		return orderedProducts;
+	}
+
 	//테스트
 	async findByOrderId(orderId) {
 		const orderedProducts = await this.orderedProductModel.findByOrderId(
