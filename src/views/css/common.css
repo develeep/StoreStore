@@ -6,6 +6,9 @@
 }
 
 body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	position: relative;
 	margin: 0;
 	font-size: 62.5%;
@@ -17,7 +20,9 @@ body {
 h1 {
 	margin: 0;
 }
-
+footer{
+	margin-top: auto;
+}
 ul {
 	margin: 0;
 	padding: 0;

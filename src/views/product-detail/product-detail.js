@@ -90,6 +90,7 @@ async function addCart() {
 	console.log(item.id);
 	cartItem.getStore('cart');
 	cartItem.add(item);
+	cartItem.update(item);
 	localStorage.setItem('cart', cartItem.valueOf());
 }
 
