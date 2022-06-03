@@ -79,7 +79,7 @@ async function cancelOrder() {
 }
 
 function getChangeStatus(orderId) {
-	const selectBox = getElement(`#${orderId}`); // select 박스
+	const selectBox = document.getElementById(orderId); // select 박스
 	const selectValue = selectBox.selectedOptions;
 	if (selectValue[0].label == '배송준비중') {
 		return '배송준비중';
@@ -106,7 +106,7 @@ async function saveStatus(e) {
 			location.reload();
 		}
 	} else {
-		const selectBox = getElement(`#${this.name}`);
+		const selectBox = document.getElementById(this.name);
 		selectBox.disabled = false;
 		this.innerHTML = '저장';
 	}
