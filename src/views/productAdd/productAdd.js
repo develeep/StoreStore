@@ -1,4 +1,8 @@
-import { getElement, getElementAll,checkLoginAdmin } from '/useful-functions.js';
+import {
+	getElement,
+	getElementAll,
+	checkLoginAdmin,
+} from '/useful-functions.js';
 import * as Api from '/api.js';
 
 const categorySelectBox = getElement('#categorySelectBox');

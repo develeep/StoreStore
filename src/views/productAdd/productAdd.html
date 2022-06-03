@@ -115,63 +115,74 @@
 
       <section>
         <div class="container">
-          <div id="title">
-            <h1>제품판매</h1>
-          </div>
-          <div>
-            <form action="/api/products" method="post" enctype="multipart/form-data" id="addForm">
-              <p>제품을 판매해 보세요</p>
-              <div>
-                <label for="titleInput">제품 이름</label>
-                <input type="text" name="name" id="titleInput" placeholder="아이보리 티셔츠">
+          <h1>제품판매</h1>
+          <div class="menu-container">
+            <form action="/api/products" method="post" enctype="multipart/form-data" id="addForm" class="menu-container">
+              <div class="field">
+                <label for="titleInput" class="label">제품 이름</label>
+                <div class="control">
+                <input type="text" name="name" id="titleInput" placeholder="아이보리 티셔츠" class="input"></div>
               </div>
-              <div>
-                <label for="categorySelectBox">카테고리</label>
-                <input id="Bcategory" type="text" readonly>
-                <input id="Scategory" name="Scategory" type="text" readonly>
-                <button type='button' id="modal_btn">모달창아 나와랏</button>
+              <div class="field">
+                <label for="categorySelectBox" class="label">카테고리</label>
+                <div class="control category">
+                  <input id="Bcategory" type="text"  class="input readonly" readonly>
+                  <input id="Scategory" name="Scategory" type="text"  class="input readonly" readonly>
+                  <button type='button' id="modal_btn" class="btn btn--gray">선택</button>
+                </div>
                 
                 <div class="modal_wrap">
-                  <div class="modal_close">
-                  <a href="#">close</a>
-                </div>
-                <div class="modal-box">
-                  <label for="">CATEGORY</label>
-                  <select name="" id="categorySelectBox"></select>
-                  <div>
-                    <ul id="ScategoyUl">
-                    </ul>
+                  <div class="modal-container">
+                    <div class="modal_close">
+                    <a href="#"><ion-icon name="close-outline"></ion-icon></a>
+                    </div>
+                    <div class="modal-box">
+                    <label for="categorySelectBox" class="label">CATEGORY</label>
+                    <select name="" id="categorySelectBox" class="input"></select>
+                    <div>
+                      <ul id="ScategoyUl">
+                      </ul>
+                    </div>
+                    </div>
                   </div>
                 </div>
-                </div>
               </div> 
-              <div>
-                <label for="manufacturerInput">제조사</label>
-                <input type="text" name="company" id="manufacturerInput" placeholder="OO의류제조(주)">
+              <div class="field">
+                <label for="manufacturerInput" class="label">제조사</label>
+                <div class="control">
+                  <input type="text" name="company" id="manufacturerInput" placeholder="OO의류제조(주)" class="input">
+                </div>
               </div>
-              <div>
-                <label for="descriptionInput">제품 설명</label>
-                <textarea type="textarea" name="description" id="descriptionInput" rows="3" placeholder="제품에 대한 설명을 적어 주세요."></textarea>
+              <div class="field">
+                <label for="descriptionInput" class="label">제품 설명</label>
+                <div class="control">
+                  <textarea type="textarea" name="description" id="descriptionInput" rows="3" placeholder="제품에 대한 설명을 적어 주세요." class="input textarea"></textarea>
+                </div>
               </div>
-              <div>
-                <label >이미지 미리보기</label>
-                <img alt="이미지를 등록해 주세요" id="imageViewr">
-                <label for="imageInput">제품 사진</label>
-                <input type="file" id="img" name="img" accept="image/*"> <!-- onchange="loadFile(this)">-->
+              <div class="field img">
+                <span class="label">상품 이미지</span>
+                <img id="imageViewr">
+                <div class="control">
+                  <label for="img">이미지 업로드</label>
+                 <input type="file" id="img" name="img" accept="image/*"> <!-- onchange="loadFile(this)">-->
+                </div>
               </div>
-              <div>
-                <label for="inventoryInput">재고 수</label>
-                <input type="number" name="inventory" id="inventoryInput" placeholder="10">
+              <div class="field">
+                <label for="inventoryInput" class="label">재고 수</label>
+                <div class="control price">
+                  <input type="number" name="inventory" id="inventoryInput" placeholder="10" class="input">
+                  <span>개</span>
+                </div>
               </div>
-              <div>
-                <label for="priceInput">가격</label>
-                <div>
-                  <input type="number" name="price" id="priceInput" placeholder="10000">
+              <div class="field">
+                <label for="priceInput" class="label">가격</label>
+                <div class="control price">
+                  <input type="number" name="price" id="priceInput" placeholder="10000" class="input">
                   <span>원</span>
                 </div>
               </div>
-              <div>
-                <input type="submit" value="제품 등록하기">
+              <div class="buttons">
+                <input type="submit" value="제품 등록하기" class="btn">
               </div>
             </form>
           </div>
