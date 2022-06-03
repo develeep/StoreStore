@@ -49,7 +49,7 @@ function delOldCart() {
 		console.log(newCarts);
 		localStorage.setItem('cart', JSON.stringify(newCarts));
 		localStorage.removeItem('order');
-		localStorage.setItem('check', JSON.stringify(false));
+		localStorage.removeItem('check');
 	}
 }
 
