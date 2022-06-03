@@ -50,16 +50,17 @@ productRouter.post('/carts', async (req, res, next) => {
 });
 
 // 해당 상품의 리뷰 가져오기
-productRouter.get('/reviews', async (req, res, next) => {
+productRouter.get('/reviews/:productId', async (req, res, next) => {
 	try {
 		const { productId } = req.params;
 		const product = await productService.getProductById(productId);
 		const starRateSum = product.starRateSum;
 		const reviewCount = product.reviewCount;
 		const reviewList = product.review;
+		const productStarRate = (starRateSum / reviewCount).toFixed(1);
 		// reviews 는 [{}, {}] 구조
 		const reviews = await reviewService.findByIds(reviewList);
-		const result = { starRateSum, reviewCount, reviews };
+		const result = { productStarRate, reviews };
 		res.status(200).json(result);
 	} catch (error) {
 		next(error);
