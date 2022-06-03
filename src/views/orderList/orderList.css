@@ -28,6 +28,11 @@
 	display: table-row;
 	font-weight: bold;
 	background-color: #e5e5e5;
+	position: sticky;
+	z-index: 100;
+	top: 88px;
+	height: 3rem;
+	font-size: 14px;
 }
 
 .orderTableRow {
