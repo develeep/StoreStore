@@ -23,48 +23,50 @@ async function getOrder() {
 	console.log(orders);
 	// - orderId, timeKor, buyer, product, priceSum, deliveryStatus
 	// - 주문취소버튼 추가
-	orders.forEach((obj) =>
-		orderTableTitle.insertAdjacentHTML(
-			'afterend',
-			`<div class="orderTableRow">
-        <div class="orderTableCell" id="orderNumber">${obj.orderId}</div>
-        <div class="orderTableCell" id="orderDate">${obj.timeKor}</div>
-        <div class="orderTableCell" id="orderBuyer">${obj.buyer.fullName}</div>
-        <div class="orderTableCell" id="orderProduct">${obj.product}</div>
-        <div class="orderTableCell" id="orderPriceSum">${addCommas(
-					obj.priceSum,
-				)}원</div>
-        <div class="orderTableCell" id="orderState">${obj.deliveryStatus}</div>
-        <div class="orderTableCell">
-          <div class="select">
-            <select class="requestSelectBox" id=${obj.orderId} disabled>
-              <option value="0">배송준비중</option>
-              <option value="1">배송중</option>
-              <option value="2">배송완료</option>
-            </select>
-            <button class="changeOrderStateButton" name=${
-							obj.orderId
-						}>수정</button>
-          </div>
-        </div>
-        <div class="buttons">
-        <button class="cancelOrderButton" name=${
-					obj.orderId
-				}>주문취소</button></div>
-      </div>
-      `,
-		),
-	);
-	const cancelOrderButtons = getElementAll('.cancelOrderButton');
-	const cancelButtonArray = [...cancelOrderButtons];
-	cancelButtonArray.forEach((btn) =>
-		btn.addEventListener('click', cancelOrder),
-	);
-	const saveOrderStatusButtons = getElementAll('.changeOrderStateButton');
-	const saveStatusButtonArray = [...saveOrderStatusButtons];
-	saveStatusButtonArray.forEach((btn) => {
-		btn.addEventListener('click', saveStatus);
-	});
+	orders.forEach((obj) => {
+		if (obj.buyer.fullName && obj.orderId) {
+			orderTableTitle.insertAdjacentHTML(
+				'afterend',
+				`<div class="orderTableRow">
+			<div class="orderTableCell" id="orderNumber">${obj.orderId}</div>
+			<div class="orderTableCell" id="orderDate">${obj.timeKor}</div>
+			<div class="orderTableCell" id="orderBuyer">${obj.buyer.fullName}</div>
+			<div class="orderTableCell" id="orderProduct">${obj.product}</div>
+			<div class="orderTableCell" id="orderPriceSum">${addCommas(
+						obj.priceSum,
+					)}원</div>
+			<div class="orderTableCell" id="orderState">${obj.deliveryStatus}</div>
+			<div class="orderTableCell">
+			  <div class="select">
+				<select class="requestSelectBox" id=${obj.orderId} disabled>
+				  <option value="0">배송준비중</option>
+				  <option value="1">배송중</option>
+				  <option value="2">배송완료</option>
+				</select>
+				<button class="changeOrderStateButton" name=${
+								obj.orderId
+							}>수정</button>
+			  </div>
+			</div>
+			<div class="buttons">
+			<button class="cancelOrderButton" name=${
+						obj.orderId
+					}>주문취소</button></div>
+			</div>
+			`,
+			)
+			const cancelOrderButtons = getElementAll('.cancelOrderButton');
+			const cancelButtonArray = [...cancelOrderButtons];
+			cancelButtonArray.forEach((btn) =>
+				btn.addEventListener('click', cancelOrder),
+			);
+			const saveOrderStatusButtons = getElementAll('.changeOrderStateButton');
+			const saveStatusButtonArray = [...saveOrderStatusButtons];
+			saveStatusButtonArray.forEach((btn) => {
+				btn.addEventListener('click', saveStatus);
+			});	
+		}
+	})
 }
 
 async function cancelOrder() {
