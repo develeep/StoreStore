@@ -8,6 +8,7 @@ import {
 	orderRouter,
 	reviewRouter,
 	emailRouter,
+	authRouter,
 } from './routers';
 import { errorHandler } from './middlewares';
 import passport from 'passport';
@@ -26,8 +27,13 @@ app.use(express.json());
 // Content-Type: application/x-www-form-urlencoded 형태의 데이터를 인식하고 핸들링할 수 있게 함.
 app.use(express.urlencoded({ extended: false }));
 
+// passport 초기화
+app.use(passport.initialize());
+
 // html, css, js 라우팅
 app.use(viewsRouter);
+
+app.use('/auth', authRouter);
 
 // api 라우팅
 // 아래처럼 하면, userRouter 에서 '/login' 으로 만든 것이 실제로는 앞에 /api가 붙어서

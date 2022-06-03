@@ -1,5 +1,5 @@
 import { Strategy as LocalStrategy } from 'passport-local';
-import { userModel } from '../../db/models/user-model';
+import { userModel } from '../../db';
 const hashPassword = require('../../utils/hash-password');
 
 const config = {
