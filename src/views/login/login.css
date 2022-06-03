@@ -66,5 +66,26 @@ input:-webkit-autofill {
 .login-form-box > .btn {
 	max-width: 100%;
 	min-width: 100%;
-	margin: 1.5rem;
+	margin: 1.5rem 0 1rem;
+}
+.login-form-box .outhLogin {
+	max-width: 100%;
+	min-width: 100%;
+	position: relative;
+}
+.login-form-box .outhLogin > .btn {
+	max-width: 100%;
+	min-width: 100%;
+	border: 1px solid #db4437;
+}
+.login-form-box .outhLogin > .btn:hover {
+	background-color: #db4437;
+}
+.login-logo {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 5px;
+	left: 8px;
+	margin: auto 0;
 }
