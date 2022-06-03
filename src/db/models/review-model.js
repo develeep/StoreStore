@@ -12,7 +12,9 @@ export class ReviewModel {
 	async findByIds(objectIdList) {
 		const reviews = await Review.find({
 			$or: objectIdList,
-		}).sort({ createdAt: -1 });
+		})
+			.populate('author')
+			.sort({ createdAt: -1 });
 		return reviews;
 	}
 
