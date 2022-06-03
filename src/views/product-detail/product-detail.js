@@ -3,7 +3,13 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
-import { getElement, getElementAll,addCommas,createElement } from '/useful-functions.js';
+import {
+	randomId,
+	getElement,
+	getElementAll,
+	addCommas,
+	createElement,
+} from '/useful-functions.js';
 
 const productImageTag = getElement('#productImageTag');
 const manufacturerTag = getElement('#manufacturerTag');
@@ -79,21 +85,25 @@ async function addToCart() {
 }
 
 async function addCart() {
-	const productId = localStorage.getItem('productId');
-	const productData = await Api.get('/api/product', productId);
-	const item = {
-		// 테스트용. 추후 변수명 수정
-		src: productData.imageUrl,
-		product: productData.name,
-		price: productData.price,
-		num: 1,
-		id: productId,
-	};
-	console.log(item.id);
-	cartItem.getStore('cart');
-	cartItem.add(item);
-	cartItem.update(item);
-	localStorage.setItem('cart', cartItem.valueOf());
+	try {
+		const productId = localStorage.getItem('productId');
+		const productData = await Api.get('/api/product', productId);
+		const item = {
+			// 테스트용. 추후 변수명 수정
+			src: productData.imageUrl,
+			product: productData.name,
+			price: productData.price,
+			num: 1,
+			id: productId,
+		};
+		console.log(item.id);
+		cartItem.getStore('cart');
+		cartItem.add(item);
+		cartItem.update(item);
+		localStorage.setItem('cart', cartItem.valueOf());
+	} catch (err) {
+		swal(err.message);
+	}
 }
 
 async function purchase() {
@@ -106,7 +116,7 @@ async function purchase() {
 }
 
 const radio = document.querySelector('#comment-form');
-radio.addEventListener('submit', (e) => {
+radio.addEventListener('submit', async (e) => {
 	e.preventDefault();
 
 	let star = '';
@@ -121,89 +131,93 @@ radio.addEventListener('submit', (e) => {
 		swal('평점을 선택해주세요');
 		return;
 	}
-	try{
-		const reviewComment = getElement('#comment-input')
-		const productId = localStorage.getItem('productId')
+	try {
+		const reviewComment = getElement('#comment-input');
+		const productId = localStorage.getItem('productId');
 
 		const reviewObj = {
-			comment : reviewComment.value,
-			starRate : star,
-			productId : productId,
-		} 
-		const review = Api.post('/api/reviews',reviewObj)
+			comment: reviewComment.value,
+			starRate: star,
+			productId: productId,
+		};
+		const review = await Api.post('/api/reviews', reviewObj);
 		console.log(review);
 
 		renderReview();
-	}catch(err){
-		swal(err.message).then(()=>{
+	} catch (err) {
+		swal(err.message).then(() => {
 			return;
-		})
+		});
 	}
 });
 
-
 async function renderReview() {
-	try{
-	const productId = localStorage.getItem('productId')
-	const fetchData = await Api.get('/api/reviews',productId)
-	const reviews = fetchData.reviews;
+	try {
+		const productId = localStorage.getItem('productId');
+		const fetchData = await Api.get('/api/reviews', productId);
+		if (fetchData.hasReview) {
+			console.log('no review');
+			return;
+		}
+		const reviews = fetchData.sendReviews;
 
-	const container = getElement('.container')
-	const beforeCommentList = getElement('.comment-list')
-	if(beforeCommentList){
-		beforeCommentList.remove();
+		const container = getElementAll('.container')[1];
+		const beforeCommentList = getElement('.comment-list');
+		if (beforeCommentList) {
+			beforeCommentList.remove();
+		}
+
+		const commentList = createElement('div');
+		commentList.classList.add('comment-list');
+
+		reviews.forEach((review) => {
+			const reviewTable = addReviewTable(review);
+			commentList.append(reviewTable);
+		});
+
+		container.append(commentList);
+	} catch (err) {
+		swal(err.message).then(() => {
+			return;
+		});
 	}
-
-	const commentList = createElement('div')
-	commentList.classList.add('comment-list')
-
-	reviews.forEach((review)=>{
-		const reviewTable = addReviewTable(review)
-		commentList.append(reviewTable)
-	})
-
-	container.append(commentList)
-
-}catch(err){
-	swal(err.message).then(()=>{
-		return
-	})
-}
 }
 
 function addReviewTable(review) {
-	const commentItemBox = createElement('div')
-	const nameStar = createElement('div')
-	const comment = createElement('div')
+	const commentItemBox = createElement('div');
+	const nameStar = createElement('div');
+	const comment = createElement('input');
 
-	commentItemBox.classList.add('comment-item-box')
-	nameStar.classList.add('name-star')
-	comment.classList.add('comment')
+	commentItemBox.classList.add('comment-item-box');
+	nameStar.classList.add('name-star');
+	comment.classList.add('comment');
 
-	const commentUser = createElement('p')
-	commentUser.classList.add('comment-item-username')
-	commentUser.textContent = review.author
-	
-	const ratingStar = createElement('div')
-	ratingStar.classList.add('rating-item')
+	const commentUser = createElement('p');
+	commentUser.classList.add('comment-item-username');
+	commentUser.textContent = review.author;
 
-	for(let i = 5;i>0;i--){
-		const inputRadio = createElement('input')
-		inputRadio.type = 'radio'
-		inputRadio.name = 'rating'
-		inputRadio.id = `rating-${i}`
-		inputRadio.disabled = true
-		if(i===review.starRate){
-			inputRadio.checked = true;
+	const ratingStar = createElement('div');
+	ratingStar.classList.add('rating-item');
+
+	const id = randomId();
+	for (let i = 5; i > 0; i--) {
+		const inputRadio = createElement('input');
+		const label = createElement('label');
+		inputRadio.type = 'radio';
+		inputRadio.name = `rating-${id}`;
+		inputRadio.id = `rating-${i}`;
+		// inputRadio.disabled = 'true'
+		if (i === Number(review.starRate)) {
+			inputRadio.checked = 'true';
 		}
-		ratingStar.append(inputRadio)
+		ratingStar.append(inputRadio, label);
 	}
 
-	comment.value = review.comment
-	comment.disabled = true;
+	comment.value = review.comment;
+	// comment.disabled="true"
 
-	nameStar.append(commentUser,ratingStar)
-	commentItemBox.append(nameStar,comment)
+	nameStar.append(commentUser, ratingStar);
+	commentItemBox.append(nameStar, comment);
 
 	return commentItemBox;
 }

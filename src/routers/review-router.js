@@ -53,8 +53,11 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 		for (let i = 0; i < orderedProducts.length; i++) {
 			const orderId = orderedProducts[i].orderId;
 			const order = await orderService.getOrder(orderId);
+			console.log(order);
 			// order.buyer가 user objectId 임
-			people.push(order.buyer);
+			if (order) {
+				people.push(order.buyer);
+			}
 		}
 		for (let i = 0; i < people.length; i++) {
 			people[i] = people[i].toString();
