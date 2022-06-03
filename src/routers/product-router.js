@@ -57,10 +57,28 @@ productRouter.get('/reviews/:productId', async (req, res, next) => {
 		const starRateSum = product.starRateSum;
 		const reviewCount = product.reviewCount;
 		const reviewList = product.review;
-		const productStarRate = (starRateSum / reviewCount).toFixed(1);
+		let findReviewList = [];
+		let productStarRate;
+		for (let i = 0; i < reviewList.length; i++) {
+			findReviewList.push({ _id: reviewList[i] });
+		}
+		if (starRateSum === 0 || reviewCount == 0) {
+			productStarRate = 0;
+		} else {
+			productStarRate = (starRateSum / reviewCount).toFixed(1);
+		}
 		// reviews 는 [{}, {}] 구조
-		const reviews = await reviewService.findByIds(reviewList);
-		const result = { productStarRate, reviews };
+		const reviews = await reviewService.findByIds(findReviewList);
+		let sendReviews = [];
+		for (let i = 0; i < reviews.length; i++) {
+			sendReviews.push({
+				comment: reviews[i].comment,
+				starRate: reviews[i].starRate,
+				createdAt: reviews[i].createdAt,
+				author: reviews[i].author.fullName,
+			});
+		}
+		const result = { productStarRate, sendReviews };
 		res.status(200).json(result);
 	} catch (error) {
 		next(error);
