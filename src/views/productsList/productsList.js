@@ -1,6 +1,12 @@
 import * as Api from '/api.js';
 import { renderGnb } from '/renderGnb.js';
-import { getElement, getElementAll, createElement,checkLoginAdmin,addCommas } from '/useful-functions.js';
+import {
+	getElement,
+	getElementAll,
+	createElement,
+	checkLoginAdmin,
+	addCommas,
+} from '/useful-functions.js';
 
 checkLoginAdmin();
 addAllElements();
@@ -15,7 +21,6 @@ async function addAllElements() {
 function addAllEvents() {}
 
 async function getProducts() {
-	
 	const items = await Api.get('/api/productswithcategory');
 	const products = [...items];
 	console.log(products);
@@ -28,7 +33,7 @@ async function getProducts() {
 	const productItemBox = createElement('ul');
 	productItemBox.classList.add('product-items-box');
 
-	products.forEach(async(product) => {
+	products.forEach(async (product) => {
 		const item = renderProducts(product);
 		productItemBox.append(item);
 	});
@@ -62,7 +67,7 @@ function renderProducts(object) {
 	productId.textContent = object.productId;
 	productName.textContent = object.name;
 	productCategory.textContent = object.category.name;
-	productPrice.textContent = addCommas(object.price)+'원';
+	productPrice.textContent = addCommas(object.price) + '원';
 	productAmount.textContent = object.inventory;
 	productSales.textContent = object.salesRate;
 	productCompany.textContent = object.company;
@@ -78,18 +83,17 @@ function renderProducts(object) {
 	updateBtn.append(updateIcon);
 	delBtn.append(delIcon);
 
-
-	updateBtn.addEventListener('click',()=>{
-		location.href = `/admin/productUpdate?productId=${object.productId}`
-	})
+	updateBtn.addEventListener('click', () => {
+		location.href = `/admin/productUpdate?productId=${object.productId}`;
+	});
 	delBtn.addEventListener('click', async () => {
 		try {
 			const del = await Api.delete('/api/products', '', {
 				productId: object.productId,
-				imageKey:object.imageKey,
+				imageKey: object.imageKey,
 			});
 			if (del.status === 'ok') {
-				console.log(del)
+				console.log(del);
 				swal('삭제가 완료되었습니다.').then(() => {
 					getProducts();
 				});
