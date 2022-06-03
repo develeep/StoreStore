@@ -72,13 +72,23 @@ input:-webkit-autofill {
 	max-width: 100%;
 	min-width: 100%;
 	position: relative;
+	margin-bottom: 1rem;
 }
-.login-form-box .outhLogin > .btn {
+.login-form-box .outhLogin > .kakaoLogin.btn {
+	max-width: 100%;
+	min-width: 100%;
+	border: 1px solid #fee500;
+}
+.login-form-box .outhLogin > .kakaoLogin.btn:hover {
+	background-color: #fee500;
+	color: #191919;
+}
+.login-form-box .outhLogin > .googleLogin.btn {
 	max-width: 100%;
 	min-width: 100%;
 	border: 1px solid #db4437;
 }
-.login-form-box .outhLogin > .btn:hover {
+.login-form-box .outhLogin > .googleLogin.btn:hover {
 	background-color: #db4437;
 }
 .login-logo {
