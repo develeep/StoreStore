@@ -43,11 +43,11 @@ async function getProductInfo() {
 	}
 }
 
-function addToCart() {
+async function addToCart() {
 	// 장바구니에 담고 (장바구니 데이터 추가)
 	try {
 		// await Api.patch("/api/update", "", )
-		addCart();
+		await addCart();
 		// await Api.patch("/api/update","", item_lsd2TYkEnNLNgUXwszw5K);
 	} catch (err) {
 		console.error(err.stack);
@@ -90,12 +90,13 @@ async function addCart() {
 	console.log(item.id);
 	cartItem.getStore('cart');
 	cartItem.add(item);
+	cartItem.update(item);
 	localStorage.setItem('cart', cartItem.valueOf());
 }
 
-function purchase() {
+async function purchase() {
 	// 구매 페이지로 이동
-	addCart();
+	await addCart();
 	const cart = cartItem.find(localStorage.getItem('productId'));
 	const arr = [cart];
 	localStorage.setItem('order', JSON.stringify(arr));

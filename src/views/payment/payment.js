@@ -21,11 +21,13 @@ order.getStore('order');
 addAllEvents();
 addAllElements();
 
-function addAllElements() {}
-
-function addAllEvents() {
+function addAllElements() {
 	getOrder();
 	getUserInfo();
+}
+
+function addAllEvents() {
+
 	const checkOutButton = document.querySelector('#checkoutButton');
 	// 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
 	checkOutButton.addEventListener('click', payment);
@@ -61,6 +63,11 @@ async function getUserInfo() {
 // 장바구니 랜더링
 function getOrder() {
 	const orderCart = JSON.parse(localStorage.getItem('order'));
+	if(!orderCart){
+		swal('장바구니가 비어있습니다.').then(()=>{
+			location.href = '/'
+		})
+	}
 	const cartBox = getElement('.cart-product-box');
 
 	const cartList = document.createElement('ul');
@@ -214,6 +221,7 @@ async function payment(e) {
 		};
 		const result = await Api.post('/api/orders', data);
 		console.log(result);
+		localStorage.setItem('check',JSON.stringify(true))
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {
 		swal(`${err.message}`);
