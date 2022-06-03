@@ -8,3 +8,4 @@ export * from './product-router';
 export * from './order-router';
 export * from './review-router';
 export * from './emailauth-router';
+export * from './auth-router';

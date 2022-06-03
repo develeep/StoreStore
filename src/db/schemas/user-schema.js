@@ -40,6 +40,10 @@ const UserSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		provider: {
+			type: String,
+			required: false,
+		},
 	},
 	{
 		collection: 'users',

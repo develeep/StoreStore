@@ -14,6 +14,7 @@ addAllEvents();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	registerBtn();
+	isLoginned();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -41,7 +42,7 @@ function resetPassword(e) {
 			swal({
 				icon: 'success',
 				title: '해당 메일로 임시 비밀번호가 발송되었습니다',
-				text:'로그인 후 비밀번호를 변경해 주세요.',
+				text: '로그인 후 비밀번호를 변경해 주세요.',
 			});
 		} catch (err) {
 			swal(err.message);
@@ -99,5 +100,17 @@ async function handleSubmit(e) {
 	} catch (err) {
 		console.error(err.stack);
 		swal(err.message);
+	}
+}
+
+async function isLoginned() {
+	let url = window.location.search;
+	if (url.indexOf('token') >= 0) {
+		url = url.replace('?', '');
+		let decodedUrl = decodeURIComponent(url);
+		let c = decodedUrl.split('=');
+		const token = c[1];
+		localStorage.setItem('token', token);
+		window.location.href = '/';
 	}
 }
