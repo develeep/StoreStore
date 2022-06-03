@@ -84,14 +84,15 @@
 .showModal {
 	display: block !important;
 	position: fixed;
-	top: 20%;
-	left: 25%;
 	/* top: calc(50vh - 200px); */
 	/* left: calc(50vw - 200px); */
 	background-color: white;
 	text-align: center;
 	width: 600px;
 	height: 550px;
+	top: 50%;
+	left: 50%;
+  transform: translateX( -50% ) translateY( -50% );
 }
 
 .modalDialog {
