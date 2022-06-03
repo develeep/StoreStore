@@ -8,10 +8,19 @@ class OrderedProductService {
 		this.orderedProductModel = orderedProductModel;
 	}
 
+	async findByProductId(productId) {
+		const orderedProducts = await this.orderedProductModel.findByProductId(
+			productId,
+		);
+		return orderedProducts;
+	}
+
 	//테스트
 	async findByOrderId(orderId) {
-		const orders = await this.orderedProductModel.findByOrderId(orderId);
-		return orders;
+		const orderedProducts = await this.orderedProductModel.findByOrderId(
+			orderId,
+		);
+		return orderedProducts;
 	}
 
 	// 주문상품목록 추가

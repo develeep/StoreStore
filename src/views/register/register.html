@@ -15,7 +15,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap"
 			rel="stylesheet"
 		/>
 
@@ -42,90 +42,103 @@
 	</head>
 	<body>
 		<!-- 헤더 -->
-		<div class="sub-menu">
-			<!-- 회원가입,로그인 -->
-			<ul id="navbar" class="navbar"></ul>
-		  </div>
-		  <div class="container-box">
-			<div class="headerLeft">
+		<header>
+			<div class="sub-menu">
+				<!-- 회원가입,로그인 -->
+				<ul id="navbar" class="navbar"></ul>
 			</div>
-			<h1 class="logo"><a href="/">StoreStore</a></h1>
-			<div class="headerRight">
-			  <!-- 장바구니 -->
+			<div class="container-box">
+				<div class="headerLeft"></div>
+				<h1 class="logo"><a href="/">StoreStore</a></h1>
+				<div class="headerRight">
+					<!-- 장바구니 -->
+				</div>
 			</div>
-		  </div>
 		</header>
 
 		<!-- 회원가입 폼(Form) -->
 		<div class="register-user-form-container">
-			<form class="box register-user-form-box" id="registerUserForm">
-				<p class="title is-5 has-text-primary">환영합니다!</p>
-				<div class="field">
-					<label class="label" for="fullNameInput">이름</label>
-					<div class="control">
-						<input
-							class="input"
-							id="fullNameInput"
-							type="text"
-							placeholder="유재석"
-							autocomplete="on"
-						/>
+			<form class="register-user-form-box" id="registerUserForm">
+				<p>회원가입</p>
+				<div class="inner">
+					<div class="field">
+						<label class="label" for="fullNameInput">이름</label>
+						<div class="control">
+							<input
+								class="input"
+								id="fullNameInput"
+								type="text"
+								placeholder="유재석"
+								autocomplete="on"
+							/>
+						</div>
+						<div class="fail-message hide" id="failname-message">
+							이름은 2글자 이상이어야 합니다.
+						</div>
 					</div>
-					<div class="failname-message hide">
-						이름은 2글자 이상이어야 합니다.
+
+					<div class="field">
+						<label class="label" for="emailInput">이메일</label>
+						<div class="control">
+							<input
+								class="input"
+								id="emailInput"
+								type="email"
+								placeholder="abc@example.com"
+								autocomplete="on"
+							/>
+						</div>
+						<div class="fail-message hide" id="failemail-message">
+							이메일 형식이 맞지 않습니다.
+						</div>
+						<div class="success-message hide">
+							이메일 인증이 완료되었습니다.
+						</div>
+						<button id="send-email-button" class="btn btn--gray">
+							인증요청
+						</button>
+					</div>
+
+					<div class="field">
+						<label class="label" for="passwordInput">비밀번호</label>
+						<div class="control">
+							<input
+								class="input"
+								id="passwordInput"
+								type="password"
+								placeholder="********"
+								autocomplete="off"
+							/>
+						</div>
+						<div class="fail-message hide" id="failpass-message">
+							비밀번호는 4글자 이상이어야 합니다.
+						</div>
+					</div>
+
+					<div class="field mb-5">
+						<label class="label" for="passwordConfirmInput"
+							>비밀번호 확인</label
+						>
+						<div class="control">
+							<input
+								class="input"
+								id="passwordConfirmInput"
+								type="password"
+								placeholder="********"
+								autocomplete="off"
+							/>
+						</div>
+						<div class="fail-message hide" id="misspass-message">
+							비밀번호가 일치하지 않습니다
+						</div>
 					</div>
 				</div>
 
-				<div class="field">
-					<label class="label" for="emailInput">이메일</label>
-					<div class="control">
-						<input
-							class="input"
-							id="emailInput"
-							type="email"
-							placeholder="abc@example.com"
-							autocomplete="on"
-						/>
-					</div>
-					<div class="failemail-message hide">이메일 형식이 맞지 않습니다.</div>
-					<div class="success-message hide">이메일 인증이 완료되었습니다.</div>
-					<button id="send-email-button">인증요청</button>
-				</div>
-
-				<div class="field">
-					<label class="label" for="passwordInput">비밀번호</label>
-					<div class="control">
-						<input
-							class="input"
-							id="passwordInput"
-							type="password"
-							placeholder="********"
-							autocomplete="off"
-						/>
-					</div>
-					<div class="failpass-message hide">
-						비밀번호는 4글자 이상이어야 합니다.
-					</div>
-				</div>
-
-				<div class="field mb-5">
-					<label class="label" for="passwordConfirmInput">비밀번호 확인</label>
-					<div class="control">
-						<input
-							class="input"
-							id="passwordConfirmInput"
-							type="password"
-							placeholder="********"
-							autocomplete="off"
-						/>
-					</div>
-					<div class="misspass-message hide">비밀번호가 일치하지 않습니다</div>
-				</div>
-
-				<button class="button is-primary is-fullwidth" id="submitButton">
-					회원가입하기
-				</button>
+				<button class="btn" id="submitButton">회원가입하기</button>
 			</form>
 		</div>
+		<footer>
+			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+		</footer>
 	</body>
 </html>

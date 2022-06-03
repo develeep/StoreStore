@@ -1,55 +1,177 @@
 import * as Api from '/api.js';
+import {
+	getElement,
+	getElementAll,
+	createElement,
+	addCommas,
+} from '/useful-functions.js';
 
-const inputProduct = document.getElementById('inputProduct');
-const currentPage = document.getElementById('currentPage');
-const rankedproducts = document.getElementById('rankedproducts');
+const inputProduct = getElement('#inputProduct');
+const currentPage = getElement('#currentPage');
 
 const getCategories = await Api.get('/api/categories');
 
+const intersectionoObserver = new IntersectionObserver(
+	async (entries) => {
+		if (entries.some((entry) => entry.intersectionRatio > 0)) {
+			await makeCategory();
+			entries[0].target.remove();
+			const loadingBox = getElement('#loading-box');
+			loadingBox.remove();
+		}
+	},
+	{
+		rootMargin: '50px',
+	},
+);
+
+const testObserve = new IntersectionObserver(
+	(entries) => {
+		entries.forEach((entry, index) => {
+			entry.target.style.opacity = (entry.intersectionRatio * 10).toFixed(2);
+			if (entry.isIntersecting) {
+				entry.target.style.visibility = 'visible';
+			} else {
+				entry.target.style.visibility = 'hidden';
+			}
+		});
+	},
+	{
+		threshold: [...new Array(1000).fill(0).map((_, i) => i * 0.001), 1],
+		rootMargin: '-150px 0px -30px 0px',
+		// threshold:0
+	},
+);
+
+let limit = 0;
+
 let params = location.href.split('/');
 params = params[params.length - 2];
-// console.log(params);
-const getProductCategory = await Api.get(`/api/productCategory`, params);
 const paramsKR = decodeURIComponent(params);
 
 addAllElements();
 
 async function addAllElements() {
-	makeCategory();
 	makeCurrentPage();
+	await makeCategory();
 }
 
-function makeCategory() {
-	if (getProductCategory.length === 0) {
-		rankedproducts.innerHTML += `<div class="nullcategory" id="nullcategory">등록된 상품이 없습니다.</div>`;
-	} else {
-		for (let i = 0; i < getProductCategory.length; i++) {
-			const image = getProductCategory[i].imageUrl;
-			const seller = getProductCategory[i].company;
-			const productDescription = getProductCategory[i].name;
-			const price = getProductCategory[i].price;
-			const productId = getProductCategory[i].productId;
-			//원화 변경
-			const priceKRW = price.toLocaleString('ko-KR');
+async function getProducts(limit) {
+	const products = await Api.get(
+		`/api/categorynext8products`,
+		`${paramsKR}?page=${limit}`,
+	);
+	return [...products];
+}
 
-			// onclick = localStorage.setItem('productId',productId); location.href = '/product-detail'
-			inputProduct.innerHTML += `<div onclick="localStorage.setItem('productId','${productId}'); 
-			location.href = '/product-detail/${productId}';" class="product-item" id="product-item">
-		<div class="image-box">
-			<img src="${image}" alt="${productDescription}" id="productImage">
-		</div>
-		<div class="description">
-			<div class="detail">
-				<div id="seller">${seller}</div>
-				<div id="productDescription">${productDescription}</div>
-			</div>
-		<div class="price">
-			<div id="productPrice">${priceKRW}원</div>
-		</div>
-		</div>
-		</div>`;
+function delBeforeLoading() {
+	const loadingBoxBefore = getElement('#loading-box');
+	if (limit < 1) {
+		loadingBoxBefore.remove();
+	}
+}
+
+async function makeCategory() {
+	delBeforeLoading();
+	console.log(limit);
+
+	const Products = await getProducts(limit++);
+
+	if (Products.length > 0) {
+		const inputProductBox = createElement('div');
+		inputProductBox.classList.add('inputProduct', 'productBox', `box${limit}`);
+
+		Products.forEach((product, index) => {
+			const item = renderProductItem(product);
+			inputProductBox.append(item);
+		});
+		const scrollDiv = createElement('div');
+
+		const lodingBox = renderLoadingBox();
+
+		inputProduct.append(inputProductBox, scrollDiv, lodingBox);
+
+		observing(limit);
+		intersectionoObserver.observe(scrollDiv);
+	} else {
+		const productBoxFind = getElement('.productBox');
+		if (!productBoxFind) {
+			inputProduct.append(renderNoneCategory());`	`
 		}
 	}
+}
+
+function observing(limit) {
+	console.log('observing');
+	const product = getElement(`.box${limit}`);
+	testObserve.observe(product);
+}
+
+function renderLoadingBox() {
+	const lodingBox = createElement('div');
+	lodingBox.id = 'loading-box';
+	const loding = createElement('div');
+	loding.classList.add('lds-ring');
+	const div = createElement('div');
+	loding.append(div, div, div, div);
+	lodingBox.append(loding);
+	return lodingBox;
+}
+
+function renderNoneCategory() {
+	const nullBox = createElement('div');
+	nullBox.classList.add('nullcategory');
+	nullBox.id = 'nullcategory';
+	nullBox.textContent = '등록된 상품이 없습니다.';
+	return nullBox;
+}
+
+function renderProductItem(product) {
+	const productItem = createElement('div');
+	productItem.classList.add('product-item');
+	productItem.id = 'product-item';
+
+	const imageBox = createElement('div');
+	const img = createElement('img');
+	imageBox.classList.add('image-box');
+	img.id = 'productImage';
+	img.alt = product.name;
+	img.src = product.imageUrl;
+	imageBox.append(img);
+
+	const descriptionBox = createElement('div');
+	descriptionBox.classList.add('description');
+
+	const detailBox = createElement('div');
+	detailBox.classList.add('detail');
+
+	const seller = createElement('div');
+	seller.id = 'seller';
+	seller.textContent = product.company;
+	const productDescription = createElement('div');
+	productDescription.classList.add('productDescription');
+	productDescription.textContent = product.name;
+	detailBox.append(seller, productDescription);
+
+	const priceBox = createElement('div');
+	priceBox.classList.add('price');
+
+	const price = createElement('div');
+	price.id = 'productPrice';
+	price.textContent = `${addCommas(product.price)}원`;
+	priceBox.append(price);
+
+	productItem.append;
+
+	descriptionBox.append(detailBox, priceBox);
+	productItem.append(imageBox, descriptionBox);
+
+	productItem.addEventListener('click', () => {
+		localStorage.setItem('productId', product.productId);
+		location.href = `/product-detail/${product.productId}`;
+	});
+
+	return productItem;
 }
 
 function makeCurrentPage() {

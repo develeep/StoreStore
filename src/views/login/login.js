@@ -6,6 +6,7 @@ const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const submitButton = document.querySelector('#submitButton');
 const navBar = document.querySelector('#navbar');
+const passwordResetBtn = document.querySelector('#passwordFind');
 
 addAllElements();
 addAllEvents();
@@ -13,11 +14,40 @@ addAllEvents();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	registerBtn();
+	isLoginned();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
 	submitButton.addEventListener('click', handleSubmit);
+	passwordResetBtn.addEventListener('click', resetPassword);
+}
+
+function resetPassword(e) {
+	e.preventDefault();
+	swal({
+		title: '비밀번호 찾기',
+		text: '이메일을 입력해 주세요',
+		content: 'input',
+		button: {
+			text: '인증하기',
+			closeModal: false,
+		},
+	}).then(async (result) => {
+		try {
+			const resetPass = await Api.post('/api/reset-password', {
+				email: result,
+			});
+			console.log({ email: result });
+			swal({
+				icon: 'success',
+				title: '해당 메일로 임시 비밀번호가 발송되었습니다',
+				text: '로그인 후 비밀번호를 변경해 주세요.',
+			});
+		} catch (err) {
+			swal(err.message);
+		}
+	});
 }
 
 function registerBtn() {
@@ -64,11 +94,23 @@ async function handleSubmit(e) {
 			if (beforeURI) {
 				location.href = beforeURI;
 			} else {
-				location.href = '/'
+				location.href = '/';
 			}
 		});
 	} catch (err) {
 		console.error(err.stack);
 		swal(err.message);
+	}
+}
+
+async function isLoginned() {
+	let url = window.location.search;
+	if (url.indexOf('token') >= 0) {
+		url = url.replace('?', '');
+		let decodedUrl = decodeURIComponent(url);
+		let c = decodedUrl.split('=');
+		const token = c[1];
+		localStorage.setItem('token', token);
+		window.location.href = '/';
 	}
 }

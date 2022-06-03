@@ -9,6 +9,11 @@ export class OrderProductModel {
 		return orderedProducts;
 	}
 
+	async findByProductId(productId) {
+		const orderedProducts = await OrderedProduct.find({ product: productId });
+		return orderedProducts;
+	}
+
 	async create(orderInfo) {
 		const createdNewOrderedProduct = await OrderedProduct.create(orderInfo);
 		return createdNewOrderedProduct;

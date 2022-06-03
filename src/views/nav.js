@@ -9,9 +9,21 @@ async function addAllElements() {
 }
 
 // navbar 데이터 가져오기
+const searchForm = document.querySelector('.searchForm');
 const getCategories = await Api.get('/api/categories');
 const categories = document.querySelector('#nav-list');
+// console.log(getCategories);
 
+searchForm.addEventListener('submit', searchData);
+
+
+async function searchData(e) {
+		e.preventDefault();
+	
+		const searchInput = e.target.searchBar.value
+		const query = encodeURIComponent(searchInput)
+		location.href = `/search?searchInput=${query}`
+}
 Object.entries(getCategories).forEach(([key, value]) => {
 	let itemList = '';
 

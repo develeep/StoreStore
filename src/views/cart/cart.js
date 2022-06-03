@@ -4,15 +4,27 @@ import { renderGnb } from '/renderGnb.js';
 import { Cart } from '/CartClass.js';
 import { getElement, getElementAll } from '/useful-functions.js';
 
+await deleteNullCart();
 const newCart = new Cart();
 const orderCart = new Cart();
 orderCart.getStore('cart');
 localStorage.setItem('order', orderCart.valueOf());
 
 addAllElements();
-
 addAllEvents();
 
+async function deleteNullCart() {
+	const beforeCart = JSON.parse(localStorage.getItem('cart'));
+	if (beforeCart) {
+		const body = { cartProducts: beforeCart };
+		const delCart = await Api.post('/api/carts', body);
+		if (delCart.length === 0) {
+			localStorage.removeItem('cart');
+			return;
+		}
+		localStorage.setItem('cart', JSON.stringify(delCart));
+	}
+}
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
 	getCart();

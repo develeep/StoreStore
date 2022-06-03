@@ -23,7 +23,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap"
 			rel="stylesheet"
 		/>
 
@@ -90,9 +90,25 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<a href="/cart" aria-current="page">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-								</a>
+								<form class="searchForm">
+									<div class="search">
+										<input type="text" placeholder=" " name="searchBar">
+										<div>
+												<svg>
+														<use xlink:href="#path">
+												</svg>
+										</div>
+																</div>
+								</form>
+									
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+									<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" id="path">
+											<path d="M32.9418651,-20.6880772 C37.9418651,-20.6880772 40.9418651,-16.6880772 40.9418651,-12.6880772 C40.9418651,-8.68807717 37.9418651,-4.68807717 32.9418651,-4.68807717 C27.9418651,-4.68807717 24.9418651,-8.68807717 24.9418651,-12.6880772 C24.9418651,-16.6880772 27.9418651,-20.6880772 32.9418651,-20.6880772 L32.9418651,-29.870624 C32.9418651,-30.3676803 33.3448089,-30.770624 33.8418651,-30.770624 C34.08056,-30.770624 34.3094785,-30.6758029 34.4782612,-30.5070201 L141.371843,76.386562" transform="translate(83.156854, 22.171573) rotate(-225.000000) translate(-83.156854, -22.171573)"></path>
+									</symbol>
+							</svg>
+							<a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
 							</li>
 						</ul>
 					</div>
@@ -102,6 +118,7 @@
 
 		<section class="section">
 			<div class="container">
+				<h1>상품 목록</h1>
 				<div class="products-box">
 					<div class="tit-box">
 						<p class="product-id-cell">상품 아이디</p>
@@ -116,5 +133,8 @@
 				</div>
 			</div>
 		</section>
+		<footer>
+			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+		</footer>
 	</body>
 </html>

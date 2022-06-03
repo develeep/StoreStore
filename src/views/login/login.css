@@ -1,18 +1,101 @@
 .login-form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 35%;
 }
 
 .login-form-box {
-  width: 30rem;
+	width: 30rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.login-form-box .title {
-  text-align: center;
+.login-form-box > p {
+	font-size: 20px;
+	font-weight: 700;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 5rem 0 2rem;
+	margin: 1.5rem 0;
+}
+.inner {
+	width: 100%;
+}
+.field {
+	width: 100%;
 }
 
-.login-form-box .button {
-  font-weight: bold;
+.label {
+	font-size: 12px;
+}
+
+.control {
+	padding: 0.5rem 0;
+}
+
+.input {
+	width: 100%;
+	border: 1px solid #e5e5e5;
+	padding: 0 1rem;
+	height: 2.3rem;
+	line-height: 2.3rem;
+}
+
+.input:focus {
+	outline: none !important;
+	border: 1px solid #141414;
+	background-color: #fff;
+}
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+}
+#passwordFind {
+	border: none;
+	background-color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	float: right;
+	padding: 0;
+	cursor: pointer;
+}
+
+.login-form-box > .btn {
+	max-width: 100%;
+	min-width: 100%;
+	margin: 1.5rem 0 1rem;
+}
+.login-form-box .outhLogin {
+	max-width: 100%;
+	min-width: 100%;
+	position: relative;
+	margin-bottom: 1rem;
+}
+.login-form-box .outhLogin > .kakaoLogin.btn {
+	max-width: 100%;
+	min-width: 100%;
+	border: 1px solid #fee500;
+}
+.login-form-box .outhLogin > .kakaoLogin.btn:hover {
+	background-color: #fee500;
+	color: #191919;
+}
+.login-form-box .outhLogin > .googleLogin.btn {
+	max-width: 100%;
+	min-width: 100%;
+	border: 1px solid #db4437;
+}
+.login-form-box .outhLogin > .googleLogin.btn:hover {
+	background-color: #db4437;
+}
+.login-logo {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 5px;
+	left: 8px;
+	margin: auto 0;
 }

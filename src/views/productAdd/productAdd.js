@@ -1,4 +1,8 @@
-import { getElement, getElementAll } from '/useful-functions.js';
+import {
+	getElement,
+	getElementAll,
+	checkLoginAdmin,
+} from '/useful-functions.js';
 import * as Api from '/api.js';
 
 const categorySelectBox = getElement('#categorySelectBox');
@@ -21,7 +25,7 @@ reader.onload = function (e) {
 	imageView.src = e.target.result;
 };
 // const categorySelectBox = document.getElementById('categorySelectBox');
-
+checkLoginAdmin();
 addAllElements();
 addAllEvents();
 var imageFile;
@@ -51,12 +55,15 @@ categroyButton.addEventListener('click', async (e) => {
 	const Bcategories = await Api.get('/api/Bcategorys');
 	let Bcategorys = Object.entries(Bcategories);
 	for (let i of Bcategorys) {
+		console.log(i[1])
 		console.log(i[1].name);
 		if (!(i[1].name in categories)) {
 			categories[i[1].name] = [];
 		}
 	}
 	let categorys = Object.entries(categories);
+
+
 
 	const option = document.createElement('option');
 	option.textContent = '카테고리를 선택해 주세요.';
@@ -134,10 +141,8 @@ function addItem(itemName) {
 
 	const updateInput = document.createElement('input');
 	updateInput.id = 'updateInput';
-	updateInput.classList.add('hide');
 	const updateInputSubmit = document.createElement('button');
 	updateInputSubmit.id = 'updateInputSubmit';
-	updateInputSubmit.classList.add('hide');
 	updateInputSubmit.textContent = '저장';
 
 	const delBtn = document.createElement('button');
@@ -146,13 +151,8 @@ function addItem(itemName) {
 	delIcon.classList.add('fa', 'fa-trash');
 	delBtn.append(delIcon);
 
-	const updateBtn = document.createElement('button');
-	updateBtn.id = 'update';
-	const updateIcon = document.createElement('i');
-	updateIcon.classList.add('fas', 'fa-edit');
-	updateBtn.append(updateIcon);
 
-	li.append(btn, updateInput, updateInputSubmit, delBtn, updateBtn);
+	li.append(btn, updateInput, updateInputSubmit, delBtn);
 
 	btn.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -179,6 +179,7 @@ function addItem(itemName) {
 					case 'cancel':
 						break;
 					case 'yes':
+						
 						const selectedCategory = { selectedCategory: itemName };
 						Api.delete('/api/categories', '', selectedCategory).then(() => {
 							li.remove();
@@ -194,14 +195,6 @@ function addItem(itemName) {
 			alert(err.message);
 		}
 	});
-	updateBtn.addEventListener('click', (e) => {
-		e.preventDefault();
-
-		delBtn.classList.toggle('hide');
-		btn.classList.toggle('hide');
-		updateInput.classList.toggle('hide');
-		updateInputSubmit.classList.toggle('hide');
-	});
 	updateInputSubmit.addEventListener('click', (e) => {
 		e.preventDefault();
 		try {
@@ -214,10 +207,6 @@ function addItem(itemName) {
 						? (categorysData[index] = newData)
 						: false;
 				});
-				updateInput.classList.toggle('hide');
-				updateInputSubmit.classList.toggle('hide');
-				delBtn.classList.toggle('hide');
-				btn.classList.toggle('hide');
 			});
 		} catch (err) {
 			alert(err.message);

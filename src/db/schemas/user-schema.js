@@ -5,6 +5,7 @@ const UserSchema = new Schema(
 		email: {
 			type: String,
 			required: true,
+			default: 'no_email',
 		},
 		fullName: {
 			type: String,
@@ -39,6 +40,10 @@ const UserSchema = new Schema(
 		passwordReset: {
 			type: Boolean,
 			default: false,
+		},
+		provider: {
+			type: String,
+			required: false,
 		},
 	},
 	{

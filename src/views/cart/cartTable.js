@@ -1,4 +1,4 @@
-import { addCommas,createElement } from '/useful-functions.js';
+import { addCommas, createElement } from '/useful-functions.js';
 
 export function addTable(cartObject) {
 	const cart = createElement('li');
@@ -34,15 +34,15 @@ export function addTable(cartObject) {
 
 	infoDiv.append(imageDiv, productInfoDiv);
 
-	const optionDiv = createElement('div')
+	const optionDiv = createElement('div');
 	const itemOption = createElement('div');
 	const quantityBox = createElement('div');
-	const minusBtn = createElement('div');
+	const minusBtn = createElement('button');
 	const quantity = createElement('label');
 	const inputNum = createElement('input');
-	const plusBtn = createElement('div');
+	const plusBtn = createElement('button');
 
-	optionDiv.classList.add('item-option-wrap')
+	optionDiv.classList.add('item-option-wrap');
 	itemOption.classList.add('item-option');
 	quantityBox.classList.add('btn-quanity-box');
 	minusBtn.classList.add('num_minus_btn');
@@ -58,43 +58,43 @@ export function addTable(cartObject) {
 	quantity.append(inputNum);
 	quantityBox.append(minusBtn, quantity, plusBtn);
 	itemOption.append(quantityBox);
-	optionDiv.append(itemOption)
+	optionDiv.append(itemOption);
 
-	const buyWrap = createElement('div')
+	const buyWrap = createElement('div');
 	const itemBuy = createElement('div');
 	const buyBox = createElement('div');
 	const priceBox = createElement('div');
 	const itemPrice = createElement('div');
 	const buyBtn = createElement('button');
 
-	buyWrap.classList.add('item-buy-wrap')
+	buyWrap.classList.add('item-buy-wrap');
 	itemBuy.classList.add('item-buy');
 	buyBox.classList.add('btn-item-buy-box');
 	priceBox.classList.add('item-price-box');
 	itemPrice.classList.add('item-price');
-	itemPrice.textContent=`${addCommas(cartObject.num * cartObject.price)}원`;
+	itemPrice.textContent = `${addCommas(cartObject.num * cartObject.price)}원`;
 	buyBtn.classList.add('btn-item-buy');
 	buyBtn.textContent = '주문하기';
 
 	priceBox.append(itemPrice);
 	buyBox.append(priceBox, buyBtn);
 	itemBuy.append(buyBox);
-	buyWrap.append(itemBuy)
+	buyWrap.append(itemBuy);
 
 	cart.append(checkboxDiv, infoDiv, optionDiv, buyWrap);
 	return cart;
 }
 
 export function allPriceTable(allPrice) {
-	const priceInfoBox = createElement('div')
-	const info = createElement('strong')
-	const price = createElement('p')
-	
-	priceInfoBox.classList.add('payment-price-info-box')
-	info.textContent = '총 결제 금액'
-	price.textContent = `${addCommas(allPrice)}원`
+	const priceInfoBox = createElement('div');
+	const info = createElement('strong');
+	const price = createElement('p');
 
-	priceInfoBox.append(info,price)
+	priceInfoBox.classList.add('payment-price-info-box');
+	info.textContent = '총 결제 금액';
+	price.textContent = `${addCommas(allPrice)}원`;
 
-	return priceInfoBox
+	priceInfoBox.append(info, price);
+
+	return priceInfoBox;
 }

@@ -21,11 +21,12 @@ order.getStore('order');
 addAllEvents();
 addAllElements();
 
-function addAllElements() {}
-
-function addAllEvents() {
+function addAllElements() {
 	getOrder();
 	getUserInfo();
+}
+
+function addAllEvents() {
 	const checkOutButton = document.querySelector('#checkoutButton');
 	// 2. 결제하기 버튼을 눌렀을 시 결제되어 최종주문된 상품 DB 추가, 주문조회에 추가 => 이후 주문조회에서 주문취소 버튼 만들기
 	checkOutButton.addEventListener('click', payment);
@@ -61,6 +62,11 @@ async function getUserInfo() {
 // 장바구니 랜더링
 function getOrder() {
 	const orderCart = JSON.parse(localStorage.getItem('order'));
+	if (!orderCart) {
+		swal('장바구니가 비어있습니다.').then(() => {
+			location.href = '/';
+		});
+	}
 	const cartBox = getElement('.cart-product-box');
 
 	const cartList = document.createElement('ul');
@@ -166,8 +172,8 @@ function selectWrite() {
 		selectResult = options[0].label;
 		console.log(selectResult);
 	} else {
-		writeOption.style.display = 'block';
-		writeOptionSaveButton.style.display = 'block';
+		writeOption.style.display = 'inline-block';
+		writeOptionSaveButton.style.display = 'inline-block';
 		console.log('직접입력을 선택했습니다.');
 	}
 }
@@ -189,6 +195,16 @@ function saveWriteOption(e) {
 async function payment(e) {
 	e.preventDefault();
 	try {
+		if (!postalCodeDiv.value || !addressDiv.value || !detailAddressDiv.value) {
+			swal('받는이 주소를 제대로 입력해주세요.');
+			return;
+		} else if (!phoneNumberInput.value) {
+			swal('받는이 연락처를 입력해주세요.');
+			return;
+		} else if (selectResult == '배송시 요청사항을 선택해 주세요.') {
+			swal('배송시 요청사항을 선택해주세요.');
+			return;
+		}
 		const receiveAddress = {
 			receiverPostalCode: postalCodeDiv.value,
 			receiverAddress: addressDiv.value,
@@ -204,8 +220,9 @@ async function payment(e) {
 		};
 		const result = await Api.post('/api/orders', data);
 		console.log(result);
+		localStorage.setItem('check', JSON.stringify(true));
 		location.href = `/payment/${result.orderId}`;
 	} catch (err) {
-		swal(`결제중 문제가 발생하였습니다. ${err.message}`);
+		swal(`${err.message}`);
 	}
 }

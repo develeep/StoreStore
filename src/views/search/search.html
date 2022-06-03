@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>StoreStore</title>
+		<title>쇼핑-n팀</title>
 		<!-- 아이콘 -->
 		<link
 			rel="icon"
@@ -11,7 +11,6 @@
 			sizes="32x32"
 			href="/StoreStore-favicon.png"
 		/>
-
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -30,10 +29,10 @@
 		></script>
 
 		<!-- 커스텀 css, js -->
-		<link rel="stylesheet" href="../../css/common.css" />
-		<script src="../../nav.js" type="module" defer></script>
-		<link rel="stylesheet" href="products.css" />
-		<script src="products.js" type="module" defer></script>
+		<link rel="stylesheet" href="search.css" />
+		<link rel="stylesheet" href="../css/common.css" />
+		<script src="search.js" type="module" defer></script>
+		<script src="../nav.js" type="module" defer></script>
 	</head>
 	<body>
 		<header>
@@ -81,7 +80,7 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<form class="searchForm">
+                <form class="searchForm">
 									<div class="search">
 										<input type="text" placeholder=" " name="searchBar">
 										<div>
@@ -105,22 +104,22 @@
 					</div>
 				</div>
 			</div>
-			<div id="currentPage"></div>
 		</header>
-		<div class="inputProduct" id="inputProduct">
-				<div id="loading-box">
-					<div class="lds-ring"><div></div></div>
 
 		<section class="rankedproducts" id="rankedproducts">
-			
+      <div class="searchResultTItle-box">
+        <h1>
+        </h1>
+      </div>
+			<div class="inputProduct" id="inputProduct">
+				<div id="loading-box">
+					<div class="lds-ring"><div></div></div>
 				</div>
 			</div>
 		</section>
 
-
-		<!-- 상단으로 가는 버튼 -->
 		<div id="to-top">
-			<i class="fa-solid fa-angle-up"></i>
+			<ion-icon name="chevron-up-outline"></ion-icon>
 		</div>
 		<footer>
 			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>

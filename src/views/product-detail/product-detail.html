@@ -14,12 +14,9 @@
     <!-- sweetalert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
   
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
-			rel="stylesheet"
-		/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap" rel="stylesheet">
 		<!-- IONICONS -->
 		<script
 			type="module"
@@ -83,9 +80,25 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<a href="/cart" aria-current="page">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-								</a>
+                <form class="searchForm">
+									<div class="search">
+										<input type="text" placeholder=" " name="searchBar">
+										<div>
+												<svg>
+														<use xlink:href="#path">
+												</svg>
+										</div>
+																</div>
+								</form>
+									
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+									<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" id="path">
+											<path d="M32.9418651,-20.6880772 C37.9418651,-20.6880772 40.9418651,-16.6880772 40.9418651,-12.6880772 C40.9418651,-8.68807717 37.9418651,-4.68807717 32.9418651,-4.68807717 C27.9418651,-4.68807717 24.9418651,-8.68807717 24.9418651,-12.6880772 C24.9418651,-16.6880772 27.9418651,-20.6880772 32.9418651,-20.6880772 L32.9418651,-29.870624 C32.9418651,-30.3676803 33.3448089,-30.770624 33.8418651,-30.770624 C34.08056,-30.770624 34.3094785,-30.6758029 34.4782612,-30.5070201 L141.371843,76.386562" transform="translate(83.156854, 22.171573) rotate(-225.000000) translate(-83.156854, -22.171573)"></path>
+									</symbol>
+							</svg>
+              <a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
 							</li>
 						</ul>
 					</div>
@@ -96,35 +109,29 @@
     <!-- 제품 상세 설명 카드 -->
     <section class="section product-section">
       <div class="container">
-        <div class="tile is-ancestor product-detail-card">
-          <div class="tile is-6 is-parent">
-            <div class="tile is-child box product-image">
-              <figure class="image is-sqaure">
-                <img id="productImageTag" src="" />
-              </figure>
+        <div class="product-image">
+          <img id="productImageTag" class="productImageTag" />
+        </div>
+        <div class="vertical">
+          <div class="product-detail">
+            <div class="tabs">
+              <ul>
+                <li id="manufacturerTag"></li>
+              </ul>
+            </div>
+            <div class="content">
+              <p class="subtitle" id="titleTag"></p>
+              <h1 id="priceTag" class="priceTag"></h1>
+              <p class="detail-description" id="detailDescriptionTag"></p>
             </div>
           </div>
-          <div class="tile is-parent is-vertical">
-            <div class="tile is-child box product-detail">
-              <div class="tabs">
-                <ul>
-                  <li id="manufacturerTag"></li>
-                </ul>
-              </div>
-              <div class="content">
-                <p class="subtitle is-3 is-family-monospace" id="titleTag"></p>
-                <h1 id="priceTag"></h1>
-                <p class="detail-description" id="detailDescriptionTag"></p>
-              </div>
-            </div>
-            <div class="tile is-child box buttons-container">
-              <button class="button is-warning" id="addToCartButton">
-                장바구니 추가하기
-              </button>
-              <button class="button is-info ml-2" id="purchaseButton">
-                바로 구매하기
-              </button>
-            </div>
+          <div class="buttons-container">
+            <button class="btn btn--gray" id="addToCartButton">
+              장바구니 추가하기
+            </button>
+            <button class="btn" id="purchaseButton">
+              바로 구매하기
+            </button>
           </div>
         </div>
       </div>
@@ -150,30 +157,13 @@
           </div>
           <div class="comment-box">
             <input type="text" id="comment-input" class="comment-input" placeholder="리뷰를 작성해 주세요">
-            <input type="submit" value="Post" class="comment-btn">
+            <input type="submit" value="등록" class="comment-btn">
           </div>
         </form>
-        <div class="comment-list">
-          <div class="comment-item-box">
-            <div class="rating-item">
-              <input type="radio" name="rating" id="rating-5" disabled="true">
-              <label></label>
-              <input type="radio" name="rating" id="rating-4" disabled="true">
-              <label></label>
-              <input type="radio" name="rating" id="rating-3" checked="true" disabled="true">
-              <label></label>
-              <input type="radio" name="rating" id="rating-2" disabled="true">
-              <label></label>
-              <input type="radio" name="rating" id="rating-1"  disabled="true">
-              <label></label>
-            </div>
-            <div class="comment-item">
-              <p class="comment-item-username">이승훈</p>
-              <input class="comment" value="이거 정말 대박입니다." disabled="true"></input>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
+		<footer>
+			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+		</footer>
   </body>
 </html>

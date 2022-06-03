@@ -2,13 +2,28 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
-import { productService, smallCategoryService } from '../services';
+import {
+	productService,
+	smallCategoryService,
+	categoryService,
+	reviewService,
+} from '../services';
 import { upload, s3 } from '../utils/s3';
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
 const productRouter = Router();
+
+// 테스트
+productRouter.get('/testtest', async (req, res, next) => {
+	try {
+		const products = await productService.findAll();
+		res.status(200).json({ status: 'ok' });
+	} catch (error) {
+		next(error);
+	}
+});
 
 // 판매 최상위 8개 상품 가져오기
 productRouter.get('/bestproducts', async (req, res, next) => {
@@ -20,11 +35,64 @@ productRouter.get('/bestproducts', async (req, res, next) => {
 	}
 });
 
+productRouter.post('/carts', async (req, res, next) => {
+	try {
+		const cartProducts = req.body.cartProducts;
+		let existProducts = [];
+		for (let i = 0; i < cartProducts.length; i++) {
+			const product = await productService.getProductById(cartProducts[i].id);
+			if (product) existProducts.push(cartProducts[i]);
+		}
+		res.status(200).json(existProducts);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 해당 상품의 리뷰 가져오기
+productRouter.get('/reviews/:productId', async (req, res, next) => {
+	try {
+		const { productId } = req.params;
+		const product = await productService.findByIdForReview(productId);
+		const starRateSum = product.starRateSum;
+		const reviewCount = product.reviewCount;
+		const reviewList = product.review;
+		let findReviewList = [];
+		let productStarRate;
+		for (let i = 0; i < reviewList.length; i++) {
+			findReviewList.push({ _id: reviewList[i] });
+		}
+		if (starRateSum === 0 || reviewCount === 0 || findReviewList.length === 0) {
+			productStarRate = 0;
+			const result = { productStarRate, hasReview: 'no' };
+			res.status(200).json(result);
+		} else {
+			productStarRate = (starRateSum / reviewCount).toFixed(1);
+			// reviews 는 [{}, {}] 구조
+			const reviews = await reviewService.findByIds(findReviewList);
+			let sendReviews = [];
+			for (let i = 0; i < reviews.length; i++) {
+				sendReviews.push({
+					comment: reviews[i].comment,
+					starRate: reviews[i].starRate,
+					createdAt: reviews[i].createdAt,
+					author: reviews[i].author.fullName,
+				});
+			}
+			const result = { productStarRate, sendReviews };
+			res.status(200).json(result);
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 검색으로 상품 가져오기
 productRouter.get('/searchproducts', async (req, res, next) => {
 	try {
-		const keyword = req.body.keyword;
-		const products = await productService.SearchProducts(keyword);
+		const page = Number(req.query.page);
+		const keyword = req.query.keyword;
+		const products = await productService.SearchProducts(keyword, page);
 		res.status(200).json(products);
 	} catch (error) {
 		next(error);
@@ -62,6 +130,19 @@ productRouter.get('/productswithcategory', async (req, res, next) => {
 	}
 });
 
+// 카테고리별 최신 상품
+productRouter.get('/Categorylatestproduct', async (req, res, next) => {
+	try {
+		const Bcategorys = await categoryService.getCategories();
+		const latestproduct = await productService.Categorylatestproduct(
+			Bcategorys,
+		);
+		res.status(200).json(latestproduct);
+	} catch (error) {
+		next(error);
+	}
+});
+
 // productId로 category 이름 가져오기 => 대카테고리/소카테고리 이렇게 가져옴
 productRouter.get('/categoryname/:productId', async (req, res, next) => {
 	try {
@@ -73,13 +154,24 @@ productRouter.get('/categoryname/:productId', async (req, res, next) => {
 	}
 });
 
-// 무한 스크롤을 위한 상품 8개씩 계속 가져오기
-productRouter.get('/rankednext8products', async (req, res, next) => {
+// 무한 스크롤을 위한 상품 16개씩 계속 가져오기
+productRouter.get('/rankednextproducts', async (req, res, next) => {
 	try {
 		const page = Number(req.query.page);
-		// page가 0이면 skip 없이 8개 가져오기, page가 1이면 8개 skip 후 9~16 가져옴
-		const rankedNext8Products = await productService.getNext8Products(page);
-		res.status(200).json(rankedNext8Products);
+		// page가 0이면 skip 없이 16개 가져오기, page가 1이면 16개 skip 후 17부터 32까지 가져옴
+		const rankedNextProducts = await productService.getNextProducts(page);
+		res.status(200).json(rankedNextProducts);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 무한 스크롤, 최신 상품 16개씩 가져오기
+productRouter.get('/newestnextproducts', async (req, res, next) => {
+	try {
+		const page = Number(req.query.page);
+		const newestNextProducts = await productService.getNextNewestProducts(page);
+		res.status(200).json(newestNextProducts);
 	} catch (error) {
 		next(error);
 	}
@@ -126,8 +218,8 @@ productRouter.post('/checkout', async (req, res, next) => {
 // 상품등록 -> /api/productRegister
 productRouter.post(
 	'/products',
-	loginRequired,
-	isAdmin,
+	// loginRequired,
+	// isAdmin,
 	upload.single('img'),
 	async (req, res, next) => {
 		try {
@@ -287,8 +379,10 @@ productRouter.delete(
 			};
 			s3.deleteObject(params, function (err, data) {
 				if (err) {
+					console.log(err, err.stack); // error
 					res.status(200).json({ status: 'no' });
 				} else {
+					console.log(data); // deleted
 					res.status(200).json({ status: 'ok' });
 				}
 				// if (err) console.log(err, err.stack); // error
@@ -303,8 +397,9 @@ productRouter.delete(
 );
 
 // 카테고리별 상품 수집
-productRouter.get('/productCategory/:id', async (req, res, next) => {
+productRouter.get('/categorynext8products/:id', async (req, res, next) => {
 	const category_name = req.params.id;
+	const page = Number(req.query.page);
 	let isSmallcategory = await smallCategoryService.getCategoryname(
 		category_name,
 	);
@@ -313,10 +408,16 @@ productRouter.get('/productCategory/:id', async (req, res, next) => {
 		let isBigcategory = await smallCategoryService.getbCategoryname(
 			category_name,
 		);
-		CategoryProducts = await productService.BgetCategoryOne(isBigcategory);
+		CategoryProducts = await productService.BgetCategoryOne(
+			isBigcategory,
+			page,
+		);
 	} else {
 		isSmallcategory = isSmallcategory._id;
-		CategoryProducts = await productService.SgetCategoryOne(isSmallcategory);
+		CategoryProducts = await productService.SgetCategoryOne(
+			isSmallcategory,
+			page,
+		);
 	}
 	res.status(200).json(CategoryProducts);
 });

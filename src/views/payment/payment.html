@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StoreStore</title>
-  <!-- 아이콘 -->
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="32x32"
-    href="/StoreStore-favicon.png"
-  />
-  <!-- sweetalert -->
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>StoreStore</title>
+		<!-- 아이콘 -->
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/StoreStore-favicon.png"
+		/>
+		<!-- sweetalert -->
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
-    rel="stylesheet"
-  />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap"
+			rel="stylesheet"
+		/>
 
-  <!-- IONICONS -->
-  <script
-    type="module"
-    src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
-  ></script>
-  <script
-    nomodule=""
-    src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
-  ></script>
+		<!-- IONICONS -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule=""
+			src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"
+		></script>
 
-  <!-- 커스텀 css, js -->
-  <link rel="stylesheet" href="../../css/common.css" />
-  <script src="../../nav.js" type="module" defer></script>
-  <link rel="stylesheet" href="payment.css">
-  <script src="payment.js" type="module" defer></script>
-</head>
-  <body>
-    <!-- 헤더 -->
-    <header>
+		<!-- 커스텀 css, js -->
+		<link rel="stylesheet" href="../../css/common.css" />
+		<script src="../../nav.js" type="module" defer></script>
+		<link rel="stylesheet" href="payment.css" />
+		<script src="payment.js" type="module" defer></script>
+	</head>
+	<body>
+		<!-- 헤더 -->
+		<header>
 			<div class="sub-menu">
 				<!-- 회원가입,로그인 -->
 				<ul id="navbar" class="navbar"></ul>
@@ -85,197 +85,183 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<a href="/cart" aria-current="page">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-								</a>
+								<form class="searchForm">
+									<div class="search">
+										<input type="text" placeholder=" " name="searchBar">
+										<div>
+												<svg>
+														<use xlink:href="#path">
+												</svg>
+										</div>
+																</div>
+								</form>
+									
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+									<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" id="path">
+											<path d="M32.9418651,-20.6880772 C37.9418651,-20.6880772 40.9418651,-16.6880772 40.9418651,-12.6880772 C40.9418651,-8.68807717 37.9418651,-4.68807717 32.9418651,-4.68807717 C27.9418651,-4.68807717 24.9418651,-8.68807717 24.9418651,-12.6880772 C24.9418651,-16.6880772 27.9418651,-20.6880772 32.9418651,-20.6880772 L32.9418651,-29.870624 C32.9418651,-30.3676803 33.3448089,-30.770624 33.8418651,-30.770624 C34.08056,-30.770624 34.3094785,-30.6758029 34.4782612,-30.5070201 L141.371843,76.386562" transform="translate(83.156854, 22.171573) rotate(-225.000000) translate(-83.156854, -22.171573)"></path>
+									</symbol>
+							</svg>
+              <a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</header>
+		<div class="marginbox">
+			<!-- 결제화면 -->
+				<h1 class="title">주문결제</h1>
+			<div class="container">
+				<h3 class="title">주문상품</h3>
+				<div class="cart-product-box">
+				</div>
+				<div class="container">
+					<h3 class="title">주문자 정보</h3>
+				</div>
+				<div class="box delivery-info">
+					<div class="form-container">
+						<form id="loginForm">
+							<div class="field is-horizontal">
+								<label class="label">이름</label>
+								<div class="control">
+									<input type="text" id="nameInput" />
+								</div>
+							</div>
+							<div class="field is-horizontal">
+								<label class="label">주소</label>
+								<div class="adress-container">
+									<div>
+										<input type="text" id="postcodeInput" placeholder="우편번호" class="input-gray" readonly/>
+										<input type="text" id="addressInput" placeholder="주소" class="input-gray" readonly/>
+										<input
+											type="button"
+											onclick="sample6_execDaumPostcode()"
+											value="우편번호 찾기"
+											class="adressfind-btn"
+										/>
+									</div>
+									<input
+										type="text"
+										id="detailAddressInput"
+										placeholder="상세주소"
+									/>
+								</div>
+							</div>
+							<div class="field is-horizontal">
+								<label class="label">전화번호</label>
+								<div class="control">
+									<input type="text" id="phoneNumberInput" />
+								</div>
+							</div>
+							<div class="field is-horizontal">
+								<div class="field-label is-normal">
+									<label class="label">요청사항</label>
+								</div>
+								<div class="field-body">
+									<div class="select">
+										<select id="requestSelectBox">
+											<option>배송시 요청사항을 선택해 주세요.</option>
+											<option>직접 수령하겠습니다.</option>
+											<option>배송 전 연락바랍니다.</option>
+											<option>부재 시 경비실에 맡겨주세요.</option>
+											<option>부재 시 문 앞에 놓아주세요.</option>
+											<option>부재 시 택배함에 넣어주세요.</option>
+											<option>직접 입력</option>
+										</select>
+										<div class="inputTextnButton">
+											<div>
+												<input type="text" id="writeOption" />
+												<button id="writeOptionSaveButton" class="btn btn--gray">저장</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- 주문 정보 요약 -->
+				<div class="tile is-parent tile-order-summary">
+					<div class="box order-summary">
+						<div class="header">
+							<p>결제정보</p>
+						</div>
+						<div class="order-info">
+							<div class="info">
+								<p>주문상품</p>
+								<p class="products-title" id="productsTitle"></p>
+							</div>
+							<div class="info">
+								<p>상품총액</p>
+								<p id="productsTotal"></p>
+							</div>
+							<div class="info">
+								<p>배송비</p>
+								<p id="deliveryFee">3,000원</p>
+							</div>
+						</div>
+						<div class="total">
+							<p class="total-label">총 결제금액</p>
+							<p class="total-price" id="orderTotal"></p>
+						</div>
+						<div class="purchase">
+							<button class="button is-info" id="checkoutButton">
+								결제하기
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+		</footer>
+	</body>
+	<!-- 다음 주소 api -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function sample6_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function (data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-    <div class="marginbox">
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+					var extraAddr = ''; // 참고항목 변수
 
-      <!-- 결제화면 -->
-      <div class="block account-header">
-          <!-- <h1 class="title">주문결제</h1> -->
-      </div>
-      <div class="container">
-        <div class="cart-header">
-          <div class="subtitle">
-            <p class="is-size-6">
-              장바구니 &gt; &nbsp;
-            </p>
-          </div>
-          <div class="title">
-            <p class="is-size-2">주문결제</p>
-          </div>
-          <div class="subtitle">
-            <p class="is-size-6">
-              &gt; &nbsp; 주문완료
-            </p>
-          </div>
-        </div>
-        <h3 class="title">주문상품</h3>
-        <div  class="cart-product-box ">
-          <div class="tit-box">
-            <p class="product-info-cell">상품정보</p> 
-            <p class="product-option-cell">옵션</p> 
-            <p class="product-price-cell">상품금액</p>
-          </div> 
-        </div>
-        <div>
-          <h3 class="title">받는이 정보</h3>
-        </div>
-          <div class="box delivery-info">
-            <div class="form-container">
-                <form id="loginForm">
-                    <div class="field is-horizontal">
-                        <label class="label">이름</label>
-                        <div class="control">
-                            <input type="text" id="nameInput">
-                        </div>
-                    </div>
-            <div class="field is-horizontal">
-                <!-- <label class="label">주소</label>
-                <input type="text" id="addressInput"> -->
-                <div class="field">
-                  <label class="label">주소</label>
-                </div>
-                <input type="text" id="postcodeInput" placeholder="우편번호">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" id="addressInput" placeholder="주소"><br>
-                <input type="text" id="detailAddressInput" placeholder="상세주소">
-              
-            </div>
-            <div class="field is-horizontal">
-                <label class="label">전화번호</label>
-                <div class="control">
-                    <input type="text" id="phoneNumberInput">
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">요청사항</label>
-                </div>
-                <div class="field-body">
-                    <div class="select">
-                        <select id="requestSelectBox">
-                            <option value="0">배송시 요청사항을 선택해 주세요.</option>
-                            <option value="1" class="select-option">직접 수령하겠습니다.</option>
-                            <option value="2" class="select-option">배송 전 연락바랍니다.</option>
-                            <option value="3" class="select-option">부재 시 경비실에 맡겨주세요.</option>
-                            <option value="4" class="select-option">부재 시 문 앞에 놓아주세요.</option>
-                            <option value="5" class="select-option">부재 시 택배함에 넣어주세요.</option>
-                            <option value="6" class="select-option">직접 입력</option>
-                        </select>
-                    </div>
-                    <div>
-                      <input type="text" id="writeOption" hidden>
-                    </div>
-                </div>
-                <div>
-                  <button id="writeOptionSaveButton" hidden>저장</button>
-                </div>
-            </div>
-            <div class="field is-horizontal custom-request" id="customRequestContainer">
-                <div class="field-label is-normal no-label"></div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                    <input
-                      class="input"
-                      id="customRequest"
-                      type="text"
-                      maxlength="50"
-                      placeholder="최대 50자 입력이 가능합니다."
-                      autocomplete="on"
-                    />
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        </div>
-        <!-- 주문 정보 요약 -->
-        <div class="tile is-parent tile-order-summary">
-          <div class="box order-summary">
-              <div class="header">
-                  <p>결제정보</p>
-              </div>
-              <div class="order-info">
-                  <div class="info">
-                  <p>주문상품</p>
-                  <p class="products-title" id="productsTitle"></p>
-                  </div>
-                  <div class="info">
-                  <p>상품총액</p>
-                  <p id="productsTotal"></p>
-                  </div>
-                  <div class="info">
-                  <p>배송비</p>
-                  <p id="deliveryFee">3,000원</p>
-                  </div>
-              </div>
-              <div class="total">
-                  <p class="total-label">총 결제금액</p>
-                  <p class="total-price" id="orderTotal"></p>
-              </div>
-              <div class="purchase">
-                  <button class="button is-info" id="checkoutButton">
-                  결제하기
-                  </button>
-              </div>
-          </div>
-        </div> 
-      </div>  
-    </div>
-  </body>
-  <!-- 다음 주소 api -->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-      function sample6_execDaumPostcode() {
-          new daum.Postcode({
-              oncomplete: function(data) {
-                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') {
+						// 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else {
+						// 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
 
-                  // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                  // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                  var addr = ''; // 주소 변수
-                  var extraAddr = ''; // 참고항목 변수
-
-                  //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                      addr = data.roadAddress;
-                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                      addr = data.jibunAddress;
-                  }
-
-                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                  if(data.userSelectedType === 'R'){
-                      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                          extraAddr += data.bname;
-                      }
-                      // 건물명이 있고, 공동주택일 경우 추가한다.
-                      if(data.buildingName !== '' && data.apartment === 'Y'){
-                          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                      }
-                      // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                      
-                  
-                  } 
-
-                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                  document.getElementById("postcodeInput").value = data.zonecode;
-                  document.getElementById("addressInput").value = addr;
-                  // 커서를 상세주소 필드로 이동한다.
-                  document.getElementById("detailAddressInput").focus();
-              }
-          }).open();
-      }
-  </script>
+					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+					if (data.userSelectedType === 'R') {
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraAddr +=
+								extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+					}
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('postcodeInput').value = data.zonecode;
+					document.getElementById('addressInput').value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById('detailAddressInput').focus();
+				},
+			}).open();
+		}
+	</script>
 </html>

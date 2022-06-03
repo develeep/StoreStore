@@ -16,7 +16,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap"
 			rel="stylesheet"
 		/>
 
@@ -84,9 +84,25 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<a href="/cart" aria-current="page">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-								</a>
+								<form class="searchForm">
+									<div class="search">
+										<input type="text" placeholder=" " name="searchBar">
+										<div>
+												<svg>
+														<use xlink:href="#path">
+												</svg>
+										</div>
+																</div>
+								</form>
+									
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+									<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" id="path">
+											<path d="M32.9418651,-20.6880772 C37.9418651,-20.6880772 40.9418651,-16.6880772 40.9418651,-12.6880772 C40.9418651,-8.68807717 37.9418651,-4.68807717 32.9418651,-4.68807717 C27.9418651,-4.68807717 24.9418651,-8.68807717 24.9418651,-12.6880772 C24.9418651,-16.6880772 27.9418651,-20.6880772 32.9418651,-20.6880772 L32.9418651,-29.870624 C32.9418651,-30.3676803 33.3448089,-30.770624 33.8418651,-30.770624 C34.08056,-30.770624 34.3094785,-30.6758029 34.4782612,-30.5070201 L141.371843,76.386562" transform="translate(83.156854, 22.171573) rotate(-225.000000) translate(-83.156854, -22.171573)"></path>
+									</symbol>
+							</svg>
+							<a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
 							</li>
 						</ul>
 					</div>
@@ -97,25 +113,23 @@
 		<!-- 회원정보 박스 -->
 		<section class="section">
 			<div class="container">
-				<div class="block account-header">
-					<h1 id="userInfoTitle" class="label">
-						회원정보 관리(test2@test.com)
-					</h1>
-				</div>
+				<h1 id="userInfoTitle">회원정보 관리</h1>
 				<div class="menu-container">
 					<div class="form-container">
-						<form id="loginForm">
+						<form id="loginForm" class="login-form">
 							<div class="field">
 								<label class="label">이름</label>
 								<div class="control">
-									<input type="text" id="nameInput" />
+									<input type="text" id="nameInput" class="input" />
 								</div>
 							</div>
 							<div class="field">
 								<label class="label">비밀번호</label>
-								<button id="updatePasswordButton">변경하기</button>
+								<button id="updatePasswordButton" class="btn btn--gray">
+									변경하기
+								</button>
 								<div class="control">
-									<input type="password" id="passwordInput" />
+									<input type="password" id="passwordInput" class="input" />
 								</div>
 							</div>
 							<div class="field">
@@ -123,24 +137,42 @@
 									>비밀번호 확인</label
 								>
 								<div class="control">
-									<input type="password" id="passwordConfirmInput" />
+									<input
+										type="password"
+										id="passwordConfirmInput"
+										class="input"
+									/>
 								</div>
 							</div>
 							<div class="field">
 								<label class="label">주소</label>
+								<div class="control">
+									<input
+										type="text"
+										id="postcodeInput"
+										placeholder="우편번호"
+										class="input"
+									/>
+									<input
+										type="button"
+										onclick="sample6_execDaumPostcode()"
+										value="우편번호 찾기"
+										class="btn btn--gray"
+									/>
+									<input
+										type="text"
+										id="addressInput"
+										placeholder="주소"
+										class="input"
+									/>
+									<input
+										type="text"
+										id="detailAddressInput"
+										placeholder="상세주소"
+										class="input"
+									/>
+								</div>
 							</div>
-							<input type="text" id="postcodeInput" placeholder="우편번호" />
-							<input
-								type="button"
-								onclick="sample6_execDaumPostcode()"
-								value="우편번호 찾기"
-							/><br />
-							<input type="text" id="addressInput" placeholder="주소" /><br />
-							<input
-								type="text"
-								id="detailAddressInput"
-								placeholder="상세주소"
-							/>
 							<div class="field">
 								<label class="label">전화번호</label>
 								<div class="control">
@@ -148,17 +180,19 @@
 										type="text"
 										id="phoneNumberInput"
 										placeholder="010-1234-5678"
+										class="input"
 									/>
 								</div>
 							</div>
-							<div>
-								<button id="saveButton">저장하기</button>
-							</div>
+							<button id="saveButton" class="btn">저장하기</button>
 						</form>
 					</div>
 				</div>
 			</div>
 		</section>
+		<footer>
+			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+		</footer>
 	</body>
 	<!-- 다음 주소 api -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

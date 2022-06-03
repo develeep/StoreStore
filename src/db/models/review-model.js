@@ -9,6 +9,15 @@ export class ReviewModel {
 		return reviews;
 	}
 
+	async findByIds(objectIdList) {
+		const reviews = await Review.find({
+			$or: objectIdList,
+		})
+			.populate('author')
+			.sort({ createdAt: -1 });
+		return reviews;
+	}
+
 	async findById(objectId) {
 		const review = await Review.findOne({ _id: objectId });
 		return review;

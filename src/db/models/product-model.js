@@ -14,8 +14,18 @@ export class ProductModel {
 		return product;
 	}
 
+	async findByIdForReview(productId) {
+		const product = await Product.findOne({ productId });
+		return product;
+	}
+
 	async findById(productId) {
 		const product = await Product.findOne({ productId }).populate('review');
+		return product;
+	}
+
+	async findByObjectId(objectId) {
+		const product = await Product.findOne({ _id: objectId });
 		return product;
 	}
 
@@ -34,6 +44,28 @@ export class ProductModel {
 		return Categoryproducts;
 	}
 
+	async CategoryB8findAll(category_Id, page) {
+		let category_list = [];
+		category_Id.forEach((el) => {
+			category_list.push({ category: el._id });
+		});
+		const Categoryproducts = await Product.find({
+			$or: category_list,
+		})
+			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return Categoryproducts;
+	}
+
+	async CategoryS8findAll(category_Id, page) {
+		const Categoryproducts = await Product.find({ category: category_Id })
+			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return Categoryproducts;
+	}
+
 	async getRankedProduct() {
 		const productsRanked = await Product.find({}).sort({
 			salesRate: -1,
@@ -41,15 +73,23 @@ export class ProductModel {
 		return productsRanked;
 	}
 
-	async getNext8Products(page) {
+	async getNextProducts(page) {
 		const products = await Product.find({})
-			.sort({ salesRate: -1 })
-			.skip(8 * page)
-			.limit(8);
+			.sort({ salesRate: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
 		return products;
 	}
 
-	async Search(keyword) {
+	async getNextNewestProducts(page) {
+		const products = await Product.find({})
+			.sort({ createdAt: -1, _id: 1 })
+			.skip(16 * Number(page))
+			.limit(16);
+		return products;
+	}
+
+	async Search(keyword, page) {
 		let keywords = keyword.split(' ');
 		const keywordfind = [];
 		keywords.forEach((el) => {
@@ -57,8 +97,26 @@ export class ProductModel {
 		});
 		const searchData = await Product.find({
 			$and: keywordfind,
-		});
+		})
+			.skip(16 * Number(page))
+			.limit(16);
 		return searchData;
+	}
+
+	async findBycategorys(categoroys) {
+		let lastProduct = await Product.find({})
+			.populate('category')
+			.sort({ createdAt: -1 });
+		const latestData = {};
+		for (const [key, value] of Object.entries(categoroys)) {
+			const categoryName = value.name;
+			const categoryId = value._id;
+			const filterData = lastProduct.find(
+				(e) => String(e.category.bCategory) == String(categoryId),
+			);
+			latestData[categoryName] = filterData;
+		}
+		return latestData;
 	}
 
 	async findNewest() {
@@ -106,7 +164,6 @@ export class ProductModel {
 			path: 'category',
 			populate: { path: 'bCategory' },
 		});
-		console.log(product);
 		const categoryName =
 			product.category.bCategory.name + '/' + product.category.name;
 		return categoryName;

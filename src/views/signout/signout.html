@@ -13,12 +13,9 @@
 			href="/StoreStore-favicon.png"
 		/>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
-			rel="stylesheet"
-		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap" rel="stylesheet">
 
 		<!-- IONICONS -->
 		<script
@@ -86,6 +83,23 @@
 				<div id="sub-category">
 					<ul id="submenu">
 						<li>
+							<form class="searchForm">
+								<div class="search">
+									<input type="text" placeholder=" " name="searchBar">
+									<div>
+											<svg>
+													<use xlink:href="#path">
+											</svg>
+									</div>
+															</div>
+							</form>
+								
+						<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+								<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" id="path">
+										<path d="M32.9418651,-20.6880772 C37.9418651,-20.6880772 40.9418651,-16.6880772 40.9418651,-12.6880772 C40.9418651,-8.68807717 37.9418651,-4.68807717 32.9418651,-4.68807717 C27.9418651,-4.68807717 24.9418651,-8.68807717 24.9418651,-12.6880772 C24.9418651,-16.6880772 27.9418651,-20.6880772 32.9418651,-20.6880772 L32.9418651,-29.870624 C32.9418651,-30.3676803 33.3448089,-30.770624 33.8418651,-30.770624 C34.08056,-30.770624 34.3094785,-30.6758029 34.4782612,-30.5070201 L141.371843,76.386562" transform="translate(83.156854, 22.171573) rotate(-225.000000) translate(-83.156854, -22.171573)"></path>
+								</symbol>
+						</svg>
+						<!-- dribbble -->
 							<a href="/cart" aria-current="page">
 								<ion-icon name="bag-handle-outline"></ion-icon>
 							</a>
@@ -98,18 +112,21 @@
 
     <!-- 삭제 폼 -->
     <div class="register-user-form-container">
-        <form action="" class="box register-user-form-box" id="registerUserForm">
-            <p class="title">삭제를 진행합니다.</p>
-            <div>
+        <form class="register-user-form-box" id="registerUserForm">
+            <p>회원 탈퇴</p>
+            <div class="inner">
                 <label for="passwordInput" class="label">현재 비밀번호</label>
                 <div class="control">
                     <input type="password" class="input" id="passwordInput" placeholder="비밀번호를 입력해 주세요." autocomplete="off">
                 </div>
             </div>
-            <input type="submit" class="button" id="submitButton" value="회원정보 안전하게 삭제하기"></input>
+            <input type="submit" class="btn" id="submitButton" value="회원정보 안전하게 삭제하기"></input>
             <!-- 회원정보를 정말 삭제할 지 묻는 Modal 창 -->
             
         </form>
     </div>
+	<footer>
+		<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+	</footer>
 </body>
 </html>

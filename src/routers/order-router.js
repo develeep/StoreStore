@@ -120,14 +120,26 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 			phoneNumber: phoneNumberInput,
 			address: addressInput,
 		};
-		let product = '';
+		let productList = '';
 		let priceSum = 0;
+		let products = [];
+		// 주문 품목 갯수만큼 순회
 		for (let i = 0; i < orderTokens.length; i++) {
+			// 재고량 확인, 재고수 - 주문수량 < 0 이면 주문 못하도록, DB접근 횟수 줄이기 위해 상품 배열에 저장
+			const product = await productService.getProductById(orderTokens[i].id);
+			if (product.inventory - orderTokens[i].num < 0) {
+				throw new Error(
+					`죄송합니다. \n[${product.name}] 상품 재고 부족입니다.`,
+				);
+			}
+			products.push(product);
+
+			// 주문 상품 간략히 보기 / 총 금액 생성
 			priceSum += orderTokens[i].price * orderTokens[i].num;
 			if (i === orderTokens.length - 1) {
-				product += `${orderTokens[i].product} ${orderTokens[i].num}`;
+				productList += `${orderTokens[i].product} ${orderTokens[i].num}`;
 			} else {
-				product += `${orderTokens[i].product} ${orderTokens[i].num} / `;
+				productList += `${orderTokens[i].product} ${orderTokens[i].num} / `;
 			}
 		}
 		// 배송비 추가
@@ -139,19 +151,33 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 			receiver,
 			requestMessage: requestSelectBox,
 			priceSum,
-			product,
+			product: productList,
 		});
 		const orderId = newOrder.orderId;
-		// const priceSum = await orderedProductService.getPriceSum(orderId);
 
 		for (let i = 0; i < orderTokens.length; i++) {
-			const product = await productService.getProductById(orderTokens[i].id);
+			// 주문 상세 Schema에 데이터 추가
 			let newOrderedProduct = await orderedProductService.addOrderedProduct({
 				orderId,
-				product: product._id,
+				product: products[i]._id,
 				numbers: orderTokens[i].num,
 			});
+			// Product Schema에 판매량에 개수 추가
+			const currentSalesRate = products[i].salesRate;
+			const afterSalesRate = currentSalesRate + orderTokens[i].num;
+			// Product Schema에 구매한 개수만큼 재고 감소
+			const currentInventory = products[i].inventory;
+			const afterInventory = currentInventory - orderTokens[i].num;
+			const toUpdate = {
+				salesRate: afterSalesRate,
+				inventory: afterInventory,
+			};
+			const updatedProduct = await productService.setProduct(
+				products[i].productId,
+				toUpdate,
+			);
 		}
+
 		// 추가된 상품의 db 데이터를 프론트에 다시 보내줌
 		// 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
 		res.status(201).json({ orderId: orderId });
@@ -163,7 +189,7 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 // 주문 삭제
 orderRouter.delete(
 	'/orders/:orderId',
-	// loginRequired,
+	loginRequired,
 	// isAdmin,
 	async function (req, res, next) {
 		try {
@@ -180,13 +206,58 @@ orderRouter.delete(
 
 			await orderService.deleteOrder(orderId);
 
-			// 주문 상세 Schema에서도 값 지워줘야 함
+			// Product Schema에 구매했던 개수를 재고에 +, 구매했던 개수를 판매량에서 -
+			const orderedProducts = await orderedProductService.findByOrderId(
+				orderId,
+			);
+			for (let i = 0; i < orderedProducts.length; i++) {
+				const objectId = orderedProducts[i].product;
+				const product = await productService.getProductByObjectId(objectId);
+				const currentInventory = product.inventory;
+				const purchasedAmount = orderedProducts[i].numbers;
+				const resultInventory = currentInventory + purchasedAmount;
+
+				const currentSalesRate = product.salesRate;
+				const resultSalesRate = currentSalesRate - purchasedAmount;
+				const toUpdate = {
+					salesRate: resultSalesRate,
+					inventory: resultInventory,
+				};
+				const updatedProduct = await productService.setProduct(
+					product.productId,
+					toUpdate,
+				);
+			}
+
+			// 주문 취소 로직 종료 후 주문 상세 Schema에서도 값 지워줌
 			await orderedProductService.deleteOrderedProduct(orderId);
+
 			res.status(200).json({ status: 'ok' });
 		} catch (error) {
 			next(error);
 		}
 	},
 );
+
+// 주문 배송상태 변경
+orderRouter.patch('/orders', loginRequired, async function (req, res, next) {
+	try {
+		// content-type 을 application/json 로 프론트에서
+		// 설정 안 하고 요청하면, body가 비어 있게 됨.
+		if (is.emptyObject(req.body)) {
+			throw new Error(
+				'headers의 Content-Type을 application/json으로 설정해주세요',
+			);
+		}
+		const { orderId, deliveryStatus } = req.body;
+		const toUpdate = {
+			...(deliveryStatus && { deliveryStatus }),
+		};
+		const updatedOrderInfo = await orderService.setOrder(orderId, toUpdate);
+		res.status(200).json(updatedOrderInfo);
+	} catch (error) {
+		next(error);
+	}
+});
 
 export { orderRouter };

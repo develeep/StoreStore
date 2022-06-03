@@ -14,19 +14,25 @@
 		<!-- sweetalert -->
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+		<!-- 폰트 어썸: 아이콘 -->
+    <script
+    defer
+    src="https://kit.fontawesome.com/7630448495.js"
+    crossorigin="anonymous"
+    ></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;700&display=swap"
+			rel="stylesheet"
+		/>
 		<!--Swiper-->
 		<link
 			rel="stylesheet"
-			href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css"
+			href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
 		/>
-		<script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Prata&display=swap"
-			rel="stylesheet"
-		/>
+		<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 		<!-- IONICONS -->
 		<script
 			type="module"
@@ -89,9 +95,26 @@
 					<div id="sub-category">
 						<ul id="submenu">
 							<li>
-								<a href="/cart" aria-current="page">
-									<ion-icon name="bag-handle-outline"></ion-icon>
-								</a>
+								<form class="searchForm">
+									<div class="search">
+										<input type="text" placeholder=" " name="searchBar">
+										<div>
+												<svg>
+														<use xlink:href="#path">
+												</svg>
+										</div>
+																</div>
+								</form>
+									
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+									<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 28" id="path">
+											<path d="M32.9418651,-20.6880772 C37.9418651,-20.6880772 40.9418651,-16.6880772 40.9418651,-12.6880772 C40.9418651,-8.68807717 37.9418651,-4.68807717 32.9418651,-4.68807717 C27.9418651,-4.68807717 24.9418651,-8.68807717 24.9418651,-12.6880772 C24.9418651,-16.6880772 27.9418651,-20.6880772 32.9418651,-20.6880772 L32.9418651,-29.870624 C32.9418651,-30.3676803 33.3448089,-30.770624 33.8418651,-30.770624 C34.08056,-30.770624 34.3094785,-30.6758029 34.4782612,-30.5070201 L141.371843,76.386562" transform="translate(83.156854, 22.171573) rotate(-225.000000) translate(-83.156854, -22.171573)"></path>
+									</symbol>
+							</svg>
+									
+							<a href="/cart" aria-current="page">
+                <ion-icon name="bag-handle-outline"></ion-icon>
+              </a>
 							</li>
 						</ul>
 					</div>
@@ -99,72 +122,44 @@
 			</div>
 		</header>
 
-		<!-- 이미지 슬라이더 -->
-		<!-- <section class="promotion-swiper">
-			<div class="promotion">
-				<div class="swiper-container">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<img
-								src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1072"
-								alt="예시이미지1"
-							/>
-						</div>
-						<div class="swiper-slide">
-							<img
-								src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171"
-								alt="예시이미지2"
-							/>
-						</div>
-						<div class="swiper-slide">
-							<img
-								src="https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1072"
-								alt="예시이미지3"
-							/>
-						</div>
-						<div class="swiper-slide">
-							<img
-								src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170"
-								alt="예시이미지4"
-							/>
-						</div>
-						<div class="swiper-slide">
-							<img
-								src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025"
-								alt="예시이미지5"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="swiper-pagination"></div>
-				<div class="swiper-prev">
-					<i class="fa-solid fa-angle-left"></i>
-				</div>
-				<div class="swiper-next">
-					<i class="fa-solid fa-angle-right"></i>
-				</div>
-			</div>
-		</section> -->
-
 		<!-- 메인 -->
-		<section class="main-image"></section>
+		<section class="main">
+			<article class="main-product">
+				<div class="inner">
+					<div
+						class="main-newproducts"
+						OnClick="location.href ='/ranking'"
+					></div>
+					<a href="/ranking" class="btn">인기제품</a>
+				</div>
+			</article>
 
-		<section class="main-product">
-			<div class="title">
-				<h1>TODAY 랭킹</h1>
-				<h2>이번주 가장 많이 구매했어요</h2>
-			</div>
-			<div class="container" id="inputProduct"></div>
-			<div>
-				<button class="button is-primary">
-					<a href="/ranking" aria-current="page">랭킹 더보기</a>
-				</button>
-			</div>
+			<article class="products">
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper" id="swiper-wrapper"></div>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</article>
+
+			<article class="main-product">
+				<div class="inner">
+					<div
+						class="main-ranking"
+						OnClick="location.href ='/newproducts'"
+					></div>
+					<a href="/newproducts" class="btn">신제품</a>
+				</div>
+			</article>
 		</section>
 
 		<!-- 상단으로 가는 버튼 -->
 		<div id="to-top">
-			<i class="fa-solid fa-angle-up"></i>
+			<ion-icon name="chevron-up-outline"></ion-icon>
 		</div>
+
+		<footer>
+			<p class="copyright">Copyright © 2022 StoreStore - All Rights Reserved</p>
+		</footer>
 	</body>
 </html>
