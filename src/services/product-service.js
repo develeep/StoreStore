@@ -41,6 +41,11 @@ class ProductService {
 		return product;
 	}
 
+	async findByIdForReview(productId) {
+		const product = await this.productModel.findByIdForReview(productId);
+		return product;
+	}
+
 	// product ObjectId로 product 찾아서 반환
 	async getProductByObjectId(objectId) {
 		const product = await this.productModel.findByObjectId(objectId);

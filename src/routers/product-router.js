@@ -53,7 +53,7 @@ productRouter.post('/carts', async (req, res, next) => {
 productRouter.get('/reviews/:productId', async (req, res, next) => {
 	try {
 		const { productId } = req.params;
-		const product = await productService.getProductById(productId);
+		const product = await productService.findByIdForReview(productId);
 		const starRateSum = product.starRateSum;
 		const reviewCount = product.reviewCount;
 		const reviewList = product.review;
