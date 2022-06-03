@@ -5,6 +5,7 @@ const UserSchema = new Schema(
 		email: {
 			type: String,
 			required: true,
+			default: 'no_email',
 		},
 		fullName: {
 			type: String,

@@ -128,7 +128,9 @@ orderRouter.post('/orders', loginRequired, async (req, res, next) => {
 			// 재고량 확인, 재고수 - 주문수량 < 0 이면 주문 못하도록, DB접근 횟수 줄이기 위해 상품 배열에 저장
 			const product = await productService.getProductById(orderTokens[i].id);
 			if (product.inventory - orderTokens[i].num < 0) {
-				throw new Error('죄송합니다. 재고 부족입니다.');
+				throw new Error(
+					`죄송합니다. \n[${product.name}] 상품 재고 부족입니다.`,
+				);
 			}
 			products.push(product);
 
