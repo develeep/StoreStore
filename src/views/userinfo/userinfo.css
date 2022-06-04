@@ -6,6 +6,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	padding: 0 35%;
+	margin: auto 0;
 }
 
 .container {
@@ -22,7 +23,7 @@ body {
 	width: 100%;
 	text-align: center;
 	border-bottom: 1px solid #e5e5e5;
-	padding: 4rem 0 2rem;
+	padding: 0 0 2rem;
 	margin: 0 0 1.5rem;
 }
 .menu-container {
