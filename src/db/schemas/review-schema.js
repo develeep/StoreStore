@@ -15,6 +15,10 @@ const ReviewSchema = new Schema(
 			type: Number,
 			required: false,
 		},
+		productId: {
+			type: String,
+			required: false,
+		},
 	},
 	{
 		collection: 'reviews',

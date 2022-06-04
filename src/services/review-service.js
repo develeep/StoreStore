@@ -8,6 +8,11 @@ class ReviewService {
 		this.reviewModel = reviewModel;
 	}
 
+	async findById(objectId) {
+		const review = await this.reviewModel.findById(objectId);
+		return review;
+	}
+
 	// objectIdList로 리뷰들 찾기, 최신순으로 정렬
 	async findByIds(objectIdList) {
 		const reviews = await this.reviewModel.findByIds(objectIdList);
@@ -17,7 +22,7 @@ class ReviewService {
 	// 리뷰 추가
 	async addReview(reviewInfo) {
 		// 객체 destructuring
-		const { comment, author } = reviewInfo;
+		const { comment, author, starRate, productId } = reviewInfo;
 
 		// db에 저장, author는 user objectId 여야 함.
 		const createdNewReview = await this.reviewModel.create(reviewInfo);

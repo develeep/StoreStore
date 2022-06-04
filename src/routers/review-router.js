@@ -68,6 +68,7 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 				comment,
 				starRate,
 				author: userId,
+				productId: productId,
 			});
 
 			// product schema에 reivew 추가
@@ -77,7 +78,7 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 			reviews.push(newReviewId);
 			await productService.setProduct(productId, {
 				review: reviews,
-				starRateSum: product.starRateSum + starRate,
+				starRateSum: Number(product.starRateSum) + Number(starRate),
 				reviewCount: product.reviewCount + 1,
 			});
 
@@ -132,9 +133,30 @@ reviewRouter.delete('/reviews', loginRequired, async function (req, res, next) {
 		}
 
 		// front에서 이렇게 줄 것이라 예상
+		// review의 ObjectId임
 		const reviewId = req.query.reviewId;
 
+		// review가 달려있는 productId 찾기
+		const review = await reviewService.findById(reviewId);
+		const productId = review.productId;
+
+		// Review 스키마에서 제거
 		await reviewService.deleteReviewByReviewId(reviewId);
+		// Product 스키마 처리
+		const product = await productService.findByIdForReview(productId);
+		// reivews 는 배열임 [objectId(''), objectId(''), ...]
+		const reviews = product.review;
+		let deletedReviews = reviews.filter(function (data) {
+			return data.toString() !== reviewId;
+		});
+		console.log(reviews.length);
+		console.log('review 삭제 후 reivew 개수 비교');
+		console.log(deletedReviews.length);
+
+		const updatedProduct = await productService.setProduct(productId, {
+			review: deletedReviews,
+		});
+
 		res.status(200).json({ status: 'ok' });
 	} catch (error) {
 		next(error);
