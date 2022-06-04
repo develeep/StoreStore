@@ -2,6 +2,7 @@ import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired, isAdmin } from '../middlewares';
+import jwt from 'jsonwebtoken';
 import {
 	productService,
 	smallCategoryService,
@@ -59,6 +60,7 @@ productRouter.get('/reviews/:productId', async (req, res, next) => {
 		const reviewList = product.review;
 		let findReviewList = [];
 		let productStarRate;
+		let userId = '';
 		for (let i = 0; i < reviewList.length; i++) {
 			findReviewList.push({ _id: reviewList[i] });
 		}
@@ -71,13 +73,42 @@ productRouter.get('/reviews/:productId', async (req, res, next) => {
 			// reviews 는 [{}, {}] 구조
 			const reviews = await reviewService.findByIds(findReviewList);
 			let sendReviews = [];
-			for (let i = 0; i < reviews.length; i++) {
-				sendReviews.push({
-					comment: reviews[i].comment,
-					starRate: reviews[i].starRate,
-					createdAt: reviews[i].createdAt,
-					author: reviews[i].author.fullName,
+			console.log(reviews);
+			// 사용자 정보 가져옴
+			const userToken = req.headers['authorization']?.split(' ')[1];
+			if (!userToken || userToken === 'null') {
+				console.log(
+					'서비스 사용 요청이 있습니다.하지만, Authorization 토큰: 없음',
+				);
+				res.status(403).json({
+					result: 'forbidden-approach',
+					reason: '로그인한 유저만 사용할 수 있는 서비스입니다.',
 				});
+
+				return;
+			}
+			// 해당 token 이 정상적인 token인지 확인
+			try {
+				const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+				const jwtDecoded = jwt.verify(userToken, secretKey);
+
+				userId = jwtDecoded.userId;
+			} catch (error) {
+				res.status(403).json({
+					result: 'forbidden-approach',
+					reason: '정상적인 토큰이 아닙니다.',
+				});
+				return;
+			}
+
+			for (let i = 0; i < reviews.length; i++) {
+				if (reviews[i].author._id === userId)
+					sendReviews.push({
+						comment: reviews[i].comment,
+						starRate: reviews[i].starRate,
+						createdAt: reviews[i].createdAt,
+						author: reviews[i].author.fullName,
+					});
 			}
 			const result = { productStarRate, sendReviews };
 			res.status(200).json(result);

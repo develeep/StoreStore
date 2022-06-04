@@ -74,7 +74,7 @@ reviewRouter.post('/reviews', loginRequired, async (req, res, next) => {
 			reviews.push(newReviewId);
 			await productService.setProduct(productId, {
 				review: reviews,
-				starRateSum: product.starRateSum + starRate,
+				starRateSum: Number(product.starRateSum) + Number(starRate),
 				reviewCount: product.reviewCount + 1,
 			});
 
