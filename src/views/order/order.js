@@ -83,12 +83,19 @@ async function makeModalContent() {
 	const orderPriceSum = getElement('.modalOrderPriceSum');
 	const orderReqestMsg = getElement('.modalOrderReqestMsg');
 	const orderState = getElement('.modalOrderState');
+	const orderName = getElement('.modalOrderReceiver');
+	const orderPhone = getElement('.modalOrderPhoneNumber');
+	const orderAddress = getElement('.modalOrderAddress');
 	orderDate.innerHTML = `${order.timeKor}`;
 	orderNumber.innerHTML = `${order.orderId}`;
 	orderProduct.innerHTML = `${order.product}`;
 	orderPriceSum.innerHTML = `${order.priceSum}`;
 	orderState.innerHTML = `${order.deliveryStatus}`;
 	orderReqestMsg.innerHTML = `${order.requestMessage}`;
+	orderName.innerHTML = `${order.receiver.name}`;
+	orderPhone.innerHTML = `${order.receiver.phoneNumber}`;
+	orderAddress.innerHTML = `${order.receiver.address}`;
+
 }
 
 // 상세보기 버튼과 modal창의 닫기 버튼 클릭 시 modal창
